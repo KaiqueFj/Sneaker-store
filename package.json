@@ -1,0 +1,40 @@
+{
+  "name": "sneakers-store",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A modern sneakers e-commerce store built with Next.js",
+  "author": "Your Name",
+  "license": "MIT",
+  "keywords": [
+    "sneakers",
+    "ecommerce",
+    "nextjs",
+    "react",
+    "tailwindcss"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "next": "^15.4.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.0.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^15.4.4",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
