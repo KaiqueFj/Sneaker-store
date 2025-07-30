@@ -1,14 +1,12 @@
 import Image from "next/image";
 import Catalog from "./_components/Main/Catalog/Catalog";
+import Banner from "./_components/Main/Banner/Banner";
 
 export default function Home() {
   return (
     <div>
-      <h1 className="text-3xl text-primary-500 font-bold">
-        Take a dive into the Shark Store!
-      </h1>
-
-      <div>
+      <div className="flex flex-col items-center justify-center mt-8">
+        <Banner />
         <Catalog />
       </div>
     </div>
