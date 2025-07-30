@@ -1,10 +1,16 @@
 import Image from "next/image";
+import Catalog from "./_components/Main/Catalog/Catalog";
 
 export default function Home() {
   return (
-    <main>
-      <h1>Welcome to the Sneakers Store</h1>
-      <Image src="/sneakers.jpg" alt="Sneakers" width={500} height={500} />
-    </main>
+    <div>
+      <h1 className="text-3xl text-primary-500 font-bold">
+        Take a dive into the Shark Store!
+      </h1>
+
+      <div>
+        <Catalog />
+      </div>
+    </div>
   );
 }

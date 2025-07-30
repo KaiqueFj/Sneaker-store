@@ -7,6 +7,7 @@
   --color-primary-400: #f5f8ff; /* Table row backgrounds */
   --color-primary-500: #0a0a0a; /* Dark text */
   --color-primary-600: #516778; /* Light gray text */
+  --color-primary-700: #e3e3e3; /* Light gray text */
 }
 :root {
   --background: #ffffff;
