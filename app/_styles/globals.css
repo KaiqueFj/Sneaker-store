@@ -20,6 +20,28 @@
   --font-sans: "Inter", sans-serif;
 }
 
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 2.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  }
+
+  .hover\:animate-float:hover {
+    animation: float 2.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
