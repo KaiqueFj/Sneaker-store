@@ -8,9 +8,9 @@ export default function Banner() {
         Strive for greatness
       </h1>
 
-      <div className="flex w-5/6 gap-4">
+      <div className="flex w-5/6">
         {/* Left Image */}
-        <div className="relative w-1/2 h-[700px] rounded-md overflow-hidden">
+        <div className="relative w-1/2 h-[700px]  overflow-hidden">
           <Image
             src="/_assets/banners/mainBackground.jpg"
             alt="Main Banner"
@@ -21,7 +21,7 @@ export default function Banner() {
         </div>
 
         {/* Right Image */}
-        <div className="relative w-1/2 h-[700px] rounded-md overflow-hidden">
+        <div className="relative w-1/2 h-[700px]  overflow-hidden">
           <Image
             src="/_assets/banners/banner-2.jpg"
             alt="Secondary Banner"
