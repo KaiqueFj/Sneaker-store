@@ -6,7 +6,7 @@ export default function Navigation() {
         <li>
           <Link
             href="/"
-            className="relative px-4 py-1   hover:border-b-2 hover:border-b-primary-500 "
+            className="relative px-4 py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-500 after:transition-all after:duration-300 hover:after:w-full"
           >
             <span className="relative z-10">Releases</span>
           </Link>
@@ -15,7 +15,7 @@ export default function Navigation() {
         <li>
           <Link
             href="/transactions"
-            className="relative px-4 py-1   hover:border-b-2 hover:border-b-primary-500 "
+            className="relative px-4 py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-500 after:transition-all after:duration-300 hover:after:w-full"
           >
             <span className="relative z-10">Men</span>
           </Link>
@@ -24,7 +24,7 @@ export default function Navigation() {
         <li>
           <Link
             href="/analytics"
-            className="relative px-4 py-1   hover:border-b-2 hover:border-b-primary-500 "
+            className="relative px-4 py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-500 after:transition-all after:duration-300 hover:after:w-full"
           >
             <span className="relative z-10">Woman</span>
           </Link>
