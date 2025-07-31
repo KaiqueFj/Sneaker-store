@@ -12,7 +12,7 @@ export default function SneakersCard({ name, image }) {
         />
       </div>
 
-      <Link href={`/`} className="w-full group">
+      <Link href={`/sneakers`} className="w-full group">
         <div className="relative w-full aspect-[4/5] overflow-hidden">
           <Image
             src={image}

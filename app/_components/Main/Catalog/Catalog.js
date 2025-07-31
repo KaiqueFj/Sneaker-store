@@ -1,4 +1,4 @@
-import SneakersCard from "./sneakersCard/SneakersCard";
+import SneakersCard from "./sneakerCard/SneakersCard";
 
 export default function Catalog() {
   return (
