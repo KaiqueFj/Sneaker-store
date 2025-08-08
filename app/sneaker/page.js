@@ -4,7 +4,7 @@ import SneakerInfo from "../_components/Sneakers/SneakersList/sneakerInfo";
 
 export default function page() {
   return (
-    <div className="flex gap-4">
+    <div className="flex justify-center gap-4">
       <SneakerInfo
         name="Tênis Air Jordan 11"
         price="R$ 1199,00"
