@@ -35,7 +35,7 @@ export default function SneakerInfo({ name, price, category, image }) {
       </div>
 
       {/* Right: Product Info */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 self-baseline">
         <div>
           <span className="text-gray-500 font-normal text-md">{category}</span>
           <h2 className="text-black font-bold text-4xl leading-tight">
@@ -50,7 +50,7 @@ export default function SneakerInfo({ name, price, category, image }) {
           <p className="text-sm font-semibold text-gray-500 mb-2">
             Select Size
           </p>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-4 gap-[4px]">
             {[
               "37",
               "38",
