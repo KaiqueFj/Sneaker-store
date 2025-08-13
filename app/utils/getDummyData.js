@@ -5,7 +5,7 @@ export function getDummySneakers() {
   return [
     {
       name: "Air Jordan Red",
-      color: "Red/White",
+      colors: ["Red", "White"],
       gender: "Men",
       sizes: [40, 41, 42, 43],
       price: "$199.99",
@@ -13,7 +13,7 @@ export function getDummySneakers() {
     },
     {
       name: "Nike Air Force 1",
-      color: "White",
+      colors: ["White", "Black", "Blue"],
       gender: "Women",
       sizes: [37, 38, 39],
       price: "$129.99",
@@ -21,7 +21,7 @@ export function getDummySneakers() {
     },
     {
       name: "Air Jordan Banned",
-      color: "Black/Red",
+      colors: ["Black", "Red", "White"],
       gender: "Men",
       sizes: [40, 41, 42],
       price: "$219.99",
@@ -29,7 +29,7 @@ export function getDummySneakers() {
     },
     {
       name: "Air Jordan 11 Concord",
-      color: "White/Black",
+      colors: ["White", "Black", "Purple"],
       gender: "Men",
       sizes: [41, 42, 43, 44],
       price: "$249.99",

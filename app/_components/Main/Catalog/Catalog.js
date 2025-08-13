@@ -1,12 +1,8 @@
-"use client";
-
 import { getSneakers } from "@/app/_lib/data-service";
 import SneakersCard from "./sneakerCard/SneakersCard";
 
 export default async function Catalog() {
   const sneakers = await getSneakers();
-
-  console.log(sneakers);
 
   return (
     <>
@@ -22,11 +18,7 @@ export default async function Catalog() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-3/4">
         {sneakers.map((sneaker) => (
-          <SneakersCard
-            key={sneaker.id}
-            name={sneaker.name}
-            image={sneaker.images[0]}
-          />
+          <SneakersCard key={sneaker.id} sneaker={sneaker} />
         ))}
       </div>
     </>

@@ -3,7 +3,7 @@ import { supabase } from "./supabase";
 export const getSneakers = async function () {
   const { data, error } = await supabase
     .from("sneakers")
-    .select("id, name, color, gender, sizes, price, images")
+    .select("id, name, colors, gender, sizes, price, images")
     .order("name");
 
   if (error) {
@@ -17,7 +17,7 @@ export const getSneakers = async function () {
 export const getSneaker = async function (id) {
   const { data, error } = await supabase
     .from("sneakers")
-    .select("id, name, color, gender, sizes, price, images")
+    .select("id, name, colors, gender, sizes, price, images")
     .eq("id", id)
     .single();
 
