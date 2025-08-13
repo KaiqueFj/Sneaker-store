@@ -9,13 +9,7 @@ export default function page() {
     <div className="flex flex-col justify-center items-center ">
       <div className="flex items-end justify-end p-4 w-3/5">
         <Filter
-          label="All Products"
-          options={[
-            "All products",
-            "Price: High-low",
-            "Price: Low-High",
-            "Newest",
-          ]}
+          label="Filter"
           onSelect={(value) => console.log("Filter:", value)}
         />
       </div>
