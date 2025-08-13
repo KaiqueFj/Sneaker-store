@@ -1,3 +1,5 @@
+"use client";
+
 import { getSneakers } from "@/app/_lib/data-service";
 import SneakersCard from "./sneakerCard/SneakersCard";
 

@@ -2,7 +2,7 @@ import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import React from "react";
 
-export default function SneakerInfo({ name, price, category, image }) {
+export default function SneakerInfo({ name, price, category, image, sizes }) {
   return (
     <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 p-8 items-center">
       {/* Left: Images */}
@@ -51,22 +51,7 @@ export default function SneakerInfo({ name, price, category, image }) {
             Select Size
           </p>
           <div className="grid grid-cols-4 gap-[4px]">
-            {[
-              "37",
-              "38",
-              "39",
-              "39.5",
-              "40",
-              "40.5",
-              "41",
-              "42",
-              "42.5",
-              "43",
-              "43.5",
-              "44",
-              "45",
-              "45.5",
-            ].map((size, idx) => (
+            {sizes.map((size, idx) => (
               <button
                 key={idx}
                 className="border h-12 w-20 font-medium border-gray-300 text-sm text-gray-700 rounded transition-colors hover:border-black"
