@@ -5,9 +5,10 @@ import { getSneakers } from "../_lib/data-service";
 
 export default async function page({ searchParams }) {
   const sneakers = await getSneakers();
+
   return (
     <div className="flex flex-col justify-center items-center ">
-      <div className="flex items-end justify-end p-4 w-3/5">
+      <div className="flex items-end justify-end p-4 w-4/5">
         <Filter />
       </div>
       <div className="flex flex-row w-5/5 justify-center">
