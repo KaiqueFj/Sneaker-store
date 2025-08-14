@@ -1,6 +1,5 @@
-import Image from "next/image";
-import Catalog from "./_components/Main/Catalog/Catalog";
-import Banner from "./_components/Main/Banner/Banner";
+import Catalog from "./_components/Main/Catalog";
+import Banner from "./_components/Main/Banner";
 
 export default function Home() {
   return (

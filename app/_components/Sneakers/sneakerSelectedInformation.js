@@ -2,15 +2,18 @@ import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import React from "react";
 
-export default function SneakerInfo({ name, price, category, image, sizes }) {
+export default function SneakerSelectedInformation({ sneaker }) {
+  const { name, price, category, images, sizes } = sneaker;
+  console.log(sneaker);
+
   return (
     <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 p-8 items-center">
       {/* Left: Images */}
       <div className="flex flex-col gap-4 items-end">
         {/* Main Image */}
         <Image
-          src={image}
-          alt="sneakers"
+          src={images[0]}
+          alt={name}
           width={700}
           height={700}
           className="object-contain bg-gray-100 p-6 w-full max-w-[550px]"
@@ -19,18 +22,16 @@ export default function SneakerInfo({ name, price, category, image, sizes }) {
 
         {/* Thumbnails */}
         <div className="flex items-start gap-4">
-          {Array(4)
-            .fill(image)
-            .map((imgSrc, idx) => (
-              <Image
-                key={idx}
-                src={imgSrc}
-                alt={`thumbnail-${idx}`}
-                width={120}
-                height={120}
-                className="object-contain bg-gray-100 p-2 cursor-pointer hover:opacity-80"
-              />
-            ))}
+          {images.map((imgSrc, idx) => (
+            <Image
+              key={idx}
+              src={imgSrc}
+              alt={`${name} thumbnail ${idx}`}
+              width={120}
+              height={120}
+              className="object-contain bg-gray-100 p-2 cursor-pointer hover:opacity-80"
+            />
+          ))}
         </div>
       </div>
 

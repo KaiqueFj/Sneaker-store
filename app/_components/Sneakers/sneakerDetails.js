@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function SneakersList({ sneaker }) {
-  const { name, images, price, category, colors, id } = sneaker;
+export default function SneakerDetails({ sneaker }) {
+  const { id, name, price, category, images, colors } = sneaker;
   return (
     <Link href={`/sneaker/${id}`} className="block">
       <div className="flex flex-col rounded-lg p-1 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">

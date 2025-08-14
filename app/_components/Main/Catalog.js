@@ -1,5 +1,5 @@
 import { getSneakers } from "@/app/_lib/data-service";
-import SneakersCard from "./sneakerCard/SneakersCard";
+import SneakerMainCard from "./SneakersMainPageCard";
 
 export default async function Catalog() {
   const sneakers = await getSneakers();
@@ -18,7 +18,7 @@ export default async function Catalog() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-3/4">
         {sneakers.map((sneaker) => (
-          <SneakersCard key={sneaker.id} sneaker={sneaker} />
+          <SneakerMainCard key={sneaker.id} sneaker={sneaker} />
         ))}
       </div>
     </>
