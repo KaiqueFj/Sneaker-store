@@ -20,6 +20,16 @@
   --font-sans: "Inter", sans-serif;
 }
 
+.spinner {
+  margin: 3.2rem auto 1.6rem;
+  width: 60px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid theme("color-primary-700");
+  border-right-color: theme("color-primary-200");
+  animation: rotate 1s infinite linear;
+}
+
 @keyframes float {
   0% {
     transform: translateY(0px);

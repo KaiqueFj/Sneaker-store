@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 import SneakersList from "../_components/Sneakers/sneakerList";
 import Filter from "../_components/Sneakers/filter/filter";
-import { getSneakers } from "../_lib/data-service";
+import Spinner from "../_components/Spinner/Spinner";
 
 export default async function page({ searchParams }) {
-  const sneakers = await getSneakers();
+  const filter = searchParams?.order ?? "all";
 
   return (
     <div className="flex flex-col justify-center items-center ">
@@ -12,7 +12,9 @@ export default async function page({ searchParams }) {
         <Filter />
       </div>
       <div className="flex flex-row w-5/5 justify-center">
-        <SneakersList key={sneakers.id} sneakers={sneakers} />
+        <Suspense fallback={<Spinner />} key={filter}>
+          <SneakersList filter={filter} />
+        </Suspense>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export function getDummySneakers() {
       colors: ["Red", "White"],
       gender: "Men",
       sizes: [40, 41, 42, 43],
-      price: "$199.99",
+      price: 199.99,
       images: [`${baseUrl}airJordanRed.png`],
     },
     {
@@ -16,7 +16,7 @@ export function getDummySneakers() {
       colors: ["White", "Black", "Blue"],
       gender: "Women",
       sizes: [37, 38, 39],
-      price: "$129.99",
+      price: 129.99,
       images: [`${baseUrl}airforce1.jpg`],
     },
     {
@@ -24,7 +24,7 @@ export function getDummySneakers() {
       colors: ["Black", "Red", "White"],
       gender: "Men",
       sizes: [40, 41, 42],
-      price: "$219.99",
+      price: 219.99,
       images: [`${baseUrl}airJordan-banned.png`],
     },
     {
@@ -32,7 +32,7 @@ export function getDummySneakers() {
       colors: ["White", "Black", "Purple"],
       gender: "Men",
       sizes: [41, 42, 43, 44],
-      price: "$249.99",
+      price: 249.99,
       images: [`${baseUrl}airJordan11-concord.png`],
     },
   ];

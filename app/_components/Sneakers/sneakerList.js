@@ -4,9 +4,26 @@ import { getSneakers } from "@/app/_lib/data-service";
 
 export default async function SneakersList({ filter }) {
   const sneakers = await getSneakers();
+
+  if (!sneakers) return null;
+
+  let displayedSneaker;
+
+  if (filter === "all") displayedSneaker = sneakers;
+
+  if (filter === "Price Low to High")
+    displayedSneaker = sneakers.sort(
+      (a, b) => Number(a.price) - Number(b.price)
+    );
+
+  if (filter === "Price High to Low")
+    displayedSneaker = sneakers.sort(
+      (a, b) => Number(b.price) - Number(a.price)
+    );
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-4/5 self-center p-2 gap-4">
-      {sneakers.map((sneaker) => (
+      {displayedSneaker.map((sneaker) => (
         <SneakerDetails key={sneaker.id} sneaker={sneaker} />
       ))}
     </div>
