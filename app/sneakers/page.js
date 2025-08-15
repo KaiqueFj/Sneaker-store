@@ -7,11 +7,11 @@ export default async function page({ searchParams }) {
   const filter = searchParams?.order ?? "all";
 
   return (
-    <div className="flex flex-col justify-center items-center ">
-      <div className="flex items-end justify-end p-4 w-4/5">
+    <div className="flex flex-col self-center px-10">
+      <div className="flex items-end justify-end p-4 w-[87%]">
         <Filter />
       </div>
-      <div className="flex flex-row w-5/5 justify-center">
+      <div className="flex flex-row justify-center">
         <Suspense fallback={<Spinner />} key={filter}>
           <SneakersList filter={filter} />
         </Suspense>
