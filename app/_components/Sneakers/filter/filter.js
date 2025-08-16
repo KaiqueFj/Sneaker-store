@@ -10,7 +10,7 @@ export default function Filter() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathName = usePathname();
-  const activeFilter = searchParams.get("filter") || "all";
+  const activeFilter = searchParams.get("order") || "all";
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -38,7 +38,10 @@ export default function Filter() {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center text-primary-500 hover:bg-primary-700/70 font-medium rounded-md px-4 py-2 transition cursor-pointer"
       >
-        <span>{activeFilter}</span>
+        <span className="text-lg">
+          <span className="text-primary-500 font-semibold">Sort by:</span>
+          <span className="ml-1 text-primary-500/50">{activeFilter}</span>
+        </span>
         <span className="relative ml-2 w-5 h-5">
           <ChevronDownIcon
             className={`absolute inset-0 w-5 h-5 transition-all duration-200 ease-in-out ${
