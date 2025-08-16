@@ -56,7 +56,7 @@ export default function Filter() {
         </span>
       </span>
       {isOpen && (
-        <div className="flex flex-col gap-2  p-2 absolute rounded-md  right-auto mt-2 w-48 z-50 bg-white shadow-lg">
+        <div className="flex flex-col gap-2  ml-[20%] p-2 absolute rounded-md  right-auto mt-2 w-48 z-50 bg-white shadow-lg">
           <FilterOptions
             filter="all"
             handleFilter={handleFilter}
