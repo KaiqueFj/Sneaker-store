@@ -4,7 +4,6 @@ import React from "react";
 
 export default function SneakerSelectedInformation({ sneaker }) {
   const { name, price, category, images, sizes } = sneaker;
-  console.log(sneaker);
 
   return (
     <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 p-8 items-center">

@@ -1,9 +1,10 @@
 import { supabase } from "./supabase";
 
-export const getSneakers = async function () {
+export const getSneakers = async function (category) {
   const { data, error } = await supabase
     .from("sneakers")
-    .select("id, name, colors, gender, sizes, price, images")
+    .select("id, name, colors, gender, sizes, price, images,category")
+    .contains("category", [category])
     .order("name");
 
   if (error) {
@@ -17,7 +18,7 @@ export const getSneakers = async function () {
 export const getSneaker = async function (id) {
   const { data, error } = await supabase
     .from("sneakers")
-    .select("id, name, colors, gender, sizes, price, images")
+    .select("id, name, colors, gender, sizes, price, images,category")
     .eq("id", id)
     .single();
 

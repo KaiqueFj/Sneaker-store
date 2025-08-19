@@ -1,10 +1,13 @@
+import fs from "fs";
+import path from "path";
 import { supabase } from "@/app/_lib/supabase";
 import { getDummySneakers } from "@/app/utils/getDummyData";
 
 export async function seedSneakersTable() {
+  // 2️⃣ Get dummy sneakers data
   const sneakers = getDummySneakers();
 
-  // Insert into your 'sneakers' table
+  // 3️⃣ Insert into the 'sneakers' table
   const { data, error } = await supabase.from("sneakers").insert(sneakers);
 
   if (error) {

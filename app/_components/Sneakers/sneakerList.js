@@ -2,9 +2,7 @@ import React from "react";
 import SneakerDetails from "./sneakerDetails";
 import { getSneakers } from "@/app/_lib/data-service";
 
-export default async function SneakersList({ filter }) {
-  const sneakers = await getSneakers();
-
+export default async function SneakersList({ filter, sneakers }) {
   if (!sneakers) return null;
 
   let displayedSneaker;
@@ -20,6 +18,8 @@ export default async function SneakersList({ filter }) {
     displayedSneaker = sneakers.sort(
       (a, b) => Number(b.price) - Number(a.price)
     );
+
+  console.log("displayedSneaker", displayedSneaker);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  w-full">
