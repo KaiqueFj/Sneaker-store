@@ -1,9 +1,13 @@
+"use client";
+
 import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 export default function SneakerSelectedInformation({ sneaker }) {
   const { name, price, category, images, sizes } = sneaker;
+
+  const [mainImage, setMainImage] = useState(images[0]);
 
   return (
     <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 p-8 items-center">
@@ -11,7 +15,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
       <div className="flex flex-col gap-4 items-end">
         {/* Main Image */}
         <Image
-          src={images[0]}
+          src={mainImage}
           alt={name}
           width={700}
           height={700}
@@ -28,6 +32,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
               alt={`${name} thumbnail ${idx}`}
               width={120}
               height={120}
+              onClick={() => setMainImage(imgSrc)}
               className="object-contain bg-gray-100 p-2 cursor-pointer hover:opacity-80"
             />
           ))}
