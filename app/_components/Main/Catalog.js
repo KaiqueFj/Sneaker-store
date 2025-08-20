@@ -1,9 +1,15 @@
-import { getSneakers } from "@/app/_lib/data-service";
+import { getAllSneakers, getSneakers } from "@/app/_lib/data-service";
 import SneakerMainCard from "./SneakersMainPageCard";
 
 export default async function Catalog() {
   const sneakers = await getSneakers();
 
+  const uniqueSneakers = Object.values(
+    sneakers.reduce((acc, sneaker) => {
+      if (!acc[sneaker.model]) acc[sneaker.model] = sneaker;
+      return acc;
+    }, {})
+  );
   return (
     <>
       <div className="flex flex-col items-center w-full gap-6 p-4 my-10">
@@ -16,8 +22,8 @@ export default async function Catalog() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-3/4">
-        {sneakers.map((sneaker) => (
+      <div className="flex overflow-x-auto gap-6 w-full p-2">
+        {uniqueSneakers.map((sneaker) => (
           <SneakerMainCard key={sneaker.id} sneaker={sneaker} />
         ))}
       </div>

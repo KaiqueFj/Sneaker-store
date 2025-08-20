@@ -24,7 +24,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
         />
 
         {/* Thumbnails */}
-        <div className="flex items-start gap-4">
+        <div className="flex self-start gap-4">
           {images.map((imgSrc, idx) => (
             <Image
               key={idx}
@@ -48,7 +48,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
           </h2>
         </div>
 
-        <span className="text-black font-semibold text-2xl">{price}</span>
+        <span className="text-black font-semibold text-2xl">{`$${price}`}</span>
 
         {/* Sizes */}
         <div>

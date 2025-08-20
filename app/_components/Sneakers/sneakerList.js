@@ -19,8 +19,6 @@ export default async function SneakersList({ filter, sneakers }) {
       (a, b) => Number(b.price) - Number(a.price)
     );
 
-  console.log("displayedSneaker", displayedSneaker);
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  w-full">
       {displayedSneaker.map((sneaker) => (
