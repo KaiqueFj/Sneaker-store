@@ -10,40 +10,42 @@ export default function SneakerSelectedInformation({ sneaker }) {
   const [mainImage, setMainImage] = useState(images[0]);
 
   return (
-    <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 p-8 items-center">
+    <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 p-8 items-baseline">
       {/* Left: Images */}
-      <div className="flex flex-col gap-4 items-end">
-        {/* Main Image */}
-        <Image
-          src={mainImage}
-          alt={name}
-          width={700}
-          height={700}
-          className="object-contain bg-gray-100 p-6 w-full max-w-[550px]"
-          priority
-        />
-
-        {/* Thumbnails */}
-        <div className="flex self-start gap-4">
+      <div className="flex flex-row gap-4">
+        {/* Thumbnails in column */}
+        <div className="flex flex-col gap-4">
           {images.map((imgSrc, idx) => (
             <Image
               key={idx}
               src={imgSrc}
               alt={`${name} thumbnail ${idx}`}
-              width={120}
-              height={120}
+              width={100}
+              height={100}
               onClick={() => setMainImage(imgSrc)}
-              className="object-contain bg-gray-100 p-2 cursor-pointer hover:opacity-80"
+              className={`object-contain bg-gray-100 p-2 cursor-pointer hover:opacity-80 rounded 
+                ${mainImage === imgSrc ? "ring-2 ring-black" : ""}`}
             />
           ))}
+        </div>
+
+        {/* Main Image */}
+        <div className="relative h-[400px] sm:h-[500px]  md:h-[600px] min-w-[28rem] bg-gray-100 rounded-md mx-auto">
+          <Image
+            src={mainImage}
+            alt={name}
+            fill
+            className="object-contain "
+            priority
+          />
         </div>
       </div>
 
       {/* Right: Product Info */}
-      <div className="flex flex-col gap-6 self-baseline">
+      <div className="flex flex-col gap-6 place-self-start">
         <div>
           <span className="text-gray-500 font-normal text-md">{category}</span>
-          <h2 className="text-black font-bold text-4xl leading-tight">
+          <h2 className="text-black font-bold text-3xl leading-tight">
             {name}
           </h2>
         </div>
