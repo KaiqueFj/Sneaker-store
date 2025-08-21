@@ -22,7 +22,7 @@ export default async function Catalog() {
         </p>
       </div>
 
-      <div className="flex overflow-x-auto gap-6 w-full p-2">
+      <div className="flex overflow-x-scroll h-fit gap-4 w-full py-2">
         {uniqueSneakers.map((sneaker) => (
           <SneakerMainCard key={sneaker.id} sneaker={sneaker} />
         ))}
