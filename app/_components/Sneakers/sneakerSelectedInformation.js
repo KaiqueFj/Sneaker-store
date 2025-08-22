@@ -30,7 +30,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
         </div>
 
         {/* Main Image */}
-        <div className="relative h-[400px] sm:h-[500px]  md:h-[600px] min-w-[28rem] bg-gray-100 rounded-md mx-auto">
+        <div className="relative h-[400px] sm:h-[500px]  md:h-[600px] min-w-[30rem] bg-gray-100 rounded-md mx-auto">
           <Image
             src={mainImage}
             alt={name}
