@@ -3,12 +3,28 @@
 import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import React, { useState } from "react";
+import { useSneaker } from "./sneakerContext";
 
 export default function SneakerSelectedInformation({ sneaker }) {
   const { name, price, category, images, sizes } = sneaker;
-
   const [mainImage, setMainImage] = useState(images[0]);
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
+  const { dispatch, state } = useSneaker();
+
+  const addToCart = () => {
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: {
+        id: sneaker.id,
+        name,
+        price,
+        size: sneakerSize,
+        image: mainImage,
+      },
+    });
+  };
+
+  console.log(state);
 
   return (
     <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 p-8 items-baseline">
@@ -77,16 +93,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
         {/* Buttons */}
         <div className="flex flex-col  gap-4">
           <button
-            onClick={() => {
-              const selectedSneaker = {
-                id: sneaker.id,
-                name,
-                price,
-                size: sneakerSize,
-                image: mainImage,
-              };
-              console.log("Added to cart:", selectedSneaker);
-            }}
+            onClick={addToCart}
             className="flex flex-row font-semibold items-center h-14 justify-center bg-black w-full  text-white px-6 py-2 rounded-full hover:bg-gray-800 transition"
           >
             Add to the cart
