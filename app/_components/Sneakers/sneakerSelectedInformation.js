@@ -4,6 +4,7 @@ import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useSneaker } from "./sneakerContext";
+import Cart from "../cart/Cart";
 
 export default function SneakerSelectedInformation({ sneaker }) {
   const { name, price, category, images, sizes } = sneaker;
@@ -18,6 +19,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
         id: sneaker.id,
         name,
         price,
+        category,
         size: sneakerSize,
         image: mainImage,
       },
@@ -86,7 +88,6 @@ export default function SneakerSelectedInformation({ sneaker }) {
                 {size}
               </button>
             ))}
-            {console.log(`Selected size: ${sneakerSize}`)}
           </div>
         </div>
 
@@ -105,6 +106,8 @@ export default function SneakerSelectedInformation({ sneaker }) {
             <HeartIcon className="h-5 w-5" />
           </button>
         </div>
+
+        <Cart />
       </div>
     </div>
   );
