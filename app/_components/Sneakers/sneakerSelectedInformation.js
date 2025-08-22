@@ -8,6 +8,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
   const { name, price, category, images, sizes } = sneaker;
 
   const [mainImage, setMainImage] = useState(images[0]);
+  const [sneakerSize, setSneakerSize] = useState(sizes[0]);
 
   return (
     <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 p-8 items-baseline">
@@ -42,7 +43,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
       </div>
 
       {/* Right: Product Info */}
-      <div className="flex flex-col gap-6 place-self-start">
+      <div className="flex flex-col w-full gap-6 place-self-start">
         <div>
           <span className="text-gray-500 font-normal text-md">{category}</span>
           <h2 className="text-black font-bold text-3xl leading-tight">
@@ -57,26 +58,43 @@ export default function SneakerSelectedInformation({ sneaker }) {
           <p className="text-sm font-semibold text-gray-500 mb-2">
             Select Size
           </p>
-          <div className="grid grid-cols-4 gap-[4px]">
+          <div className="grid grid-cols-4 gap-0.5">
             {sizes.map((size, idx) => (
               <button
                 key={idx}
-                className="border h-12 w-20 font-medium border-gray-300 text-sm text-gray-700 rounded transition-colors hover:border-black"
+                className={`border h-12 w-20 font-medium border-gray-300 text-sm text-gray-700 rounded transition-colors hover:border-black ${
+                  sneakerSize === size ? "ring-1 ring-primary-500" : ""
+                }`}
+                onClick={() => setSneakerSize(size)}
               >
                 {size}
               </button>
             ))}
+            {console.log(`Selected size: ${sneakerSize}`)}
           </div>
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-4">
-          <button className="flex flex-row items-center justify-center bg-black w-4/4 h-12 text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition">
+        <div className="flex flex-col  gap-4">
+          <button
+            onClick={() => {
+              const selectedSneaker = {
+                id: sneaker.id,
+                name,
+                price,
+                size: sneakerSize,
+                image: mainImage,
+              };
+              console.log("Added to cart:", selectedSneaker);
+            }}
+            className="flex flex-row font-semibold items-center h-14 justify-center bg-black w-full  text-white px-6 py-2 rounded-full hover:bg-gray-800 transition"
+          >
             Add to the cart
             <ShoppingCartIcon className="ml-2 h-5 w-5" />
           </button>
 
-          <button className="flex flex-row items-center justify-center bg-black text-white px-4 rounded-lg hover:bg-gray-800 transition hover:text-red-500">
+          <button className="flex gap-2 flex-row  w-full items-center h-14 justify-center border-primary-500/20 border-2  text-primary-500 px-4 rounded-full hover:bg-primary-500/10 transition hover:text-red-500">
+            Favorite
             <HeartIcon className="h-5 w-5" />
           </button>
         </div>

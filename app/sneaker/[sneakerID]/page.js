@@ -2,7 +2,8 @@ import SneakerSelectedInformation from "../../_components/Sneakers/sneakerSelect
 import { getSneaker } from "../../_lib/data-service";
 
 export default async function page({ params }) {
-  const sneakerDetails = await getSneaker(params.sneakerID);
+  const { sneakerID } = await params;
+  const sneakerDetails = await getSneaker(sneakerID);
 
   return (
     <div className="flex justify-center gap-4">
