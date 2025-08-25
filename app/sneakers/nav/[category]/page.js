@@ -6,19 +6,24 @@ import { getSneakers } from "@/app/_lib/data-service";
 import Category from "@/app/_components/HeaderPages/Category";
 
 export async function generateMetadata({ params }) {
-  const pageCategory = decodeURIComponent(params.category);
+  const { category } = await params;
+  const pageCategory = await decodeURIComponent(category);
 
   return { title: `${pageCategory} Sneakers` };
 }
 
 export default async function Page({ params, searchParams }) {
-  const filter = searchParams?.order ?? "all";
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+
+  const filter = resolvedSearchParams?.order ?? "all";
 
   // decode category from URL
-  const rawCategory = params?.category || null;
+  const rawCategory = resolvedParams?.category || null;
   const category = rawCategory ? decodeURIComponent(rawCategory) : null;
 
   let sneakers = [];
+
   if (category) {
     const filterKey = ["men", "women"].includes(category.toLowerCase())
       ? "gender"
