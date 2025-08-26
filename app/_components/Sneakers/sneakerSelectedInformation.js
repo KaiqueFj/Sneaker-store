@@ -76,7 +76,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
           <p className="text-sm font-semibold text-gray-500 mb-2">
             Select Size
           </p>
-          <div className="grid grid-cols-4 gap-0.5">
+          <div className="grid grid-cols-4 w-fit gap-2">
             {sizes.map((size, idx) => (
               <button
                 key={idx}
