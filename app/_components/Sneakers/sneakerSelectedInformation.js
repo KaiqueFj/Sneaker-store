@@ -3,7 +3,7 @@
 import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import React, { useState } from "react";
-import { useSneaker } from "./sneakerContext";
+import { useSneaker } from "../Sneakers/SneakerContext";
 import Cart from "../cart/Cart";
 
 export default function SneakerSelectedInformation({ sneaker }) {

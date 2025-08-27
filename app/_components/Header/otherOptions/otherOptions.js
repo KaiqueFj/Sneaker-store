@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   ShoppingBagIcon,
@@ -5,7 +7,11 @@ import {
   UserCircleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
+import { useSneaker } from "../../Sneakers/SneakerContext";
 export default function OtherOptions() {
+  const { state } = useSneaker();
+  const totalItems = state.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <div className="flex items-center gap-2 text-md">
       <div className="relative flex items-center">
@@ -17,9 +23,18 @@ export default function OtherOptions() {
         <MagnifyingGlassIcon className="absolute text-primary-500 w-4.5 h-4.5 ml-1.5 " />
       </div>
 
-      <button className="transition-colors rounded-xl p-2 hover:bg-gray-300">
-        <ShoppingBagIcon className="text-primary-500 w-6 h-6 " />
-      </button>
+      <Link href="/cart">
+        <button className="relative transition-colors rounded-xl p-2 hover:bg-gray-300">
+          <div className="relative w-6 h-6 flex items-center justify-center">
+            <ShoppingBagIcon className="text-primary-500 w-6 h-6" />
+            {totalItems > 0 && (
+              <span className="absolute inset-0 flex items-center justify-center mt-2 text-[9px] font-bold text-primary-500 rounded-full">
+                {totalItems}
+              </span>
+            )}
+          </div>
+        </button>
+      </Link>
 
       <button className="transition-colors rounded-xl p-2 hover:bg-gray-300">
         <HeartIcon className="text-primary-500 w-6 h-6 " />

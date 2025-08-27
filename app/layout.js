@@ -1,7 +1,7 @@
 import { Inter, Inter_Mono } from "next/font/google";
 import "./_styles/globals.css";
 import Header from "./_components/Header/Header";
-import { SneakerProvider } from "./_components/Sneakers/sneakerContext";
+import { SneakerProvider } from "./_components/Sneakers/SneakerContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,13 +20,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.variable} relative min-h-screen antialiased bg-primary-50 flex flex-col text-primary-600`}
       >
-        <Header />
+        <SneakerProvider>
+          <Header />
 
-        <div className="grid flex-1 mx-2 py-12">
-          <main className="w-full  max-w-full">
-            <SneakerProvider>{children}</SneakerProvider>
-          </main>
-        </div>
+          <div className="grid flex-1 mx-2 py-12">
+            <main className="w-full  max-w-full">{children}</main>
+          </div>
+        </SneakerProvider>
       </body>
     </html>
   );
