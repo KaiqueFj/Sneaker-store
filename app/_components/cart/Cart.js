@@ -6,6 +6,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Cart() {
   const { state } = useSneaker();
@@ -83,10 +84,12 @@ export default function Cart() {
 
               {/* Buttons */}
               <div className="flex flex-col items-center gap-4">
-                <button className="flex flex-row font-semibold items-center h-14 justify-center bg-black w-11/12  text-white px-6 py-2 rounded-full hover:bg-gray-800 transition">
-                  View bag ({totalItems})
-                  <ShoppingCartIcon className="ml-2 h-5 w-5" />
-                </button>
+                <Link className="w-11/12" href="/cart">
+                  <button className="flex flex-row font-semibold items-center h-14 justify-center bg-black w-full  text-white px-6 py-2 rounded-full hover:bg-gray-800 transition">
+                    View bag ({totalItems})
+                    <ShoppingCartIcon className="ml-2 h-5 w-5" />
+                  </button>
+                </Link>
 
                 <button className="flex gap-2 flex-row  w-11/12 items-center h-14 justify-center border-primary-500/20 border-2  text-primary-500 px-4 rounded-full hover:bg-primary-500/10 transition hover:text-red-500">
                   Checkout
