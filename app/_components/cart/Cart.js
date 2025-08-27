@@ -13,11 +13,6 @@ export default function Cart() {
   const lastItemOnCart = state[state.length - 1];
   const totalItems = state.reduce((acc, item) => acc + item.quantity, 0);
 
-  console.log("cart items", state);
-  console.log("cart items length", state.length);
-  console.log("last item on cart", lastItemOnCart);
-  console.log("total items in cart", totalItems);
-
   useEffect(() => {
     if (state.length > 0) {
       setVisible(true);

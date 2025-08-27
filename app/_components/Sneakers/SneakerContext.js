@@ -20,6 +20,13 @@ function sneakerReducer(state, action) {
       return [...state, { ...action.payload, quantity: 1 }];
     case "REMOVE_FROM_CART":
       return state.filter((item) => item.id !== action.payload.id);
+
+    case "DECREASE_QUANTITY":
+      return state.map((item) =>
+        item.id === action.payload.id
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      );
     default:
       return state;
   }
