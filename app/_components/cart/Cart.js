@@ -10,6 +10,13 @@ import { useEffect, useState } from "react";
 export default function Cart() {
   const { state } = useSneaker();
   const [visible, setVisible] = useState(false);
+  const lastItemOnCart = state[state.length - 1];
+  const totalItems = state.reduce((acc, item) => acc + item.quantity, 0);
+
+  console.log("cart items", state);
+  console.log("cart items length", state.length);
+  console.log("last item on cart", lastItemOnCart);
+  console.log("total items in cart", totalItems);
 
   useEffect(() => {
     if (state.length > 0) {
@@ -31,7 +38,7 @@ export default function Cart() {
 
       {/* Modal content */}
 
-      <div className="relative z-10 w-full max-w-md bg-white rounded-xl ml-auto mr-6 self-start p-6 shadow-lg ">
+      <div className="relative z-10 w-full max-w-md bg-white rounded-xl ml-auto mr-6 self-start p-5 shadow-lg ">
         <div className="flex flex-col w-full gap-7  ">
           <div className="flex flex-row justify-between  items-center gap-2">
             <div className="flex gap-2 items-center">
@@ -49,14 +56,14 @@ export default function Cart() {
             </button>
           </div>
 
-          {state.map((item) => (
-            <div className="flex gap-2 flex-col" key={item.id}>
-              <div className="flex flex-row">
+          {lastItemOnCart && (
+            <div className="flex gap-2 flex-col" key={lastItemOnCart.id}>
+              <div className="flex gap-1 flex-row">
                 {/* Image */}
                 <div className="w-fit h-fit">
                   <Image
-                    src={item.image}
-                    alt={item.name}
+                    src={lastItemOnCart.image}
+                    alt={lastItemOnCart.name}
                     width={120}
                     height={100}
                   />
@@ -64,17 +71,17 @@ export default function Cart() {
                 {/* Sneaker info */}
                 <div className=" flex flex-col">
                   <h3 className="text-lg font-semibold text-primary-500">
-                    {item.name}
+                    {lastItemOnCart.name}
                   </h3>
                   <p className="text-lg font-semibold text-primary-500/30">
-                    {item.category}
+                    {lastItemOnCart.category}
                   </p>
                   <p className="text-lg font-semibold text-primary-500/30">
-                    Size: {item.size}
+                    Size: {lastItemOnCart.size}
                   </p>
 
                   <p className="text-lg font-semibold text-primary-500">
-                    ${item.price}
+                    ${lastItemOnCart.price}
                   </p>
                 </div>
               </div>
@@ -82,7 +89,7 @@ export default function Cart() {
               {/* Buttons */}
               <div className="flex flex-col items-center gap-4">
                 <button className="flex flex-row font-semibold items-center h-14 justify-center bg-black w-11/12  text-white px-6 py-2 rounded-full hover:bg-gray-800 transition">
-                  View bag ({state.length})
+                  View bag ({totalItems})
                   <ShoppingCartIcon className="ml-2 h-5 w-5" />
                 </button>
 
@@ -91,7 +98,7 @@ export default function Cart() {
                 </button>
               </div>
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>
