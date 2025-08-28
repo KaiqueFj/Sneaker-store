@@ -5,7 +5,7 @@ import {
   ShoppingCartIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 export default function Cart() {
@@ -13,18 +13,39 @@ export default function Cart() {
   const [visible, setVisible] = useState(false);
   const lastItemOnCart = state[state.length - 1];
   const totalItems = state.reduce((acc, item) => acc + item.quantity, 0);
+  const prevLengthRef = useRef(state.length);
+  const modalRef = useRef(null);
 
   useEffect(() => {
-    if (state.length > 0) {
+    if (state.length > prevLengthRef.current) {
+      // Item was added → open modal
       setVisible(true);
 
       const timer = setTimeout(() => {
         setVisible(false);
-      }, 10000000);
+      }, 500000);
 
       return () => clearTimeout(timer);
     }
+    prevLengthRef.current = state.length;
   }, [state]);
+
+  // Close the modal if click outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setVisible(false);
+      }
+    }
+
+    if (visible) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [visible]);
 
   if (!visible) return null;
 
@@ -34,7 +55,10 @@ export default function Cart() {
 
       {/* Modal content */}
 
-      <div className="relative z-10 w-full max-w-md bg-white rounded-xl ml-auto mr-6 self-start p-5 shadow-lg ">
+      <div
+        ref={modalRef}
+        className="relative z-10 w-full max-w-md bg-white rounded-xl ml-auto mr-6 self-start p-5 shadow-lg "
+      >
         <div className="flex flex-col w-full gap-7  ">
           <div className="flex flex-row justify-between  items-center gap-2">
             <div className="flex gap-2 items-center">

@@ -25,9 +25,6 @@ export default function SneakerSelectedInformation({ sneaker }) {
       },
     });
   };
-
-  console.log(state);
-
   return (
     <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 p-8 items-baseline">
       {/* Left: Images */}
