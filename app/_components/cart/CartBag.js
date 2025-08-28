@@ -15,10 +15,12 @@ export default function CartBag() {
   const { state, dispatch } = useSneaker();
 
   return (
-    <div className="flex flex-col max-w-3/5 w-full md:flex-row gap-8 p-6">
+    <div className="flex flex-col md:flex-row gap-8 p-4 md:p-6 max-w-7xl mx-auto w-full">
       {/* Bag details */}
-      <div className="flex flex-col gap-6 flex-1 max-w-2/3">
-        <h1 className="text-3xl font-semibold text-primary-500">Your Bag</h1>
+      <div className="flex flex-col gap-6 flex-1 w-full">
+        <h1 className="text-2xl md:text-3xl font-semibold text-primary-500">
+          Your Bag
+        </h1>
 
         {state.map((sneaker) => (
           <div
@@ -31,12 +33,12 @@ export default function CartBag() {
               alt={sneaker.name}
               width={140}
               height={120}
-              className="rounded-xl object-cover"
+              className="rounded-xl object-cover w-full md:w-[140px] h-auto"
             />
 
             {/* Sneaker info */}
             <div className="flex flex-col flex-1">
-              <span className="text-lg font-semibold text-primary-500">
+              <span className="text-lg md:text-base font-semibold text-primary-500">
                 {sneaker.name}
               </span>
               <span className="text-sm font-medium text-primary-500/50">
