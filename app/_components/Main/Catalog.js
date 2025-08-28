@@ -9,7 +9,7 @@ export default async function Catalog() {
       if (!acc[sneaker.model]) acc[sneaker.model] = sneaker;
       return acc;
     }, {})
-  );
+  ).slice(0, 10);
   return (
     <>
       <div className="flex flex-col items-center w-full gap-6 p-4 my-10">
