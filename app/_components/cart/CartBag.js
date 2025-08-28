@@ -9,6 +9,7 @@ import {
   PlusCircleIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
+import { formatCurrency } from "@/app/utils/helpers";
 
 export default function CartBag() {
   const { state, dispatch } = useSneaker();
@@ -110,10 +111,11 @@ export default function CartBag() {
         <div className="flex justify-between items-center mb-2">
           <span className="text-base text-primary-500">Subtotal</span>
           <span className="text-base font-semibold text-primary-500">
-            $
-            {state.reduce(
-              (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
-              0
+            {formatCurrency(
+              state.reduce(
+                (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
+                0
+              )
             )}
           </span>
         </div>
@@ -133,10 +135,11 @@ export default function CartBag() {
         <div className="flex justify-between items-center border-t pt-4 mt-4">
           <span className="text-lg font-semibold text-primary-500">Total</span>
           <span className="text-lg font-bold text-primary-500">
-            $
-            {state.reduce(
-              (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
-              0
+            {formatCurrency(
+              state.reduce(
+                (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
+                0
+              )
             )}
           </span>
         </div>
