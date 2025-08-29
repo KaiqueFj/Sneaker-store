@@ -5,26 +5,26 @@ export default function SneakerMainCard({ sneaker }) {
   const { images, model } = sneaker;
 
   return (
-    <article className="group relative bg-gray-100 rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-300 w-full h-[500px] flex flex-col">
+    <article className="group relative bg-red-500 rounded-lg hover:shadow-md transition-shadow duration-300 w-72 h-96 flex-shrink-0 flex flex-col">
       <Link
         href={`/sneakers/nav/${model}`}
-        className="flex flex-col items-center justify-evenly w-full h-full"
+        className="flex flex-col items-center justify-between w-full h-full p-4"
         aria-label={`View ${model} collection`}
       >
         {/* Image */}
-        <div className="relative w-3/4 h-[65%]">
+        <div className="relative w-full h-64 flex items-center justify-center">
           <Image
             src={images[0]}
             alt={`${model} sneaker`}
-            width={350}
-            height={350}
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            width={300}
+            height={300}
+            className="object-contain max-w-full max-h-full group-hover:scale-105 transition-transform duration-500"
           />
         </div>
 
         {/* Text */}
-        <div className="flex flex-col items-center justify-center p-2 text-center">
-          <h2 className="text-primary-500 font-semibold text-2xl sm:text-xl tracking-tight group-hover:text-gray-800 transition-colors duration-300 leading-tight">
+        <div className="flex flex-col items-center justify-center text-center mt-4">
+          <h2 className="text-primary-500 font-semibold text-lg tracking-tight group-hover:text-gray-800 transition-colors duration-300 leading-tight">
             {model}
           </h2>
           <div
