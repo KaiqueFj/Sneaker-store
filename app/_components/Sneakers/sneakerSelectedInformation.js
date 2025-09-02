@@ -2,7 +2,7 @@
 
 import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSneaker } from "../Sneakers/SneakerContext";
 import Cart from "../cart/Cart";
 
@@ -13,18 +13,20 @@ export default function SneakerSelectedInformation({ sneaker }) {
   const { dispatch, state } = useSneaker();
 
   const addToCart = () => {
+    const item = {
+      id: sneaker.id,
+      name,
+      price,
+      category,
+      size: sneakerSize,
+      image: mainImage,
+    };
     dispatch({
       type: "ADD_TO_CART",
-      payload: {
-        id: sneaker.id,
-        name,
-        price,
-        category,
-        size: sneakerSize,
-        image: mainImage,
-      },
+      payload: item,
     });
   };
+
   return (
     <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 p-8 items-baseline">
       {/* Left: Images */}

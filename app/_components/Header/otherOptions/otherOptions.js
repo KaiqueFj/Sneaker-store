@@ -8,9 +8,15 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { useSneaker } from "../../Sneakers/SneakerContext";
+import { useEffect, useState } from "react";
 export default function OtherOptions() {
   const { state } = useSneaker();
   const totalItems = state.reduce((acc, item) => acc + item.quantity, 0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="flex items-center gap-2 text-md">
@@ -27,7 +33,7 @@ export default function OtherOptions() {
         <button className="relative transition-colors rounded-xl p-2 hover:bg-gray-300">
           <div className="relative w-6 h-6 flex items-center justify-center">
             <ShoppingBagIcon className="text-primary-500 w-6 h-6" />
-            {totalItems > 0 && (
+            {mounted && totalItems > 0 && (
               <span className="absolute inset-0 flex items-center justify-center mt-2 text-[9px] font-bold text-primary-500 rounded-full">
                 {totalItems}
               </span>

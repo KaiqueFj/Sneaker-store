@@ -10,6 +10,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { formatCurrency } from "@/app/utils/helpers";
+import Link from "next/link";
 
 export default function CartBag() {
   const { state, dispatch } = useSneaker();
@@ -28,13 +29,15 @@ export default function CartBag() {
             className="flex flex-col md:flex-row items-start md:items-center gap-4 border rounded-2xl p-4 shadow-sm bg-white"
           >
             {/* Sneaker image */}
-            <Image
-              src={sneaker.image}
-              alt={sneaker.name}
-              width={140}
-              height={120}
-              className="rounded-xl object-cover w-full md:w-[140px] h-auto"
-            />
+            <Link href={`/sneaker/${sneaker.id}`}>
+              <Image
+                src={sneaker.image}
+                alt={sneaker.name}
+                width={140}
+                height={120}
+                className="rounded-xl object-cover w-full md:w-[140px] h-auto"
+              />
+            </Link>
 
             {/* Sneaker info */}
             <div className="flex flex-col flex-1">
