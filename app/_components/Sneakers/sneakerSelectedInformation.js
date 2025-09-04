@@ -13,17 +13,16 @@ export default function SneakerSelectedInformation({ sneaker }) {
   const { dispatch, state } = useSneaker();
 
   const addToCart = () => {
-    const item = {
-      id: sneaker.id,
-      name,
-      price,
-      category,
-      size: sneakerSize,
-      image: mainImage,
-    };
     dispatch({
       type: "ADD_TO_CART",
-      payload: item,
+      payload: {
+        id: sneaker.id,
+        name,
+        price,
+        category,
+        size: sneakerSize,
+        image: mainImage,
+      },
     });
   };
 

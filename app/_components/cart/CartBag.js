@@ -25,7 +25,7 @@ export default function CartBag() {
 
         {state.map((sneaker) => (
           <div
-            key={sneaker.id}
+            key={`${sneaker.id}-${sneaker.size}`}
             className="flex flex-col md:flex-row items-start md:items-center gap-4 border rounded-2xl p-4 shadow-sm bg-white"
           >
             {/* Sneaker image */}

@@ -8,11 +8,12 @@ const SneakerContext = createContext();
 
 function sneakerReducer(state, action) {
   switch (action.type) {
-    case "ADD_TO_CART":
+    case "ADD_TO_CART": {
       const exists = state.find(
         (item) =>
           item.id === action.payload.id && item.size === action.payload.size
       );
+
       if (exists) {
         return state.map((item) =>
           item.id === action.payload.id && item.size === action.payload.size
@@ -21,19 +22,26 @@ function sneakerReducer(state, action) {
         );
       }
       return [...state, { ...action.payload, quantity: 1 }];
+    }
 
     case "RESTORE_CART":
       return action.payload;
 
     case "REMOVE_FROM_CART":
-      return state.filter((item) => item.id !== action.payload.id);
+      return state.filter(
+        (item) =>
+          !(item.id === action.payload.id && item.size === action.payload.size)
+      );
 
     case "DECREASE_QUANTITY":
-      return state.map((item) =>
-        item.id === action.payload.id
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      );
+      return state
+        .map((item) =>
+          item.id === action.payload.id && item.size === action.payload.size
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0);
+
     default:
       return state;
   }
