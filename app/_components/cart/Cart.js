@@ -13,22 +13,22 @@ export default function Cart() {
   const [visible, setVisible] = useState(false);
   const lastItemOnCart = state[state.length - 1];
   const totalItems = state.reduce((acc, item) => acc + item.quantity, 0);
-  const prevLengthRef = useRef(state.length);
+  const prevLengthRef = useRef(totalItems);
   const modalRef = useRef(null);
 
   useEffect(() => {
-    if (state.length > prevLengthRef.current) {
+    if (totalItems > prevLengthRef.current) {
       // Item was added → open modal
       setVisible(true);
 
       const timer = setTimeout(() => {
         setVisible(false);
-      }, 500000);
+      }, 5000);
 
       return () => clearTimeout(timer);
     }
-    prevLengthRef.current = state.length;
-  }, [state]);
+    prevLengthRef.current = totalItems;
+  }, [totalItems]);
 
   // Close the modal if click outside
   useEffect(() => {
