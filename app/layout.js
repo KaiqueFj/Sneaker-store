@@ -2,6 +2,7 @@ import { Inter, Inter_Mono } from "next/font/google";
 import "./_styles/globals.css";
 import Header from "./_components/Header/Header";
 import { SneakerProvider } from "./_components/Sneakers/SneakerContext";
+import Footer from "./_components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,6 +28,8 @@ export default function RootLayout({ children }) {
             <main className="w-full  max-w-full">{children}</main>
           </div>
         </SneakerProvider>
+
+        <Footer />
       </body>
     </html>
   );
