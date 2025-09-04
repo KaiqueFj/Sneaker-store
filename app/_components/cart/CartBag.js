@@ -23,7 +23,7 @@ export default function CartBag() {
           Your Bag
         </h1>
 
-        {state.map((sneaker) => (
+        {state.items.map((sneaker) => (
           <div
             key={`${sneaker.id}-${sneaker.size}`}
             className="flex flex-col md:flex-row items-start md:items-center gap-4 border rounded-2xl p-4 shadow-sm bg-white"
@@ -117,7 +117,7 @@ export default function CartBag() {
           <span className="text-base text-primary-500">Subtotal</span>
           <span className="text-base font-semibold text-primary-500">
             {formatCurrency(
-              state.reduce(
+              state.items.reduce(
                 (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
                 0
               )
@@ -141,7 +141,7 @@ export default function CartBag() {
           <span className="text-lg font-semibold text-primary-500">Total</span>
           <span className="text-lg font-bold text-primary-500">
             {formatCurrency(
-              state.reduce(
+              state.items.reduce(
                 (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
                 0
               )

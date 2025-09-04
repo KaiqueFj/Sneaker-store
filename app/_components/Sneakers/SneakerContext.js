@@ -2,53 +2,74 @@
 
 import { createContext, useContext, useEffect, useReducer } from "react";
 
-const initialState = [];
+const initialState = {
+  items: [],
+  lastAdded: null,
+};
 
 const SneakerContext = createContext();
 
 function sneakerReducer(state, action) {
   switch (action.type) {
     case "ADD_TO_CART": {
-      const exists = state.find(
+      const exists = state.items.find(
         (item) =>
           item.id === action.payload.id && item.size === action.payload.size
       );
 
+      let updatedItems;
       if (exists) {
-        return state.map((item) =>
+        updatedItems = state.items.map((item) =>
           item.id === action.payload.id && item.size === action.payload.size
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
+      } else {
+        updatedItems = [...state.items, { ...action.payload, quantity: 1 }];
       }
-      return [...state, { ...action.payload, quantity: 1 }];
+
+      return {
+        ...state,
+        items: updatedItems,
+        lastAdded: action.payload,
+      };
     }
 
     case "RESTORE_CART":
       return action.payload;
 
     case "REMOVE_FROM_CART":
-      return state.filter(
-        (item) =>
-          !(item.id === action.payload.id && item.size === action.payload.size)
-      );
+      return {
+        ...state,
+        items: state.items.filter(
+          (item) =>
+            !(
+              item.id === action.payload.id && item.size === action.payload.size
+            )
+        ),
+      };
 
     case "DECREASE_QUANTITY":
-      return state
-        .map((item) =>
-          item.id === action.payload.id && item.size === action.payload.size
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
-        .filter((item) => item.quantity > 0);
+      return {
+        ...state,
+        items: state.items
+          .map((item) =>
+            item.id === action.payload.id && item.size === action.payload.size
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          )
+          .filter((item) => item.quantity > 0),
+      };
 
     default:
       return state;
   }
 }
+
 function SneakerProvider({ children }) {
   const [state, dispatch] = useReducer(sneakerReducer, initialState);
 
+  // Restore from localStorage
   useEffect(() => {
     const stored = localStorage.getItem("cart");
     if (stored) {
@@ -56,13 +77,13 @@ function SneakerProvider({ children }) {
     }
   }, []);
 
-  // Keeps the cart synchronized with localStorage
+  // Sync with localStorage
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(state));
   }, [state]);
 
   return (
-    <SneakerContext.Provider value={{ state, dispatch, initialState }}>
+    <SneakerContext.Provider value={{ state, dispatch }}>
       {children}
     </SneakerContext.Provider>
   );

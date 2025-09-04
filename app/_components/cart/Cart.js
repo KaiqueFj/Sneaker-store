@@ -10,11 +10,15 @@ import Link from "next/link";
 
 export default function Cart() {
   const { state } = useSneaker();
+  const totalItems = state.items.reduce((acc, item) => acc + item.quantity, 0);
   const [visible, setVisible] = useState(false);
-  const lastItemOnCart = state[state.length - 1];
-  const totalItems = state.reduce((acc, item) => acc + item.quantity, 0);
+  const lastItemOnCart = state.lastAdded;
   const prevLengthRef = useRef(totalItems);
   const modalRef = useRef(null);
+
+  console.log(state);
+
+  console.log(lastItemOnCart);
 
   useEffect(() => {
     if (totalItems > prevLengthRef.current) {
