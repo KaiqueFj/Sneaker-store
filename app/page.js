@@ -3,8 +3,8 @@ import Banner from "./_components/Main/Banner";
 
 export default function Home() {
   return (
-    <div>
-      <div className="flex flex-col  items-center justify-center mt-8">
+    <div className="w-screen py-6">
+      <div className="flex flex-col max-w-screen  items-center justify-center mt-8">
         <Banner />
         <Catalog />
       </div>

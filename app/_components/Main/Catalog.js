@@ -22,7 +22,7 @@ export default async function Catalog() {
         </p>
       </div>
 
-      <div className="w-full max-w-full mx-auto px-4">
+      <div className="w-full max-w-full">
         <div className="overflow-x-auto overflow-y-hidden">
           <div className="flex gap-6 pb-4 min-w-max">
             {uniqueSneakers.map((sneaker) => (
