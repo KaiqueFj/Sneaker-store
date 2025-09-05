@@ -5,7 +5,7 @@ export default function SneakerMainCard({ sneaker }) {
   const { images, model } = sneaker;
 
   return (
-    <article className="group relative bg-primary-500/20 hover:shadow-md transition-shadow duration-300 w-[23rem] h-[30rem] flex-shrink-0 flex flex-col">
+    <article className="group relative bg-gray-100 hover:shadow-md transition-shadow duration-300 w-[23rem] h-[30rem] flex-shrink-0 flex flex-col">
       <Link
         href={`/sneakers/nav/${model}`}
         className="flex flex-col items-center justify-between w-full h-full p-4"
