@@ -11,6 +11,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { formatCurrency } from "@/app/utils/helpers";
 import Link from "next/link";
+import { createOrder } from "@/app/_lib/data-service";
 
 export default function CartBag() {
   const { state, dispatch } = useSneaker();
@@ -149,7 +150,15 @@ export default function CartBag() {
           </span>
         </div>
 
-        <button className="mt-6 w-full bg-primary-500 text-white py-3 rounded-xl font-medium hover:bg-primary-600 transition">
+        <button
+          onClick={() =>
+            createOrder({
+              client_id: "f7bb94fd-d7fb-42d2-a375-082dd42619ff",
+              cartItems: state.items,
+            })
+          }
+          className="mt-6 w-full bg-primary-500 text-white py-3 rounded-xl font-medium hover:bg-primary-600 transition"
+        >
           Checkout
         </button>
       </div>
