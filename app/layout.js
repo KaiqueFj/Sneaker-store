@@ -3,6 +3,7 @@ import "./_styles/globals.css";
 import Header from "./_components/Header/Header";
 import { SneakerProvider } from "./_components/Sneakers/SneakerContext";
 import Footer from "./_components/Footer";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,7 +26,11 @@ export default function RootLayout({ children }) {
           <Header />
 
           <div className="grid flex-1 overflow-hidden mx-2 py-12">
-            <main className="w-full  max-w-full">{children}</main>
+            <main className="w-full  max-w-full">
+              <Toaster position="top-right" />
+
+              {children}
+            </main>
           </div>
         </SneakerProvider>
 

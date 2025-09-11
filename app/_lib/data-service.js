@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import Category from "../_components/HeaderPages/Category";
 import { supabase } from "./supabase";
 

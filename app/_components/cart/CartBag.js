@@ -12,9 +12,27 @@ import {
 import { formatCurrency } from "@/app/utils/helpers";
 import Link from "next/link";
 import { createOrder } from "@/app/_lib/data-service";
+import { toast } from "react-hot-toast";
 
 export default function CartBag() {
   const { state, dispatch } = useSneaker();
+
+  const handleOrderBtn = async () => {
+    await toast.promise(
+      createOrder({
+        client_id: "f7bb94fd-d7fb-42d2-a375-082dd42619ff",
+        cartItems: state.items,
+      }).then((res) => {
+        dispatch({ type: "CLEAR_CART" });
+        return res;
+      }),
+      {
+        loading: "Saving your order...",
+        success: "Order saved successfully!",
+        error: "Order could not be done! Try again!",
+      }
+    );
+  };
 
   return (
     <div className="flex flex-col md:flex-row gap-8 p-4 md:p-6 max-w-7xl mx-auto w-full">
@@ -24,70 +42,74 @@ export default function CartBag() {
           Your Bag
         </h1>
 
-        {state.items.map((sneaker) => (
-          <div
-            key={`${sneaker.id}-${sneaker.size}`}
-            className="flex flex-col md:flex-row items-start md:items-center gap-4 border rounded-2xl p-4 shadow-sm bg-white"
-          >
-            {/* Sneaker image */}
-            <Link href={`/sneaker/${sneaker.id}`}>
-              <Image
-                src={sneaker.image}
-                alt={sneaker.name}
-                width={140}
-                height={120}
-                className="rounded-xl object-cover w-full md:w-[140px] h-auto"
-              />
-            </Link>
+        {state.items.length === 0 ? (
+          <p className="text-primary-500">There are no items in your bag.</p>
+        ) : (
+          state.items.map((sneaker) => (
+            <div
+              key={`${sneaker.id}-${sneaker.size}`}
+              className="flex flex-col md:flex-row items-start md:items-center gap-4 border rounded-2xl p-4 shadow-sm bg-white"
+            >
+              {/* Sneaker image */}
+              <Link href={`/sneaker/${sneaker.id}`}>
+                <Image
+                  src={sneaker.image}
+                  alt={sneaker.name}
+                  width={140}
+                  height={120}
+                  className="rounded-xl object-cover w-full md:w-[140px] h-auto"
+                />
+              </Link>
 
-            {/* Sneaker info */}
-            <div className="flex flex-col flex-1">
-              <span className="text-lg md:text-base font-semibold text-primary-500">
-                {sneaker.name}
-              </span>
-              <span className="text-sm font-medium text-primary-500/50">
-                {sneaker.category}
-              </span>
-              <span className="text-base font-semibold text-primary-500 mt-1">
-                ${sneaker.price}
-              </span>
-              <span className="text-sm font-medium text-primary-500/50">
-                Size {sneaker.size}
-              </span>
-            </div>
+              {/* Sneaker info */}
+              <div className="flex flex-col flex-1">
+                <span className="text-lg md:text-base font-semibold text-primary-500">
+                  {sneaker.name}
+                </span>
+                <span className="text-sm font-medium text-primary-500/50">
+                  {sneaker.category}
+                </span>
+                <span className="text-base font-semibold text-primary-500 mt-1">
+                  ${sneaker.price}
+                </span>
+                <span className="text-sm font-medium text-primary-500/50">
+                  Size {sneaker.size}
+                </span>
+              </div>
 
-            {/* Quantity controls */}
-            <div className="flex items-center border border-primary-500/20 rounded-full px-4 py-1 gap-3">
-              {sneaker.quantity > 1 ? (
+              {/* Quantity controls */}
+              <div className="flex items-center border border-primary-500/20 rounded-full px-4 py-1 gap-3">
+                {sneaker.quantity > 1 ? (
+                  <button
+                    onClick={() =>
+                      dispatch({ type: "DECREASE_QUANTITY", payload: sneaker })
+                    }
+                  >
+                    <MinusCircleIcon className="h-6 w-6 text-primary-500" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      dispatch({ type: "REMOVE_FROM_CART", payload: sneaker })
+                    }
+                  >
+                    <TrashIcon className="h-6 w-6 text-red-500" />
+                  </button>
+                )}
+                <span className="text-lg font-medium text-primary-500">
+                  {sneaker.quantity}
+                </span>
                 <button
                   onClick={() =>
-                    dispatch({ type: "DECREASE_QUANTITY", payload: sneaker })
+                    dispatch({ type: "ADD_TO_CART", payload: sneaker })
                   }
                 >
-                  <MinusCircleIcon className="h-6 w-6 text-primary-500" />
+                  <PlusCircleIcon className="h-6 w-6 text-primary-500" />
                 </button>
-              ) : (
-                <button
-                  onClick={() =>
-                    dispatch({ type: "REMOVE_FROM_CART", payload: sneaker })
-                  }
-                >
-                  <TrashIcon className="h-6 w-6 text-red-500" />
-                </button>
-              )}
-              <span className="text-lg font-medium text-primary-500">
-                {sneaker.quantity}
-              </span>
-              <button
-                onClick={() =>
-                  dispatch({ type: "ADD_TO_CART", payload: sneaker })
-                }
-              >
-                <PlusCircleIcon className="h-6 w-6 text-primary-500" />
-              </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
 
         {/* Shipping info */}
         <div className="mt-6">
@@ -151,12 +173,7 @@ export default function CartBag() {
         </div>
 
         <button
-          onClick={() =>
-            createOrder({
-              client_id: "f7bb94fd-d7fb-42d2-a375-082dd42619ff",
-              cartItems: state.items,
-            })
-          }
+          onClick={handleOrderBtn}
           className="mt-6 w-full bg-primary-500 text-white py-3 rounded-xl font-medium hover:bg-primary-600 transition"
         >
           Checkout

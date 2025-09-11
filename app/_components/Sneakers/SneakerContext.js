@@ -35,6 +35,13 @@ function sneakerReducer(state, action) {
       };
     }
 
+    case "CLEAR_CART":
+      return {
+        ...state,
+        items: [],
+        lastAdded: null,
+      };
+
     case "RESTORE_CART":
       return action.payload;
 
