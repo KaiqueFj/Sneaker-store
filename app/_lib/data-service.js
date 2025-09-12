@@ -1,5 +1,3 @@
-import toast from "react-hot-toast";
-import Category from "../_components/HeaderPages/Category";
 import { supabase } from "./supabase";
 
 export const getSneakers = async function (filterKey, filterValue) {
@@ -75,4 +73,19 @@ export const createOrder = async function ({ client_id, cartItems }) {
   }
 
   return order;
+};
+
+export const getOrders = async function (clientId) {
+  const { data, error } = await supabase
+    .from("orders")
+    .select(
+      `
+    id,
+    client_id,
+    created_at,
+    order_items (*)
+  `
+    )
+    .eq("client_id", clientId);
+  return data;
 };
