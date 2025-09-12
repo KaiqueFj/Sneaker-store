@@ -1,7 +1,7 @@
-import { Inter, Inter_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./_styles/globals.css";
 import Header from "./_components/Header/Header";
-import { SneakerProvider } from "./_components/Sneakers/SneakerContext";
+import { SneakerProvider } from "./context/SneakerContext";
 import Footer from "./_components/Footer";
 import { Toaster } from "react-hot-toast";
 

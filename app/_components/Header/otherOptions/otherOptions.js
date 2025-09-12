@@ -7,7 +7,7 @@ import {
   UserCircleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { useSneaker } from "../../Sneakers/SneakerContext";
+import { useSneaker } from "../../../context/SneakerContext";
 import { useEffect, useState } from "react";
 export default function OtherOptions() {
   const { state } = useSneaker();

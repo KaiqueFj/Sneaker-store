@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useSneaker } from "../Sneakers/SneakerContext";
+import { useSneaker } from "../../context/SneakerContext";
 import Image from "next/image";
 import {
   ArrowDownIcon,

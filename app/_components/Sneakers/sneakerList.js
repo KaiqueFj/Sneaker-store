@@ -1,6 +1,5 @@
 import React from "react";
 import SneakerDetails from "./sneakerDetails";
-import { getSneakers } from "@/app/_lib/data-service";
 
 export default async function SneakersList({ filter, sneakers }) {
   if (!sneakers) return null;

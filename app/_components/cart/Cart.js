@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useSneaker } from "../Sneakers/SneakerContext";
+import { useSneaker } from "../../context/SneakerContext";
 import {
   CheckCircleIcon,
   ShoppingCartIcon,
