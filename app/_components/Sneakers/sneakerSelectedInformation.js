@@ -7,7 +7,8 @@ import { useSneaker } from "../../context/SneakerContext";
 import Cart from "../cart/Cart";
 
 export default function SneakerSelectedInformation({ sneaker }) {
-  const { name, price, category, images, sizes } = sneaker;
+  const { name, price, category, images, sizes, colors, gender, model } =
+    sneaker;
   const [mainImage, setMainImage] = useState(images[0]);
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
   const { dispatch, state } = useSneaker();
@@ -20,6 +21,9 @@ export default function SneakerSelectedInformation({ sneaker }) {
         name,
         price,
         category,
+        colors,
+        gender,
+        model,
         size: sneakerSize,
         image: mainImage,
       },

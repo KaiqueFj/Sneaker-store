@@ -55,7 +55,7 @@ export const createOrder = async function ({ client_id, cartItems }) {
     quantity: item.quantity || 1,
     price: item.price,
     size: item.size,
-    image: item.images,
+    image: [item.image],
     name: item.name,
     category: item.category,
     model: item.model,
