@@ -17,11 +17,19 @@ import { toast } from "react-hot-toast";
 export default function CartBag() {
   const { state, dispatch } = useSneaker();
 
+  const totalPrice = formatCurrency(
+    state.items.reduce(
+      (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
+      0
+    )
+  );
+
   const handleOrderBtn = async () => {
     await toast.promise(
       createOrder({
         client_id: "f7bb94fd-d7fb-42d2-a375-082dd42619ff",
         cartItems: state.items,
+        total_price: totalPrice,
       }).then((res) => {
         dispatch({ type: "CLEAR_CART" });
         return res;

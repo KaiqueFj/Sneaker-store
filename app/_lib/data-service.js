@@ -37,10 +37,14 @@ export const getSneaker = async function (id) {
   return data;
 };
 
-export const createOrder = async function ({ client_id, cartItems }) {
+export const createOrder = async function ({
+  client_id,
+  cartItems,
+  total_price,
+}) {
   const { data: order, error: orderError } = await supabase
     .from("orders")
-    .insert({ client_id })
+    .insert({ client_id, total_price })
     .select()
     .single();
 
