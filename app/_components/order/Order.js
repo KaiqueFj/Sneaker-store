@@ -61,7 +61,7 @@ export default async function Order({ orders }) {
                 </td>
                 <td className="px-4 py-6 text-center">
                   <Link
-                    href={`/orders/${order.id}`}
+                    href={`/orders/item/${order.id}`}
                     className="text-indigo-600 hover:text-indigo-800 font-medium underline"
                   >
                     Open

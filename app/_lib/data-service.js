@@ -93,3 +93,16 @@ export const getOrders = async function (clientId) {
 
   return data;
 };
+
+export const getOrderItems = async function (orderId) {
+  const { data, error } = await supabase
+    .from("order_items")
+    .select("*")
+    .eq("order_id", orderId);
+
+  if (error) {
+    throw new Error("Order items could not be loaded");
+  }
+
+  return data;
+};
