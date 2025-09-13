@@ -6,10 +6,8 @@ export default async function page() {
   const orders = await getOrders("f7bb94fd-d7fb-42d2-a375-082dd42619ff");
 
   return (
-    <div>
-      {orders.map((order) => {
-        return <Order key={order.id} order={order} />;
-      })}
+    <div className="flex mx-auto flex-col max-w-7xl ">
+      <Order orders={orders} />;
     </div>
   );
 }

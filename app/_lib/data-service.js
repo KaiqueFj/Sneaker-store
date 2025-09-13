@@ -91,6 +91,5 @@ export const getOrders = async function (clientId) {
     )
     .eq("client_id", clientId);
 
-  console.log(data);
   return data;
 };
