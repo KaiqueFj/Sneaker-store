@@ -49,7 +49,6 @@ export const createOrder = async function ({
     .single();
 
   if (orderError) {
-    console.log(orderError);
     throw new Error("Order could not be created");
   }
 
@@ -72,7 +71,6 @@ export const createOrder = async function ({
     .insert(orderItems);
 
   if (itemsError) {
-    console.log(itemsError);
     throw new Error("Order items could not be created");
   }
 
@@ -88,8 +86,11 @@ export const getOrders = async function (clientId) {
     client_id,
     created_at,
     order_items (*)
+    , total_price
   `
     )
     .eq("client_id", clientId);
+
+  console.log(data);
   return data;
 };
