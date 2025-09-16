@@ -1,5 +1,7 @@
 import { getAllSneakers, getSneakers } from "@/app/_lib/data-service";
 import SneakerMainCard from "./SneakersMainPageCard";
+import { Suspense } from "react";
+import Spinner from "../Spinner/Spinner";
 
 export default async function Catalog() {
   const sneakers = await getSneakers();
@@ -25,9 +27,11 @@ export default async function Catalog() {
       <div className="w-full max-w-full">
         <div className="overflow-x-auto scroll-smooth ">
           <div className="flex gap-6 pb-4 min-w-max">
-            {uniqueSneakers.map((sneaker) => (
-              <SneakerMainCard key={sneaker.id} sneaker={sneaker} />
-            ))}
+            <Suspense fallback={<Spinner />} key={sneakers}>
+              {uniqueSneakers.map((sneaker) => (
+                <SneakerMainCard key={sneaker.id} sneaker={sneaker} />
+              ))}
+            </Suspense>
           </div>
         </div>
       </div>
