@@ -46,9 +46,31 @@ export default function OtherOptions() {
         <HeartIcon className="text-primary-500 w-6 h-6 " />
       </button>
 
-      <button className="transition-colors rounded-xl p-2 hover:bg-gray-300">
-        <UserCircleIcon className="text-primary-500 w-6 h-6 " />
-      </button>
+      <div className="relative group">
+        {/* User button */}
+        <button className="transition-colors rounded-full p-2 hover:bg-gray-300">
+          <UserCircleIcon className="text-primary-500 w-6 h-6 " />
+        </button>
+
+        {/* Dropdown menu */}
+        <div
+          className="absolute right-0 w-40 bg-white border border-gray-200 rounded-xl shadow-lg 
+                  opacity-0 invisible group-hover:opacity-100 group-hover:visible 
+                  transition-opacity duration-200"
+        >
+          <ul className="flex flex-col text-sm text-gray-700">
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              <Link href="/profile">Profile</Link>
+            </li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              <Link href="/orders">Orders</Link>
+            </li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              <Link href="/logout">Logout</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
