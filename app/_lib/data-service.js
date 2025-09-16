@@ -106,3 +106,27 @@ export const getOrderItems = async function (orderId) {
 
   return data;
 };
+
+// Users
+
+export const createUser = async function (user) {
+  const { data, error } = await supabase.from("users").insert(user).single();
+  if (error) {
+    throw new Error("User could not be created");
+  }
+  return data;
+};
+
+export const getUser = async function (email) {
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("email", email)
+    .single();
+
+  if (error) {
+    throw new Error("User could not be loaded");
+  }
+
+  return data;
+};
