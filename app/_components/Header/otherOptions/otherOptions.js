@@ -18,6 +18,7 @@ export default function OtherOptions() {
     setMounted(true);
   }, []);
 
+  // Search bar
   return (
     <div className="flex items-center gap-2 text-md">
       <div className="relative flex items-center">
@@ -29,6 +30,7 @@ export default function OtherOptions() {
         <MagnifyingGlassIcon className="absolute text-primary-500 w-4.5 h-4.5 ml-1.5 " />
       </div>
 
+      {/* Cart button */}
       <Link href="/cart">
         <button className="relative transition-colors rounded-xl p-2 hover:bg-gray-300">
           <div className="relative w-6 h-6 flex items-center justify-center">
@@ -42,6 +44,7 @@ export default function OtherOptions() {
         </button>
       </Link>
 
+      {/* Favorites button */}
       <button className="transition-colors rounded-xl p-2 hover:bg-gray-300">
         <HeartIcon className="text-primary-500 w-6 h-6 " />
       </button>
