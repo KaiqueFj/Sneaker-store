@@ -8,6 +8,14 @@ export default function Navigation() {
             href="/"
             className="relative px-4 py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-500 after:transition-all after:duration-300 hover:after:w-full"
           >
+            <span className="relative z-10">Sale</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/"
+            className="relative px-4 py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-500 after:transition-all after:duration-300 hover:after:w-full"
+          >
             <span className="relative z-10">Releases</span>
           </Link>
         </li>
