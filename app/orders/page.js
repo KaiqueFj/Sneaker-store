@@ -1,5 +1,5 @@
 import React from "react";
-import Order from "../_components/order/Order";
+import Order from "../_components/orders/Order";
 import { getOrders } from "../_lib/data-service";
 
 export default async function page() {

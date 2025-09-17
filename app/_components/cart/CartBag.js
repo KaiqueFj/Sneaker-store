@@ -13,9 +13,11 @@ import { formatCurrency } from "@/app/utils/helpers";
 import Link from "next/link";
 import { createOrder } from "@/app/_lib/data-service";
 import { toast } from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 export default function CartBag() {
   const { state, dispatch } = useSneaker();
+  const { data: session, status } = useSession();
 
   const totalPrice = formatCurrency(
     state.items.reduce(
@@ -27,7 +29,6 @@ export default function CartBag() {
   const handleOrderBtn = async () => {
     await toast.promise(
       createOrder({
-        client_id: "f7bb94fd-d7fb-42d2-a375-082dd42619ff",
         cartItems: state.items,
         total_price: totalPrice,
       }).then((res) => {

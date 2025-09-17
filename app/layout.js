@@ -18,12 +18,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body
+        className={` ${inter.className} relative  min-h-screen antialiased  flex flex-col text-primary-500`}
+      >
         <Providers>
           <Header />
 
           <div className="grid flex-1 overflow-hidden mx-2 py-12">
-            <main className="w-full max-w-full">{children}</main>
+            <main className="w-full max-w-full 0">{children}</main>
           </div>
 
           <Footer />

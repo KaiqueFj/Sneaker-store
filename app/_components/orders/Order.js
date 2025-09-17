@@ -4,7 +4,9 @@ import { formatDate } from "../../utils/helpers";
 export default async function Order({ orders }) {
   if (!orders || orders.length === 0) {
     return (
-      <div className="p-6 text-center text-slate-500">No orders found.</div>
+      <div className="p-6 text-center text-slate-500">
+        No orders found. You have no orders yet !
+      </div>
     );
   }
 
@@ -61,7 +63,7 @@ export default async function Order({ orders }) {
                 </td>
                 <td className="px-4 py-6 text-center">
                   <Link
-                    href={`/orders/item/${order.id}`}
+                    href={`/account/orders/item/${order.id}`}
                     className="text-indigo-600 hover:text-indigo-800 font-medium underline"
                   >
                     Open

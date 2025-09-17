@@ -1,3 +1,6 @@
+"use server";
+
+import { auth } from "./auth";
 import { supabase } from "./supabase";
 
 export const getSneakers = async function (filterKey, filterValue) {
@@ -37,11 +40,14 @@ export const getSneaker = async function (id) {
   return data;
 };
 
-export const createOrder = async function ({
-  client_id,
-  cartItems,
-  total_price,
-}) {
+export const createOrder = async function ({ cartItems, total_price }) {
+  const session = await auth();
+  console.log("session:", session);
+
+  if (!session?.user?.userId) throw new Error("User not authenticated");
+
+  const client_id = session.user.userId;
+
   const { data: order, error: orderError } = await supabase
     .from("orders")
     .insert({ client_id, total_price })
@@ -108,7 +114,6 @@ export const getOrderItems = async function (orderId) {
 };
 
 // Users
-
 export const createUser = async function (user) {
   const { data, error } = await supabase.from("users").insert([user]).single();
   if (error) {

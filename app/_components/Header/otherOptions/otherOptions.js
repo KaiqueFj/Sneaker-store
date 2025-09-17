@@ -11,6 +11,7 @@ import { useSneaker } from "../../../context/SneakerContext";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import SignOutButton from "../../login/SignOutButton";
 
 export default function OtherOptions() {
   const { state } = useSneaker();
@@ -76,13 +77,13 @@ export default function OtherOptions() {
             <div className="absolute right-0  w-40 bg-white border border-gray-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200">
               <ul className="flex flex-col text-sm text-gray-700">
                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                  <Link href="/profile">Profile</Link>
+                  <Link href="/account">Account</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                   <Link href="/orders">Orders</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                  <Link href="/logout">Logout</Link>
+                  <SignOutButton />
                 </li>
               </ul>
             </div>
@@ -93,7 +94,7 @@ export default function OtherOptions() {
             className="transition-colors hover:text-accent-400 flex items-center gap-2"
           >
             <UserCircleIcon className="text-primary-500 w-6 h-6" />
-            <span>Guest area</span>
+            <span className="text-primary-500 sm:inline">Guest area</span>
           </Link>
         )}
       </div>
