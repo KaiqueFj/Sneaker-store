@@ -110,7 +110,7 @@ export const getOrderItems = async function (orderId) {
 // Users
 
 export const createUser = async function (user) {
-  const { data, error } = await supabase.from("users").insert(user).single();
+  const { data, error } = await supabase.from("users").insert([user]).single();
   if (error) {
     throw new Error("User could not be created");
   }
@@ -123,10 +123,6 @@ export const getUser = async function (email) {
     .select("*")
     .eq("email", email)
     .single();
-
-  if (error) {
-    throw new Error("User could not be loaded");
-  }
 
   return data;
 };

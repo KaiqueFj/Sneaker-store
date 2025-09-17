@@ -9,18 +9,20 @@ import {
 } from "@heroicons/react/24/outline";
 import { useSneaker } from "../../../context/SneakerContext";
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
+
 export default function OtherOptions() {
   const { state } = useSneaker();
+  const { data: session } = useSession();
   const totalItems = state.items.reduce((acc, item) => acc + item.quantity, 0);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
-  // Search bar
   return (
     <div className="flex items-center gap-2 text-md">
+      {/* Search bar */}
       <div className="relative flex items-center">
         <input
           type="text"
@@ -49,30 +51,51 @@ export default function OtherOptions() {
         <HeartIcon className="text-primary-500 w-6 h-6 " />
       </button>
 
+      {/* User dropdown */}
       <div className="relative group">
-        {/* User button */}
-        <button className="transition-colors rounded-full p-2 hover:bg-gray-300">
-          <UserCircleIcon className="text-primary-500 w-6 h-6 " />
-        </button>
+        {session?.user ? (
+          <>
+            <button className="transition-colors rounded-full p-2 hover:bg-gray-300 flex items-center gap-2">
+              {session.user.image ? (
+                <Image
+                  className="h-8 w-8 rounded-full"
+                  src={session.user.image}
+                  alt={session.user.name || "User"}
+                  referrerPolicy="no-referrer"
+                  width={32}
+                  height={32}
+                />
+              ) : (
+                <UserCircleIcon className="text-primary-500 w-6 h-6" />
+              )}
+              <span className="hidden text-primary-500 sm:inline">
+                {session.user.name.split(" ")[0]}
+              </span>
+            </button>
 
-        {/* Dropdown menu */}
-        <div
-          className="absolute right-0 w-40 bg-white border border-gray-200 rounded-xl shadow-lg 
-                  opacity-0 invisible group-hover:opacity-100 group-hover:visible 
-                  transition-opacity duration-200"
-        >
-          <ul className="flex flex-col text-sm text-gray-700">
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-              <Link href="/profile">Profile</Link>
-            </li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-              <Link href="/orders">Orders</Link>
-            </li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-              <Link href="/logout">Logout</Link>
-            </li>
-          </ul>
-        </div>
+            <div className="absolute right-0  w-40 bg-white border border-gray-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200">
+              <ul className="flex flex-col text-sm text-gray-700">
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  <Link href="/profile">Profile</Link>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  <Link href="/orders">Orders</Link>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  <Link href="/logout">Logout</Link>
+                </li>
+              </ul>
+            </div>
+          </>
+        ) : (
+          <Link
+            href="/account"
+            className="transition-colors hover:text-accent-400 flex items-center gap-2"
+          >
+            <UserCircleIcon className="text-primary-500 w-6 h-6" />
+            <span>Guest area</span>
+          </Link>
+        )}
       </div>
     </div>
   );
