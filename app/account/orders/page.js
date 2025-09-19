@@ -5,7 +5,7 @@ import { auth } from "@/app/_lib/auth";
 
 export default async function page() {
   const session = await auth();
-  const orders = await getOrders(session?.user?.id);
+  const orders = await getOrders(session?.user?.userId);
 
   return (
     <div className="flex mx-auto flex-col max-w-7xl ">
