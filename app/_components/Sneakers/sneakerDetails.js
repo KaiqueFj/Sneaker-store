@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function SneakerDetails({ sneaker }) {
-  const { id, name, price, category, images, colors } = sneaker;
+  const { id, name, price, category, images, colors, sale } = sneaker;
 
   return (
     <Link
@@ -33,7 +33,29 @@ export default function SneakerDetails({ sneaker }) {
           {colors.length} {colors.length === 1 ? "Color" : "Colors"}
         </p>
         <p className="text-black font-bold text-sm sm:text-base mt-auto">
-          ${price}
+          {sneaker.sale ? (
+            <>
+              <span className="flex items-center space-x-2">
+                <span className="font-bold text-primary-500">
+                  $
+                  {(
+                    sneaker.sale.discountPrice ??
+                    sneaker.price * (1 - sneaker.sale.discountPercentage / 100)
+                  ).toFixed(2)}
+                </span>
+
+                <span className="line-through font-normal text-gray-500">
+                  ${sneaker.price}
+                </span>
+
+                <span className="text-green-700 font-medium">
+                  {sneaker.sale.discountPercentage}% off
+                </span>
+              </span>
+            </>
+          ) : (
+            <span className="font-bold">${sneaker.price}</span>
+          )}
         </p>
       </div>
     </Link>

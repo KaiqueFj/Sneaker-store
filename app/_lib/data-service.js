@@ -6,7 +6,16 @@ import { supabase } from "./supabase";
 export const getSneakers = async function (filterKey, filterValue) {
   let query = supabase
     .from("sneakers")
-    .select("id, name, colors, gender, sizes, price, images, category, model")
+    .select(
+      `
+      *,
+      sales (
+        discountPercentage,
+        startDate,
+        endDate
+      )
+    `
+    )
     .order("name");
 
   if (filterKey && filterValue) {
@@ -18,26 +27,49 @@ export const getSneakers = async function (filterKey, filterValue) {
   }
 
   const { data, error } = await query;
+  if (error) throw new Error("Sneakers could not be loaded");
 
-  if (error) {
-    throw new Error("Sneakers could not be loaded");
-  }
+  const now = new Date();
 
-  return data;
+  // Transform to only include active sale
+  return data.map((s) => {
+    const activeSale = s.sales?.find(
+      (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now
+    );
+    const { sales, ...sneaker } = s;
+
+    return { ...sneaker, sale: activeSale || null };
+  });
 };
 
 export const getSneaker = async function (id) {
   const { data, error } = await supabase
     .from("sneakers")
-    .select("id, name, colors, gender, sizes, price, images, category, model")
+    .select(
+      `
+      *,
+      sales (
+        discountPercentage,
+        startDate,
+        endDate
+      )
+    `
+    )
     .eq("id", id)
     .single();
 
   if (error) {
+    console.log(error);
     throw new Error("Sneaker could not be loaded");
   }
 
-  return data;
+  const now = new Date();
+  const activeSale = data.sales?.find(
+    (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now
+  );
+
+  const { sales, ...sneaker } = data;
+  return { ...sneaker, sale: activeSale || null };
 };
 
 export const createOrder = async function ({ cartItems, total_price }) {

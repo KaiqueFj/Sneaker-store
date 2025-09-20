@@ -31,7 +31,7 @@ export default async function Page({ params, searchParams }) {
 
     sneakers = await getSneakers(filterKey, category);
   } else {
-    sneakers = await getSneakers(); // fallback: all sneakers
+    sneakers = await getSneakers();
   }
 
   return (
