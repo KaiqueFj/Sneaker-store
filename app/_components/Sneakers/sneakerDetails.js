@@ -25,18 +25,20 @@ export default function SneakerDetails({ sneaker }) {
 
       {/* Info */}
       <div className="flex flex-col px-3 sm:px-4 py-2 sm:py-3 flex-1">
-        <h3 className="text-black font-semibold text-base sm:text-lg leading-tight mb-1 line-clamp-1">
+        <h3 className="text-color-primary-600 font-semibold text-base sm:text-lg leading-tight mb-1 line-clamp-1">
           {name}
         </h3>
-        <p className="text-gray-600 text-xs sm:text-sm">{category}</p>
-        <p className="text-gray-500 text-xs sm:text-sm mb-2">
+        <p className="text-color-primary-400-600 text-xs sm:text-sm">
+          {category}
+        </p>
+        <p className="text-color-primary-400-500 text-xs sm:text-sm mb-2">
           {colors.length} {colors.length === 1 ? "Color" : "Colors"}
         </p>
-        <p className="text-black font-bold text-sm sm:text-base mt-auto">
+        <p className="text-color-primary-600 font-bold text-sm sm:text-base mt-auto">
           {sale ? (
             <>
               <span className="flex items-center space-x-2">
-                <span className="font-bold text-primary-500">
+                <span className="font-bold text-primary-600">
                   $
                   {(
                     sale.discountPrice ??
@@ -44,7 +46,7 @@ export default function SneakerDetails({ sneaker }) {
                   ).toFixed(2)}
                 </span>
 
-                <span className="line-through font-normal text-gray-500">
+                <span className="line-through font-normal text-color-primary-400-500">
                   ${price}
                 </span>
 

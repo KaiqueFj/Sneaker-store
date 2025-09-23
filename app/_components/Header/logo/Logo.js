@@ -10,7 +10,7 @@ export default function Logo() {
         width={60}
         height={60}
       />
-      <span className="text-xl font-bold text-primary-500">Shark Store</span>
+      <span className="text-xl font-bold text-primary-600">Shark Store</span>
     </Link>
   );
 }

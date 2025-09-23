@@ -24,7 +24,7 @@ export default function SneakerMainCard({ sneaker }) {
 
         {/* Text */}
         <div className="flex flex-col items-center justify-center text-center mt-4">
-          <h2 className="text-primary-500 font-semibold text-2xl tracking-tight group-hover:text-gray-800 transition-colors duration-300 leading-tight">
+          <h2 className="text-primary-600 font-semibold text-2xl tracking-tight group-hover:text-color-primary-400-800 transition-colors duration-300 leading-tight">
             {model}
           </h2>
           <div

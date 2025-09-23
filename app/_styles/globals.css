@@ -2,12 +2,13 @@
 
 @theme {
   --color-primary-50: #ffffff; /* Main background */
-  --color-primary-100: #0057ff; /* Sidebar blue */
-  --color-primary-200: #eceff2; /* Card backgrounds */
-  --color-primary-400: #f5f8ff; /* Table row backgrounds */
-  --color-primary-500: #0a0a0a; /* Dark text */
-  --color-primary-600: #516778; /* Light gray text */
-  --color-primary-700: #e3e3e3; /* Light gray text */
+  --color-primary-100: #f5f8ff; /* Lightest tint / table row backgrounds */
+  --color-primary-200: #e0ebff; /* Soft background blue */
+  --color-primary-300: #eceff2; /* Card backgrounds */
+  --color-primary-400: #516778; /* Medium gray text */
+  --color-primary-500: #e3e3e3; /* Light gray elements */
+  --color-primary-600: #0a0a0a; /* Dark text */
+  --color-primary-700: #0057ff; /* Primary blue */
 }
 :root {
   --background: #ffffff;
@@ -22,7 +23,7 @@
 
 /* global.css or tailwind.css */
 ::-webkit-scrollbar {
-  height: 8px; /* horizontal scrollbar thickness */
+  height: 2px; /* horizontal scrollbar thickness */
 }
 
 ::-webkit-scrollbar-track {
@@ -31,7 +32,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: #888;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

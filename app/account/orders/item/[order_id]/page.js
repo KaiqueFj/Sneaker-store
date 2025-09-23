@@ -12,14 +12,14 @@ export default async function page({ params }) {
 
       <div>
         <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
-          Order <span className="text-primary-500">{order_id}</span>
+          Order <span className="text-primary-600">{order_id}</span>
         </h1>
         <p className="text-slate-500 mt-1">Order details and purchased items</p>
       </div>
 
       <div className="grid grid-cols-2 gap-6 flex-1 w-full">
         {order.length === 0 ? (
-          <p className="text-primary-500">There are no items in your order.</p>
+          <p className="text-primary-600">There are no items in your order.</p>
         ) : (
           order.map((sneaker) => (
             <div
@@ -39,16 +39,16 @@ export default async function page({ params }) {
 
               {/* Sneaker info */}
               <div className="flex flex-col flex-1">
-                <span className="text-lg md:text-base font-semibold text-primary-500">
+                <span className="text-lg md:text-base font-semibold text-primary-600">
                   {sneaker.name}
                 </span>
-                <span className="text-sm font-medium text-primary-500/50">
+                <span className="text-sm font-medium text-primary-600/50">
                   {sneaker.category}
                 </span>
-                <span className="text-base font-semibold text-primary-500 mt-1">
+                <span className="text-base font-semibold text-primary-600 mt-1">
                   ${sneaker.price}
                 </span>
-                <span className="text-sm font-medium text-primary-500/50">
+                <span className="text-sm font-medium text-primary-600/50">
                   Size {sneaker.size}
                 </span>
               </div>

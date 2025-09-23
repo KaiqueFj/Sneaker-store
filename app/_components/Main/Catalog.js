@@ -15,7 +15,7 @@ export default async function Catalog() {
   return (
     <>
       <div className="flex flex-col items-center w-full gap-6 p-4 my-10">
-        <p className="text-3xl text-primary-500 font-bold text-center">
+        <p className="text-3xl text-primary-600 font-bold text-center">
           <span className="block">
             A collection of sneakers that can make you feel like a champion
           </span>

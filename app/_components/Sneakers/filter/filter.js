@@ -36,11 +36,11 @@ export default function Filter() {
     <div className="relative inline-block text-left z-50" ref={dropdownRef}>
       <span
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center text-primary-500 font-medium rounded-md px-4 py-2 transition cursor-pointer"
+        className="flex items-center text-primary-600 font-medium rounded-md px-4 py-2 transition cursor-pointer"
       >
         <span className="text-lg">
-          <span className="text-primary-500 font-semibold">Sort by:</span>
-          <span className="ml-1 text-primary-500/50">{activeFilter}</span>
+          <span className="text-primary-600 font-semibold">Sort by:</span>
+          <span className="ml-1 text-primary-600/50">{activeFilter}</span>
         </span>
         <span className="relative ml-2 w-5 h-5">
           <ChevronDownIcon
@@ -94,7 +94,7 @@ export default function Filter() {
 function FilterOptions({ filter, handleFilter, activeFilter, children }) {
   return (
     <button
-      className={`px-5 py-2 rounded-md hover:bg-primary-700 w-full text-primary-500 text-left ${
+      className={`px-5 py-2 rounded-md hover:bg-primary-700 w-full text-primary-600 text-left ${
         filter === activeFilter ? "bg-primary-700 text-primary-50" : ""
       }`}
       onClick={() => handleFilter(filter)}

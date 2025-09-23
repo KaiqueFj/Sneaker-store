@@ -18,7 +18,7 @@ export default function UpdateProfileForm({ user, children }) {
           name="name"
           disabled
           defaultValue={name}
-          className="w-full px-5 py-3 rounded-sm shadow-sm bg-primary-200 text-primary-800 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          className="w-full px-5 py-3 rounded-sm shadow-sm bg-primary-200 text-primary-800 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-color-primary-400-400"
         />
       </div>
 
@@ -27,7 +27,7 @@ export default function UpdateProfileForm({ user, children }) {
         <input
           name="email"
           defaultValue={email}
-          className="w-full px-5 py-3 rounded-sm shadow-sm bg-primary-200 text-primary-800 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          className="w-full px-5 py-3 rounded-sm shadow-sm bg-primary-200 text-primary-800 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-color-primary-400-400"
         />
       </div>
 

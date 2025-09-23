@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary-500 text-slate-300 py-6 mt-10">
+    <footer className="bg-primary-600 text-primary-50 py-6 mt-10">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
         {/* Brand */}
         <h2 className="text-lg font-bold text-white">Shark Store</h2>
