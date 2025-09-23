@@ -1,26 +1,28 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-6 mt-10">
+    <footer className="bg-primary-500 text-slate-300 py-6 mt-10">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
         {/* Brand */}
         <h2 className="text-lg font-bold text-white">Shark Store</h2>
 
         {/* Links */}
         <div className="flex gap-6 mt-4 md:mt-0">
-          <a href="#" className="hover:text-white transition">
+          <Link href="/" className="hover:text-white transition">
             Home
-          </a>
-          <a href="#" className="hover:text-white transition">
-            Shop
-          </a>
-          <a href="#" className="hover:text-white transition">
+          </Link>
+          <Link href="/sales" className="hover:text-white transition">
+            Sales
+          </Link>
+          <Link href="#" className="hover:text-white transition">
             About
-          </a>
-          <a href="#" className="hover:text-white transition">
+          </Link>
+          <Link href="#" className="hover:text-white transition">
             Contact
-          </a>
+          </Link>
         </div>
 
         {/* Copyright */}

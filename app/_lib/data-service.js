@@ -42,6 +42,29 @@ export const getSneakers = async function (filterKey, filterValue) {
   });
 };
 
+export const getSneakersOnSale = async function () {
+  let query = await supabase
+    .from("sneakers")
+    .select(`*, sales(discountPercentage, startDate, endDate)`)
+    .not("sales", "is", null)
+    .order("name");
+
+  const { data, error } = await query;
+  if (error) throw new Error("Sneakers could not be loaded");
+
+  const now = new Date();
+
+  // Transform to only include active sale
+  return data.map((s) => {
+    const activeSale = s.sales?.find(
+      (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now
+    );
+    const { sales, ...sneaker } = s;
+
+    return { ...sneaker, sale: activeSale || null };
+  });
+};
+
 export const getSneaker = async function (id) {
   const { data, error } = await supabase
     .from("sneakers")
