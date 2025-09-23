@@ -19,6 +19,7 @@ export default async function Page({ searchParams }) {
   return (
     <div className="flex flex-col justify-center mx-auto gap-6 place-items-center">
       <div className="flex items-center justify-between w-3/4">
+        <Category>{`Sneakers on Sale (${sneakers.length})`}</Category>
         <Filter />
       </div>
       <div className="flex flex-row justify-center w-3/4">
