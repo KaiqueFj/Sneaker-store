@@ -1,6 +1,7 @@
 import Logo from "./logo/Logo";
 import Navigation from "./nav/Navigation";
 import OtherOptions from "./otherOptions/otherOptions";
+import SearchBar from "./otherOptions/SearchBar";
 
 export default function Header() {
   return (
@@ -9,6 +10,9 @@ export default function Header() {
         <Logo />
         <Navigation />
         <OtherOptions />
+        <div className="pt-2 flex md:hidden">
+          <SearchBar />
+        </div>
       </div>
     </header>
   );

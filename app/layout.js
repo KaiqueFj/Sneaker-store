@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <Header />
 
-          <div className="grid flex-1 overflow-hidden mx-2 py-12">
+          <div className="grid flex-1 overflow-hidden  py-12">
             <main className="w-full max-w-full 0">{children}</main>
           </div>
 
