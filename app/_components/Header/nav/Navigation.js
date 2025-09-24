@@ -1,42 +1,25 @@
 import Link from "next/link";
 export default function Navigation() {
+  const navItems = [
+    { label: "Sale", href: "/sneakers/nav/sales" },
+    { label: "Releases", href: "/" },
+    { label: "Men", href: "/sneakers/nav/men" },
+    { label: "Women", href: "/sneakers/nav/women" },
+  ];
+
   return (
     <nav className="flex justify-center">
-      <ul className="flex items-center text-lg font-medium text-primary-600 gap-2">
-        <li>
-          <Link
-            href="/sneakers/nav/sales"
-            className="relative px-4 py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-600 after:transition-all after:duration-300 hover:after:w-full"
-          >
-            <span className="relative z-10">Sale</span>
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/"
-            className="relative px-4 py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-600 after:transition-all after:duration-300 hover:after:w-full"
-          >
-            <span className="relative z-10">Releases</span>
-          </Link>
-        </li>
-
-        <li>
-          <Link
-            href="/sneakers/nav/men"
-            className="relative px-4 py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-600 after:transition-all after:duration-300 hover:after:w-full"
-          >
-            <span className="relative z-10">Men</span>
-          </Link>
-        </li>
-
-        <li>
-          <Link
-            href="/sneakers/nav/women"
-            className="relative px-4 py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-600 after:transition-all after:duration-300 hover:after:w-full"
-          >
-            <span className="relative z-10">Woman</span>
-          </Link>
-        </li>
+      <ul className="hidden md:flex items-center text-lg font-normal text-primary-600 gap-2">
+        {navItems.map((item) => (
+          <li key={item.label}>
+            <Link
+              href={item.href}
+              className="relative px-4 py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-600 after:transition-all after:duration-300 hover:after:w-full"
+            >
+              {item.label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );

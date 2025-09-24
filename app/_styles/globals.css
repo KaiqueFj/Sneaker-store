@@ -23,7 +23,7 @@
 
 /* global.css or tailwind.css */
 ::-webkit-scrollbar {
-  height: 2px; /* horizontal scrollbar thickness */
+  height: 6px; /* horizontal scrollbar thickness */
 }
 
 ::-webkit-scrollbar-track {

@@ -24,8 +24,8 @@ export default async function Catalog() {
         </p>
       </div>
 
-      <div className="w-full max-w-full">
-        <div className="overflow-x-auto scroll-smooth ">
+      <div className="w-full max-w-full ">
+        <div className="overflow-x-auto  scroll-smooth ">
           <div className="flex gap-6 pb-4 min-w-max">
             <Suspense fallback={<Spinner />} key={sneakers}>
               {uniqueSneakers.map((sneaker) => (

@@ -3,12 +3,12 @@ import React from "react";
 
 export default function Banner() {
   return (
-    <div className="flex flex-col items-center w-full gap-6 p-4">
+    <div className="flex flex-col   items-center w-full gap-6 p-4">
       <h1 className="text-5xl text-primary-600 font-extrabold text-center">
         Strive for greatness
       </h1>
 
-      <div className="flex w-5/6">
+      <div className="flex flex-col  lg:flex-row w-5/6 ">
         {/* Left Image */}
         <div className="relative w-1/2 h-[700px]  overflow-hidden">
           <Image
