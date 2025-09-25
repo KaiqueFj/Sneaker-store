@@ -16,10 +16,6 @@ export default function Cart() {
   const prevLengthRef = useRef(totalItems);
   const modalRef = useRef(null);
 
-  console.log(state);
-
-  console.log(lastItemOnCart);
-
   useEffect(() => {
     if (totalItems > prevLengthRef.current) {
       // Item was added → open modal
