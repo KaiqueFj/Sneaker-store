@@ -5,14 +5,14 @@ import SearchBar from "./otherOptions/SearchBar";
 
 export default function Header() {
   return (
-    <header className="w-full border-b-4 border-primary-200/60 px-5 py-6">
-      <div className="grid grid-cols-[auto_1fr_auto] items-center  max-w-7xl mx-auto">
+    <header className="w-full border-b-4 border-primary-200/60 px-5 py-4">
+      <div className="flex flex-row justify-between gap-2 items-center  max-w-7xl mx-auto">
         <Logo />
         <Navigation />
         <OtherOptions />
-        <div className="pt-2 flex md:hidden">
-          <SearchBar />
-        </div>
+      </div>
+      <div className="pt-2  w-full flex md:hidden">
+        <SearchBar />
       </div>
     </header>
   );
