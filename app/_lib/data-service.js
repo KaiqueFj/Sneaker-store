@@ -43,7 +43,7 @@ export const getSneakers = async function (filterKey, filterValue) {
 };
 
 export const getSneakersOnSale = async function () {
-  let query = await supabase
+  let query = supabase
     .from("sneakers")
     .select(`*, sales(discountPercentage, startDate, endDate)`)
     .not("sales", "is", null)
@@ -54,15 +54,15 @@ export const getSneakersOnSale = async function () {
 
   const now = new Date();
 
-  // Transform to only include active sale
-  return data.map((s) => {
-    const activeSale = s.sales?.find(
-      (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now
-    );
-    const { sales, ...sneaker } = s;
-
-    return { ...sneaker, sale: activeSale || null };
-  });
+  return data
+    .map((s) => {
+      const activeSale = s.sales?.find(
+        (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now
+      );
+      const { sales, ...sneaker } = s;
+      return activeSale ? { ...sneaker, sale: activeSale } : null;
+    })
+    .filter(Boolean);
 };
 
 export const getSneaker = async function (id) {
