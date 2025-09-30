@@ -65,6 +65,22 @@ export const getSneakersOnSale = async function () {
     .filter(Boolean);
 };
 
+export const getNewestSneakers = async function () {
+  const threeMonthsAgo = new Date();
+  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+  const sinceIso = threeMonthsAgo.toISOString();
+
+  const { data, error } = await supabase
+    .from("sneakers")
+    .select("*")
+    .gte("created_at", sinceIso)
+    .order("created_at", { ascending: false });
+
+  if (error) throw new Error("Sneakers could not be loaded: " + error.message);
+
+  return data;
+};
+
 export const getSneaker = async function (id) {
   const { data, error } = await supabase
     .from("sneakers")
