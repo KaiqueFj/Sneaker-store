@@ -1,18 +1,18 @@
-import fs from "fs";
-import path from "path";
 import { supabase } from "@/app/_lib/supabase";
-import { getDummySneakers } from "@/app/utils/getDummyData";
+import { getSneakersFromApi } from "./getDummyData";
 
 export async function seedSneakersTable() {
-  // 2️⃣ Get dummy sneakers data
-  const sneakers = getDummySneakers();
+  try {
+    const sneakers = await getSneakersFromApi();
 
-  // 3️⃣ Insert into the 'sneakers' table
-  const { data, error } = await supabase.from("sneakers").insert(sneakers);
+    const { data, error } = await supabase.from("sneakers").insert(sneakers);
 
-  if (error) {
-    console.error("Error inserting sneakers:", error);
-  } else {
-    console.log("Sneakers inserted:", data);
+    if (error) {
+      console.error("❌ Error inserting sneakers:", error);
+    } else {
+      console.log(`✅ Successfully inserted ${data.length} sneakers`);
+    }
+  } catch (err) {
+    console.error("❌ Failed to seed sneakers:", err);
   }
 }

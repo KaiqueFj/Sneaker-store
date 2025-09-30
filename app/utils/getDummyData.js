@@ -1,157 +1,27 @@
-export function getDummySneakers() {
-  const baseUrl =
-    "https://xdwfpeoyyofrxkqdlpad.supabase.co/storage/v1/object/public/sneakers/sneakers/";
+import SneaksAPI from "sneaks-api";
 
-  return [
-    {
-      name: "Lebron 20",
-      price: 500,
-      gender: ["men"],
-      category: ["basketball shoes"],
-      model: "Lebron 20 ",
-      images: [
-        `${baseUrl}lebron-20.avif`,
-        `${baseUrl}lebron-20-up.avif`,
-        `${baseUrl}lebron-20-full.avif`,
-      ],
-      colors: ["Black", "White", "Blue"],
-      sizes: ["40", "41", "42", "43", "44", "45"],
-    },
+const sneaks = new SneaksAPI();
+const brand = "Nike"; // Only one brand for testing
 
-    {
-      name: "Nike vomero",
-      price: 500,
-      gender: ["men"],
-      category: ["Men´s shoes"],
-      model: "Nike vomero",
-      images: [
-        `${baseUrl}nike-vomero.avif`,
-        `${baseUrl}nike-vomero-up.avif`,
-        `${baseUrl}nike-vomero-full.avif`,
-      ],
-      colors: ["Black", "White", "Blue"],
-      sizes: ["40", "41", "42", "43", "44", "45"],
-    },
-  ];
+export async function getSneakersFromApi() {
+  // Fetch 25 sneakers from brand
+  const products = await new Promise((resolve, reject) => {
+    sneaks.getProducts(brand, 25, (err, data) => {
+      if (err) reject(err);
+      else resolve(data);
+    });
+  });
+
+  const transformed = products.map((s) => ({
+    name: s.shoeName,
+    model: s.silhoutte || s.make || "Unknown",
+    category: [s.brand],
+    price: s.retailPrice || s.lowestResellPrice?.stockX || 0,
+    images: s.imageLinks.length > 0 ? s.imageLinks : [s.thumbnail],
+    colors: s.colorway ? s.colorway.split("/") : ["Unknown"],
+    gender: ["unisex"], // default
+    sizes: ["40", "41", "42", "43", "44"], // placeholder
+  }));
+
+  return transformed;
 }
-
-// {
-//   id: 1,
-//   name: "Air Max DN",
-//   price: 189.99,
-//   gender: ["men"],
-//   category: ["Technology shoes"],
-//   model: "Air Max",
-//   images: [
-//     `${baseUrl}air-max-dn.avif`,
-//     `${baseUrl}air-max-dn-up.avif`,
-//     `${baseUrl}air-max-dn-full.avif`,
-//   ],
-//   colors: ["Black", "White", "Blue"],
-//   sizes: ["40", "41", "42", "43"],
-// },
-// {
-//   id: 2,
-//   name: "Air Jordan 4 Retro white cement",
-//   price: 259.99,
-//   gender: ["men"],
-//   category: ["Men´s shoes"],
-//   model: "Air Jordan 4",
-//   images: [
-//     `${baseUrl}airJordan4-white-cement.avif`,
-//     `${baseUrl}airJordan4-white-cement-up.avif`,
-//     `${baseUrl}airJordan4-white-cement-full.avif`,
-//   ],
-//   colors: ["Red", "Black", "White"],
-//   sizes: ["40", "41", "42", "43", "44"],
-// },
-// {
-//   id: 3,
-//   name: "Nike Dunk Baroque brown",
-//   price: 169.99,
-//   gender: ["men", "women", "unisex"],
-//   category: ["Men´s shoes"],
-//   model: "Nike Dunk",
-//   images: [
-//     `${baseUrl}nike-dunk-low-baroque-brown.avif`,
-//     `${baseUrl}nike-dunk-low-baroque-brown-up.avif`,
-//     `${baseUrl}nike-dunk-low-baroque-brown-full.avif`,
-//   ],
-//   colors: ["Black", "White"],
-//   sizes: ["39", "40", "41", "42"],
-// },
-// {
-//   id: 4,
-//   name: "Kobe 8 proto",
-//   price: 239.99,
-//   gender: ["men"],
-//   category: ["Men's shoes"],
-//   model: "Kobe 8",
-//   images: [
-//     `${baseUrl}kobe8-proto.avif`,
-//     `${baseUrl}kobe8-proto-up.avif`,
-//     `${baseUrl}kobe8-proto-full.avif`,
-//   ],
-//   colors: ["Black", "Gold"],
-//   sizes: ["41", "42", "43", "44"],
-// },
-// {
-//   id: 5,
-//   name: "Air jordan 11 low Bred",
-//   price: 229.99,
-//   gender: ["men"],
-//   category: ["Men's shoes"],
-//   model: "Air Jordan 11",
-//   images: [
-//     `${baseUrl}airJordan11-low-bred.avif`,
-//     `${baseUrl}airJordan11-low-bred-up.avif`,
-//     `${baseUrl}airJordan11-low-bred-full.avif`,
-//   ],
-//   colors: ["red/black", "Black"],
-//   sizes: ["40", "41", "42", "43"],
-// },
-// {
-//   id: 6,
-//   name: "Nike Dunk Low Panda",
-//   price: 149.99,
-//   gender: ["women"],
-//   category: ["Women's shoes"],
-//   model: "Nike Dunk Low",
-//   images: [
-//     `${baseUrl}dunkLow-panda.avif`,
-//     `${baseUrl}dunkLow-panda-up.avif`,
-//     `${baseUrl}dunkLow-panda-full.avif`,
-//   ],
-//   colors: ["black/white"],
-//   sizes: ["36", "37", "38", "39"],
-// },
-// {
-//   id: 7,
-//   name: "Air Jordan 4 RM",
-//   price: 179.99,
-//   gender: ["women"],
-//   category: ["Women's shoes"],
-//   model: "Air Jordan 4",
-//   images: [
-//     `${baseUrl}airJordan4-rm.avif`,
-//     `${baseUrl}airJordan4-rm-up.avif`,
-//     `${baseUrl}airJordan4-rm-full.avif`,
-//   ],
-//   colors: ["pink", "green"],
-//   sizes: ["36", "37", "38", "39", "40"],
-// },
-// {
-//   id: 8,
-//   name: "Air Jordan 1 low gray",
-//   price: 169.99,
-//   gender: ["women"],
-//   category: ["Women's shoes"],
-//   model: "Air Jordan 1",
-//   images: [
-//     `${baseUrl}airJordan-1-low-grey.avif`,
-//     `${baseUrl}airJordan-1-low-grey-up.avif`,
-//     `${baseUrl}airJordan-1-low-grey-full.avif`,
-//   ],
-//   colors: ["Pink", "White"],
-//   sizes: ["35", "36", "37", "38", "39"],
-// },
