@@ -7,8 +7,6 @@ export default async function SneakersList({ filter, sneakers }) {
 
   let displayedSneaker;
 
-  console.log(sneakers);
-
   if (filter === "all") displayedSneaker = sneakers;
 
   if (filter === "Price Low to High")
@@ -20,6 +18,14 @@ export default async function SneakersList({ filter, sneakers }) {
     displayedSneaker = [...sneakers].sort(
       (a, b) => Number(b.price) - Number(a.price)
     );
+
+  if (filter === "Sale")
+    displayedSneaker = sneakers
+      .filter((s) => s.sale)
+      .sort(
+        (a, b) =>
+          Number(b.sale.discountPercentage) - Number(a.sale.discountPercentage)
+      );
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full">
