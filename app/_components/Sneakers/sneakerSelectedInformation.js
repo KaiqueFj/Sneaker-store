@@ -11,7 +11,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
     sneaker;
   const [mainImage, setMainImage] = useState(images[0]);
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
-  const { dispatch, state } = useSneaker();
+  const { dispatch } = useSneaker();
 
   const addToCart = () => {
     dispatch({
@@ -31,63 +31,82 @@ export default function SneakerSelectedInformation({ sneaker }) {
   };
 
   return (
-    <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 p-8 items-baseline">
+    <div className="min-h-[80vh] w-full grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-10 p-4 sm:p-6 lg:p-12 items-start justify-center">
+      {/* Mobile: Product Info above image */}
+      <div className="block lg:hidden text-center">
+        <span className="text-gray-500 font-normal text-sm sm:text-base">
+          {category}
+        </span>
+        <h2 className="text-gray-900 font-bold text-2xl sm:text-3xl leading-tight mt-1">
+          {name}
+        </h2>
+
+        <span className="text-gray-900 font-semibold text-xl sm:text-2xl">
+          ${price}
+        </span>
+      </div>
+
       {/* Left: Images */}
-      <div className="flex flex-row gap-4">
-        {/* Thumbnails in column */}
-        <div className="flex flex-col gap-4">
+      <div className="flex flex-col items-center lg:items-center gap-6 w-full">
+        {/* Main Image */}
+        <div className="relative w-full sm:w-full md:w-[450px] lg:w-[550px] aspect-square bg-gray-100 rounded-md flex justify-center">
+          <Image
+            src={mainImage}
+            alt={name}
+            fill
+            className="object-contain p-4"
+            priority
+          />
+        </div>
+
+        {/* Thumbnails */}
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
           {images.map((imgSrc, idx) => (
             <Image
               key={idx}
               src={imgSrc}
               alt={`${name} thumbnail ${idx}`}
-              width={100}
-              height={100}
+              width={80}
+              height={80}
               onClick={() => setMainImage(imgSrc)}
-              className={`object-contain bg-gray-100 p-2 cursor-pointer hover:opacity-80 rounded 
+              className={`object-contain bg-gray-100 p-2 cursor-pointer hover:opacity-80 rounded-md transition 
                 ${mainImage === imgSrc ? "ring-2 ring-black" : ""}`}
             />
           ))}
         </div>
-
-        {/* Main Image */}
-        <div className="relative h-[400px] sm:h-[500px]  md:h-[600px] min-w-[30rem] bg-gray-100 rounded-md mx-auto">
-          <Image
-            src={mainImage}
-            alt={name}
-            fill
-            className="object-contain "
-            priority
-          />
-        </div>
       </div>
 
-      {/* Right: Product Info */}
-      <div className="flex flex-col w-full gap-6 place-self-start">
-        <div>
-          <span className="text-color-primary-400-500 font-normal text-md">
+      {/* Right: Product Info (Desktop) */}
+      <div className="flex flex-col gap-6 max-w-[420px] mx-auto lg:mx-0 w-full">
+        {/* Product title & category (hidden on small screens) */}
+        <div className="hidden lg:block">
+          <span className="text-gray-500 font-normal text-sm sm:text-base">
             {category}
           </span>
-          <h2 className="text-color-primary-600 font-bold text-3xl leading-tight">
+          <h2 className="text-gray-900 font-bold text-3xl leading-tight mt-1">
             {name}
           </h2>
-        </div>
 
-        <span className="text-color-primary-600 font-semibold text-2xl">{`$${price}`}</span>
+          {/* Price */}
+          <span className="text-gray-900 font-semibold text-2xl mt-2 block">
+            ${price}
+          </span>
+        </div>
 
         {/* Sizes */}
         <div>
-          <p className="text-sm font-semibold text-color-primary-400-500 mb-2">
+          <p className="text-sm font-semibold text-gray-500 mb-2">
             Select Size
           </p>
-          <div className="grid grid-cols-4 w-fit gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
             {sizes.map((size, idx) => (
               <button
                 key={idx}
-                className={`border h-12 w-20 font-medium border-gray-300 text-sm text-color-primary-400-700 rounded transition-colors hover:border-black ${
-                  sneakerSize === size ? "ring-1 ring-primary-500" : ""
-                }`}
                 onClick={() => setSneakerSize(size)}
+                className={`border h-10 sm:h-12 w-full font-medium border-gray-300 text-sm rounded transition-colors 
+                  hover:border-black ${
+                    sneakerSize === size ? "ring-1 ring-black" : ""
+                  }`}
               >
                 {size}
               </button>
@@ -96,16 +115,16 @@ export default function SneakerSelectedInformation({ sneaker }) {
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-col  gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={addToCart}
-            className="flex flex-row font-semibold items-center h-14 justify-center bg-primary-600 w-full  text-white px-6 py-2 rounded-full hover:bg-gray-800 transition"
+            className="flex items-center justify-center font-semibold bg-black text-white px-6 py-3 rounded-full w-full sm:w-[200px] hover:bg-gray-800 transition"
           >
-            Add to the cart
+            Add to Cart
             <ShoppingCartIcon className="ml-2 h-5 w-5" />
           </button>
 
-          <button className="flex gap-2 flex-row  w-full items-center h-14 justify-center border-primary-500/20 border-2  text-primary-600 px-4 rounded-full hover:bg-primary-600/10 transition hover:text-red-500">
+          <button className="flex items-center justify-center gap-2 border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-full w-full sm:w-[200px] hover:bg-gray-100 transition">
             Favorite
             <HeartIcon className="h-5 w-5" />
           </button>

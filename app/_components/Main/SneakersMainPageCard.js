@@ -6,7 +6,7 @@ export default function SneakerMainCard({ sneaker }) {
 
   return (
     <article
-      className="group relative bg-primary-500 hover:shadow-md transition-shadow duration-300 
+      className="group relative bg-gray-100 hover:shadow-md transition-shadow duration-300 
                  w-2/4 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg 
                  flex-shrink-0 flex flex-col rounded-2xl overflow-hidden"
     >
