@@ -41,6 +41,7 @@ export default function OtherOptions() {
     { label: "Releases", href: "/" },
     { label: "Men", href: "/sneakers/nav/men" },
     { label: "Women", href: "/sneakers/nav/women" },
+    { label: "Orders", href: "/account/orders" },
     { label: "Sign out" },
   ];
 
