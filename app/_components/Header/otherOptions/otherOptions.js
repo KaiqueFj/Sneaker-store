@@ -30,7 +30,7 @@ export default function OtherOptions() {
     },
     {
       label: "Orders",
-      href: "/orders",
+      href: "/account/orders",
       icon: <ShoppingBagIcon className="text-primary-600 w-6 h-6" />,
     },
     { label: "Sign out" },
@@ -41,6 +41,7 @@ export default function OtherOptions() {
     { label: "Releases", href: "/" },
     { label: "Men", href: "/sneakers/nav/men" },
     { label: "Women", href: "/sneakers/nav/women" },
+    { label: "Sign out" },
   ];
 
   // Close mobile menu on outside click
@@ -182,11 +183,14 @@ function MobileMenu({
         <div className="flex flex-col space-y-4 px-4 py-4">
           {session?.user ? (
             <>
-              <div className="flex items-start flex-row">
+              <div className="flex items-center flex-row">
                 <UserCircleIcon className="text-primary-600 w-6 h-6 mr-1" />
-                <span className="flex text-primary-600">
+                <Link
+                  href="/account"
+                  className="flex text-primary-600 hover:bg-gray-100 py-1 px-1 rounded-md    transition-colors"
+                >
                   Hello, {session.user?.name?.split(" ")[0] ?? "User"}
-                </span>
+                </Link>
               </div>
               <NavigationList navItems={navOptions} className="flex-col" />
             </>
