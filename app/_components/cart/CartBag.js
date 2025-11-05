@@ -27,6 +27,13 @@ export default function CartBag() {
   );
 
   const handleOrderBtn = async () => {
+    // 1️⃣ Check authentication first
+    if (!session?.user?.userId) {
+      toast.error("You must log in first to place an order!");
+      return; // Stop execution here
+    }
+
+    // 2️⃣ Continue with the normal order flow
     await toast.promise(
       createOrder({
         cartItems: state.items,
