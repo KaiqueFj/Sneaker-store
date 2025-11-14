@@ -146,14 +146,12 @@ export default function CartBag() {
         <h2 className="text-2xl font-semibold mb-6 text-primary-600">
           Summary
         </h2>
-
         <div className="flex justify-between items-center mb-4">
           <span className="text-base font-medium text-primary-600">
             Do you have a Promo code?
           </span>
           <ArrowDownIcon className="h-5 w-5 text-primary-600" />
         </div>
-
         <div className="flex justify-between items-center mb-2">
           <span className="text-base text-primary-600">Subtotal</span>
           <span className="text-base font-semibold text-primary-600">
@@ -165,19 +163,16 @@ export default function CartBag() {
             )}
           </span>
         </div>
-
         <div className="flex justify-between items-center mb-2">
           <span className="text-base text-primary-600">
             Shipping & Handling
           </span>
           <span className="text-base font-semibold text-primary-600">Free</span>
         </div>
-
         <div className="flex justify-between items-center mb-4">
           <span className="text-base text-primary-600">Estimated Tax</span>
           <span className="text-base font-semibold text-primary-600">—</span>
         </div>
-
         <div className="flex justify-between items-center border-t pt-4 mt-4">
           <span className="text-lg font-semibold text-primary-600">Total</span>
           <span className="text-lg font-bold text-primary-600">
@@ -189,13 +184,14 @@ export default function CartBag() {
             )}
           </span>
         </div>
-
-        <button
-          onClick={handleOrderBtn}
-          className="mt-6 w-full bg-primary-600 text-white py-3 rounded-xl font-medium hover:bg-primary-600 transition"
-        >
-          Checkout
-        </button>
+        {state.items.length > 0 && (
+          <button
+            onClick={handleOrderBtn}
+            className="mt-6 w-full bg-primary-600 text-white py-3 rounded-xl font-medium hover:bg-primary-600 transition"
+          >
+            Checkout
+          </button>
+        )}
       </div>
     </div>
   );
