@@ -14,7 +14,7 @@ import Link from "next/link";
 import { createOrder } from "@/app/_lib/data-service";
 import { toast } from "react-hot-toast";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { redirect } from "next/navigation";
 
 export default function CartBag() {
   const { state, dispatch } = useSneaker();
@@ -31,8 +31,7 @@ export default function CartBag() {
     // 1️⃣ Check authentication first
     if (!session?.user?.userId) {
       toast.error("You must log in first to place an order! Redirecting...");
-      router.push("/login");
-      return; // Stop execution here
+      redirect("/login");
     }
 
     // 2️⃣ Continue with the normal order flow
