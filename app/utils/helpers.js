@@ -4,8 +4,9 @@ export const formatCurrency = (value) =>
   );
 
 export const formatDate = (value) => {
-  const date = new Date(value);
+  const date = new Date(value + "Z");
   return date.toLocaleDateString("en-US", {
+    timeZone: "America/Sao_Paulo",
     day: "numeric",
     month: "short",
     year: "numeric",

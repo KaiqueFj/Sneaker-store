@@ -14,11 +14,12 @@ import Link from "next/link";
 import { createOrder } from "@/app/_lib/data-service";
 import { toast } from "react-hot-toast";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function CartBag() {
   const { state, dispatch } = useSneaker();
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   const totalPrice = formatCurrency(
     state.items.reduce(
@@ -31,7 +32,7 @@ export default function CartBag() {
     // 1️⃣ Check authentication first
     if (!session?.user?.userId) {
       toast.error("You must log in first to place an order! Redirecting...");
-      redirect("/login");
+      router.push("/login");
     }
 
     // 2️⃣ Continue with the normal order flow
@@ -185,7 +186,11 @@ export default function CartBag() {
         </div>
         {state.items.length > 0 && (
           <button
-            onClick={handleOrderBtn}
+            onClick={() =>
+              handleOrderBtn().then(() =>
+                router.push("/account/orders/thankyou")
+              )
+            }
             className="mt-6 w-full bg-primary-600 text-white py-3 rounded-xl font-medium hover:bg-primary-600 transition"
           >
             Checkout

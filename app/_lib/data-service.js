@@ -166,6 +166,7 @@ export const getOrders = async function (clientId) {
     , total_price
   `
     )
+    .order("created_at", { ascending: false })
     .eq("client_id", clientId);
 
   return data;
