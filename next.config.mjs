@@ -14,6 +14,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.stockx.com", // allow StockX images
       },
+
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
 };

@@ -8,7 +8,12 @@ export default async function page() {
   const orders = await getOrders(session?.user?.userId);
 
   return (
-    <div className="flex mx-auto flex-col max-w-7xl ">
+    <div className=" mx-auto flex flex-col p-4 gap-6 max-w-7xl ">
+      <div>
+        <h2 className="mb-4 text-2xl text-center font-medium  text-accent-400">
+          Your Orders
+        </h2>
+      </div>
       <Order orders={orders} />
     </div>
   );
