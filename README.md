@@ -2,8 +2,6 @@
 
 A fully responsive and dynamic sneaker e-commerce platform inspired by **Nike’s UI/UX**, built with **Next.js**, **Supabase**, **NextAuth**, and **Toastify**.
 
-![Sneakers Banner](https://dummyimage.com/1200x300/000/fff&text=Sneakers+Store+Preview)
-
 ---
 
 ## 🚀 Overview
