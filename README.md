@@ -110,7 +110,7 @@ src/
 
 ## 🌎 Take a look at the live project
 
-[https://sharkf-store.netlify.app](https://sneakers-store.app/)
+[https://sharkf-store.netlify.app](https://sharkf-store.netlify.app)
 
 ---
 
