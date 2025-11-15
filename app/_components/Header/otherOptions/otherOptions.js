@@ -193,7 +193,11 @@ function MobileMenu({
                   Hello, {session.user?.name?.split(" ")[0] ?? "User"}
                 </Link>
               </div>
-              <NavigationList navItems={navOptions} className="flex-col" />
+              <NavigationList
+                navItems={navOptions}
+                className="flex-col"
+                onItemClick={() => setMobileMenuOpen(false)}
+              />
             </>
           ) : (
             <>
