@@ -1,40 +1,135 @@
-<<<<<<< HEAD
-# Sneaker-store
-=======
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 👟 Sneakers Store — Modern E-commerce Experience
 
-## Getting Started
+A fully responsive and dynamic sneaker e-commerce platform inspired by **Nike’s UI/UX**, built with **Next.js**, **Supabase**, **NextAuth**, and **Toastify**.
 
-First, run the development server:
+![Sneakers Banner](https://dummyimage.com/1200x300/000/fff&text=Sneakers+Store+Preview)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 Overview
+
+This project delivers a complete, modern online shopping experience.  
+Users can browse sneakers, add them to the cart, manage quantities, simulate orders, update their profile, and log in with Google — all wrapped in a clean, Nike-inspired interface.
+
+This is more than a frontend: it’s a **full-stack web application** with authentication, real dynamic data, and a powerful shopping workflow.
+
+---
+
+## ✨ Key Features
+
+### 🖥️ Fully Responsive UI
+
+- Mobile-first layout
+- Smooth, modern design modeled after Nike's website
+- Adaptive navbar, dropdowns, modals, and dynamic pages
+
+### 🔐 Authentication
+
+- Sign in with **Google** (via NextAuth)
+- Protected pages for account, orders, and profile
+
+### 🛒 Shopping Cart
+
+- Add sneakers to the cart
+- Manage item quantity
+- Remove items
+- Cart saved through context/state
+- Realtime UI updates
+
+### 📦 Order Simulation System
+
+- Place a simulated order
+- Orders stored in Supabase
+- View previous orders
+- Order details page
+
+### 👤 User Profile Management
+
+- Update profile information
+- Track orders
+- Manage account settings
+
+### 🗄️ Supabase Backend
+
+- Database for sneakers, users, and orders
+- OAuth login
+- Realtime-capable backend
+
+### 🔔 Toastify Notifications
+
+- Success and error alerts
+- Smooth UX feedback
+
+---
+
+## 🧰 Tech Stack
+
+### Frontend
+
+- **Next.js 14**
+- **React**
+- **Tailwind CSS**
+- **Context API** / custom hooks
+
+### Backend
+
+- **Supabase**
+- **NextAuth**
+
+### Utilities
+
+- **Toastify**
+- **Heroicons**
+- **Next/Image**
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+ ├── app/                 # Next.js routes
+ ├── components/          # Reusable UI components
+ ├── context/             # Cart + sneaker context
+ ├── lib/                 # Configs & utilities
+ ├── styles/              # Global styling
+ └── utils/               # Helpers & formatters
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🧪 Features Preview
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 🏠 Homepage
+- 👟 Sneaker listing
+- 📄 Sneaker details
+- 🛒 Cart
+- 🔐 Login
+- 📦 Orders
+- 👤 Profile
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🌎 Take a look at the live project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[https://sharkf-store.netlify.app](https://sneakers-store.app/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🤝 Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Contributions are welcome!  
+Open an issue or submit a pull request to propose changes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
->>>>>>> master
+---
+
+## 📝 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## ⭐ Support
+
+If you enjoyed this project, consider giving the repository a **star** on GitHub!  
+It helps a lot and motivates further improvements.
