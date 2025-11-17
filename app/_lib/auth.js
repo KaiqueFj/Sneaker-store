@@ -15,14 +15,11 @@ const authConfig = {
     },
 
     async signIn({ user }) {
-      console.log("SignIn callback user:", user);
       try {
         const existingUser = await getUser(user.email);
-        console.log("existingUser:", existingUser);
 
         if (!existingUser) {
           await createUser({ email: user.email, name: user.name });
-          console.log("Created new user:", user.email);
         }
 
         return true; // IMPORTANT: must return true

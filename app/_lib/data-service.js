@@ -98,7 +98,6 @@ export const getSneaker = async function (id) {
     .single();
 
   if (error) {
-    console.log(error);
     throw new Error("Sneaker could not be loaded");
   }
 
@@ -147,7 +146,6 @@ export const createOrder = async function ({ cartItems, total_price }) {
     .insert(orderItems);
 
   if (itemsError) {
-    console.log(itemsError);
     throw new Error("Order items could not be created");
   }
 
