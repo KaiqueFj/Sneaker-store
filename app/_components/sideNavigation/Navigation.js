@@ -21,7 +21,7 @@ function AccountMenu() {
         <h2 className="text-lg text-primary-600 font-normal">Account</h2>
         <ul className="text-sm p-4 flex flex-col gap-2 bg-primary-50 rounded-md w-full text-primary-600 font-normal">
           <li className="font-normal text-primary-600/50 hover:text-primary-600 transition-colors duration-75">
-            <Link href="/account/orders">Update profile</Link>
+            <Link href="/account/profile">Update profile</Link>
           </li>
           <li className="font-normal text-primary-600/50 hover:text-primary-600 transition-colors duration-75">
             <Link href="/">Update e-mail</Link>

@@ -15,16 +15,20 @@ export async function signOutAction() {
 export async function updateUserProfile(formData) {
   const session = await auth();
 
+  const client_id = session.user.userId;
+
   if (!session) throw new Error("You must be logged in ");
 
   const email = formData.get("email");
+  const name = formData.get("name");
+  const birthday = formData.get("birthday");
 
-  const updateData = { email };
+  const updateData = { email, name, birthday };
 
   const { data, error } = await supabase
     .from("users")
     .update(updateData)
-    .eq("id", session.user.id);
+    .eq("id", client_id);
 
   if (error) throw new Error("User could not be updated");
 

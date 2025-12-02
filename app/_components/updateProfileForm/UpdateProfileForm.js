@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { updateUserProfile } from "@/app/_lib/actions";
 import Button from "@/app/_components/Button/Button";
 
-export default function UpdateProfileForm({ user, children }) {
-  const { name, email, nationality, nationalID, countryFlag } = user;
+export default function UpdateProfileForm({ user }) {
+  const { name, email } = user;
 
   return (
     <form
@@ -16,9 +15,8 @@ export default function UpdateProfileForm({ user, children }) {
         <label>Full name</label>
         <input
           name="name"
-          disabled
           defaultValue={name}
-          className="w-full px-5 py-3 rounded-sm shadow-sm bg-primary-200 text-primary-800 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-color-primary-400-400"
+          className="w-full px-5 py-3 bg-white   focus:ring-primary-600/20 outline-none  rounded-md border border-primary-600 text-primary-600   "
         />
       </div>
 
@@ -27,31 +25,17 @@ export default function UpdateProfileForm({ user, children }) {
         <input
           name="email"
           defaultValue={email}
-          className="w-full px-5 py-3 rounded-sm shadow-sm bg-primary-200 text-primary-800 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-color-primary-400-400"
+          className="w-full px-5 py-3 bg-white   focus:ring-primary-600/20 outline-none  rounded-md border border-primary-600 text-primary-600   "
         />
       </div>
 
       <div className="space-y-2">
-        <div className="relative flex items-end justify-between">
-          <label htmlFor="nationality">Where are you from?</label>
-          <div className="relative w-10 h-10">
-            <Image
-              className="rounded-sm"
-              src={countryFlag}
-              alt="Country flag"
-              fill
-            />
-          </div>
-        </div>
-        {children}
-      </div>
-
-      <div className="space-y-2">
-        <label htmlFor="nationalID">National ID number</label>
+        <label>Birthday</label>
         <input
-          name="nationalID"
-          defaultValue={nationalID}
-          className="w-full px-5 py-3 rounded-sm shadow-sm bg-primary-200 text-primary-800"
+          name="birthday"
+          type="date"
+          defaultValue={user.birthday ? user.birthday : ""}
+          className="w-full px-5 py-3 bg-white   focus:ring-primary-600/20 outline-none  rounded-md border border-primary-600 text-primary-600   "
         />
       </div>
 

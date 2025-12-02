@@ -11,12 +11,12 @@ export default async function Page() {
   const user = await getUser(session.user.email);
 
   return (
-    <div>
-      <h2 className="mb-4 text-2xl font-semibold text-accent-400">
+    <div className="p-2 flex flex-col justify-center">
+      <h2 className="mb-4 text-2xl  text-center font-semibold text-primary-600">
         Update your guest profile
       </h2>
 
-      <p className="mb-8 text-lg text-primary-200">
+      <p className="mb-8 text-xl text-center font-medium text-primary-400">
         Providing the following information will make your check-in process
         faster and smoother. See you soon!
       </p>
