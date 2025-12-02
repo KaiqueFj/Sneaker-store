@@ -1,4 +1,7 @@
 import Link from "next/link";
+import SignInButton from "./SignInButton";
+import { signUpNewUserAction } from "@/app/_lib/actions";
+import Button from "../Button/Button";
 
 export const metadata = {
   title: "Sign Up",
@@ -14,13 +17,14 @@ export default function SignUpComponent() {
 
       {/* Card */}
       <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8 space-y-6">
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" action={signUpNewUserAction}>
           {/* Full name */}
           <div className="space-y-1.5">
             <label className="text-sm font-medium text-neutral-700">
               Full name
             </label>
             <input
+              required
               type="text"
               name="name"
               placeholder="John Doe"
@@ -36,6 +40,7 @@ export default function SignUpComponent() {
               Email
             </label>
             <input
+              required
               type="email"
               name="email"
               placeholder="you@example.com"
@@ -51,6 +56,7 @@ export default function SignUpComponent() {
               Password
             </label>
             <input
+              required
               type="password"
               name="password"
               placeholder="••••••••"
@@ -61,14 +67,20 @@ export default function SignUpComponent() {
           </div>
 
           {/* Signup button */}
-          <button
-            type="submit"
-            className="w-full py-3 rounded-xl bg-primary-600 text-white font-medium
-            hover:bg-primary-700 transition-all"
-          >
-            Create account
-          </button>
+
+          <Button pendingLabel="Creating user...">Sign up</Button>
         </form>
+
+        {/* Divider */}
+        <div className="flex items-center gap-4">
+          <div className="h-[1px] flex-1 bg-neutral-200"></div>
+          <span className="text-sm text-neutral-500">or</span>
+          <div className="h-[1px] flex-1 bg-neutral-200"></div>
+        </div>
+        {/* Google login button */}
+        <div className="flex justify-center">
+          <SignInButton />
+        </div>
       </div>
 
       {/* Link to login */}

@@ -4,6 +4,54 @@ import { revalidatePath } from "next/cache";
 import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
 
+export async function signUpNewUserAction(formData) {
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  if (!email || !password) {
+    throw new Error("Email and password are required");
+  }
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        full_name: name,
+      },
+    },
+  });
+
+  if (error) {
+    console.error("Supabase signup error:", error);
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function signiNUserAction(formData) {
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  if (!email || !password) {
+    throw new Error("Email and password are required");
+  }
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    console.error("Supabase signup error:", error);
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
 }
