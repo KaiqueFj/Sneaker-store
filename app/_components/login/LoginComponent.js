@@ -1,7 +1,43 @@
+"use client";
+
 import Link from "next/link";
 import SignInButton from "./SignInButton";
+import { useRouter } from "next/navigation";
+import { signInUserAction } from "@/app/_lib/actions";
+import { toast } from "react-hot-toast";
 
 export default function LoginComponent() {
+  const router = useRouter();
+
+  async function handleSubmit(formData) {
+    toast.dismiss();
+
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    console.log(email, password);
+    console.log(formData);
+
+    if (!email || !password) {
+      toast.error("Email and password are required");
+      return;
+    }
+
+    toast.loading("Signing in...");
+
+    const res = await signInUserAction(formData);
+
+    toast.dismiss();
+
+    if (res.error) {
+      toast.error(res.error);
+      return;
+    }
+
+    toast.success("Welcome back!");
+    router.push("/account/profile");
+  }
+
   return (
     <div className="flex flex-col items-center px-4 mt-16 gap-8">
       {/* Title */}
@@ -12,7 +48,7 @@ export default function LoginComponent() {
       {/* Card */}
       <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8 space-y-6">
         {/* Email */}
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" action={handleSubmit}>
           <div className="space-y-1.5">
             <label className="text-sm font-medium text-neutral-700">
               Email

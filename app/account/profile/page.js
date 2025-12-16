@@ -1,6 +1,7 @@
 import UpdateProfileForm from "@/app/_components/updateProfileForm/UpdateProfileForm";
 import { auth } from "@/app/_lib/auth";
 import { getUser } from "@/app/_lib/data-service";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Update profile",
@@ -8,6 +9,8 @@ export const metadata = {
 
 export default async function Page() {
   const session = await auth();
+  console.log(session);
+
   const user = await getUser(session.user.email);
 
   return (

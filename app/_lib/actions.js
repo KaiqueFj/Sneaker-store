@@ -1,8 +1,10 @@
 "use server";
 
+import bcrypt from "bcrypt";
 import { revalidatePath } from "next/cache";
 import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
+import { createUser, getUser } from "./data-service";
 
 export async function signUpNewUserAction(formData) {
   const name = formData.get("name");
@@ -10,46 +12,46 @@ export async function signUpNewUserAction(formData) {
   const password = formData.get("password");
 
   if (!email || !password) {
-    throw new Error("Email and password are required");
+    console.log("Email and password are required");
   }
 
-  const { data, error } = await supabase.auth.signUp({
+  const existingUser = await getUser(email);
+  if (existingUser) {
+    console.log("User already exists");
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 12);
+
+  await createUser({
+    name,
     email,
-    password,
-    options: {
-      data: {
-        full_name: name,
-      },
-    },
+    password: hashedPassword,
   });
 
-  if (error) {
-    console.error("Supabase signup error:", error);
-    throw new Error(error.message);
-  }
-
-  return data;
+  return { success: true };
 }
 
-export async function signiNUserAction(formData) {
+export async function signInUserAction(formData) {
   const email = formData.get("email");
   const password = formData.get("password");
 
   if (!email || !password) {
-    throw new Error("Email and password are required");
+    return { error: "Email and password are required" };
   }
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  const user = await getUser(email);
 
-  if (error) {
-    console.error("Supabase signup error:", error);
-    throw new Error(error.message);
+  if (!user || !user.password) {
+    return { error: "Invalid email or password" };
   }
 
-  return data;
+  const isValid = await bcrypt.compare(password, user.password);
+
+  if (!isValid) {
+    return { error: "Invalid email or password" };
+  }
+
+  return { success: true, userId: user.id };
 }
 
 export async function signInAction() {

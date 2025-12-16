@@ -1,5 +1,4 @@
-import Link from "next/link";
-import SignUpComponent from "../_components/login/SignUpComponent";
+import SignUpComponent from "../_components/signup/SignUpComponent";
 
 export const metadata = {
   title: "Sign Up",
