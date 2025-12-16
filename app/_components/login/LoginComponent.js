@@ -3,7 +3,6 @@
 import Link from "next/link";
 import SignInButton from "./SignInButton";
 import { useRouter } from "next/navigation";
-import { signInUserAction } from "@/app/_lib/actions";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
 
