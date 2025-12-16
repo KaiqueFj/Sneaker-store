@@ -1,5 +1,5 @@
 // middleware.ts
-import { auth } from "@/app/_lib/auth-edge";
+import { auth } from "./app/_lib/auth-edge";
 import { NextResponse } from "next/server";
 
 export async function middleware(req) {

@@ -1,4 +1,3 @@
-// app/_lib/auth.ts
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -40,21 +39,31 @@ export const {
   ],
 
   callbacks: {
-    async signIn({ user }) {
+    async signIn({ user, account }) {
       const existingUser = await getUser(user.email);
+
       if (!existingUser) {
-        await createUser({ email: user.email, name: user.name });
+        await createUser({
+          email: user.email,
+          name: user.name,
+          provider: account?.provider,
+          password: null,
+        });
       }
+
       return true;
     },
 
     async jwt({ token, user }) {
-      if (user) token.userId = user.id;
+      if (user?.email) {
+        const dbUser = await getUser(user.email);
+        if (dbUser) token.userId = dbUser.id;
+      }
       return token;
     },
 
     async session({ session, token }) {
-      if (session.user) {
+      if (session.user && token.userId) {
         session.user.userId = token.userId;
       }
       return session;

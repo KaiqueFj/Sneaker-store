@@ -12,12 +12,12 @@ export async function signUpNewUserAction(formData) {
   const password = formData.get("password");
 
   if (!email || !password) {
-    console.log("Email and password are required");
+    return { error: "Email and password are required" };
   }
 
   const existingUser = await getUser(email);
   if (existingUser) {
-    console.log("User already exists");
+    return { error: "User already exists" };
   }
 
   const hashedPassword = await bcrypt.hash(password, 12);
@@ -26,6 +26,7 @@ export async function signUpNewUserAction(formData) {
     name,
     email,
     password: hashedPassword,
+    provider: "credentials",
   });
 
   return { success: true };

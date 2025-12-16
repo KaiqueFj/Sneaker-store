@@ -1,4 +1,3 @@
-// app/_lib/auth-edge.ts
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
