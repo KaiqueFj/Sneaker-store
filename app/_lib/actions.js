@@ -31,29 +31,6 @@ export async function signUpNewUserAction(formData) {
   return { success: true };
 }
 
-export async function signInUserAction(formData) {
-  const email = formData.get("email");
-  const password = formData.get("password");
-
-  if (!email || !password) {
-    return { error: "Email and password are required" };
-  }
-
-  const user = await getUser(email);
-
-  if (!user || !user.password) {
-    return { error: "Invalid email or password" };
-  }
-
-  const isValid = await bcrypt.compare(password, user.password);
-
-  if (!isValid) {
-    return { error: "Invalid email or password" };
-  }
-
-  return { success: true, userId: user.id };
-}
-
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
 }

@@ -5,6 +5,7 @@ import SignInButton from "./SignInButton";
 import { useRouter } from "next/navigation";
 import { signInUserAction } from "@/app/_lib/actions";
 import { toast } from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 export default function LoginComponent() {
   const router = useRouter();
@@ -15,9 +16,6 @@ export default function LoginComponent() {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    console.log(email, password);
-    console.log(formData);
-
     if (!email || !password) {
       toast.error("Email and password are required");
       return;
@@ -25,17 +23,21 @@ export default function LoginComponent() {
 
     toast.loading("Signing in...");
 
-    const res = await signInUserAction(formData);
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
 
     toast.dismiss();
 
-    if (res.error) {
-      toast.error(res.error);
+    if (res?.error) {
+      toast.error("Invalid email or password");
       return;
     }
 
     toast.success("Welcome back!");
-    router.push("/account/profile");
+    router.push("/account");
   }
 
   return (
