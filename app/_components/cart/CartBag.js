@@ -30,8 +30,12 @@ export default function CartBag() {
   const handleOrderBtn = async () => {
     // 1️⃣ Check authentication first
     if (!session?.user?.userId) {
-      toast.error("You must log in first to place an order! Redirecting...");
-      router.push("/login");
+      toast.error(
+        "You must log in first to place an order! Redirecting you to the login page..."
+      );
+      setTimeout(() => {
+        router.push("/login");
+      }, 3000);
     }
 
     // 2️⃣ Continue with the normal order flow
@@ -74,7 +78,7 @@ export default function CartBag() {
                   alt={sneaker.name}
                   width={140}
                   height={120}
-                  className="rounded-xl object-cover w-full md:w-[140px] h-auto"
+                  className="rounded-xl object-cover w-full md:w-35 h-auto"
                 />
               </Link>
 
