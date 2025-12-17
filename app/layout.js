@@ -1,7 +1,8 @@
+import { auth } from "@/lib/auth";
 import { Inter } from "next/font/google";
-import "./_styles/globals.css";
-import Header from "./_components/Header/Header";
 import Footer from "./_components/Footer";
+import Header from "./_components/Header/Header";
+import "./_styles/globals.css";
 import { Providers } from "./providers";
 
 const inter = Inter({
@@ -15,13 +16,15 @@ export const metadata = {
   description: "Shop the latest sneakers",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await auth();
+
   return (
     <html lang="en">
       <body
         className={` ${inter.className} relative  min-h-screen antialiased  flex flex-col text-primary-600`}
       >
-        <Providers>
+        <Providers session={session}>
           <Header />
 
           <div className="grid flex-1 overflow-hidden  py-12">
