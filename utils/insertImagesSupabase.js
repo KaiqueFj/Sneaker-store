@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { supabase } from "@/app/_lib/supabase.js";
+import { supabase } from "../lib/supabase";
 
 const localImageDir = "../public/_assets/sneakers"; // folder where you have your images locally
 const bucketName = "sneakers/sneakers"; // your Supabase bucket name

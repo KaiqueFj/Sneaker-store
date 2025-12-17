@@ -1,4 +1,4 @@
-import { seedSneakersTable } from "@/app/utils/insertDummyData";
+import { seedSneakersTable } from "../../../utils/insertDummyData";
 
 export async function GET() {
   await seedSneakersTable();

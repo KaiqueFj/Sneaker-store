@@ -1,7 +1,7 @@
 "use client";
 
-import { updateUserProfile } from "@/app/_lib/actions";
-import Button from "@/app/_components/Button/Button";
+import { updateUserProfile } from "../../../lib/actions";
+import Button from "../Button/Button";
 
 export default function UpdateProfileForm({ user }) {
   const { name, email } = user;

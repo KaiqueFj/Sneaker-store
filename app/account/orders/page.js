@@ -1,7 +1,6 @@
-import React from "react";
-import Order from "@/app/_components/orders/Order";
-import { getOrders } from "@/app/_lib/data-service";
-import { auth } from "@/app/_lib/auth";
+import { auth } from "../../../lib/auth";
+import { getOrders } from "../../../lib/data-service";
+import Order from "../../_components/orders/Order";
 
 export default async function page() {
   const session = await auth();

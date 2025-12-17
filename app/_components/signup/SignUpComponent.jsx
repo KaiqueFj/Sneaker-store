@@ -1,7 +1,7 @@
 import Link from "next/link";
-import SignInButton from "../login/SignInButton";
+import { signUpNewUserAction } from "../../../lib/actions";
 import Button from "../Button/Button";
-import { signUpNewUserAction } from "../../_lib/actions";
+import SignInButton from "../login/SignInButton";
 
 export const metadata = { title: "Sign Up" };
 

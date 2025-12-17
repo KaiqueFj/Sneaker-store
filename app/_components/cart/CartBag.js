@@ -1,20 +1,19 @@
 "use client";
 
-import React from "react";
-import { useSneaker } from "../../context/SneakerContext";
-import Image from "next/image";
 import {
   ArrowDownIcon,
   MinusCircleIcon,
   PlusCircleIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { formatCurrency } from "@/app/utils/helpers";
-import Link from "next/link";
-import { createOrder } from "@/app/_lib/data-service";
-import { toast } from "react-hot-toast";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
+import { useSneaker } from "../../../context/SneakerContext";
+import { createOrder } from "../../../lib/data-service";
+import { formatCurrency } from "../../../utils/helpers";
 
 export default function CartBag() {
   const { state, dispatch } = useSneaker();

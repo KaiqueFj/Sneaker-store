@@ -1,4 +1,4 @@
-import { supabase } from "@/app/_lib/supabase";
+import { supabase } from "../lib/supabase";
 import { getSneakersFromApi } from "./getDummyData";
 
 export async function seedSneakersTable() {

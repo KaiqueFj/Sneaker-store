@@ -1,19 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import {
-  ShoppingBagIcon,
+  Bars3Icon,
   HeartIcon,
+  ShoppingBagIcon,
   UserCircleIcon,
   XMarkIcon,
-  Bars3Icon,
 } from "@heroicons/react/24/outline";
-import { useSneaker } from "../../../context/SneakerContext";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
-import SearchBar from "./SearchBar";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useSneaker } from "../../../../context/SneakerContext";
 import NavigationList from "../nav/NavigationList";
+import SearchBar from "./SearchBar";
 
 export default function OtherOptions() {
   const { state } = useSneaker();

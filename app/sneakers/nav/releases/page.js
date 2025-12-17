@@ -1,9 +1,9 @@
-import React, { Suspense } from "react";
-import SneakersList from "@/app/_components/Sneakers/sneakerList";
-import Filter from "@/app/_components/Sneakers/filter/filter";
-import Spinner from "@/app/_components/Spinner/Spinner";
-import { getNewestSneakers, getSneakersOnSale } from "@/app/_lib/data-service";
-import Category from "@/app/_components/HeaderPages/Category";
+import { Suspense } from "react";
+import { getNewestSneakers } from "../../../../lib/data-service";
+import Category from "../../../_components/HeaderPages/Category";
+import Filter from "../../../_components/Sneakers/filter/filter";
+import SneakersList from "../../../_components/Sneakers/sneakerList";
+import Spinner from "../../../_components/Spinner/Spinner";
 
 export async function generateMetadata() {
   return { title: `New & Featured Sneakers` };

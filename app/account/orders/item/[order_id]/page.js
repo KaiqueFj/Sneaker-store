@@ -1,6 +1,6 @@
-import { getOrderItems } from "@/app/_lib/data-service";
 import Image from "next/image";
 import Link from "next/link";
+import { getOrderItems } from "../../../../../lib/data-service";
 
 export default async function page({ params }) {
   const { order_id } = await params;

@@ -1,9 +1,8 @@
 "use client";
 
 import { SessionProvider } from "next-auth/react";
-import { SneakerProvider } from "./context/SneakerContext"; // adjust path
 import { Toaster } from "react-hot-toast";
-import React from "react";
+import { SneakerProvider } from "../context/SneakerContext";
 
 export function Providers({ children }) {
   return (

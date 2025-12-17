@@ -1,12 +1,12 @@
-import Image from "next/image";
-import { useSneaker } from "../../context/SneakerContext";
 import {
   CheckCircleIcon,
   ShoppingCartIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { useSneaker } from "../../../context/SneakerContext";
 
 export default function Cart() {
   const { state } = useSneaker();

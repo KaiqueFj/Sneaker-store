@@ -1,8 +1,8 @@
 // middleware.ts
-import { auth } from "./app/_lib/auth-edge";
 import { NextResponse } from "next/server";
+import { auth } from "./lib/auth-edge";
 
-export async function middleware(req) {
+export async function proxy(req) {
   const session = await auth();
 
   if (!session) {

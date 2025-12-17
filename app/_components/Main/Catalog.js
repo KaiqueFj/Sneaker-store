@@ -1,7 +1,7 @@
-import { getAllSneakers, getSneakers } from "@/app/_lib/data-service";
-import SneakerMainCard from "./SneakersMainPageCard";
 import { Suspense } from "react";
+import { getSneakers } from "../../../lib/data-service";
 import Spinner from "../Spinner/Spinner";
+import SneakerMainCard from "./SneakersMainPageCard";
 
 export default async function Catalog() {
   const sneakers = await getSneakers();

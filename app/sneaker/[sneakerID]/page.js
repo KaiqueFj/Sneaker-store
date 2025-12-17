@@ -1,5 +1,5 @@
+import { getSneaker } from "../../../lib/data-service";
 import SneakerSelectedInformation from "../../_components/Sneakers/sneakerSelectedInformation";
-import { getSneaker } from "../../_lib/data-service";
 
 export default async function page({ params }) {
   const { sneakerID } = await params;

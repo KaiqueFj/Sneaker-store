@@ -2,8 +2,8 @@
 
 import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import React, { useState } from "react";
-import { useSneaker } from "../../context/SneakerContext";
+import { useState } from "react";
+import { useSneaker } from "../../../context/SneakerContext";
 import Cart from "../cart/Cart";
 
 export default function SneakerSelectedInformation({ sneaker }) {

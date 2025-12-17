@@ -5,7 +5,7 @@ import {
   UserIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/24/solid";
-import SignOutButton from "@/app/_components/login/SignOutButton";
+import SignOutButton from "../login/SignOutButton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
