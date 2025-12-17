@@ -20,39 +20,38 @@ export default function CartBag() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  const totalPrice = formatCurrency(
-    state.items.reduce(
-      (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
-      0
-    )
+  const rawTotalPrice = state.items.reduce(
+    (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
+    0
   );
 
   const handleOrderBtn = async () => {
-    // 1️⃣ Check authentication first
     if (!session?.user?.userId) {
       toast.error(
         "You must log in first to place an order! Redirecting you to the login page..."
       );
-      setTimeout(() => {
-        router.push("/login");
-      }, 3000);
+      setTimeout(() => router.push("/login"), 3000);
+      return;
     }
 
-    // 2️⃣ Continue with the normal order flow
-    await toast.promise(
-      createOrder({
-        cartItems: state.items,
-        total_price: totalPrice,
-      }).then((res) => {
-        dispatch({ type: "CLEAR_CART" });
-        return res;
-      }),
-      {
-        loading: "Saving your order...",
-        success: "Order saved successfully!",
-        error: "Order could not be done! Try again!",
-      }
-    );
+    try {
+      await toast.promise(
+        createOrder({
+          cartItems: state.items,
+          total_price: rawTotalPrice,
+        }),
+        {
+          loading: "Saving your order...",
+          success: "Order saved successfully!",
+          error: "Order could not be done! Try again!",
+        }
+      );
+
+      dispatch({ type: "CLEAR_CART" });
+      router.push("/account/orders/thankyou");
+    } catch (error) {
+      console.error("Order error:", error);
+    }
   };
 
   return (
@@ -158,12 +157,7 @@ export default function CartBag() {
         <div className="flex justify-between items-center mb-2">
           <span className="text-base text-primary-600">Subtotal</span>
           <span className="text-base font-semibold text-primary-600">
-            {formatCurrency(
-              state.items.reduce(
-                (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
-                0
-              )
-            )}
+            {formatCurrency(rawTotalPrice)}
           </span>
         </div>
         <div className="flex justify-between items-center mb-2">
@@ -189,12 +183,9 @@ export default function CartBag() {
         </div>
         {state.items.length > 0 && (
           <button
-            onClick={() =>
-              handleOrderBtn().then(() =>
-                router.push("/account/orders/thankyou")
-              )
-            }
-            className="mt-6 w-full bg-primary-600 text-white py-3 rounded-xl font-medium hover:bg-primary-600 transition"
+            onClick={handleOrderBtn}
+            disabled={status === "loading"}
+            className="disabled:opacity-50 mt-6 w-full bg-primary-600 text-white py-3 rounded-xl font-medium hover:bg-primary-600 transition"
           >
             Checkout
           </button>
