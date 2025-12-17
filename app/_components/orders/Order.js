@@ -63,7 +63,7 @@ export default function Order({ orders }) {
                         <div className="text-sm font-normal text-primary-600/75">
                           <p>Price: ${item.price}</p>
                           <p>Quantity: {item.quantity}</p>
-                          <p>Subtotal: ${order.total_price}</p>
+                          <p>Subtotal: {order.total_price}</p>
                         </div>
                       </div>
                     </div>
