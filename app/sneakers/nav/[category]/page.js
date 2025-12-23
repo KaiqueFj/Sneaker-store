@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getFavorites, getSneakers } from "../../../../lib/data-service";
+import { getSneakers } from "../../../../lib/data-service";
 import Category from "../../../_components/HeaderPages/Category";
 import Filter from "../../../_components/Sneakers/filter/filter";
 import SneakersList from "../../../_components/Sneakers/sneakerList";
@@ -13,7 +13,6 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page({ params, searchParams }) {
-  const favorites = await getFavorites();
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
 
@@ -45,11 +44,7 @@ export default async function Page({ params, searchParams }) {
       </div>
       <div className="flex flex-row justify-center w-3/4">
         <Suspense fallback={<Spinner />} key={filter}>
-          <SneakersList
-            filter={filter}
-            sneakers={sneakers}
-            favorites={favorites}
-          />
+          <SneakersList filter={filter} sneakers={sneakers} />
         </Suspense>
       </div>
     </div>

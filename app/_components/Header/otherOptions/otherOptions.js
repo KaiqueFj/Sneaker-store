@@ -22,8 +22,6 @@ export default function OtherOptions() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const modalRef = useRef(null);
 
-  console.log(session);
-
   const navOptionsDesk = [
     {
       label: "Account",
