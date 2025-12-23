@@ -1,6 +1,6 @@
-import React, { Suspense } from "react";
-import SneakerDetails from "./sneakerDetails";
+import { Suspense } from "react";
 import Spinner from "../Spinner/Spinner";
+import SneakerDetails from "./sneakerDetails";
 
 export default async function SneakersList({ filter, sneakers }) {
   if (!sneakers) return null;
@@ -28,7 +28,7 @@ export default async function SneakersList({ filter, sneakers }) {
       );
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full">
+    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full">
       <Suspense fallback={<Spinner />} key={filter}>
         {displayedSneaker && displayedSneaker.length > 0 ? (
           displayedSneaker.map((sneaker) => (

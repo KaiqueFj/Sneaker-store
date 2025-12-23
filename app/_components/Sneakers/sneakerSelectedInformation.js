@@ -25,7 +25,6 @@ export default function SneakerSelectedInformation({ sneaker }) {
         await createFavorite(sneaker.id);
       } catch (error) {
         setIsFavorite(false);
-        console.error(error);
       }
     });
   }

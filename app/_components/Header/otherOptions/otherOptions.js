@@ -100,9 +100,11 @@ function Cart({ totalItems }) {
 
 function FavoritesBtn() {
   return (
-    <button className="transition-colors rounded-xl p-2 hover:bg-gray-300">
-      <HeartIcon className="text-primary-600 w-6 h-6" />
-    </button>
+    <Link href="/favorites">
+      <button className="transition-colors rounded-xl p-2 hover:bg-gray-300">
+        <HeartIcon className="text-primary-600 w-6 h-6" />
+      </button>
+    </Link>
   );
 }
 
