@@ -1,17 +1,34 @@
 "use client";
 
+import { createFavorite } from "@/lib/data-service";
 import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useSneaker } from "../../../context/SneakerContext";
 import Cart from "../cart/Cart";
 
 export default function SneakerSelectedInformation({ sneaker }) {
+  const [isPending, startTransition] = useTransition();
+  const [isFavorite, setIsFavorite] = useState(false);
+
   const { name, price, category, images, sizes, colors, gender, model } =
     sneaker;
   const [mainImage, setMainImage] = useState(images[0]);
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
   const { dispatch } = useSneaker();
+
+  function handleFavorite() {
+    setIsFavorite(!isFavorite);
+
+    startTransition(async () => {
+      try {
+        await createFavorite(sneaker.id);
+      } catch (error) {
+        setIsFavorite(false);
+        console.error(error);
+      }
+    });
+  }
 
   const addToCart = () => {
     dispatch({
@@ -49,7 +66,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
       {/* Left: Images */}
       <div className="flex flex-col items-center lg:items-center gap-6 w-full">
         {/* Main Image */}
-        <div className="relative w-full sm:w-full md:w-[450px] lg:w-[550px] aspect-square bg-gray-100 rounded-md flex justify-center">
+        <div className="relative w-full sm:w-full md:w-112.5 lg:w-137.5 aspect-square bg-gray-100 rounded-md flex justify-center">
           <Image
             src={mainImage}
             alt={name}
@@ -77,7 +94,7 @@ export default function SneakerSelectedInformation({ sneaker }) {
       </div>
 
       {/* Right: Product Info (Desktop) */}
-      <div className="flex flex-col gap-6 max-w-[420px] mx-auto lg:mx-0 w-full">
+      <div className="flex flex-col gap-6 max-w-105 mx-auto lg:mx-0 w-full">
         {/* Product title & category (hidden on small screens) */}
         <div className="hidden lg:block">
           <span className="text-gray-500 font-normal text-sm sm:text-base">
@@ -118,15 +135,23 @@ export default function SneakerSelectedInformation({ sneaker }) {
         <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={addToCart}
-            className="flex items-center justify-center font-semibold bg-black text-white px-6 py-3 rounded-full w-full sm:w-[200px] hover:bg-gray-800 transition"
+            className="flex items-center justify-center font-semibold bg-black text-white px-6 py-3 rounded-full w-full sm:w-50 hover:bg-gray-800 transition"
           >
             Add to Cart
             <ShoppingCartIcon className="ml-2 h-5 w-5" />
           </button>
 
-          <button className="flex items-center justify-center gap-2 border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-full w-full sm:w-[200px] hover:bg-gray-100 transition">
+          <button
+            onClick={handleFavorite}
+            disabled={isPending}
+            className="flex items-center justify-center gap-2 border-2 border-gray-300 px-6 py-3 rounded-full hover:bg-gray-100 transition"
+          >
             Favorite
-            <HeartIcon className="h-5 w-5" />
+            <HeartIcon
+              className={`h-5 w-5 ${
+                isFavorite ? "fill-red-500 text-red-500" : ""
+              }`}
+            />
           </button>
         </div>
 
