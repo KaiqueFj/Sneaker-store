@@ -35,14 +35,17 @@ export default async function Page({ params, searchParams }) {
   }
 
   return (
-    <div className="flex flex-col justify-center mx-auto gap-6 place-items-center">
-      <div className="flex items-center justify-between w-3/4 sticky">
+    <div className="flex flex-col mx-auto gap-8">
+      {/* Header */}
+      <div className="flex items-center justify-between px-6 lg:px-12">
         <Category>
           {category ? `${category} sneakers` : "All sneakers"}
         </Category>
         <Filter />
       </div>
-      <div className="flex flex-row justify-center w-3/4">
+
+      {/* Grid */}
+      <div className="w-full px-6 lg:px-12">
         <Suspense fallback={<Spinner />} key={filter}>
           <SneakersList filter={filter} sneakers={sneakers} />
         </Suspense>

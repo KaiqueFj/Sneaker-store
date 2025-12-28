@@ -26,22 +26,26 @@ export default function SneakerDetails({ sneaker }) {
         } else {
           await removeFavorite(id);
         }
-      } catch (error) {
+      } catch {
         setIsFavoriteState(!nextValue);
       }
     });
   }
 
   return (
-    <div className="relative flex flex-col w-full max-w-sm bg-white">
+    <Link
+      href={`/sneaker/${id}`}
+      className="group relative flex flex-col w-full"
+    >
       {/* Favorite Button */}
       <button
         onClick={handleFavorite}
         disabled={isPending}
-        className="absolute top-3 right-3 z-20
+        className="absolute top-4 right-4 z-20
                    flex items-center justify-center
-                   w-9 h-9 rounded-full bg-white
-                   shadow hover:scale-105 transition"
+                   w-10 h-10 rounded-full bg-white/90
+                   backdrop-blur shadow-sm
+                   transition hover:scale-110"
       >
         <HeartIcon
           className={`w-5 h-5 transition ${
@@ -50,27 +54,34 @@ export default function SneakerDetails({ sneaker }) {
         />
       </button>
 
-      {/* Card Link */}
-      <Link href={`/sneaker/${id}`} className="flex flex-col group">
-        <div className="relative w-full h-64 sm:h-80 bg-gray-100">
-          <Image
-            src={images[0]}
-            alt={name}
-            fill
-            className="object-contain p-6 transition-transform group-hover:scale-105"
-            priority
-          />
-        </div>
+      {/* Image */}
+      <div
+        className="relative w-full aspect-4/5
+                   bg-gray-100 overflow-hidden"
+      >
+        <Image
+          src={images[0]}
+          alt={name}
+          fill
+          priority
+          className="object-contain 
+                     transition-transform duration-300
+                     group-hover:scale-105"
+        />
+      </div>
 
-        <div className="px-3 py-3">
-          <h3 className="font-semibold text-sm">{name}</h3>
-          <p className="text-xs text-gray-500">{category}</p>
-          <p className="text-xs text-gray-500">
-            {colors.length} {colors.length === 1 ? "Color" : "Colors"}
-          </p>
-          <p className="mt-1 font-semibold">${price}</p>
-        </div>
-      </Link>
-    </div>
+      {/* Info */}
+      <div className="mt-3 space-y-1">
+        <h3 className="text-sm font-medium leading-tight">{name}</h3>
+
+        <p className="text-xs text-gray-500">{category}</p>
+
+        <p className="text-xs text-gray-500">
+          {colors.length} {colors.length === 1 ? "Color" : "Colors"}
+        </p>
+
+        <p className="pt-1 text-sm font-semibold">${price}</p>
+      </div>
+    </Link>
   );
 }
