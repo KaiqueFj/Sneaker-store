@@ -16,16 +16,24 @@ export default async function Page({ searchParams }) {
 
   sneakers = await getSneakersOnSale();
 
+  console.log(sneakers);
+
   return (
-    <div className="flex flex-col justify-center mx-auto gap-6 place-items-center">
-      <div className="flex items-center justify-between w-3/4 sticky">
-        <Category>{`Sneakers on Sale (${sneakers.length})`}</Category>
-        <Filter />
-      </div>
-      <div className="flex flex-row justify-center w-3/4">
-        <Suspense fallback={<Spinner />} key={filter}>
-          <SneakersList filter={filter} sneakers={sneakers} />
-        </Suspense>
+    <div className="flex  justify-center h-auto min-h-screen">
+      <div className="w-full flex flex-col gap-10 max-w-[1440px] mx-auto px-6 lg:px-10 box-border py-0 ">
+        {/* Header */}
+        <div className="flex items-center h- justify-between px-6 lg:px-12">
+          <Category>{`Sneakers on Sale (${sneakers.length})`}</Category>
+
+          <Filter />
+        </div>
+
+        {/* Grid */}
+        <div className="flex justify-center px-6 ">
+          <Suspense fallback={<Spinner />} key={filter}>
+            <SneakersList filter={filter} sneakers={sneakers} />
+          </Suspense>
+        </div>
       </div>
     </div>
   );

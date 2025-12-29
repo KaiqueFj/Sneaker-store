@@ -12,7 +12,8 @@ import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
 export default function SneakerDetails({ sneaker }) {
-  const { id, name, price, category, images, colors, isFavorite } = sneaker;
+  const { id, name, price, category, images, colors, isFavorite, sale } =
+    sneaker;
 
   const [isPending, startTransition] = useTransition();
   const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
@@ -94,8 +95,28 @@ export default function SneakerDetails({ sneaker }) {
           {colors.length} {colors.length === 1 ? "Color" : "Colors"}
         </p>
 
-        <p className="pt-1 text-sm md:text-base font-medium text-gray-900">
-          ${price}
+        <p className="text-color-primary-600 font-bold text-sm sm:text-base mt-auto">
+          {sale ? (
+            <span className="flex items-center gap-2">
+              <span className="font-bold text-primary-600">
+                $
+                {(
+                  sale.discountPrice ??
+                  price * (1 - sale.discountPercentage / 100)
+                ).toFixed(2)}
+              </span>
+
+              <span className="line-through font-normal text-gray-500">
+                ${price}
+              </span>
+
+              <span className="text-green-700 text-sm font-medium">
+                {sale.discountPercentage}% off
+              </span>
+            </span>
+          ) : (
+            <span className="font-bold">${price}</span>
+          )}
         </p>
       </div>
     </Link>
