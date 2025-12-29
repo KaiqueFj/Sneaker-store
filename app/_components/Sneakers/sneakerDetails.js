@@ -3,10 +3,13 @@
 import { createFavorite, removeFavorite } from "@/lib/data-service";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useTransition } from "react";
+import toast from "react-hot-toast";
 
 export default function SneakerDetails({ sneaker }) {
   const { id, name, price, category, images, colors, isFavorite } = sneaker;
@@ -14,9 +17,24 @@ export default function SneakerDetails({ sneaker }) {
   const [isPending, startTransition] = useTransition();
   const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
 
+  const { data: session } = useSession();
+  const router = useRouter();
+
   function handleFavorite(e) {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!session?.user?.userId) {
+      toast.error(
+        "You must log in first to favorite a sneaker! Redirecting you to the login page..."
+      );
+
+      setTimeout(() => {
+        router.push("/login");
+      }, 3000);
+
+      return;
+    }
 
     const nextValue = !isFavoriteState;
     setIsFavoriteState(nextValue);
@@ -43,7 +61,7 @@ export default function SneakerDetails({ sneaker }) {
       <button
         onClick={handleFavorite}
         disabled={isPending}
-        className=" absolute top-3 right-3 z-20 w-9 h-9 rounded-full flex items-center justify-center bg-white/70 backdrop-blur shadow transition hover:scale-110"
+        className="absolute top-3 right-3 z-20 w-9 h-9 rounded-full flex items-center justify-center bg-white/70 backdrop-blur shadow transition hover:scale-110"
       >
         {isFavoriteState ? (
           <HeartSolid className="w-4 h-4 text-red-500 transition" />
@@ -51,8 +69,9 @@ export default function SneakerDetails({ sneaker }) {
           <HeartOutline className="w-4 h-4 text-gray-900 transition" />
         )}
       </button>
+
       {/* Image */}
-      <div className=" relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden ">
+      <div className="relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden">
         <Image
           src={images[0]}
           alt={name}
@@ -60,13 +79,14 @@ export default function SneakerDetails({ sneaker }) {
           className="object-contain transition-transform duration-300 group-hover:scale-105"
         />
       </div>
+
       {/* Info */}
-      <div className=" mt-4 grid grid-rows-[auto_auto_auto_auto] gap-y-1 min-h-24">
-        <h3 className=" text-sm md:text-base lg:text-lg font-medium text-gray-900 line-clamp-2 leading-snug">
+      <div className="mt-4 grid grid-rows-[auto_auto_auto_auto] gap-y-1 min-h-24">
+        <h3 className="text-sm md:text-base lg:text-lg font-medium text-gray-900 line-clamp-2 leading-snug">
           {name}
         </h3>
 
-        <p className=" text-xs md:text-sm lg:text-base text-gray-500 truncate">
+        <p className="text-xs md:text-sm lg:text-base text-gray-500 truncate">
           {category}
         </p>
 
@@ -74,7 +94,7 @@ export default function SneakerDetails({ sneaker }) {
           {colors.length} {colors.length === 1 ? "Color" : "Colors"}
         </p>
 
-        <p className="pt-1 text-sm md:text-base lg:text-base font-medium text-gray-900">
+        <p className="pt-1 text-sm md:text-base font-medium text-gray-900">
           ${price}
         </p>
       </div>
