@@ -1,8 +1,8 @@
 "use client";
 
-import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 export default function Filter() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,12 +33,12 @@ export default function Filter() {
   }
 
   return (
-    <div className="relative inline-block text-left z-50" ref={dropdownRef}>
+    <div className="relative inline-block text-left " ref={dropdownRef}>
       <span
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center text-primary-600 font-medium rounded-md px-4 py-2 transition cursor-pointer"
       >
-        <span className="text-lg">
+        <span className="lg:text-lg">
           <span className="text-primary-600 font-semibold">Sort by:</span>
           <span className="ml-1 text-primary-600/50">{activeFilter}</span>
         </span>
