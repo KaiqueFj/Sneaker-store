@@ -20,7 +20,7 @@ export default async function Page({ searchParams }) {
 
   return (
     <div className="flex  justify-center h-auto min-h-screen">
-      <div className="w-full flex flex-col gap-10 max-w-[1440px] mx-auto px-6 lg:px-10 box-border py-0 ">
+      <div className="w-full flex flex-col gap-10 max-w-[1440px] mx-auto px-2 lg:px-10 box-border py-0 ">
         {/* Header */}
         <div className="flex items-center h- justify-between px-6 lg:px-12">
           <Category>{`Sneakers on Sale (${sneakers.length})`}</Category>
@@ -29,7 +29,7 @@ export default async function Page({ searchParams }) {
         </div>
 
         {/* Grid */}
-        <div className="flex justify-center px-6 ">
+        <div className="flex justify-center lg:px-6 ">
           <Suspense fallback={<Spinner />} key={filter}>
             <SneakersList filter={filter} sneakers={sneakers} />
           </Suspense>

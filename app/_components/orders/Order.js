@@ -26,7 +26,7 @@ export default function Order({ orders }) {
           <div className="flex flex-col  gap-4  px-1 py-4">
             <div className="flex flex-row justify-between">
               <p className="font-medium">Order ID: {order.id}</p>
-              <p className="font-medium">{order.total_price}</p>
+              <p className="font-medium">${order.total_price}</p>
             </div>
 
             <p>{formatDate(order.created_at)}</p>
