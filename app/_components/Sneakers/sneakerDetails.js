@@ -33,54 +33,59 @@ export default function SneakerDetails({ sneaker }) {
   }
 
   return (
-    <Link
-      href={`/sneaker/${id}`}
-      className="group relative flex flex-col w-full"
-    >
+    <Link href={`/sneaker/${id}`} className="group relative flex flex-col">
       {/* Favorite Button */}
       <button
         onClick={handleFavorite}
         disabled={isPending}
-        className="absolute top-4 right-4 z-20
-                   flex items-center justify-center
-                   w-10 h-10 rounded-full bg-white/90
-                   backdrop-blur shadow-sm
-                   transition hover:scale-110"
+        className="
+          absolute top-3 right-3 z-20
+          w-9 h-9 rounded-full
+          flex items-center justify-center
+          bg-white/70 backdrop-blur
+          shadow
+          transition hover:scale-110
+        "
       >
         <HeartIcon
-          className={`w-5 h-5 transition ${
-            isFavoriteState ? "text-red-500" : "text-black"
+          className={`w-4 h-4 transition ${
+            isFavoriteState ? "text-red-500" : "text-gray-900"
           }`}
         />
       </button>
 
       {/* Image */}
       <div
-        className="relative w-full aspect-4/5
-                   bg-gray-100 overflow-hidden"
+        className="
+          relative w-full aspect-square
+          bg-gray-100
+          rounded-lg
+          overflow-hidden
+        "
       >
         <Image
           src={images[0]}
           alt={name}
           fill
-          priority
-          className="object-contain 
-                     transition-transform duration-300
-                     group-hover:scale-105"
+          className="
+            object-contain
+            transition-transform duration-300
+            group-hover:scale-105
+          "
         />
       </div>
 
       {/* Info */}
-      <div className="mt-3 space-y-1">
-        <h3 className="text-sm font-medium leading-tight">{name}</h3>
+      <div className="mt-4 space-y-0.5">
+        <h3 className="text-sm font-medium text-gray-900">{name}</h3>
 
         <p className="text-xs text-gray-500">{category}</p>
 
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-gray-400">
           {colors.length} {colors.length === 1 ? "Color" : "Colors"}
         </p>
 
-        <p className="pt-1 text-sm font-semibold">${price}</p>
+        <p className="pt-1 text-sm font-medium text-gray-900">${price}</p>
       </div>
     </Link>
   );

@@ -28,7 +28,7 @@ export default async function SneakersList({ filter, sneakers }) {
       );
 
   return (
-    <div className="grid gap-x-6 gap-y-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full">
+    <div className="grid gap-x-2 gap-y-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-3  w-full">
       <Suspense fallback={<Spinner />} key={filter}>
         {displayedSneaker && displayedSneaker.length > 0 ? (
           displayedSneaker.map((sneaker) => (
