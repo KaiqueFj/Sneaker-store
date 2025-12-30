@@ -13,8 +13,17 @@ import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
 export default function SneakerDetails({ sneaker }) {
-  const { id, name, price, category, images, colors, isFavorite, sale } =
-    sneaker;
+  const {
+    id,
+    name,
+    price,
+    category,
+    images,
+    colors,
+    isFavorite,
+    sale,
+    rating_avg,
+  } = sneaker;
 
   const [isPending, startTransition] = useTransition();
   const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
@@ -120,7 +129,7 @@ export default function SneakerDetails({ sneaker }) {
           )}
         </p>
 
-        <StarRating rating={2.5} />
+        <StarRating rating={rating_avg} />
       </div>
     </Link>
   );

@@ -17,8 +17,18 @@ export default function SneakerSelectedInformation({ sneaker }) {
   const { data: session } = useSession();
   const router = useRouter();
 
-  const { name, price, category, images, sizes, colors, gender, model } =
-    sneaker;
+  const {
+    name,
+    price,
+    category,
+    images,
+    sizes,
+    colors,
+    gender,
+    model,
+    rating_avg,
+    rating_count,
+  } = sneaker;
   const [mainImage, setMainImage] = useState(images[0]);
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
   const { dispatch } = useSneaker();
@@ -122,8 +132,12 @@ export default function SneakerSelectedInformation({ sneaker }) {
             {name}
           </h2>
 
-          <div className="mt-2 mb-10">
-            <StarRating rating={2.5} />
+          <div className=" flex flex-row gap-4 mt-2 mb-10">
+            <StarRating rating={rating_avg} />
+            <span className="text-primary-600 underline text-sm">
+              {" "}
+              Read reviews ({rating_count}){" "}
+            </span>
           </div>
           {/* Price */}
           <span className="text-gray-900 font-semibold text-2xl mt-2 block">

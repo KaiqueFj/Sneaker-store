@@ -1,32 +1,32 @@
-// components/StarRating.jsx
 export default function StarRating({ rating, max = 5 }) {
-  const percentage = Math.min((rating / max) * 100, 100);
+  const starSize = 16;
+  const filledWidth = (rating / max) * starSize * max;
 
   return (
-    <div className="flex items-center gap-2">
-      <div className="relative">
-        {/* STAR WRAPPER (fixed width reference) */}
-        <div className="relative flex">
-          {/* Empty stars */}
-          <div className="flex text-gray-300">
-            {Array.from({ length: max }).map((_, i) => (
-              <Star key={i} />
-            ))}
-          </div>
+    <div className="flex items-center gap-6">
+      <div
+        className="relative"
+        style={{ width: starSize * max, height: starSize }}
+      >
+        {/* Empty */}
+        <div className="flex gap-0 text-gray-300">
+          {Array.from({ length: max }).map((_, i) => (
+            <Star key={i} />
+          ))}
+        </div>
 
-          {/* Filled stars (masked correctly) */}
-          <div
-            className="absolute inset-0 overflow-hidden flex text-primary-600 transition-all duration-300"
-            style={{ width: `${percentage}%` }}
-          >
-            {Array.from({ length: max }).map((_, i) => (
-              <Star key={i} />
-            ))}
-          </div>
+        {/* Filled */}
+        <div
+          className="absolute inset-0 overflow-hidden flex gap-0 text-primary-600"
+          style={{ width: filledWidth }}
+        >
+          {Array.from({ length: max }).map((_, i) => (
+            <Star key={i} />
+          ))}
         </div>
       </div>
 
-      <span className="text-sm border px-1  border-primary-600/20 text-gray-600">
+      <span className="text-sm border px-1 border-primary-600/20 text-gray-600">
         {rating.toFixed(1)}
       </span>
     </div>
@@ -36,7 +36,7 @@ export default function StarRating({ rating, max = 5 }) {
 function Star() {
   return (
     <svg
-      className="w-4 h-4 shrink-0"
+      className="w-5 h-4 shrink-0"
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden

@@ -59,7 +59,6 @@ export default function Order({ orders }) {
                         Write a review
                       </button>
 
-                      {console.log(item)}
                       {reviewItem?.id === item.id && (
                         <ReviewComponent
                           item={item}
