@@ -1,6 +1,6 @@
 import MiniSpinner from "@/app/_components/Spinner/miniSpinner";
 import StarInput from "@/app/_components/star/starInput";
-import { createReview } from "@/lib/data-service";
+import { upsertReview } from "@/lib/data-service";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -21,7 +21,7 @@ export default function ReviewComponent({ item, onClose, review }) {
 
     try {
       await toast.promise(
-        createReview({
+        upsertReview({
           sneaker_id: item.sneaker_id,
           rating,
           comment,
