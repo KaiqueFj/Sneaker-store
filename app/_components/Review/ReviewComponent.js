@@ -1,6 +1,8 @@
+import MiniSpinner from "@/app/_components/Spinner/miniSpinner";
 import StarInput from "@/app/_components/star/starInput";
 import { createReview } from "@/lib/data-service";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ReviewComponent({ item, onClose }) {
   const [rating, setRating] = useState(0);
@@ -8,18 +10,23 @@ export default function ReviewComponent({ item, onClose }) {
   const [loading, setLoading] = useState(false);
 
   async function handleSubmitReview() {
-    try {
-      setLoading(true);
+    setLoading(true);
 
-      await createReview({
-        sneaker_id: item.sneaker_id,
-        rating,
-        comment,
-      });
-      setLoading(false);
+    try {
+      await toast.promise(
+        createReview({
+          sneaker_id: item.sneaker_id,
+          rating,
+          comment,
+        }),
+        {
+          loading: "Saving your review...",
+          success: "Review saved successfully!",
+          error: "Review could not be saved. Try again!",
+        }
+      );
+
       onClose();
-    } catch (error) {
-      throw new Error("Could not create review");
     } finally {
       setLoading(false);
     }
@@ -42,11 +49,18 @@ export default function ReviewComponent({ item, onClose }) {
         <div className="flex justify-end gap-3 mt-4">
           <button onClick={onClose}>Cancel</button>
           <button
-            disabled={rating === 0 || loading}
+            disabled={loading}
             onClick={handleSubmitReview}
-            className="bg-black text-white px-4 py-2 rounded"
+            className="flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-black text-white disabled:opacity-60"
           >
-            Submit
+            {loading ? (
+              <>
+                <MiniSpinner />
+                Saving...
+              </>
+            ) : (
+              "Submit review"
+            )}
           </button>
         </div>
       </div>

@@ -49,6 +49,15 @@
   animation: rotate 1s infinite linear;
 }
 
+.spinner-mini {
+  width: 1rem; /* 16px */
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid theme("color-primary-200");
+  border-right-color: theme("color-primary-100");
+  animation: rotate 0.8s infinite linear;
+}
+
 @keyframes float {
   0% {
     transform: translateY(0px);
