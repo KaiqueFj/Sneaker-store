@@ -26,7 +26,7 @@ export default function ReviewComponent({ item, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div className="fixed inset-0  bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md">
         <h3 className="font-semibold text-lg mb-2">Review {item.name}</h3>
 

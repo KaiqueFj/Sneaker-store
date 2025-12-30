@@ -13,93 +13,142 @@ export default function Order({ orders }) {
   if (!orders || orders.length === 0) {
     return (
       <div className="p-6 text-center text-slate-500">
-        No orders found. You have no orders yet !
+        No orders found. You have no orders yet!
       </div>
     );
   }
 
   return (
-    <>
+    <div className="space-y-8">
       {orders.map((order) => (
-        <div
-          key={order.id}
-          className="flex flex-col border-2 gap-6 border-primary-600/70 rounded-md p-4"
-        >
-          {/* Sneaker infos */}
-          <div className="flex flex-col  gap-4  px-1 py-4">
-            <div className="flex flex-row justify-between">
-              <p className="font-medium">Order ID: {order.id}</p>
-              <p className="font-medium">${order.total_price}</p>
+        <div key={order.id} className="border rounded-md p-6 space-y-6">
+          {/* ===== Order header ===== */}
+          <div className="flex justify-between items-start">
+            <div className="space-y-1">
+              <p className="text-sm font-medium text-green-600">
+                Order delivered
+              </p>
+              <p className="text-sm text-gray-600">Order ID: {order.id}</p>
+              <p className="text-sm text-gray-500">
+                {formatDate(order.created_at)}
+              </p>
             </div>
 
-            <p>{formatDate(order.created_at)}</p>
+            <button
+              onClick={() =>
+                setOpenOrderId(openOrderId === order.id ? null : order.id)
+              }
+              className="text-sm text-primary-600 hover:underline"
+            >
+              {openOrderId === order.id ? "Hide details" : "Show details"}
+            </button>
           </div>
 
-          {/* Show/hide details for THIS order */}
+          {/* ===== Order details ===== */}
           {openOrderId === order.id && (
-            <div className="flex flex-col border-t-4 pt-4 border-primary-600/30 px-1">
-              <ul className="flex gap-4 flex-col">
-                {order.order_items.map((item) => (
-                  <li className="flex leading-6 text-left w-full" key={item.id}>
-                    <div>
+            <>
+              {/* Delivery info */}
+              <div className="border-t pt-4 space-y-2">
+                <p className="text-sm font-medium">Delivery address</p>
+                <p className="text-sm text-gray-600">
+                  Rua das flores 123,2008 <br />
+                  São Paulo/SP – 02345-001
+                </p>
+                <button className="text-sm text-primary-600 hover:underline">
+                  Shipping details
+                </button>
+              </div>
+
+              {/* Main layout */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-6">
+                {/* ===== LEFT: Products ===== */}
+                <div className="md:col-span-2 space-y-6">
+                  {order.order_items.map((item) => (
+                    <div key={item.id} className="flex gap-6 items-start">
                       <Link href={`/sneaker/${item.sneaker_id}`}>
                         <Image
                           src={item.image[0]}
-                          alt="Sneaker"
-                          width={150}
-                          height={50}
-                          className="rounded-md"
+                          alt={item.name}
+                          width={120}
+                          height={80}
+                          className="rounded-md bg-gray-100"
                         />
                       </Link>
-                    </div>
 
-                    <div className="w-3/4 flex flex-col gap-2 ml-4">
-                      <p className="font-medium">
-                        {item.name || "Sneaker Name"}
-                      </p>
+                      <div className="space-y-2">
+                        <p className="font-medium">{item.name}</p>
 
-                      <button onClick={() => setReviewItem(item)} className="">
-                        Write a review
-                      </button>
+                        <p className="text-sm text-gray-600">
+                          Price: ${item.price}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Size: {item.size}
+                        </p>
 
-                      {reviewItem?.id === item.id && (
-                        <ReviewComponent
-                          item={item}
-                          onClose={() => setReviewItem(null)}
-                        />
-                      )}
+                        <p className="text-sm text-gray-600">
+                          Color: {item.colors[0]}
+                        </p>
 
-                      <div className="flex flex-row justify-between">
-                        <div className="text-sm font-normal text-primary-600/75">
-                          <p>Color: {item.color || "black"}</p>
-                          <p>Size: {item.size}</p>
-                          <p>Category: {item.category}</p>
-                        </div>
+                        <p className="text-sm text-gray-600">
+                          Quantity: {item.quantity}
+                        </p>
 
-                        <div className="text-sm font-normal text-primary-600/75">
-                          <p>Price: ${item.price}</p>
-                          <p>Quantity: {item.quantity}</p>
-                          <p>Subtotal: ${order.total_price}</p>
-                        </div>
+                        <button
+                          onClick={() => setReviewItem(item)}
+                          className="mt-2 text-sm font-medium text-primary-600 hover:underline"
+                        >
+                          Rate product
+                        </button>
+
+                        {reviewItem?.id === item.id && (
+                          <ReviewComponent
+                            item={item}
+                            onClose={() => setReviewItem(null)}
+                          />
+                        )}
                       </div>
                     </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+                  ))}
+                </div>
 
-          {/* Toggle btn for THIS order */}
-          <button
-            onClick={() =>
-              setOpenOrderId(openOrderId === order.id ? null : order.id)
-            }
-            className="mt-2 px-4 py-2 text-primary-text-600 hover:text-primary-600/50 underline transition"
-          >
-            {openOrderId === order.id ? "Hide Details" : "Show Details"}
-          </button>
+                {/* ===== RIGHT: Order summary ===== */}
+                <div className="border rounded-md p-4 bg-gray-50 space-y-3 h-fit">
+                  <h3 className="text-sm font-medium">Order details</h3>
+
+                  <div className="flex justify-between text-sm">
+                    <span>Date</span>
+                    <span>{formatDate(order.created_at)}</span>
+                  </div>
+
+                  <div className="flex justify-between text-sm">
+                    <span>Items ({order.order_items.length})</span>
+                    <span>${order.total_price}</span>
+                  </div>
+
+                  <div className="flex justify-between text-sm">
+                    <span>Shipping</span>
+                    <span className="text-green-600">Grátis</span>
+                  </div>
+
+                  <div className="border-t pt-3 flex justify-between font-medium">
+                    <span>Total</span>
+                    <span>${order.total_price}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* ===== Help section ===== */}
+              <div className="border-t pt-6 text-sm space-y-2">
+                <p className="font-medium">Need help?</p>
+                <div className="flex gap-4 text-primary-600">
+                  <button className="hover:underline">Contact us</button>
+                  <button className="hover:underline">Return policy</button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       ))}
-    </>
+    </div>
   );
 }
