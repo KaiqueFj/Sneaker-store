@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { formatDate } from "../../../utils/helpers";
 
-export default function Order({ orders }) {
+export default function Order({ orders, reviews }) {
   const [openOrderId, setOpenOrderId] = useState(null);
   const [reviewItem, setReviewItem] = useState(null);
 
@@ -63,52 +63,58 @@ export default function Order({ orders }) {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-6">
                 {/* ===== LEFT: Products ===== */}
                 <div className="md:col-span-2 space-y-6">
-                  {order.order_items.map((item) => (
-                    <div key={item.id} className="flex gap-6 items-start">
-                      <Link href={`/sneaker/${item.sneaker_id}`}>
-                        <Image
-                          src={item.image[0]}
-                          alt={item.name}
-                          width={120}
-                          height={80}
-                          className="rounded-md bg-gray-100"
-                        />
-                      </Link>
-
-                      <div className="space-y-2">
-                        <p className="font-medium">{item.name}</p>
-
-                        <p className="text-sm text-gray-600">
-                          Price: ${item.price}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          Size: {item.size}
-                        </p>
-
-                        <p className="text-sm text-gray-600">
-                          Color: {item.colors[0]}
-                        </p>
-
-                        <p className="text-sm text-gray-600">
-                          Quantity: {item.quantity}
-                        </p>
-
-                        <button
-                          onClick={() => setReviewItem(item)}
-                          className="mt-2 text-sm font-medium text-primary-600 hover:underline"
-                        >
-                          Rate product
-                        </button>
-
-                        {reviewItem?.id === item.id && (
-                          <ReviewComponent
-                            item={item}
-                            onClose={() => setReviewItem(null)}
+                  {order.order_items.map((item) => {
+                    const userReview = reviews.find(
+                      (r) => r.sneaker_id == item.sneaker_id
+                    );
+                    return (
+                      <div key={item.id} className="flex gap-6 items-start">
+                        <Link href={`/sneaker/${item.sneaker_id}`}>
+                          <Image
+                            src={item.image[0]}
+                            alt={item.name}
+                            width={120}
+                            height={80}
+                            className="rounded-md bg-gray-100"
                           />
-                        )}
+                        </Link>
+
+                        <div className="space-y-2">
+                          <p className="font-medium">{item.name}</p>
+
+                          <p className="text-sm text-gray-600">
+                            Price: ${item.price}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            Size: {item.size}
+                          </p>
+
+                          <p className="text-sm text-gray-600">
+                            Color: {item.colors[0]}
+                          </p>
+
+                          <p className="text-sm text-gray-600">
+                            Quantity: {item.quantity}
+                          </p>
+
+                          <button
+                            onClick={() => setReviewItem(item)}
+                            className="mt-2 text-sm font-medium text-primary-600 hover:underline"
+                          >
+                            {userReview ? "Update your review" : "Rate product"}
+                          </button>
+
+                          {reviewItem?.id === item.id && (
+                            <ReviewComponent
+                              item={item}
+                              review={userReview}
+                              onClose={() => setReviewItem(null)}
+                            />
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 {/* ===== RIGHT: Order summary ===== */}
