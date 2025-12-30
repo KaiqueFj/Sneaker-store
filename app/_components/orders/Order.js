@@ -2,6 +2,7 @@
 
 import ReviewComponent from "@/app/_components/Review/ReviewComponent";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { formatDate } from "../../../utils/helpers";
 
@@ -41,13 +42,15 @@ export default function Order({ orders }) {
                 {order.order_items.map((item) => (
                   <li className="flex leading-6 text-left w-full" key={item.id}>
                     <div>
-                      <Image
-                        src={item.image[0]}
-                        alt="Sneaker"
-                        width={150}
-                        height={50}
-                        className="rounded-md"
-                      />
+                      <Link href={`/sneaker/${item.sneaker_id}`}>
+                        <Image
+                          src={item.image[0]}
+                          alt="Sneaker"
+                          width={150}
+                          height={50}
+                          className="rounded-md"
+                        />
+                      </Link>
                     </div>
 
                     <div className="w-3/4 flex flex-col gap-2 ml-4">

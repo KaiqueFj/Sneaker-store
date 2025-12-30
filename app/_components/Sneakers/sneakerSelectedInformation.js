@@ -134,10 +134,13 @@ export default function SneakerSelectedInformation({ sneaker }) {
 
           <div className=" flex flex-row gap-4 mt-2 mb-10">
             <StarRating rating={rating_avg} />
-            <span className="text-primary-600 underline text-sm">
-              {" "}
-              Read reviews ({rating_count}){" "}
-            </span>
+            {rating_count > 0 ? (
+              <span className="text-primary-600 underline text-sm">
+                Read reviews ({rating_count})
+              </span>
+            ) : (
+              <span className="text-primary-600  text-sm">No reviews yet</span>
+            )}
           </div>
           {/* Price */}
           <span className="text-gray-900 font-semibold text-2xl mt-2 block">
