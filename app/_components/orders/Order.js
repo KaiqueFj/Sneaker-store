@@ -127,7 +127,7 @@ export default function Order({ orders }) {
 
                   <div className="flex justify-between text-sm">
                     <span>Shipping</span>
-                    <span className="text-green-600">Grátis</span>
+                    <span className="text-green-600">Free</span>
                   </div>
 
                   <div className="border-t pt-3 flex justify-between font-medium">
