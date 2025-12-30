@@ -1,11 +1,13 @@
 "use client";
 
+import ReviewComponent from "@/app/_components/Review/ReviewComponent";
 import Image from "next/image";
 import { useState } from "react";
 import { formatDate } from "../../../utils/helpers";
 
 export default function Order({ orders }) {
   const [openOrderId, setOpenOrderId] = useState(null);
+  const [reviewItem, setReviewItem] = useState(null);
 
   if (!orders || orders.length === 0) {
     return (
@@ -52,6 +54,18 @@ export default function Order({ orders }) {
                       <p className="font-medium">
                         {item.name || "Sneaker Name"}
                       </p>
+
+                      <button onClick={() => setReviewItem(item)} className="">
+                        Write a review
+                      </button>
+
+                      {console.log(item)}
+                      {reviewItem?.id === item.id && (
+                        <ReviewComponent
+                          item={item}
+                          onClose={() => setReviewItem(null)}
+                        />
+                      )}
 
                       <div className="flex flex-row justify-between">
                         <div className="text-sm font-normal text-primary-600/75">

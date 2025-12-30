@@ -1,5 +1,6 @@
 "use client";
 
+import StarRating from "@/app/_components/star/StarRating";
 import { createFavorite } from "@/lib/data-service";
 import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
@@ -121,6 +122,9 @@ export default function SneakerSelectedInformation({ sneaker }) {
             {name}
           </h2>
 
+          <div className="mt-2 mb-10">
+            <StarRating rating={2.5} />
+          </div>
           {/* Price */}
           <span className="text-gray-900 font-semibold text-2xl mt-2 block">
             ${price}

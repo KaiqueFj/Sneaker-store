@@ -6,6 +6,7 @@ import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
+import StarRating from "@/app/_components/star/StarRating";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useTransition } from "react";
@@ -118,6 +119,8 @@ export default function SneakerDetails({ sneaker }) {
             <span className="font-bold">${price}</span>
           )}
         </p>
+
+        <StarRating rating={2.5} />
       </div>
     </Link>
   );
