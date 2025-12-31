@@ -14,3 +14,16 @@ export const formatDate = (value) => {
     minute: "2-digit",
   });
 };
+
+export const formatDateNoZ = (value) => {
+  if (!value) return "";
+
+  const date = new Date(value);
+
+  return date.toLocaleDateString("en-US", {
+    timeZone: "America/Sao_Paulo",
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+  });
+};

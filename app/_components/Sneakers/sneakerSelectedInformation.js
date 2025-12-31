@@ -1,5 +1,6 @@
 "use client";
 
+import SneakerReviews from "@/app/_components/Sneakers/sneakerPageStructure/SneakerReviews";
 import StarRating from "@/app/_components/star/StarRating";
 import { createFavorite } from "@/lib/data-service";
 import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
@@ -12,7 +13,7 @@ import toast from "react-hot-toast";
 import { useSneaker } from "../../../context/SneakerContext";
 import Cart from "../cart/Cart";
 
-export default function SneakerSelectedInformation({ sneaker }) {
+export default function SneakerSelectedInformation({ sneaker, reviews }) {
   const [isPending, startTransition] = useTransition();
   const [isFavorite, setIsFavorite] = useState(false);
   const { data: session } = useSession();
@@ -215,6 +216,8 @@ export default function SneakerSelectedInformation({ sneaker }) {
 
         <Cart />
       </div>
+
+      <SneakerReviews reviews={reviews} />
     </div>
   );
 }
