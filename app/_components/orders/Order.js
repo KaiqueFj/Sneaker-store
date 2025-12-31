@@ -9,6 +9,7 @@ import { formatDate } from "../../../utils/helpers";
 export default function Order({ orders, reviews }) {
   const [openOrderId, setOpenOrderId] = useState(null);
   const [reviewItem, setReviewItem] = useState(null);
+  const [reviewsState, setReviewsState] = useState(reviews);
 
   if (!orders || orders.length === 0) {
     return (
@@ -64,7 +65,7 @@ export default function Order({ orders, reviews }) {
                 {/* ===== LEFT: Products ===== */}
                 <div className="md:col-span-2 space-y-6">
                   {order.order_items.map((item) => {
-                    const userReview = reviews.find(
+                    const userReview = reviewsState.find(
                       (r) => r.sneaker_id == item.sneaker_id
                     );
                     return (
@@ -109,6 +110,23 @@ export default function Order({ orders, reviews }) {
                               item={item}
                               review={userReview}
                               onClose={() => setReviewItem(null)}
+                              onSuccess={(newReview) => {
+                                setReviewsState((prev) => {
+                                  const exists = prev.find(
+                                    (r) => r.sneaker_id === newReview.sneaker_id
+                                  );
+
+                                  if (exists) {
+                                    return prev.map((r) =>
+                                      r.sneaker_id === newReview.sneaker_id
+                                        ? newReview
+                                        : r
+                                    );
+                                  }
+
+                                  return [...prev, newReview];
+                                });
+                              }}
                             />
                           )}
                         </div>

@@ -1,12 +1,12 @@
 import { auth } from "../../../lib/auth";
-import { getOrders, getReviews } from "../../../lib/data-service";
+import { getOrders, getUserReviews } from "../../../lib/data-service";
 import Order from "../../_components/orders/Order";
 
 export default async function page() {
   const session = await auth();
   const orders = await getOrders(session?.user?.userId);
 
-  const reviews = await getReviews();
+  const reviews = await getUserReviews(session?.user?.userId);
 
   return (
     <div className=" mx-auto flex flex-col p-4 gap-6 max-w-7xl ">
