@@ -215,9 +215,8 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
         </div>
 
         <Cart />
+        <SneakerReviews reviews={reviews} />
       </div>
-
-      <SneakerReviews reviews={reviews} />
     </div>
   );
 }
