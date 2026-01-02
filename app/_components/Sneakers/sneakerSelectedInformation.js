@@ -161,12 +161,12 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
       <div className="flex flex-col gap-6 max-w-105 mx-auto lg:mx-0 w-full">
         {/* Product title & category (hidden on small screens) */}
         <div className="hidden lg:block">
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center  justify-between">
             <h2 className="text-gray-900 font-bold text-3xl leading-tight mt-1">
               Sneaker {name}
             </h2>
 
-            <LinkIcon className="h-6 w-6 text-primary-600" />
+            <LinkIcon className="h-8 w-8 text-primary-600" />
           </div>
 
           <span className="text-gray-500 font-normal text-sm sm:text-base">
@@ -176,7 +176,10 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
           <div className=" flex flex-row gap-4 mt-2 mb-10">
             <StarRating rating={rating_avg} />
             {rating_count > 0 ? (
-              <span className="text-primary-600 underline text-sm">
+              <span
+                onClick={goToReviews}
+                className="text-primary-600 cursor-pointer underline text-sm"
+              >
                 Read reviews ({rating_count})
               </span>
             ) : (
