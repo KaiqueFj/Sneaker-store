@@ -2,9 +2,12 @@
 
 import SneakerReviews from "@/app/_components/Sneakers/sneakerPageStructure/SneakerReviews";
 import StarRating from "@/app/_components/star/StarRating";
-import { createFavorite } from "@/lib/data-service";
-import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
-import { LinkIcon } from "@heroicons/react/24/solid";
+import { createFavorite, removeFavorite } from "@/lib/data-service";
+import {
+  HeartIcon as HeartOutline,
+  ShoppingCartIcon,
+} from "@heroicons/react/24/outline";
+import { HeartIcon as HeartSolid, LinkIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -15,7 +18,6 @@ import Cart from "../cart/Cart";
 
 export default function SneakerSelectedInformation({ sneaker, reviews }) {
   const [isPending, startTransition] = useTransition();
-  const [isFavorite, setIsFavorite] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -28,17 +30,28 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
     colors,
     gender,
     model,
+    isFavorite,
     rating_avg,
     rating_count,
   } = sneaker;
   const [mainImage, setMainImage] = useState(images[0]);
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
+  const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
   const { dispatch } = useSneaker();
 
-  function handleFavorite() {
+  const goToReviews = () => {
+    document
+      .getElementById("reviews")
+      .scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  function handleFavorite(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (!session?.user?.userId) {
       toast.error(
-        "You must log in first to add favorites. Redirecting to login..."
+        "You must log in first to favorite a sneaker! Redirecting you to the login page..."
       );
 
       setTimeout(() => {
@@ -48,14 +61,18 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
       return;
     }
 
-    const nextValue = !isFavorite;
-    setIsFavorite(nextValue);
+    const nextValue = !isFavoriteState;
+    setIsFavoriteState(nextValue);
 
     startTransition(async () => {
       try {
-        await createFavorite(sneaker.id);
+        if (nextValue) {
+          await createFavorite(sneaker.id);
+        } else {
+          await removeFavorite(sneaker.id);
+        }
       } catch {
-        setIsFavorite(!nextValue);
+        setIsFavoriteState(!nextValue);
       }
     });
   }
@@ -94,7 +111,10 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
         <div className=" flex flex-row gap-4 mt-2 mb-4 ">
           <StarRating rating={rating_avg} />
           {rating_count > 0 ? (
-            <span className="text-primary-600 underline text-sm">
+            <span
+              onClick={goToReviews}
+              className="text-primary-600 underline text-sm"
+            >
               Read reviews ({rating_count})
             </span>
           ) : (
@@ -206,11 +226,11 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
             className="flex items-center justify-center gap-2 border-2 border-gray-300 px-6 py-3 rounded-full hover:bg-gray-100 transition"
           >
             Favorite
-            <HeartIcon
-              className={`h-5 w-5 ${
-                isFavorite ? "fill-red-500 text-red-500" : ""
-              }`}
-            />
+            {isFavoriteState ? (
+              <HeartSolid className="w-4 h-4 text-red-500 transition" />
+            ) : (
+              <HeartOutline className="w-4 h-4 text-gray-900 transition" />
+            )}
           </button>
         </div>
 

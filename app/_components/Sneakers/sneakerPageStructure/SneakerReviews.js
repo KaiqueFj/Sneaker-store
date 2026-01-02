@@ -6,7 +6,10 @@ export default function SneakerReviews({ reviews }) {
   return (
     <div>
       {/* ===== Header ===== */}
-      <div className="flex flex-row justify-between w-full py-6 items-center border-b border-primary-600/10">
+      <div
+        id="reviews"
+        className="flex flex-row justify-between w-full py-6 items-center border-b border-primary-600/10"
+      >
         <h2 className="text-primary-600 font-normal">
           Reviews ({reviews.length})
         </h2>
