@@ -100,9 +100,12 @@ export default function Order({ orders, reviews }) {
 
                           <button
                             onClick={() => setReviewItem(item)}
-                            className="mt-2 text-sm font-medium text-primary-600 hover:underline"
+                            className=" mt-3 inline-flex items-center gap-2 rounded-lg border border-primary-600 px-4 py-2 text-sm font-semibold text-primary-600 transition-all hover:bg-primary-600 hover:text-white hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                           >
-                            {userReview ? "Update your review" : "Rate product"}
+                            ⭐{" "}
+                            {userReview
+                              ? "Update your review"
+                              : "Rate this product"}
                           </button>
 
                           {reviewItem?.id === item.id && (

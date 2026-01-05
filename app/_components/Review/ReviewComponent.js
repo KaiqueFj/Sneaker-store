@@ -9,8 +9,6 @@ export default function ReviewComponent({ item, onClose, onSuccess, review }) {
   const [comment, setComment] = useState(review?.comment ?? "");
   const [loading, setLoading] = useState(false);
 
-  console.log(rating);
-  console.log(review);
   async function handleSubmitReview() {
     setLoading(true);
 
