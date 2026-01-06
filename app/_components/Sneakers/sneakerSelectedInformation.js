@@ -143,13 +143,13 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
 
           <button
             onClick={handleFavorite}
-            className="h-14  px-6 py-3  rounded-full border flex items-center justify-center text-base font-medium tracking-wide transition hover:bg-black/5 active:scale-[0.99] gap-2"
+            className="h-14  px-6 py-3  rounded-full border border-primary-600/25 flex items-center justify-center text-base font-medium tracking-wide transition hover:bg-black/5 active:scale-[0.99] gap-2"
           >
             {isFavoriteState ? "Favorited" : "Favorite"}
             {isFavoriteState ? (
-              <HeartSolid className="w-4 h-4 text-red-500" />
+              <HeartSolid className="w-6 h-6 text-red-500" />
             ) : (
-              <HeartOutline className="w-4 h-4" />
+              <HeartOutline className="w-6 h-6" />
             )}
           </button>
         </div>
@@ -252,13 +252,13 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
             <button
               onClick={handleFavorite}
               disabled={isPending}
-              className="h-14 w-3/4 px-6 py-3  rounded-full border flex items-center justify-center text-base font-medium tracking-wide transition hover:bg-black/5 active:scale-[0.99] gap-2"
+              className="h-14 w-3/4 px-6 py-3  rounded-full border border-primary-600/25 flex items-center justify-center text-base font-medium tracking-wide transition hover:bg-black/5 active:scale-[0.99] gap-2"
             >
               {isFavoriteState ? "Favorited" : "Favorite"}
               {isFavoriteState ? (
-                <HeartSolid className="w-4 h-4 text-red-500" />
+                <HeartSolid className="w-6 h-6 text-red-500" />
               ) : (
-                <HeartOutline className="w-4 h-4" />
+                <HeartOutline className="w-6 h-6" />
               )}
             </button>
           </div>
