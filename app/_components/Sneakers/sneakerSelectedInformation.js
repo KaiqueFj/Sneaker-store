@@ -93,9 +93,13 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
         {...productProps}
         {...sharedActions}
         isPending={isPending}
-      />
+      >
+        <div id="reviews" className=" ">
+          <SneakerReviews reviews={reviews} />
+        </div>
+      </SneakerDesktopView>
 
-      <div id="reviews" className="px-4 ">
+      <div id="reviews" className="lg:hidden px-4 ">
         <SneakerReviews reviews={reviews} />
       </div>
     </section>

@@ -22,6 +22,7 @@ export default function SneakerDesktopView({
   addToCart,
   handleFavorite,
   goToReviews,
+  children,
 }) {
   return (
     <div className="hidden lg:flex justify-center gap-12 items-start">
@@ -138,6 +139,8 @@ export default function SneakerDesktopView({
             </p>
           </div>
         </div>
+
+        {children}
 
         <Cart />
       </div>
