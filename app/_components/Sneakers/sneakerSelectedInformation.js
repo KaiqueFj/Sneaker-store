@@ -3,10 +3,7 @@
 import SneakerReviews from "@/app/_components/Sneakers/sneakerPageStructure/SneakerReviews";
 import StarRating from "@/app/_components/star/StarRating";
 import { createFavorite, removeFavorite } from "@/lib/data-service";
-import {
-  HeartIcon as HeartOutline,
-  ShoppingCartIcon,
-} from "@heroicons/react/24/outline";
+import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid, LinkIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -34,30 +31,22 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
     rating_avg,
     rating_count,
   } = sneaker;
+
   const [mainImage, setMainImage] = useState(images[0]);
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
   const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
   const { dispatch } = useSneaker();
 
   const goToReviews = () => {
-    document
-      .getElementById("reviews")
-      .scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth" });
   };
 
   function handleFavorite(e) {
     e.preventDefault();
-    e.stopPropagation();
 
     if (!session?.user?.userId) {
-      toast.error(
-        "You must log in first to favorite a sneaker! Redirecting you to the login page..."
-      );
-
-      setTimeout(() => {
-        router.push("/login");
-      }, 3000);
-
+      toast.error("Log in to favorite this product. Redirecting...");
+      setTimeout(() => router.push("/login"), 2500);
       return;
     }
 
@@ -66,11 +55,9 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
 
     startTransition(async () => {
       try {
-        if (nextValue) {
-          await createFavorite(sneaker.id);
-        } else {
-          await removeFavorite(sneaker.id);
-        }
+        nextValue
+          ? await createFavorite(sneaker.id)
+          : await removeFavorite(sneaker.id);
       } catch {
         setIsFavoriteState(!nextValue);
       }
@@ -95,151 +82,194 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
   };
 
   return (
-    <div className="min-h-[80vh] w-full grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-10 p-4 sm:p-6 lg:p-12 items-start justify-center">
-      {/* Mobile: Product Info above image */}
-      <div className="flex flex-col gap-2 lg:hidden text-left">
-        <div className="flex flex-row items-center justify-between">
-          <h2 className="text-primary-600 w-[80%] font-bold text-2xl sm:text-3xl leading-tight mt-1">
-            Sneaker {name}
-          </h2>
-          <LinkIcon className="h-8 w-8 text-primary-600" />
-        </div>
-        <h2 className="text-primary-600 font-medium text-base sm:text-base">
-          {category}
-        </h2>
+    <section className="w-full max-w-[1440px] mx-auto lg:px-4 lg:px-12 py-10">
+      {/* ================= MOBILE ================= */}
+      <div className="flex flex-col  gap-10 lg:hidden">
+        {/* INFO */}
+        <div className="px-4">
+          <h1 className="text-3xl font-semibold">{name}</h1>
+          <p className="text-sm text-gray-500 mt-1">{category}</p>
 
-        <div className=" flex flex-row gap-4 mt-2 mb-4 ">
-          <StarRating rating={rating_avg} />
-          {rating_count > 0 ? (
-            <span
-              onClick={goToReviews}
-              className="text-primary-600 underline text-sm"
-            >
-              Read reviews ({rating_count})
-            </span>
-          ) : (
-            <span className="text-primary-600  text-sm">No reviews yet</span>
-          )}
+          <div className="flex items-center gap-4 mt-3">
+            <StarRating rating={rating_avg} />
+            {rating_count > 0 && (
+              <button
+                onClick={goToReviews}
+                className="text-sm underline text-gray-600"
+              >
+                Reviews ({rating_count})
+              </button>
+            )}
+          </div>
+
+          <p className="text-2xl font-medium mt-6">${price}</p>
         </div>
 
-        <span className="text-gray-900 font-semibold text-xl sm:text-2xl">
-          ${price}
-        </span>
-      </div>
-
-      {/* Left: Images */}
-      <div className="flex flex-col items-center lg:items-center gap-6 w-full">
-        {/* Main Image */}
-        <div className="relative w-full sm:w-full md:w-112.5 lg:w-137.5 aspect-square bg-gray-100 rounded-md flex justify-center">
+        {/* IMAGE */}
+        <div className="relative px-0 aspect-square bg-[#f5f5f5] rounded-xl">
           <Image
             src={mainImage}
             alt={name}
             fill
-            className="object-contain lg:p-4"
             priority
+            className="object-contain p-8"
           />
         </div>
 
-        {/* Thumbnails */}
-        <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-          {images.map((imgSrc, idx) => (
+        {/* THUMBNAILS */}
+        <div className="flex justify-center gap-3">
+          {images.map((img, idx) => (
             <Image
               key={idx}
-              src={imgSrc}
-              alt={`${name} thumbnail ${idx}`}
-              width={80}
-              height={80}
-              onClick={() => setMainImage(imgSrc)}
-              className={`object-contain bg-gray-100 lg:p-2 cursor-pointer hover:opacity-80 rounded-md transition 
-                ${mainImage === imgSrc ? "ring-2 ring-black" : ""}`}
+              src={img}
+              alt="thumbnail"
+              width={72}
+              height={72}
+              onClick={() => setMainImage(img)}
+              className={`cursor-pointer rounded-lg border
+                ${mainImage === img ? "border-black" : "border-gray-200"}`}
             />
           ))}
         </div>
-      </div>
 
-      {/* Right: Product Info (Desktop) */}
-      <div className="flex flex-col gap-6 max-w-105 mx-auto lg:mx-0 w-full">
-        {/* Product title & category (hidden on small screens) */}
-        <div className="hidden lg:block">
-          <div className="flex flex-row items-center  justify-between">
-            <h2 className="text-gray-900 font-bold text-3xl leading-tight mt-1">
-              Sneaker {name}
-            </h2>
-
-            <LinkIcon className="h-8 w-8 text-primary-600" />
-          </div>
-
-          <span className="text-gray-500 font-normal text-sm sm:text-base">
-            {category}
-          </span>
-
-          <div className=" flex flex-row gap-4 mt-2 mb-10">
-            <StarRating rating={rating_avg} />
-            {rating_count > 0 ? (
-              <span
-                onClick={goToReviews}
-                className="text-primary-600 cursor-pointer underline text-sm"
-              >
-                Read reviews ({rating_count})
-              </span>
-            ) : (
-              <span className="text-primary-600  text-sm">No reviews yet</span>
-            )}
-          </div>
-          {/* Price */}
-          <span className="text-gray-900 font-semibold text-2xl mt-2 block">
-            ${price}
-          </span>
-        </div>
-
-        {/* Sizes */}
-        <div>
-          <p className="text-sm font-semibold text-gray-500 mb-2">
-            Select Size
-          </p>
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-            {sizes.map((size, idx) => (
-              <button
-                key={idx}
-                onClick={() => setSneakerSize(size)}
-                className={`border h-10 sm:h-12 w-full font-medium border-gray-300 text-sm rounded transition-colors 
-                  hover:border-black ${
-                    sneakerSize === size ? "ring-1 ring-black" : ""
-                  }`}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4">
+        {/* ACTIONS */}
+        <div className="flex px-4 flex-col gap-4">
           <button
             onClick={addToCart}
-            className="flex items-center justify-center font-semibold bg-black text-white px-6 py-3 rounded-full w-full sm:w-50 hover:bg-gray-800 transition"
+            className="h-14  px-6 py-3  rounded-full bg-black  text-white text-base font-medium tracking-wide transition hover:bg-black/70 active:scale-[0.99]"
           >
-            Add to Cart
-            <ShoppingCartIcon className="ml-2 h-5 w-5" />
+            Add to Bag
           </button>
 
           <button
             onClick={handleFavorite}
-            disabled={isPending}
-            className="flex items-center justify-center gap-2 border-2 border-gray-300 px-6 py-3 rounded-full hover:bg-gray-100 transition"
+            className="h-14  px-6 py-3  rounded-full border flex items-center justify-center text-base font-medium tracking-wide transition hover:bg-black/5 active:scale-[0.99] gap-2"
           >
-            Favorite
+            {isFavoriteState ? "Favorited" : "Favorite"}
             {isFavoriteState ? (
-              <HeartSolid className="w-4 h-4 text-red-500 transition" />
+              <HeartSolid className="w-4 h-4 text-red-500" />
             ) : (
-              <HeartOutline className="w-4 h-4 text-gray-900 transition" />
+              <HeartOutline className="w-4 h-4" />
             )}
           </button>
         </div>
 
         <Cart />
-        <SneakerReviews reviews={reviews} />
+
+        <div id="reviews" className="pt-8 px-4 ">
+          <SneakerReviews reviews={reviews} />
+        </div>
       </div>
-    </div>
+
+      {/* ================= DESKTOP ================= */}
+      <div className="hidden lg:flex justify-center gap-6">
+        {/* THUMBNAILS */}
+        <div className="flex flex-col gap-2 mr-2">
+          {images.map((img, idx) => (
+            <Image
+              key={idx}
+              src={img}
+              alt={`${name} thumbnail ${idx}`}
+              width={72}
+              height={72}
+              onClick={() => setMainImage(img)}
+              className={`cursor-pointer rounded-lg border
+                ${
+                  mainImage === img
+                    ? "border-black"
+                    : "border-gray-200 hover:border-black"
+                }`}
+            />
+          ))}
+        </div>
+
+        {/* MAIN IMAGE */}
+        <div className="relative w-full max-w-[600px] aspect-square bg-[#f5f5f5] rounded-xl">
+          <Image
+            src={mainImage}
+            alt={name}
+            fill
+            priority
+            className="object-contain p-12"
+          />
+        </div>
+
+        {/* INFO + ACTIONS + REVIEWS */}
+        <div className="flex flex-col gap-10 max-w-lg">
+          <div>
+            <div className="flex items-center gap-2 justify-between">
+              <h1 className="text-3xl font-semibold">{name}</h1>
+              <LinkIcon className="w-5 h-5 text-gray-400 hover:text-black cursor-pointer" />
+            </div>
+
+            <p className="text-sm text-gray-500 mt-1">{category}</p>
+
+            <div className="flex items-center gap-4 mt-3">
+              <StarRating rating={rating_avg} />
+              {rating_count > 0 && (
+                <button
+                  onClick={goToReviews}
+                  className="text-sm underline text-gray-600"
+                >
+                  Reviews ({rating_count})
+                </button>
+              )}
+            </div>
+
+            <p className="text-2xl font-medium mt-6">${price}</p>
+          </div>
+
+          {/* SIZE */}
+          <div>
+            <p className="text-sm font-medium mb-3">Select Size</p>
+            <div className="grid grid-cols-4 gap-3">
+              {sizes.map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setSneakerSize(size)}
+                  className={`h-12 rounded-md border
+                    ${
+                      sneakerSize === size
+                        ? "bg-black text-white border-black"
+                        : "border-gray-300 hover:border-black"
+                    }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* ACTIONS */}
+          <div className="flex justify-center items-center flex-col gap-4">
+            <button
+              onClick={addToCart}
+              className="h-14 w-3/4 px-6 py-3  rounded-full bg-black  text-white text-base font-medium tracking-wide transition hover:bg-black/70 active:scale-[0.99]"
+            >
+              Add to Bag
+            </button>
+
+            <button
+              onClick={handleFavorite}
+              disabled={isPending}
+              className="h-14 w-3/4 px-6 py-3  rounded-full border flex items-center justify-center text-base font-medium tracking-wide transition hover:bg-black/5 active:scale-[0.99] gap-2"
+            >
+              {isFavoriteState ? "Favorited" : "Favorite"}
+              {isFavoriteState ? (
+                <HeartSolid className="w-4 h-4 text-red-500" />
+              ) : (
+                <HeartOutline className="w-4 h-4" />
+              )}
+            </button>
+          </div>
+
+          <Cart />
+
+          <div id="reviews" className="pt-8 ">
+            <SneakerReviews reviews={reviews} />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

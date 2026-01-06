@@ -7,7 +7,7 @@ export default async function page({ params }) {
   const reviews = await getSneakersReviews(sneakerID);
 
   return (
-    <div className="flex w-full gap-4">
+    <div className="w-full justify-items-center">
       <SneakerSelectedInformation
         key={sneakerDetails.id}
         sneaker={sneakerDetails}
