@@ -30,6 +30,7 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
     isFavorite,
     rating_avg,
     rating_count,
+    description,
   } = sneaker;
 
   const [mainImage, setMainImage] = useState(images[0]);
@@ -97,7 +98,7 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
                 onClick={goToReviews}
                 className="text-sm underline text-gray-600"
               >
-                Reviews ({rating_count})
+                View reviews ({rating_count})
               </button>
             )}
           </div>
@@ -162,36 +163,39 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
       </div>
 
       {/* ================= DESKTOP ================= */}
-      <div className="hidden lg:flex justify-center gap-6">
-        {/* THUMBNAILS */}
-        <div className="flex flex-col gap-2 mr-2">
-          {images.map((img, idx) => (
-            <Image
-              key={idx}
-              src={img}
-              alt={`${name} thumbnail ${idx}`}
-              width={72}
-              height={72}
-              onClick={() => setMainImage(img)}
-              className={`cursor-pointer rounded-lg border
-                ${
-                  mainImage === img
-                    ? "border-black"
-                    : "border-gray-200 hover:border-black"
-                }`}
-            />
-          ))}
-        </div>
+      <div className="hidden lg:flex justify-center gap-12 items-start">
+        {/* LEFT — STICKY IMAGES */}
+        <div className="flex gap-4 sticky  self-start">
+          {/* THUMBNAILS */}
+          <div className="flex flex-col gap-2">
+            {images.map((img, idx) => (
+              <Image
+                key={idx}
+                src={img}
+                alt={`${name} thumbnail ${idx}`}
+                width={64}
+                height={64}
+                onClick={() => setMainImage(img)}
+                className={`cursor-pointer rounded-lg border transition
+          ${
+            mainImage === img
+              ? "border-black"
+              : "border-gray-200 hover:border-black"
+          }`}
+              />
+            ))}
+          </div>
 
-        {/* MAIN IMAGE */}
-        <div className="relative w-full max-w-[600px] aspect-square bg-[#f5f5f5] rounded-xl">
-          <Image
-            src={mainImage}
-            alt={name}
-            fill
-            priority
-            className="object-contain p-12"
-          />
+          {/* MAIN IMAGE (FIXED HEIGHT) */}
+          <div className="relative h-[520px] w-[520px] bg-[#f5f5f5] rounded-xl">
+            <Image
+              src={mainImage}
+              alt={name}
+              fill
+              priority
+              className="object-contain p-10"
+            />
+          </div>
         </div>
 
         {/* INFO + ACTIONS + REVIEWS */}
@@ -211,7 +215,7 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
                   onClick={goToReviews}
                   className="text-sm underline text-gray-600"
                 >
-                  Reviews ({rating_count})
+                  View reviews ({rating_count})
                 </button>
               )}
             </div>
@@ -261,11 +265,22 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
                 <HeartOutline className="w-6 h-6" />
               )}
             </button>
+
+            {/* Description */}
+            <div className="mt-12 max-w-prose">
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                Product Details
+              </h3>
+
+              <p className="whitespace-pre-line text-sm leading-7 text-gray-700 [&>strong]:text-gray-900">
+                {description}
+              </p>
+            </div>
           </div>
 
           <Cart />
 
-          <div id="reviews" className="pt-8 ">
+          <div id="reviews" className=" ">
             <SneakerReviews reviews={reviews} />
           </div>
         </div>
