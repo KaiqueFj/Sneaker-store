@@ -4,12 +4,9 @@ import { formatDateNoZ } from "@/utils/helpers";
 export default function SneakerReviews({ reviews }) {
   const ratingAvg = reviews?.[0]?.sneakers?.rating_avg ?? 0;
   return (
-    <div>
+    <>
       {/* ===== Header ===== */}
-      <div
-        id="reviews"
-        className="flex flex-row justify-between w-full py-6 items-center border-b border-primary-600/10"
-      >
+      <div className="flex flex-row justify-between w-full py-6 items-center border-b border-primary-600/10">
         <h2 className="text-primary-600 text-xl font-normal">
           Reviews ({reviews.length})
         </h2>
@@ -38,6 +35,6 @@ export default function SneakerReviews({ reviews }) {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 }

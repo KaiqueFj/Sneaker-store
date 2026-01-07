@@ -4,7 +4,7 @@ import SneakerDesktopView from "@/app/_components/Sneakers/sneakerPageStructure/
 import SneakerMobileView from "@/app/_components/Sneakers/sneakerPageStructure/SneakerMobileView";
 import SneakerReviews from "@/app/_components/Sneakers/sneakerPageStructure/SneakerReviews";
 import { getPreviewText } from "@/utils/helpers";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSneaker } from "../../../context/SneakerContext";
 import { useFavoriteSneaker } from "../../hooks/useFavoriteSneaker";
 
@@ -30,16 +30,23 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
   const { dispatch } = useSneaker();
   const { intro, benefits } = getPreviewText(description);
+  const reviewsDesktopRef = useRef(null);
+  const reviewsMobileRef = useRef(null);
   const { isFavoriteState, isPending, handleFavorite } = useFavoriteSneaker(
     isFavorite,
     id
   );
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToReviews = () => {
-    document
-      .getElementById("reviews")
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const target =
+      window.innerWidth >= 1024
+        ? reviewsDesktopRef.current
+        : reviewsMobileRef.current;
+
+    target?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   const addToCart = () => {
@@ -102,12 +109,12 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
         {...sharedActions}
         isPending={isPending}
       >
-        <div id="reviews">
+        <div ref={reviewsDesktopRef}>
           <SneakerReviews reviews={reviews} />
         </div>
       </SneakerDesktopView>
 
-      <div id="reviews" className="lg:hidden px-4 ">
+      <div ref={reviewsMobileRef} className="lg:hidden px-4 mt-16">
         <SneakerReviews reviews={reviews} />
       </div>
     </section>
