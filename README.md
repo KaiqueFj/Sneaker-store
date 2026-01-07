@@ -85,13 +85,32 @@ This is more than a frontend: it’s a **full-stack web application** with authe
 ## 📁 Project Structure
 
 ```
-src/
- ├── app/                 # Next.js routes
- ├── components/          # Reusable UI components
- ├── context/             # Cart + sneaker context
- ├── lib/                 # Configs & utilities
- ├── styles/              # Global styling
- └── utils/               # Helpers & formatters
+├── app/                        # Next.js App Router
+│   ├── _components/            # Shared UI components
+│   ├── _styles/                # Global & component styles
+│   ├── account/                # Account pages
+│   ├── cart/                   # Cart pages
+│   ├── favorites/              # Favorites pages
+│   ├── hooks/                  # Custom React hooks
+│   ├── login/                  # Login page
+│   ├── signup/                 # Signup page
+│   ├── sneaker/                # Single sneaker page
+│   ├── sneakers/               # Sneakers listing page
+│   ├── error.js                # Error boundary
+│   ├── icon.png                # App icon
+│   ├── layout.js               # Root layout
+│   ├── not-found.js            # 404 page
+│   └── page.js                 # Home page
+│
+├── context/                     # Global contexts (cart, user, sneakers)
+├── lib/                         # Configs, services, API helpers
+├── public/                      # Static assets
+├── utils/                       # Utility functions & helpers
+│
+├── .env                         # Environment variables
+├── jsconfig.json                # Path aliases
+├── next-env.d.ts
+├── proxy.js                     # Proxy configuration for auth and redirect
 ```
 
 ---
