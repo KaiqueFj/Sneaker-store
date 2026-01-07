@@ -109,7 +109,6 @@ This is more than a frontend: it’s a **full-stack web application** with authe
 │
 ├── .env                         # Environment variables
 ├── jsconfig.json                # Path aliases
-├── next-env.d.ts
 ├── proxy.js                     # Proxy configuration for auth and redirect
 ```
 
