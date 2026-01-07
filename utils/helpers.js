@@ -33,5 +33,10 @@ export const getPreviewText = (text, limit = 220) => {
 
   if (text.length <= limit) return text;
 
-  return text.slice(0, limit).trim() + "...";
+  const [intro, ...rest] = text.split("Benefits");
+
+  return {
+    intro: intro.trim(),
+    benefits: rest.length ? "Benefits" + rest.join("").trim() : "",
+  };
 };

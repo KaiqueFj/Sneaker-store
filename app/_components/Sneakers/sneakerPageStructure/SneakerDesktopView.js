@@ -13,6 +13,8 @@ export default function SneakerDesktopView({
   rating_avg,
   rating_count,
   images,
+  intro,
+  benefits,
   description,
   mainImage,
   setMainImage,
@@ -135,15 +137,15 @@ export default function SneakerDesktopView({
           {/* Description */}
           <div className="mt-12 max-w-prose">
             <h3 className="mb-4 text-xl font-semibold text-primary-600">
-              Product Details
+              Description
             </h3>
 
             <p className="whitespace-pre-line text-lg font-medium leading-7 text-primary-600 [&>strong]:text-primary-600">
-              {getPreviewText(description)}
+              {intro}
             </p>
 
             <p>
-              {description.length > 220 && (
+              {benefits && (
                 <button
                   onClick={() => setIsDescriptionOpen(true)}
                   className="mt-2 text-lg underline font-semibold text-primary-600 hover:text-gray-600"
@@ -151,15 +153,15 @@ export default function SneakerDesktopView({
                   Read more
                 </button>
               )}
-
-              {isDescriptionOpen && (
-                <SneakerDetailsModal
-                  description={description}
-                  isDescriptionOpen={isDescriptionOpen}
-                  setIsDescriptionOpen={setIsDescriptionOpen}
-                />
-              )}
             </p>
+
+            {isDescriptionOpen && (
+              <SneakerDetailsModal
+                description={description}
+                isDescriptionOpen={isDescriptionOpen}
+                setIsDescriptionOpen={setIsDescriptionOpen}
+              />
+            )}
           </div>
         </div>
 

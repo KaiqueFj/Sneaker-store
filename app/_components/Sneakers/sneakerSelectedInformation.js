@@ -29,6 +29,7 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
   const { dispatch } = useSneaker();
+  const { intro, benefits } = getPreviewText(description);
   const { isFavoriteState, isPending, handleFavorite } = useFavoriteSneaker(
     isFavorite,
     id
@@ -64,6 +65,8 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
     price,
     sizes,
     description,
+    intro,
+    benefits,
     rating_avg,
     rating_count,
     images,
