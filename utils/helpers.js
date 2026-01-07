@@ -40,3 +40,12 @@ export const getPreviewText = (text, limit = 220) => {
     benefits: rest.length ? "Benefits" + rest.join("").trim() : "",
   };
 };
+
+export function slugify(text) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
+}

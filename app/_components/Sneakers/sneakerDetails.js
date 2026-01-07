@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import StarRating from "@/app/_components/star/StarRating";
+import { slugify } from "@/utils/helpers";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useTransition } from "react";
@@ -30,6 +31,8 @@ export default function SneakerDetails({ sneaker }) {
 
   const { data: session } = useSession();
   const router = useRouter();
+
+  const slug = `${id}-${slugify(name)}`;
 
   function handleFavorite(e) {
     e.preventDefault();
@@ -65,7 +68,7 @@ export default function SneakerDetails({ sneaker }) {
 
   return (
     <Link
-      href={`/sneaker/${id}`}
+      href={`/sneaker/${slug}`}
       className="group relative flex flex-col h-full"
     >
       {/* Favorite Button */}
