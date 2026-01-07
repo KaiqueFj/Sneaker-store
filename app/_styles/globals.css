@@ -58,6 +58,21 @@
   animation: rotate 0.8s infinite linear;
 }
 
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  position: relative;
+  flex: 0 0 100%;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+}
+
 @keyframes float {
   0% {
     transform: translateY(0px);

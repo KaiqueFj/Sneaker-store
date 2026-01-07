@@ -1,8 +1,9 @@
 import Cart from "@/app/_components/cart/Cart";
+import SneakerDetailsModal from "@/app/_components/Sneakers/modal/SneakerDetailsModal";
+import SneakerImageCarousel from "@/app/_components/Sneakers/sneakerPageStructure/SneakerImageCarousel";
 import StarRating from "@/app/_components/star/StarRating";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
-import Image from "next/image";
 
 export default function SneakerMobileView({
   name,
@@ -10,9 +11,15 @@ export default function SneakerMobileView({
   price,
   rating_avg,
   rating_count,
+  sizes,
+  sneakerSize,
   images,
-  mainImage,
-  setMainImage,
+  intro,
+  setSneakerSize,
+  benefits,
+  description,
+  isDescriptionOpen,
+  setIsDescriptionOpen,
   isFavoriteState,
   addToCart,
   handleFavorite,
@@ -41,31 +48,27 @@ export default function SneakerMobileView({
       </div>
 
       {/* IMAGE */}
-      <div className="relative aspect-square bg-[#f5f5f5] rounded-xl">
-        <Image
-          src={mainImage}
-          alt={name}
-          fill
-          priority
-          className="object-contain p-8"
-        />
-      </div>
+      <SneakerImageCarousel images={images} name={name} />
 
-      {/* THUMBNAILS */}
-      <div className="flex justify-center gap-3">
-        {images.map((img, idx) => (
-          <Image
-            key={idx}
-            src={img}
-            alt="thumbnail"
-            width={72}
-            height={72}
-            onClick={() => setMainImage(img)}
-            className={`cursor-pointer rounded-lg border ${
-              mainImage === img ? "border-black" : "border-gray-200"
-            }`}
-          />
-        ))}
+      {/* SIZE */}
+      <div className="px-4">
+        <p className="text-sm font-medium mb-3">Select Size</p>
+        <div className="grid grid-cols-4 gap-3">
+          {sizes.map((size) => (
+            <button
+              key={size}
+              onClick={() => setSneakerSize(size)}
+              className={`h-12 rounded-md border
+                    ${
+                      sneakerSize === size
+                        ? "bg-black text-white border-black"
+                        : "border-gray-300 hover:border-black"
+                    }`}
+            >
+              {size}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* ACTIONS */}
@@ -88,6 +91,36 @@ export default function SneakerMobileView({
             <HeartOutline className="w-6 h-6" />
           )}
         </button>
+      </div>
+
+      {/* Description */}
+      <div className="mt-12 px-4 max-w-prose">
+        <h3 className="mb-4 text-xl font-semibold text-primary-600">
+          Description
+        </h3>
+
+        <p className="whitespace-pre-line text-lg font-medium leading-7 text-primary-600 [&>strong]:text-primary-600">
+          {intro}
+        </p>
+
+        <p>
+          {benefits && (
+            <button
+              onClick={() => setIsDescriptionOpen(true)}
+              className="mt-2 text-lg underline font-semibold text-primary-600 hover:text-gray-600"
+            >
+              Read more
+            </button>
+          )}
+        </p>
+
+        {isDescriptionOpen && (
+          <SneakerDetailsModal
+            description={description}
+            isDescriptionOpen={isDescriptionOpen}
+            setIsDescriptionOpen={setIsDescriptionOpen}
+          />
+        )}
       </div>
 
       <Cart />

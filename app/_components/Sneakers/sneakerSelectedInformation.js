@@ -34,6 +34,7 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
     isFavorite,
     id
   );
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToReviews = () => {
     document
