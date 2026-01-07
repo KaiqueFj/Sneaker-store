@@ -29,9 +29,6 @@ function AccountMenu() {
           <li className="font-normal text-primary-600/50 hover:text-primary-600 transition-colors duration-75">
             <Link href="/">Update password</Link>
           </li>
-          <li className="font-normal text-primary-600/50 hover:text-primary-600 transition-colors duration-75">
-            <Link href="/">Manage Cards</Link>
-          </li>
         </ul>
       </div>
 
