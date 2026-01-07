@@ -3,6 +3,7 @@
 import SneakerDesktopView from "@/app/_components/Sneakers/sneakerPageStructure/SneakerDesktopView";
 import SneakerMobileView from "@/app/_components/Sneakers/sneakerPageStructure/SneakerMobileView";
 import SneakerReviews from "@/app/_components/Sneakers/sneakerPageStructure/SneakerReviews";
+import { getPreviewText } from "@/utils/helpers";
 import { useState } from "react";
 import { useSneaker } from "../../../context/SneakerContext";
 import { useFavoriteSneaker } from "../../hooks/useFavoriteSneaker";
@@ -25,9 +26,9 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
   } = sneaker;
 
   const [mainImage, setMainImage] = useState(images[0]);
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
   const { dispatch } = useSneaker();
-
   const { isFavoriteState, isPending, handleFavorite } = useFavoriteSneaker(
     isFavorite,
     id
@@ -72,6 +73,9 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
     mainImage,
     setMainImage,
     isFavoriteState,
+    setIsDescriptionOpen,
+    isDescriptionOpen,
+    getPreviewText,
     addToCart,
     sneakerSize,
     handleFavorite,
@@ -94,7 +98,7 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
         {...sharedActions}
         isPending={isPending}
       >
-        <div id="reviews" className=" ">
+        <div id="reviews">
           <SneakerReviews reviews={reviews} />
         </div>
       </SneakerDesktopView>

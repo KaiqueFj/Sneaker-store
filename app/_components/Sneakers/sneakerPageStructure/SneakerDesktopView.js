@@ -1,4 +1,5 @@
 import Cart from "@/app/_components/cart/Cart";
+import SneakerDetailsModal from "@/app/_components/Sneakers/modal/SneakerDetailsModal";
 import StarRating from "@/app/_components/star/StarRating";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid, LinkIcon } from "@heroicons/react/24/solid";
@@ -22,6 +23,9 @@ export default function SneakerDesktopView({
   addToCart,
   handleFavorite,
   goToReviews,
+  setIsDescriptionOpen,
+  isDescriptionOpen,
+  getPreviewText,
   children,
 }) {
   return (
@@ -130,12 +134,31 @@ export default function SneakerDesktopView({
 
           {/* Description */}
           <div className="mt-12 max-w-prose">
-            <h3 className="mb-4 text-lg font-semibold text-gray-900">
+            <h3 className="mb-4 text-xl font-semibold text-primary-600">
               Product Details
             </h3>
 
-            <p className="whitespace-pre-line text-sm leading-7 text-gray-700 [&>strong]:text-gray-900">
-              {description}
+            <p className="whitespace-pre-line text-lg font-medium leading-7 text-primary-600 [&>strong]:text-primary-600">
+              {getPreviewText(description)}
+            </p>
+
+            <p>
+              {description.length > 220 && (
+                <button
+                  onClick={() => setIsDescriptionOpen(true)}
+                  className="mt-2 text-lg underline font-semibold text-primary-600 hover:text-gray-600"
+                >
+                  Read more
+                </button>
+              )}
+
+              {isDescriptionOpen && (
+                <SneakerDetailsModal
+                  description={description}
+                  isDescriptionOpen={isDescriptionOpen}
+                  setIsDescriptionOpen={setIsDescriptionOpen}
+                />
+              )}
             </p>
           </div>
         </div>

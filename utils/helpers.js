@@ -27,3 +27,11 @@ export const formatDateNoZ = (value) => {
     year: "numeric",
   });
 };
+
+export const getPreviewText = (text, limit = 220) => {
+  if (!text) return "";
+
+  if (text.length <= limit) return text;
+
+  return text.slice(0, limit).trim() + "...";
+};
