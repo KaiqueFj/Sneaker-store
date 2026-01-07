@@ -1,7 +1,13 @@
 import StarRating from "@/app/_components/star/StarRating";
 import { formatDateNoZ } from "@/utils/helpers";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { AnimatePresence, motion } from "framer-motion";
 
-export default function SneakerReviews({ reviews }) {
+export default function SneakerReviews({
+  reviews,
+  setIsReviewOpen,
+  isReviewOpen,
+}) {
   const ratingAvg = reviews?.[0]?.sneakers?.rating_avg ?? 0;
   return (
     <>
@@ -10,31 +16,53 @@ export default function SneakerReviews({ reviews }) {
         <h2 className="text-primary-600 text-xl font-normal">
           Reviews ({reviews.length})
         </h2>
-        <StarRating rating={ratingAvg} />
+
+        <button
+          type="button"
+          onClick={() => setIsReviewOpen((prev) => !prev)}
+          className="flex flex-row items-center gap-4"
+          aria-expanded={isReviewOpen}
+          aria-controls="reviews-section"
+        >
+          <StarRating rating={ratingAvg} />
+
+          <ChevronDownIcon
+            className={`w-6.5 h-6.5 transition-transform duration-200 ${
+              isReviewOpen ? "rotate-180" : ""
+            }`}
+          />
+        </button>
       </div>
 
       {/* ===== Reviews list ===== */}
-      <ul className="grid gap-6 mt-6">
-        {reviews.map((review) => (
-          <li key={review.id}>
-            <div className="flex flex-col gap-2.5">
-              <StarRating rating={review.rating} />
-
-              <p className="text-xl text-primary-600 font-medium">
-                {review.comment}
-              </p>
-
-              <div className="flex gap-2 flex-row text-sm">
-                <span className="text-primary-600">{review.users?.name}</span>
-                <span>-</span>
-                <span className="text-primary-600">
-                  {formatDateNoZ(review.created_at)}
-                </span>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <AnimatePresence>
+        {isReviewOpen && (
+          <motion.ul
+            id="reviews-section"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="grid gap-6 mt-6 overflow-hidden"
+          >
+            {reviews.map((review) => (
+              <li key={review.id}>
+                <div className="flex flex-col gap-2.5">
+                  <StarRating rating={review.rating} />
+                  <p className="text-xl text-primary-600 font-medium">
+                    {review.comment}
+                  </p>
+                  <div className="flex gap-2 text-sm">
+                    <span>{review.users?.name}</span>
+                    <span>-</span>
+                    <span>{formatDateNoZ(review.created_at)}</span>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </>
   );
 }

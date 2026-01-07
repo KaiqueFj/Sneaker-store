@@ -28,6 +28,7 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
   const [mainImage, setMainImage] = useState(images[0]);
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
   const { dispatch } = useSneaker();
   const { intro, benefits } = getPreviewText(description);
   const reviewsDesktopRef = useRef(null);
@@ -110,12 +111,20 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
         isPending={isPending}
       >
         <div ref={reviewsDesktopRef}>
-          <SneakerReviews reviews={reviews} />
+          <SneakerReviews
+            reviews={reviews}
+            setIsReviewOpen={setIsReviewOpen}
+            isReviewOpen={isReviewOpen}
+          />
         </div>
       </SneakerDesktopView>
 
       <div ref={reviewsMobileRef} className="lg:hidden px-4 mt-16">
-        <SneakerReviews reviews={reviews} />
+        <SneakerReviews
+          reviews={reviews}
+          setIsReviewOpen={setIsReviewOpen}
+          isReviewOpen={isReviewOpen}
+        />
       </div>
     </section>
   );
