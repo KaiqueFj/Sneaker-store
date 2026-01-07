@@ -40,7 +40,7 @@ function AccountMenu() {
         <h2 className="text-lg text-primary-600 font-normal">Services</h2>
         <ul className="text-sm p-4 bg-primary-50 rounded-md w-full text-primary-600 font-normal">
           <li className="font-normal text-primary-600/50 hover:text-primary-600 transition-colors duration-75">
-            <Link href="/">Favorites</Link>
+            <Link href="/favorites">Favorites</Link>
           </li>
         </ul>
       </div>
