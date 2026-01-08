@@ -41,9 +41,7 @@ export default function SneakerMobileView({
             }}
           />
         </div>
-
         <p className="text-sm text-gray-500 mt-1">{category}</p>
-
         <div className="flex items-center gap-4 mt-3">
           <StarRating rating={rating_avg} />
           {rating_count > 0 && (
@@ -55,7 +53,6 @@ export default function SneakerMobileView({
             </button>
           )}
         </div>
-
         <p className="text-2xl font-medium mt-6">${price}</p>
       </div>
 

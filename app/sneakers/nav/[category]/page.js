@@ -1,9 +1,7 @@
-import { Suspense } from "react";
 import { getSneakers } from "../../../../lib/data-service";
 import Category from "../../../_components/HeaderPages/Category";
 import Filter from "../../../_components/Sneakers/filter/filter";
 import SneakersList from "../../../_components/Sneakers/sneakerList";
-import Spinner from "../../../_components/Spinner/Spinner";
 
 export async function generateMetadata({ params }) {
   const { category } = await params;
@@ -47,9 +45,7 @@ export default async function Page({ params, searchParams }) {
 
         {/* Grid */}
         <div className="flex justify-center lg:px-6 ">
-          <Suspense fallback={<Spinner />} key={filter}>
-            <SneakersList filter={filter} sneakers={sneakers} />
-          </Suspense>
+          <SneakersList filter={filter} sneakers={sneakers} />
         </div>
       </div>
     </div>
