@@ -4,7 +4,9 @@ import SneakerDesktopView from "@/app/_components/Sneakers/sneakerPageStructure/
 import SneakerMobileView from "@/app/_components/Sneakers/sneakerPageStructure/SneakerMobileView";
 import SneakerReviews from "@/app/_components/Sneakers/sneakerPageStructure/SneakerReviews";
 import { getPreviewText } from "@/utils/helpers";
+import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { useSneaker } from "../../../context/SneakerContext";
 import { useFavoriteSneaker } from "../../hooks/useFavoriteSneaker";
 
@@ -30,6 +32,7 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
   const [sneakerSize, setSneakerSize] = useState(sizes[0]);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const { dispatch } = useSneaker();
+  const pathName = usePathname();
   const { intro, benefits } = getPreviewText(description);
   const reviewsDesktopRef = useRef(null);
   const reviewsMobileRef = useRef(null);
@@ -37,6 +40,9 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
     isFavorite,
     id
   );
+
+  const currentUrl =
+    typeof window !== "undefined" ? `${window.location.origin}${pathName}` : "";
 
   const goToReviews = () => {
     const target =
@@ -84,9 +90,11 @@ export default function SneakerSelectedInformation({ sneaker, reviews }) {
   const sharedActions = {
     mainImage,
     setMainImage,
+    toast,
     isFavoriteState,
     setIsDescriptionOpen,
     isDescriptionOpen,
+    currentUrl,
     getPreviewText,
     addToCart,
     sneakerSize,

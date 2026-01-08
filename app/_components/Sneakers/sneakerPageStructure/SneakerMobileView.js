@@ -3,7 +3,7 @@ import SneakerDetailsModal from "@/app/_components/Sneakers/modal/SneakerDetails
 import SneakerImageCarousel from "@/app/_components/Sneakers/sneakerPageStructure/SneakerImageCarousel";
 import StarRating from "@/app/_components/star/StarRating";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
-import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
+import { HeartIcon as HeartSolid, LinkIcon } from "@heroicons/react/24/solid";
 
 export default function SneakerMobileView({
   name,
@@ -17,6 +17,8 @@ export default function SneakerMobileView({
   intro,
   setSneakerSize,
   benefits,
+  currentUrl,
+  toast,
   description,
   isDescriptionOpen,
   setIsDescriptionOpen,
@@ -29,7 +31,17 @@ export default function SneakerMobileView({
     <div className="flex flex-col gap-10 lg:hidden">
       {/* INFO */}
       <div className="px-4">
-        <h1 className="text-3xl font-semibold">{name}</h1>
+        <div className="flex items-center gap-2 justify-between">
+          <h1 className="text-3xl font-semibold">{name}</h1>
+          <LinkIcon
+            className="w-6.5 h-6.5 text-primary-600 font-semibold cursor-pointer"
+            onClick={() => {
+              navigator.clipboard.writeText(currentUrl);
+              toast.success("Link copied!");
+            }}
+          />
+        </div>
+
         <p className="text-sm text-gray-500 mt-1">{category}</p>
 
         <div className="flex items-center gap-4 mt-3">

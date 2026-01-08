@@ -27,7 +27,7 @@ export default async function RootLayout({ children }) {
         <Providers session={session}>
           <Header />
 
-          <div className="grid flex-1 overflow-hidden  py-12">
+          <div className="grid flex-1 overflow-hidden  ">
             <main className="w-full max-w-full 0">{children}</main>
           </div>
 

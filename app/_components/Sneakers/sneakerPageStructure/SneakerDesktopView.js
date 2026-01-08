@@ -14,12 +14,14 @@ export default function SneakerDesktopView({
   rating_count,
   images,
   intro,
+  toast,
   benefits,
   description,
   mainImage,
   setMainImage,
   sneakerSize,
   setSneakerSize,
+  currentUrl,
   isPending,
   isFavoriteState,
   addToCart,
@@ -55,7 +57,7 @@ export default function SneakerDesktopView({
         </div>
 
         {/* MAIN IMAGE (FIXED HEIGHT) */}
-        <div className="relative h-130 w-130 bg-[#f5f5f5] rounded-xl">
+        <div className="relative h-150 w-130 bg-[#f5f5f5] rounded-xl">
           <Image
             src={mainImage}
             alt={name}
@@ -71,10 +73,16 @@ export default function SneakerDesktopView({
         <div>
           <div className="flex items-center gap-2 justify-between">
             <h1 className="text-3xl font-semibold">{name}</h1>
-            <LinkIcon className="w-5 h-5 text-gray-400 hover:text-black cursor-pointer" />
+            <LinkIcon
+              className="w-8 h-8 text-primary-600 font-semibold cursor-pointer"
+              onClick={() => {
+                navigator.clipboard.writeText(currentUrl);
+                toast.success("Link copied!");
+              }}
+            />
           </div>
 
-          <p className="text-sm text-gray-500 mt-1">{category}</p>
+          <p className="text-base text-gray-500 mt-1">{category}</p>
 
           <div className="flex items-center gap-4 mt-3">
             <StarRating rating={rating_avg} />
