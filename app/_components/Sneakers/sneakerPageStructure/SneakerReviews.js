@@ -42,19 +42,23 @@ export default function SneakerReviews({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
             className="grid gap-6 mt-6 overflow-hidden"
           >
             {reviews.map((review) => (
-              <li key={review.id}>
-                <div className="flex flex-col gap-2.5">
+              <li key={review.id} className="pb-6 ">
+                <div className="flex flex-col gap-3">
                   <StarRating rating={review.rating} />
-                  <p className="text-xl text-primary-600 font-medium">
+
+                  <p className="text-lg text-primary-600 font-medium leading-snug">
                     {review.comment}
                   </p>
-                  <div className="flex gap-2 text-sm">
-                    <span>{review.users?.name}</span>
-                    <span>-</span>
+
+                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <span className="font-medium text-gray-700">
+                      {review.users?.name}
+                    </span>
+                    <span>•</span>
                     <span>{formatDateNoZ(review.created_at)}</span>
                   </div>
                 </div>
