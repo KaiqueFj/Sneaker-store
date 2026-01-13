@@ -16,8 +16,6 @@ export default async function Page({ searchParams }) {
 
   sneakers = await getSneakersOnSale();
 
-  console.log(sneakers);
-
   return (
     <div className="flex  justify-center h-auto min-h-screen">
       <div className="w-full flex flex-col gap-10 max-w-[1440px] mx-auto px-2 lg:px-10 box-border py-0 ">
