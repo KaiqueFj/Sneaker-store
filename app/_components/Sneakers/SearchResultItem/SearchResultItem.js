@@ -4,13 +4,14 @@ import { slugify } from "@/utils/helpers";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function SearchResultItem({ sneaker }) {
+export default function SearchResultItem({ sneaker, onClose }) {
   const { id, name, price, images, category, gender, sale } = sneaker;
   const slug = `${id}-${slugify(name)}`;
 
   return (
     <Link
       href={`/sneaker/${slug}`}
+      onClick={onClose}
       className=" flex items-center gap-6 w-full px-5 py-4 rounded-xl hover:bg-gray-100 transition"
     >
       {/* Image */}

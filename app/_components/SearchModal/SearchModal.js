@@ -71,7 +71,11 @@ export default function SearchModal({ onClose }) {
             {results.length > 0 ? (
               <div className="flex flex-col gap-2">
                 {results.map((sneaker) => (
-                  <SearchResultItem key={sneaker.id} sneaker={sneaker} />
+                  <SearchResultItem
+                    onClose={onClose}
+                    key={sneaker.id}
+                    sneaker={sneaker}
+                  />
                 ))}
               </div>
             ) : (

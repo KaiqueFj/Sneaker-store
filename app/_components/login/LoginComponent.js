@@ -1,10 +1,10 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import SignInButton from "./SignInButton";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-import { signIn } from "next-auth/react";
+import SignInButton from "./SignInButton";
 
 export default function LoginComponent() {
   const router = useRouter();
@@ -90,9 +90,9 @@ export default function LoginComponent() {
         </form>
         {/* Divider */}
         <div className="flex items-center gap-4">
-          <div className="h-[1px] flex-1 bg-neutral-200"></div>
+          <div className="h-px flex-1 bg-neutral-200"></div>
           <span className="text-sm text-neutral-500">or</span>
-          <div className="h-[1px] flex-1 bg-neutral-200"></div>
+          <div className="h-px flex-1 bg-neutral-200"></div>
         </div>
         {/* Google login button */}
         <div className="flex justify-center">
