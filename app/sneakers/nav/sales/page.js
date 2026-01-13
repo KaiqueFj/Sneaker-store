@@ -1,9 +1,7 @@
-import { Suspense } from "react";
 import { getSneakersOnSale } from "../../../../lib/data-service";
 import Category from "../../../_components/HeaderPages/Category";
 import Filter from "../../../_components/Sneakers/filter/filter";
 import SneakersList from "../../../_components/Sneakers/sneakerList";
-import Spinner from "../../../_components/Spinner/Spinner";
 
 export async function generateMetadata() {
   return { title: ` Sneakers on sale ` };
@@ -21,16 +19,15 @@ export default async function Page({ searchParams }) {
       <div className="w-full flex flex-col gap-10 max-w-[1440px] mx-auto px-2 lg:px-10 box-border py-0 ">
         {/* Header */}
         <div className="flex items-center h- justify-between px-6 lg:px-12">
-          <Category>{`Sneakers on Sale (${sneakers.length})`}</Category>
-
+          <Category>
+            {category ? `${category} sneakers` : "All sneakers"}
+          </Category>
           <Filter />
         </div>
 
         {/* Grid */}
         <div className="flex justify-center lg:px-6 ">
-          <Suspense fallback={<Spinner />} key={filter}>
-            <SneakersList filter={filter} sneakers={sneakers} />
-          </Suspense>
+          <SneakersList filter={filter} sneakers={sneakers} />
         </div>
       </div>
     </div>

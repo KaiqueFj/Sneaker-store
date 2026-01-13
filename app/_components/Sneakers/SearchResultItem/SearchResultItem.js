@@ -11,18 +11,16 @@ export default function SearchResultItem({ sneaker }) {
   return (
     <Link
       href={`/sneaker/${slug}`}
-      className="flex flex-col items-start gap-4 px-6 py-6p
-                 rounded-2xl hover:bg-gray-100 transition-all
-                 hover:-translate-y-0.5"
+      className=" flex items-center gap-6 w-full px-5 py-4 rounded-xl hover:bg-gray-100 transition"
     >
       {/* Image */}
-      <div className="relative w-44 h-44 sm:w-48 sm:h-56 bg-gray-100 rounded-md overflow-hidden">
+      <div className="relative w-28 h-28 sm:w-32 sm:h-32 bg-gray-100 rounded-lg overflow-hidden shrink-0">
         <Image src={images[0]} alt={name} fill className="object-contain" />
       </div>
 
       {/* Info */}
-      <div className="flex flex-col items-start text-center gap-1">
-        <p className="text-base font-medium text-gray-900 line-clamp-2">
+      <div className="flex flex-col gap-1">
+        <p className="text-base font-semibold text-gray-900 line-clamp-2">
           {name}
         </p>
 
@@ -30,7 +28,7 @@ export default function SearchResultItem({ sneaker }) {
           {category} · {gender?.[0] ?? "Unisex"}
         </p>
 
-        <p className="mt-2 text-base font-semibold text-gray-900">
+        <p className="mt-1 text-base font-semibold text-gray-900">
           {sale ? (
             <>
               $

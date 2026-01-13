@@ -22,7 +22,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={` ${inter.className} relative  min-h-screen antialiased  flex flex-col text-primary-600`}
+        className={` ${inter.className} relative  min-h-screen antialiased bg-white flex flex-col text-primary-600`}
       >
         <Providers session={session}>
           <Header />
