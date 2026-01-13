@@ -1,5 +1,5 @@
 import { auth } from "../../lib/auth";
-import AccountMenu from "../_components/sideNavigation/Navigation";
+import AccountMenu from "../_components/AccountMenu/Navigation";
 
 export const metadata = {
   title: "Account",
@@ -11,13 +11,14 @@ export default async function page() {
 
   return (
     <div className="flex flex-col gap-10">
-      <div className="flex flex-col p-4 items-center ">
-        <h2 className="text-2xl font-semibold text-accent-400 mb-7">
+      <div className="flex flex-col items-center gap-3 px-4 py-10 text-center">
+        <h2 className="text-4xl font-bold tracking-tight text-black">
           Welcome, {firstName}
         </h2>
-        <p className="text-lg text-center text-primary-600/60">
-          Take a look at your account details, recent orders and manage your
-          profile
+
+        <p className="max-w-sm text-sm text-gray-500">
+          View your orders, manage your account, and update your personal
+          information.
         </p>
       </div>
 

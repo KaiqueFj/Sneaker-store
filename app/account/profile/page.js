@@ -8,21 +8,21 @@ export const metadata = {
 
 export default async function Page() {
   const session = await auth();
-
   const user = await getUser(session.user.email);
 
   return (
-    <div className="p-2 flex flex-col justify-center">
-      <h2 className="mb-4 text-2xl  text-center font-semibold text-primary-600">
-        Update your guest profile
-      </h2>
+    <div className="mx-auto w-full max-w-xl px-4 py-12">
+      <header className="mb-12 text-center">
+        <h2 className="mb-3 text-4xl font-bold tracking-tight text-black">
+          Update profile
+        </h2>
 
-      <p className="mb-8 text-xl text-center font-medium text-primary-400">
-        Providing the following information will make your check-in process
-        faster and smoother. See you soon!
-      </p>
+        <p className="text-sm text-gray-500">
+          Keep your details up to date for a faster and smoother experience.
+        </p>
+      </header>
 
-      <UpdateProfileForm user={user}></UpdateProfileForm>
+      <UpdateProfileForm user={user} />
     </div>
   );
 }
