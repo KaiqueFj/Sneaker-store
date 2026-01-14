@@ -86,13 +86,15 @@ export default function SneakerDesktopView({
 
           <div className="flex items-center gap-4 mt-3">
             <StarRating rating={rating_avg} />
-            {rating_count > 0 && (
+            {rating_count > 0 ? (
               <button
                 onClick={goToReviews}
                 className="text-sm underline cursor-pointer text-gray-600"
               >
                 View reviews ({rating_count})
               </button>
+            ) : (
+              <p>No reviews yet</p>
             )}
           </div>
 
