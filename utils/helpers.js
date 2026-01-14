@@ -1,3 +1,5 @@
+import crypto from "crypto";
+
 export const formatCurrency = (value) =>
   new Intl.NumberFormat("en", { style: "currency", currency: "USD" }).format(
     value
@@ -48,4 +50,18 @@ export function slugify(text) {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
+}
+
+export function createResetToken() {
+  const rawToken = crypto.randomBytes(32).toString("hex");
+
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(rawToken)
+    .digest("hex");
+
+  return {
+    rawToken,
+    hashedToken,
+  };
 }
