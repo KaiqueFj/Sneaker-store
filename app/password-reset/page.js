@@ -1,13 +1,13 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import { forgotPassword } from "../..//lib/actions";
 import Button from "../_components/Button/Button";
 
 const initialState = { status: null, message: "" };
 
 export default function Page() {
-  const [state, action] = useFormState(forgotPassword, initialState);
+  const [state, action] = useActionState(forgotPassword, initialState);
 
   return (
     <div className="min-h-screen flex items-center justify-center  px-4">

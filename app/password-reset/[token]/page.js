@@ -8,14 +8,6 @@ export default async function page({ params }) {
   const userHashDb = await getUserByHashedToken(result);
 
   return (
-    // <div>
-    //   {result !== user.reset_token_hash ? (
-    //     <div>Invalid token</div>
-    //   ) : (
-    //     <div>Valid token</div>
-    //   )}
-    // </div>
-
     <div className="min-h-screen flex items-center justify-center px-4">
       <form
         className="w-full max-w-md rounded-2xl bg-white p-8 shadow-md space-y-5"
