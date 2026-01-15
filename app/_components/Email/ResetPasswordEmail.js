@@ -23,9 +23,9 @@ export default function ResetPasswordEmail({ resetUrl }) {
             {/* Logo */}
             <Section className="mb-6 text-center">
               <Img
-                src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fpluspng.com%2Fimg-png%2Fnike-hd-png-nike-logo-png-pic-4944.png&f=1&nofb=1&ipt=75e267e84e65796568c19db4858ee4b7951f6a6955dfd45d2e024962bfde89ed"
+                src="https://i.postimg.cc/T1BqZ7X7/image.png"
                 alt="Shark Store"
-                width="40"
+                width="60"
                 height="40"
                 className="mx-auto"
               />
