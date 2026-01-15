@@ -1,8 +1,8 @@
 "use client";
 
-import Button from "@/app/_components/Button/Button";
-import { forgotPassword } from "@/lib/actions";
 import { useFormState } from "react-dom";
+import { forgotPassword } from "../..//lib/actions";
+import Button from "../_components/Button/Button";
 
 const initialState = { status: null, message: "" };
 

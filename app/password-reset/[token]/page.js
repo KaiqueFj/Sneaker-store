@@ -1,14 +1,10 @@
-import { auth } from "@/lib/auth";
-import { getUser } from "@/lib/data-service";
+import { getUserByHashedToken } from "@/lib/actions";
 import crypto from "crypto";
 
 export default async function page({ params }) {
   const { token } = await params;
-  const sessionUser = await auth();
-  const user = await getUser(sessionUser.user.email);
   let result = await crypto.createHash("sha256").update(token).digest("hex");
-
-  console.log(token, result);
+  const userHashDb = await getUserByHashedToken(result);
 
   return (
     // <div>

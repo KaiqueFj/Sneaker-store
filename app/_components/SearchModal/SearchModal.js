@@ -1,10 +1,10 @@
 "use client";
 
-import SearchResultItem from "@/app/_components/Sneakers/SearchResultItem/SearchResultItem";
 import { getSneakerSearch } from "@/lib/data-service";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import SearchResultItem from "../Sneakers/SearchResultItem/SearchResultItem";
 
 export default function SearchModal({ onClose }) {
   const [term, setTerm] = useState("");
