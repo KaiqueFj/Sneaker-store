@@ -79,6 +79,15 @@ export default function LoginComponent() {
             />
           </div>
 
+          <div>
+            <Link
+              href="/password-reset"
+              className="text-sm text-primary-600/70 font-medium underline hover:underline"
+            >
+              Forgot password?
+            </Link>
+          </div>
+
           {/* Login button */}
           <button
             type="submit"
