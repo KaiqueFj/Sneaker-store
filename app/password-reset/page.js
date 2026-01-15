@@ -10,11 +10,11 @@ export default function Page() {
   const [state, action] = useFormState(forgotPassword, initialState);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 px-4">
+    <div className="min-h-screen flex items-center justify-center  px-4">
       <form
         action={action}
-        className="w-full max-w-md rounded-2xl bg-white/90 backdrop-blur
-                   p-8 shadow-xl space-y-7 border border-gray-100"
+        className="w-full max-w-md rounded-2xl  backdrop-blur
+                   p-8 shadow-md border border-primary-600/10 space-y-7 "
       >
         {/* Header */}
         <div className="text-center space-y-2">
