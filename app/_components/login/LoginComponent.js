@@ -30,7 +30,11 @@ export default function LoginComponent() {
 
     toast.dismiss();
 
+    console.log(res);
+
     if (res?.error) {
+      console.log(res?.error);
+
       toast.error("Invalid email or password");
       return;
     }
@@ -92,7 +96,7 @@ export default function LoginComponent() {
           <button
             type="submit"
             className="w-full py-3 rounded-xl bg-primary-600 text-white font-medium
-            hover:bg-primary-700 transition-all"
+            hover:bg-primary-600/70 transition-all"
           >
             Sign In
           </button>

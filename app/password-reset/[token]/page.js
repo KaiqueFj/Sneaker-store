@@ -1,18 +1,16 @@
-import { getUserByHashedToken } from "@/lib/actions";
-import crypto from "crypto";
+import { resetPassword } from "@/lib/actions";
 import Link from "next/link";
 
 export default async function page({ params }) {
+  // const [state, action] = useActionState(forgotPassword, initialState);
+
   const { token } = await params;
-  let result = await crypto.createHash("sha256").update(token).digest("hex");
-  const userHashDb = await getUserByHashedToken(result);
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <form
         className="w-full max-w-md rounded-2xl bg-white p-8 shadow-md space-y-5"
-        method="post"
-        action=""
+        action={resetPassword}
       >
         <div className="mb-6 text-center">
           <h1 className="text-3xl font-semibold tracking-tight">
@@ -38,6 +36,8 @@ export default async function page({ params }) {
             required
             className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10"
           />
+
+          <input type="hidden" name="token" value={token} />
         </div>
 
         <div>
