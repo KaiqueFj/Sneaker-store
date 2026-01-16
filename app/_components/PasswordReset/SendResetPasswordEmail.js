@@ -1,77 +1,96 @@
 "use client";
 
+import Button from "@/app/_components/Button/Button";
+import Logo from "@/app/_components/Header/logo/Logo";
+import { forgotPassword } from "@/lib/actions";
+import Link from "next/link";
 import { useActionState } from "react";
-import { forgotPassword } from "../../lib/actions";
-import Button from "../_components/Button/Button";
 
 const initialState = { status: null, message: "" };
 
 export default function SendResetPasswordForm() {
   const [state, action] = useActionState(forgotPassword, initialState);
 
+  const isError = state?.status === "error";
+
   return (
-    <div className="min-h-screen flex items-center justify-center  px-4">
-      <form
-        action={action}
-        className="w-full max-w-md rounded-2xl  backdrop-blur
-                   p-8 shadow-md border border-primary-600/10 space-y-7 "
-      >
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-gray-900">
-            Forgot password
-          </h1>
-          <p className="text-sm text-gray-500">
-            We’ll email you a secure link to reset your password
-          </p>
+    <div className="min-h-screen bg-white px-6 py-10">
+      <div className="mx-auto max-w-lg">
+        {/* Optional brand / logo */}
+        <div className="mb-10 flex items-center gap-3">
+          <span className="text-lg font-semibold tracking-tight">
+            <Logo />
+          </span>
         </div>
 
-        {/* Email input */}
-        <div className="space-y-1">
-          <label
-            htmlFor="email"
-            className="text-xs font-medium uppercase tracking-widest text-gray-500"
-          >
-            Email address
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            placeholder="you@example.com"
-            className="w-full rounded-lg border border-gray-300
-                       bg-gray-50/50 px-4 py-2.5 text-sm
-                       focus:border-black focus:outline-none
-                       focus:ring-2 focus:ring-black/10"
-          />
-        </div>
+        {/* Title */}
+        <h1 className="text-3xl font-semibold leading-tight text-gray-900">
+          Verify your email
+          <br />
+          to reset your password
+        </h1>
 
-        {/* Feedback message */}
-        {state?.message && (
-          <div
-            className={`rounded-lg px-4 py-3 text-sm ${
-              state.status === "success"
-                ? "bg-green-50 text-green-700 border border-green-200"
-                : "bg-red-50 text-red-700 border border-red-200"
-            }`}
-          >
-            {state.message}
-          </div>
-        )}
-
-        <div className="flex flex-row items-center justify-center">
-          {/* Submit */}
-          <Button pendingLabel="Sending..." className="w-full">
-            Send reset link
-          </Button>
-        </div>
-
-        {/* Footer */}
-        <p className="pt-2 text-center text-xs text-gray-400">
-          If an account exists, you’ll receive an email shortly.
+        <p className="mt-3 text-sm text-gray-600">
+          We will send you an email with a link to reset your password.
         </p>
-      </form>
+
+        {/* Form */}
+        <form action={action} className="mt-8 space-y-6">
+          <div className="space-y-1">
+            <label
+              htmlFor="email"
+              className="text-xs font-medium text-gray-700"
+            >
+              E-mail
+            </label>
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              placeholder="your@email.com"
+              className={`w-full rounded-md border px-4 py-3 text-sm
+                focus:outline-none transition
+                ${
+                  isError
+                    ? "border-red-500 focus:ring-2 focus:ring-red-200"
+                    : "border-gray-300 focus:border-black focus:ring-2 focus:ring-black/10"
+                }`}
+            />
+
+            {isError && (
+              <p className="text-xs text-red-600">
+                Verify your email address and try again.
+              </p>
+            )}
+          </div>
+
+          {/* Server feedback */}
+          {state?.message && (
+            <p
+              className={`text-sm ${
+                state.status === "success" ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {state.message}
+            </p>
+          )}
+
+          {/* Actions */}
+          <div className="flex items-center justify-end gap-4 pt-4">
+            <Link
+              href="/login"
+              className="text-base text-primary-600 border-primary-600/20 border-2 px-8 py-3 rounded-full hover:border-primary-600 transition"
+            >
+              Cancel
+            </Link>
+            <Button pendingLabel="Sending..." className="font-medium">
+              Send link
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

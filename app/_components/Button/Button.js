@@ -8,7 +8,7 @@ export default function Button({ children, pendingLabel }) {
   return (
     <button
       disabled={pending}
-      className="py-3 rounded-xl p-2 font-medium transition-all bg-primary-600   text-primary-50 hover:bg-primary-600/70 "
+      className=" rounded-full px-6 py-4 font-medium transition-all bg-primary-600   text-primary-50 hover:bg-primary-600/70 "
     >
       {pending ? pendingLabel : children}
     </button>
