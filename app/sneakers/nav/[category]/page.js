@@ -34,7 +34,7 @@ export default async function Page({ params, searchParams }) {
 
   return (
     <div className="flex  justify-center h-auto min-h-screen">
-      <div className="w-full flex flex-col gap-10 max-w-[1440px] mx-auto px-2 lg:px-10 box-border py-0 ">
+      <div className="w-full flex flex-col gap-10 max-w-360 mx-auto px-2 lg:px-10 box-border py-0 ">
         {/* Header */}
         <div className="flex items-center h- justify-between px-6 lg:px-12">
           <Category>
@@ -43,7 +43,6 @@ export default async function Page({ params, searchParams }) {
           <Filter />
         </div>
 
-        {/* Grid */}
         <div className="flex justify-center lg:px-6 ">
           <SneakersList filter={filter} sneakers={sneakers} />
         </div>

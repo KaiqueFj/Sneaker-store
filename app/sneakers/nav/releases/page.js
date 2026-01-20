@@ -1,9 +1,7 @@
-import { Suspense } from "react";
 import { getNewestSneakers } from "../../../../lib/data-service";
 import Category from "../../../_components/HeaderPages/Category";
 import Filter from "../../../_components/Sneakers/filter/filter";
 import SneakersList from "../../../_components/Sneakers/sneakerList";
-import Spinner from "../../../_components/Spinner/Spinner";
 
 export async function generateMetadata() {
   return { title: `New & Featured Sneakers` };
@@ -22,10 +20,8 @@ export default async function Page({ searchParams }) {
         <Category>{`New & Featured Sneakers (${sneakers.length})`}</Category>
         <Filter />
       </div>
-      <div className="flex flex-row justify-center w-3/4">
-        <Suspense fallback={<Spinner />} key={filter}>
-          <SneakersList filter={filter} sneakers={sneakers} />
-        </Suspense>
+      <div className="flex justify-center lg:px-6 ">
+        <SneakersList filter={filter} sneakers={sneakers} />
       </div>
     </div>
   );

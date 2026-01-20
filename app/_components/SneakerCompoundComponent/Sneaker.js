@@ -40,10 +40,10 @@ Sneaker.Favorite = function Favorite({
       disabled={isPending}
       className="absolute top-3 right-3 z-20 w-9 h-9 rounded-full
                  flex items-center justify-center bg-white/70
-                 backdrop-blur shadow transition hover:scale-110"
+                 backdrop-blur shadow cursor-pointer transition hover:scale-110"
     >
       {isFavoriteState ? (
-        <HeartSolid className="w-4 h-4 text-red-500" />
+        <HeartSolid className="w-4 h-4 cursor-pointer text-red-500" />
       ) : (
         <HeartOutline className="w-4 h-4 text-gray-900" />
       )}
