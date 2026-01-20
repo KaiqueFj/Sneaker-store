@@ -12,7 +12,6 @@ export default function Filter() {
   const pathName = usePathname();
   const activeFilter = searchParams.get("order") || "all";
 
-  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

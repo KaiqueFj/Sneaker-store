@@ -5,28 +5,32 @@ import StarRating from "@/app/_components/star/StarRating";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid, LinkIcon } from "@heroicons/react/24/solid";
 
-export default function SneakerMobileView({
-  name,
-  category,
-  price,
-  rating_avg,
-  rating_count,
-  sizes,
-  sneakerSize,
-  images,
-  intro,
-  setSneakerSize,
-  benefits,
-  currentUrl,
-  toast,
-  description,
-  isDescriptionOpen,
-  setIsDescriptionOpen,
-  isFavoriteState,
-  addToCart,
-  handleFavorite,
-  goToReviews,
-}) {
+export default function SneakerMobileView({ product, ui, actions, meta }) {
+  const {
+    name,
+    category,
+    price,
+    images,
+    sizes,
+    rating_avg,
+    rating_count,
+    intro,
+    benefits,
+    description,
+  } = product;
+
+  const { sneakerSize, isDescriptionOpen } = ui;
+
+  const {
+    setSneakerSize,
+    setIsDescriptionOpen,
+    addToCart,
+    handleFavorite,
+    goToReviews,
+  } = actions;
+
+  const { isFavoriteState, currentUrl, toast } = meta;
+
   return (
     <div className="flex flex-col gap-10 lg:hidden">
       {/* INFO */}

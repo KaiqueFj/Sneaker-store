@@ -6,32 +6,38 @@ import { HeartIcon as HeartSolid, LinkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 
 export default function SneakerDesktopView({
-  name,
-  category,
-  price,
-  sizes,
-  rating_avg,
-  rating_count,
-  images,
-  intro,
-  toast,
-  benefits,
-  description,
-  mainImage,
-  setMainImage,
-  sneakerSize,
-  setSneakerSize,
-  currentUrl,
-  isPending,
-  isFavoriteState,
-  addToCart,
-  handleFavorite,
-  goToReviews,
-  setIsDescriptionOpen,
-  isDescriptionOpen,
-  getPreviewText,
+  product,
+  ui,
+  actions,
+  meta,
   children,
 }) {
+  const {
+    name,
+    category,
+    price,
+    images,
+    sizes,
+    rating_avg,
+    rating_count,
+    intro,
+    benefits,
+    description,
+  } = product;
+
+  const { mainImage, sneakerSize, isDescriptionOpen } = ui;
+
+  const {
+    setMainImage,
+    setSneakerSize,
+    setIsDescriptionOpen,
+    addToCart,
+    handleFavorite,
+    goToReviews,
+  } = actions;
+
+  const { isFavoriteState, isPending, currentUrl, toast } = meta;
+
   return (
     <div className="hidden lg:flex justify-center gap-12 items-start">
       {/* LEFT — STICKY IMAGES */}

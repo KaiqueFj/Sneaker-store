@@ -1,137 +1,38 @@
 "use client";
 
-import SneakerDesktopView from "@/app/_components/Sneakers/sneakerPageStructure/SneakerDesktopView";
-import SneakerMobileView from "@/app/_components/Sneakers/sneakerPageStructure/SneakerMobileView";
-import SneakerReviews from "@/app/_components/Sneakers/sneakerPageStructure/SneakerReviews";
-import { getPreviewText } from "@/utils/helpers";
-import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
-import toast from "react-hot-toast";
-import { useSneaker } from "../../../context/SneakerContext";
-import { useFavoriteSneaker } from "../../hooks/useFavoriteSneaker";
+import SneakerDesktopView from "./sneakerPageStructure/SneakerDesktopView";
+import SneakerMobileView from "./sneakerPageStructure/SneakerMobileView";
+import SneakerReviews from "./sneakerPageStructure/SneakerReviews";
+import { useSneakerPageController } from "./useSneakerPageController";
 
 export default function SneakerSelectedInformation({ sneaker, reviews }) {
-  const {
-    id,
-    name,
-    price,
-    category,
-    images,
-    sizes,
-    colors,
-    gender,
-    model,
-    isFavorite,
-    rating_avg,
-    rating_count,
-    description,
-  } = sneaker;
-
-  const [mainImage, setMainImage] = useState(images[0]);
-  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
-  const [sneakerSize, setSneakerSize] = useState(sizes[0]);
-  const [isReviewOpen, setIsReviewOpen] = useState(false);
-  const { dispatch } = useSneaker();
-  const pathName = usePathname();
-  const { intro, benefits } = getPreviewText(description);
-  const reviewsDesktopRef = useRef(null);
-  const reviewsMobileRef = useRef(null);
-  const { isFavoriteState, isPending, handleFavorite } = useFavoriteSneaker(
-    isFavorite,
-    id
-  );
-
-  const currentUrl =
-    typeof window !== "undefined" ? `${window.location.origin}${pathName}` : "";
-
-  const goToReviews = () => {
-    const target =
-      window.innerWidth >= 1024
-        ? reviewsDesktopRef.current
-        : reviewsMobileRef.current;
-
-    target?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
-
-  const addToCart = () => {
-    dispatch({
-      type: "ADD_TO_CART",
-      payload: {
-        id,
-        name,
-        price,
-        category,
-        colors,
-        gender,
-        model,
-        size: sneakerSize,
-        image: mainImage,
-      },
-    });
-  };
-
-  /* ---------- grouped props ---------- */
-  const productProps = {
-    name,
-    category,
-    price,
-    sizes,
-    description,
-    intro,
-    benefits,
-    rating_avg,
-    rating_count,
-    images,
-  };
-
-  const sharedActions = {
-    mainImage,
-    setMainImage,
-    toast,
-    isFavoriteState,
-    setIsDescriptionOpen,
-    isDescriptionOpen,
-    currentUrl,
-    getPreviewText,
-    addToCart,
-    sneakerSize,
-    handleFavorite,
-    goToReviews,
-    setSneakerSize,
-  };
+  const controller = useSneakerPageController(sneaker);
 
   return (
     <section className="w-full max-w-360 mx-auto lg:px-4 py-10">
       {/* MOBILE */}
-      <SneakerMobileView
-        {...productProps}
-        {...sharedActions}
-        isPending={isPending}
-      />
+      <SneakerMobileView {...controller} />
 
       {/* DESKTOP */}
-      <SneakerDesktopView
-        {...productProps}
-        {...sharedActions}
-        isPending={isPending}
-      >
-        <div ref={reviewsDesktopRef}>
+      <SneakerDesktopView {...controller}>
+        <div ref={controller.meta.reviewsDesktopRef}>
           <SneakerReviews
             reviews={reviews}
-            setIsReviewOpen={setIsReviewOpen}
-            isReviewOpen={isReviewOpen}
+            setIsReviewOpen={controller.actions.setIsReviewOpen}
+            isReviewOpen={controller.ui.isReviewOpen}
           />
         </div>
       </SneakerDesktopView>
 
-      <div ref={reviewsMobileRef} className="lg:hidden px-4 mt-16">
+      {/* MOBILE REVIEWS */}
+      <div
+        ref={controller.meta.reviewsMobileRef}
+        className="lg:hidden px-4 mt-16"
+      >
         <SneakerReviews
           reviews={reviews}
-          setIsReviewOpen={setIsReviewOpen}
-          isReviewOpen={isReviewOpen}
+          setIsReviewOpen={controller.actions.setIsReviewOpen}
+          isReviewOpen={controller.ui.isReviewOpen}
         />
       </div>
     </section>
