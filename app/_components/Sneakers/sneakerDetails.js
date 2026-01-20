@@ -1,15 +1,10 @@
 "use client";
 
+import Sneaker from "@/app/_components/SneakerCompoundComponent/Sneaker";
 import { createFavorite, removeFavorite } from "@/lib/data-service";
-import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
-import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
+import { slugify } from "@/utils/helpers";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
-import StarRating from "@/app/_components/star/StarRating";
-import { slugify } from "@/utils/helpers";
-import Image from "next/image";
-import Link from "next/link";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
@@ -34,13 +29,10 @@ export default function SneakerDetails({ sneaker }) {
 
   const slug = `${id}-${slugify(name)}`;
 
-  function handleFavorite(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
+  function handleFavorite() {
     if (!session?.user?.userId) {
       toast.error(
-        "You must log in first to favorite a sneaker! Redirecting you to the login page..."
+        "You must log in first to favorite a sneaker! Redirecting you to the login page...",
       );
 
       setTimeout(() => {
@@ -67,73 +59,20 @@ export default function SneakerDetails({ sneaker }) {
   }
 
   return (
-    <Link
-      href={`/sneaker/${slug}`}
-      className="group relative flex flex-col h-full"
-    >
-      {/* Favorite Button */}
-      <button
-        onClick={handleFavorite}
-        disabled={isPending}
-        className="absolute top-3 right-3 z-20 w-9 h-9 rounded-full flex items-center justify-center bg-white/70 backdrop-blur shadow transition hover:scale-110"
-      >
-        {isFavoriteState ? (
-          <HeartSolid className="w-4 h-4 text-red-500 transition" />
-        ) : (
-          <HeartOutline className="w-4 h-4 text-gray-900 transition" />
-        )}
-      </button>
-
-      {/* Image */}
-      <div className="relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden">
-        <Image
-          src={images[0]}
-          alt={name}
-          fill
-          className="object-contain transition-transform duration-300 group-hover:scale-105"
-        />
-      </div>
-
-      {/* Info */}
-      <div className="mt-4 grid grid-rows-[auto_auto_auto_auto] gap-y-1 min-h-24">
-        <h3 className="text-sm md:text-base lg:text-lg font-medium text-gray-900 line-clamp-2 leading-snug">
-          {name}
-        </h3>
-
-        <p className="text-xs md:text-sm lg:text-base text-gray-500 truncate">
-          {category}
-        </p>
-
-        <p className="text-xs text-gray-400">
-          {colors.length} {colors.length === 1 ? "Color" : "Colors"}
-        </p>
-
-        <p className="text-color-primary-600 font-bold text-sm sm:text-base mt-auto">
-          {sale ? (
-            <span className="flex items-center gap-2">
-              <span className="font-bold text-primary-600">
-                $
-                {(
-                  sale.discountPrice ??
-                  price * (1 - sale.discountPercentage / 100)
-                ).toFixed(2)}
-              </span>
-
-              <span className="line-through font-normal text-gray-500">
-                ${price}
-              </span>
-
-              <span className="text-green-700 text-sm font-medium">
-                {sale.discountPercentage}% off
-              </span>
-            </span>
-          ) : (
-            <span className="font-bold">${price}</span>
-          )}
-        </p>
-
-        <StarRating rating={rating_avg} />
-      </div>
-    </Link>
+    <Sneaker.Card slug={slug}>
+      <Sneaker.Cover src={images[0]} name={name} />
+      <Sneaker.Favorite
+        isFavoriteState={isFavoriteState}
+        handleFavorite={handleFavorite}
+        isPending={isPending}
+      />
+      <Sneaker.Info>
+        <Sneaker.Title>{name}</Sneaker.Title>
+        <Sneaker.Category>{category}</Sneaker.Category>
+        <Sneaker.Colors count={colors.length} />
+        <Sneaker.Price sale={sale} price={price} />
+        <Sneaker.Stars rating_avg={rating_avg} />
+      </Sneaker.Info>
+    </Sneaker.Card>
   );
 }
