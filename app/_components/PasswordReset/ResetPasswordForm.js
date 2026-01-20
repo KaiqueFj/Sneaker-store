@@ -1,9 +1,29 @@
+"use client";
+
+import Button from "@/app/_components/Button/Button";
 import Form from "@/app/_components/FormCompoundComponent/Form";
 import Logo from "@/app/_components/Header/logo/Logo";
 import { resetPassword } from "@/lib/actions";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
-export default async function ResetPasswordForm({ token }) {
+export default function ResetPasswordForm({ token }) {
+  async function handleSubmit(formData) {
+    toast.dismiss();
+
+    const result = await resetPassword(formData);
+
+    toast.loading("Resetting password...");
+
+    if (!result?.ok) {
+      toast.dismiss();
+      toast.error(result?.message ?? "Something went wrong");
+      return;
+    }
+
+    toast.success(result.message);
+  }
+
   return (
     <div className="min-h-screen bg-white px-6 py-10">
       <div className="mx-auto max-w-lg">
@@ -23,7 +43,7 @@ export default async function ResetPasswordForm({ token }) {
           Choose a new password to access your account.
         </p>
 
-        <Form action={resetPassword} className="mt-8 space-y-2">
+        <Form action={handleSubmit} className="mt-8 ">
           {/* Password */}
           <Form.Field>
             <Form.Label>Password</Form.Label>
@@ -54,19 +74,16 @@ export default async function ResetPasswordForm({ token }) {
           </Form.Field>
 
           {/* Actions */}
-          <div className="flex items-center justify-end pt-2 gap-4">
+          <div className="flex items-center justify-end  gap-4">
             <Link
               href="/login"
               className="text-base text-primary-600 border-primary-600/20 border-2 px-8 py-3 rounded-full hover:border-primary-600 transition"
             >
               Cancel
             </Link>
-            <button
-              type="submit"
-              className=" text-base rounded-full px-8 py-3 font-medium transition-all bg-primary-600   text-primary-50 hover:bg-primary-600/70 "
-            >
-              Save
-            </button>
+            <Button pendingLabel="Sending..." className="font-medium">
+              Send link
+            </Button>
           </div>
         </Form>
       </div>

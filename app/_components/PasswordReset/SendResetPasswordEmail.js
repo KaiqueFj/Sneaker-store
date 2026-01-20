@@ -5,8 +5,26 @@ import Form from "@/app/_components/FormCompoundComponent/Form";
 import Logo from "@/app/_components/Header/logo/Logo";
 import { sendResetPasswordEmail } from "@/lib/actions";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function SendResetPasswordForm() {
+  async function handleSubmit(formData) {
+    toast.dismiss();
+
+    const result = await sendResetPasswordEmail(formData);
+
+    toast.loading("Sending reset email...");
+
+    toast.dismiss();
+
+    if (!result?.ok) {
+      toast.error(result?.message ?? "Something went wrong");
+      return;
+    }
+
+    toast.success(result.message);
+  }
+
   return (
     <div className="min-h-screen bg-white px-6 py-10">
       <div className="mx-auto max-w-lg">
@@ -27,7 +45,7 @@ export default function SendResetPasswordForm() {
           We will send you an email with a link to reset your password.
         </p>
 
-        <Form action={sendResetPasswordEmail} className="mt-8 space-y-6">
+        <Form action={handleSubmit} className="mt-8 space-y-6">
           <Form.Field>
             <Form.Label>E-mail</Form.Label>
             <Form.Input
