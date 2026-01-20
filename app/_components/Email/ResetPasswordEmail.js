@@ -26,7 +26,7 @@ export default function ResetPasswordEmail({ resetUrl }) {
                 src="https://i.postimg.cc/T1BqZ7X7/image.png"
                 alt="Shark Store"
                 width="60"
-                height="40"
+                height="60"
                 className="mx-auto"
               />
             </Section>
