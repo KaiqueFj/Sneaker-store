@@ -15,9 +15,8 @@ export default function SendResetPasswordForm() {
 
     toast.loading("Sending reset email...");
 
-    toast.dismiss();
-
     if (!result?.ok) {
+      toast.dismiss();
       toast.error(result?.message ?? "Something went wrong");
       return;
     }
