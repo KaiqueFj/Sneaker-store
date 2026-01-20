@@ -1,5 +1,6 @@
 "use client";
 
+import Form from "@/app/_components/FormCompoundComponent/Form";
 import { toast } from "react-hot-toast";
 import { updateUserProfile } from "../../../lib/actions";
 import Button from "../Button/Button";
@@ -32,54 +33,29 @@ export default function UpdateProfileForm({ user }) {
   }
 
   return (
-    <form action={handleSubmit} className="flex flex-col gap-10">
+    <Form action={handleSubmit}>
       {/* Name */}
-      <div className="flex flex-col gap-2">
-        <label className="text-xs font-semibold uppercase tracking-widest text-gray-500">
-          Full name
-        </label>
-        <input
-          name="name"
-          defaultValue={name}
-          className="border-b border-gray-300 bg-transparent px-1 py-2
-                     text-base text-black
-                     focus:border-black focus:outline-none"
-        />
-      </div>
+      <Form.Field>
+        <Form.Label>Full name</Form.Label>
+        <Form.Input name="name" type="text" defaultValue={name} />
+      </Form.Field>
 
       {/* Email */}
-      <div className="flex flex-col gap-2">
-        <label className="text-xs font-semibold uppercase tracking-widest text-gray-500">
-          Email address
-        </label>
-        <input
-          name="email"
-          defaultValue={email}
-          className="border-b border-gray-300 bg-transparent px-1 py-2
-                     text-base text-black
-                     focus:border-black focus:outline-none"
-        />
-      </div>
+      <Form.Field>
+        <Form.Label>Email address</Form.Label>
+        <Form.Input name="email" type="email" defaultValue={email} />
+      </Form.Field>
 
       {/* Birthday */}
-      <div className="flex flex-col gap-2">
-        <label className="text-xs font-semibold uppercase tracking-widest text-gray-500">
-          Birthday
-        </label>
-        <input
-          name="birthday"
-          type="date"
-          defaultValue={birthday ?? ""}
-          className="border-b border-gray-300 bg-transparent px-1 py-2
-                     text-base text-black
-                     focus:border-black focus:outline-none"
-        />
-      </div>
+      <Form.Field>
+        <Form.Label>Birthday</Form.Label>
+        <Form.Input name="birthday" type="date" defaultValue={birthday ?? ""} />
+      </Form.Field>
 
       {/* Actions */}
-      <div className="pt-6">
+      <Form.Actions>
         <Button pendingLabel="Updating...">Save changes</Button>
-      </div>
-    </form>
+      </Form.Actions>
+    </Form>
   );
 }
