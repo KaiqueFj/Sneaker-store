@@ -27,7 +27,7 @@ export default function ReviewComponent({ item, onClose, onSuccess, review }) {
         error: "Review could not be saved. Try again!",
       });
 
-      onSuccess(updatedReview); // 🔴 THIS IS THE KEY
+      onSuccess(updatedReview);
       onClose();
     } finally {
       setLoading(false);
