@@ -81,8 +81,8 @@ export default function ResetPasswordForm({ token }) {
             >
               Cancel
             </Link>
-            <Button pendingLabel="Sending..." className="font-medium">
-              Send link
+            <Button pendingLabel="resetting..." className="font-medium">
+              Reset password
             </Button>
           </div>
         </Form>
