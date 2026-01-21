@@ -19,9 +19,8 @@ export default async function Page({ searchParams }) {
       <div className="w-full flex flex-col gap-10 max-w-360 mx-auto px-2 lg:px-10 box-border py-0 ">
         {/* Header */}
         <div className="flex items-center h- justify-between px-6 lg:px-12">
-          <Category>
-            {category ? `${category} sneakers` : "All sneakers"}
-          </Category>
+          <Category>{`Sneakers on sale (${sneakers.length})`}</Category>
+
           <Filter />
         </div>
 
