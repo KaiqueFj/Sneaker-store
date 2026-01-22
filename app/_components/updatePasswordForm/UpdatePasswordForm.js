@@ -7,17 +7,13 @@ import Button from "../Button/Button";
 
 export default function UpdatePasswordForm() {
   async function handleSubmit(formData) {
-    toast.dismiss();
-
-    const result = await updateUserPassword(formData);
-
-    if (!result?.ok) {
-      toast.dismiss();
-      toast.error(result?.message ?? "Something went wrong");
-      return;
-    }
-
-    toast.success("Profile updated successfully");
+    try {
+      await toast.promise(updateUserPassword(formData), {
+        loading: "Updating...",
+        success: (data) => data.message,
+        error: (err) => err.message,
+      });
+    } catch {}
   }
 
   return (
