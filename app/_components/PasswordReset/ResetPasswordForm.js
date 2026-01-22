@@ -9,20 +9,13 @@ import toast from "react-hot-toast";
 
 export default function ResetPasswordForm({ token }) {
   async function handleSubmit(formData) {
-    toast.dismiss();
-
-    const result = await resetPassword(formData);
-
-    toast.loading("Resetting password...");
-
-    if (!result?.ok) {
-      toast.dismiss();
-      toast.error(result?.message ?? "Something went wrong");
-      return;
-    }
-
-    toast.dismiss();
-    toast.success(result.message);
+    try {
+      await toast.promise(resetPassword(formData), {
+        loading: "Resetting password...",
+        success: (data) => data.message,
+        error: (err) => err.message,
+      });
+    } catch {}
   }
 
   return (
