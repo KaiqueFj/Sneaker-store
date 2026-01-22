@@ -1,5 +1,7 @@
 "use client";
 
+import Button from "@/app/_components/Button/Button";
+import Form from "@/app/_components/FormCompoundComponent/Form";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -15,26 +17,13 @@ export default function LoginComponent() {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    if (!email || !password) {
-      toast.error("Email and password are required");
-      return;
-    }
-
-    toast.loading("Signing in...");
-
-    const res = await signIn("credentials", {
+    const result = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
 
-    toast.dismiss();
-
-    console.log(res);
-
-    if (res?.error) {
-      console.log(res?.error);
-
+    if (result?.error) {
       toast.error("Invalid email or password");
       return;
     }
@@ -51,80 +40,57 @@ export default function LoginComponent() {
       </h2>
 
       {/* Card */}
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8 space-y-6">
-        {/* Email */}
-        <form className="flex flex-col gap-4" action={handleSubmit}>
-          <div className="space-y-1.5">
-            <label className="text-sm font-medium text-neutral-700">
-              Email
-            </label>
-            <input
-              type="email"
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-md ">
+        <Form action={handleSubmit} className="mt-8 space-y-6 p-4">
+          <Form.Field>
+            <Form.Label>Email</Form.Label>
+            <Form.Input
               name="email"
+              type="email"
               placeholder="you@example.com"
-              className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-300
-              text-neutral-800 shadow-sm transition-all
-              focus:border-primary-500 focus:ring-4 focus:ring-primary-500/20 outline-none"
-            />
-          </div>
+            ></Form.Input>
+          </Form.Field>
 
-          {/* Password */}
-          <div className="space-y-1.5">
-            <label className="text-sm font-medium text-neutral-700">
-              Password
-            </label>
-            <input
-              type="password"
+          <Form.Field>
+            <Form.Label>Password</Form.Label>
+            <Form.Input
               name="password"
+              type="password"
               placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-300
-              text-neutral-800 shadow-sm transition-all
-              focus:border-primary-500 focus:ring-4 focus:ring-primary-500/20 outline-none"
-            />
+            ></Form.Input>
+          </Form.Field>
+
+          {/* Actions */}
+          <Form.Actions className>
+            <Button pendingLabel="Updating...">Sign in</Button>
+          </Form.Actions>
+
+          {/* Divider */}
+          <div className="flex items-center gap-4">
+            <div className="h-px flex-1 bg-neutral-200"></div>
+            <span className="text-sm text-neutral-500">or</span>
+            <div className="h-px flex-1 bg-neutral-200"></div>
+          </div>
+          {/* Google login button */}
+          <div className="flex justify-center">
+            <SignInButton />
           </div>
 
-          <div>
+          {/* Link to signup */}
+          <div className="flex flex-row gap-2 items-center justify-center">
+            <p className="text-sm text-center text-neutral-600">
+              {"Don't have an account?"}
+            </p>
+
             <Link
-              href="/password-reset"
-              className="text-sm text-primary-600/70 font-medium underline hover:underline"
+              href="/signup"
+              className="text-primary-600 text-sm hover:underline"
             >
-              Forgot password?
+              Sign up
             </Link>
           </div>
-
-          {/* Login button */}
-          <button
-            type="submit"
-            className="w-full py-3 rounded-xl bg-primary-600 text-white font-medium
-            hover:bg-primary-600/70 transition-all"
-          >
-            Sign In
-          </button>
-        </form>
-        {/* Divider */}
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-neutral-200"></div>
-          <span className="text-sm text-neutral-500">or</span>
-          <div className="h-px flex-1 bg-neutral-200"></div>
-        </div>
-        {/* Google login button */}
-        <div className="flex justify-center">
-          <SignInButton />
-        </div>
-
-        {/* Link to signup */}
-        <div className="flex flex-row gap-2 items-center justify-center">
-          <p className="text-sm text-center text-neutral-600">
-            {"Don't have an account?"}
-          </p>
-
-          <Link
-            href="/signup"
-            className="text-primary-600 text-sm hover:underline"
-          >
-            Sign up
-          </Link>
-        </div>
+        </Form>
+        {/* Email */}
       </div>
     </div>
   );

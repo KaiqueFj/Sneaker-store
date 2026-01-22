@@ -22,7 +22,6 @@ export default function SendResetPasswordForm() {
     }
 
     toast.dismiss();
-
     toast.success(result.message);
   }
 
