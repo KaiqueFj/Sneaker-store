@@ -1,11 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 
 function SignInButton() {
   return (
     <button
+      type="button"
       onClick={() => signIn("google", { callbackUrl: "/account" })}
       className="flex items-center gap-6 px-10 py-4 text-base font-medium
       text-color-primary-400-700 bg-white border border-gray-300 rounded-xl

@@ -1,18 +1,18 @@
 function Form({ children, className = "", ...props }) {
   return (
-    <form className={`flex flex-col gap-10 ${className}`} {...props}>
+    <form className={`flex flex-col gap-8 ${className}`} {...props}>
       {children}
     </form>
   );
 }
 
 Form.Field = function Field({ children }) {
-  return <div className="flex flex-col gap-2">{children}</div>;
+  return <div className="flex flex-col gap-3">{children}</div>;
 };
 
 Form.Label = function Label({ children }) {
   return (
-    <label className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+    <label className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">
       {children}
     </label>
   );
@@ -21,16 +21,27 @@ Form.Label = function Label({ children }) {
 Form.Input = function Input({ className = "", ...props }) {
   return (
     <input
-      className={`border-b border-gray-300 bg-transparent px-1 py-2
-                  text-base text-black
-                  focus:border-black focus:outline-none ${className}`}
+      className={`
+        w-full bg-transparent
+        border-b border-neutral-300
+        px-1 py-2.5
+        text-base text-neutral-900
+        placeholder:text-neutral-400
+
+        transition-colors duration-200
+        focus:border-primary-600
+        focus:outline-none
+
+        disabled:opacity-50 disabled:cursor-not-allowed
+        ${className}
+      `}
       {...props}
     />
   );
 };
 
-Form.Actions = function Actions({ children }) {
-  return <div className="pt-6">{children}</div>;
+Form.Actions = function Actions({ className = "", children }) {
+  return <div className={`pt-4 ${className}`}>{children}</div>;
 };
 
 export default Form;

@@ -35,13 +35,15 @@ export default function LoginComponent() {
   return (
     <div className="flex flex-col items-center px-4 mt-16 gap-8">
       {/* Title */}
-      <h2 className="text-3xl font-semibold text-center">
-        Sign in to your account
-      </h2>
+      <div className="text-center space-y-1">
+        <h2 className="text-3xl font-semibold">Sign in to your account</h2>
+        <p className="text-sm text-neutral-500">
+          Welcome back! Please enter your details.
+        </p>
+      </div>
 
-      {/* Card */}
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-md ">
-        <Form action={handleSubmit} className="mt-8 space-y-6 p-4">
+      <div className="w-full max-w-md bg-white rounded-2xl border border-primary-600/10 shadow-sm">
+        <Form action={handleSubmit} className="mt-6 p-6">
           <Form.Field>
             <Form.Label>Email</Form.Label>
             <Form.Input
@@ -61,14 +63,18 @@ export default function LoginComponent() {
           </Form.Field>
 
           {/* Actions */}
-          <Form.Actions className>
-            <Button pendingLabel="Updating...">Sign in</Button>
+          <Form.Actions className="w-full">
+            <Button className="w-full" pendingLabel="Signing in...">
+              Sign in
+            </Button>
           </Form.Actions>
 
           {/* Divider */}
           <div className="flex items-center gap-4">
             <div className="h-px flex-1 bg-neutral-200"></div>
-            <span className="text-sm text-neutral-500">or</span>
+            <span className="text-xs uppercase tracking-wide text-neutral-400">
+              or
+            </span>
             <div className="h-px flex-1 bg-neutral-200"></div>
           </div>
           {/* Google login button */}
