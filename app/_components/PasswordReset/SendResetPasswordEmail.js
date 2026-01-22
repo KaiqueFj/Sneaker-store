@@ -3,14 +3,14 @@
 import Button from "@/app/_components/Button/Button";
 import Form from "@/app/_components/FormCompoundComponent/Form";
 import Logo from "@/app/_components/Header/logo/Logo";
-import { sendResetPasswordEmail } from "@/lib/actions";
+import { sendResetPasswordlinkToEmail } from "@/lib/actions";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
 export default function SendResetPasswordForm() {
   async function handleSubmit(formData) {
     try {
-      await toast.promise(sendResetPasswordEmail(formData), {
+      await toast.promise(sendResetPasswordlinkToEmail(formData), {
         loading: "Sending...",
         success: (data) => data.message,
         error: (err) => err.message,
