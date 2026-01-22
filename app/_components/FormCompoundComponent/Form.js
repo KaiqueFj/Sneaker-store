@@ -1,6 +1,6 @@
 function Form({ children, className = "", ...props }) {
   return (
-    <form className={`flex flex-col gap-8 ${className}`} {...props}>
+    <form className={`flex flex-col gap-6 ${className}`} {...props}>
       {children}
     </form>
   );

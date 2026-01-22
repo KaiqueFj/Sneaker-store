@@ -73,6 +73,13 @@ export default function LoginComponent() {
             ></Form.Input>
           </Form.Field>
 
+          <Link
+            href="/password-reset"
+            className="text-sm text-primary-600 hover:underline"
+          >
+            Forgot your password?
+          </Link>
+
           {/* Actions */}
           <Form.Actions className="w-full">
             <Button className="w-full" pendingLabel="Signing in...">

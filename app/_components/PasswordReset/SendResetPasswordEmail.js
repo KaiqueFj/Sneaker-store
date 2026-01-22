@@ -9,20 +9,13 @@ import toast from "react-hot-toast";
 
 export default function SendResetPasswordForm() {
   async function handleSubmit(formData) {
-    toast.dismiss();
-
-    const result = await sendResetPasswordEmail(formData);
-
-    toast.loading("Sending reset email...");
-
-    if (!result?.ok) {
-      toast.dismiss();
-      toast.error(result?.message ?? "Something went wrong");
-      return;
-    }
-
-    toast.dismiss();
-    toast.success(result.message);
+    try {
+      await toast.promise(sendResetPasswordEmail(formData), {
+        loading: "Sending...",
+        success: (data) => data.message,
+        error: (err) => err.message,
+      });
+    } catch {}
   }
 
   return (
@@ -36,13 +29,13 @@ export default function SendResetPasswordForm() {
 
         {/* Title */}
         <h1 className="text-3xl font-semibold leading-tight text-gray-900">
-          Verify your email
+          Enter your e-mail
           <br />
           to reset your password
         </h1>
 
         <p className="mt-3 text-sm text-gray-600">
-          We will send you an email with a link to reset your password.
+          {"We will send you an email with a link to reset your password."}
         </p>
 
         <Form action={handleSubmit} className="mt-8 space-y-6">
