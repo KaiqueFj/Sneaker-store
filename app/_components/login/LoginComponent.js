@@ -27,8 +27,6 @@ export default function LoginComponent() {
           if (result?.error) {
             throw new Error("Invalid email or password");
           }
-          console.log(result);
-
           return result;
         })(),
         {
