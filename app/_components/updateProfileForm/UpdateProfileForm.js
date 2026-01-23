@@ -9,17 +9,13 @@ export default function UpdateProfileForm({ user }) {
   const { name, email, birthday } = user;
 
   async function handleSubmit(formData) {
-    toast.dismiss();
-
-    const result = await updateUserProfile(formData);
-
-    if (!result?.ok) {
-      toast.dismiss();
-      toast.error(result?.message ?? "Something went wrong");
-      return;
-    }
-
-    toast.success("Profile updated successfully");
+    try {
+      await toast.promise(updateUserProfile(formData), {
+        loading: "Updating...",
+        success: (data) => data.message,
+        error: (err) => err.message,
+      });
+    } catch (error) {}
   }
 
   return (
