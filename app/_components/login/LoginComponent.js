@@ -2,14 +2,22 @@
 
 import Button from "@/app/_components/Button/Button";
 import Form from "@/app/_components/FormCompoundComponent/Form";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import SignInButton from "./SignInButton";
 
 export default function LoginComponent() {
   const router = useRouter();
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const toggleHandlePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
+  };
 
   async function handleSubmit(formData) {
     const email = formData.get("email");
@@ -65,12 +73,35 @@ export default function LoginComponent() {
 
           <Form.Field>
             <Form.Label>Password</Form.Label>
-            <Form.Input
-              name="password"
-              type="password"
-              placeholder="••••••••"
-              required
-            ></Form.Input>
+
+            <Form.InputWrapper>
+              <Form.Input
+                type={isPasswordVisible ? "text" : "password"}
+                className="pr-8"
+                placeholder="••••••••"
+                name="password"
+                required
+              />
+              <div className="absolute right-2 top-1/2 -translate-y-1/2">
+                <EyeIcon
+                  onClick={toggleHandlePasswordVisibility}
+                  className={`
+                    w-6 h-6 absolute cursor-pointer
+                    transition-all duration-200 ease-in-out
+                    ${isPasswordVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"}
+                    text-neutral-400 hover:text-neutral-600`}
+                />
+
+                <EyeSlashIcon
+                  onClick={toggleHandlePasswordVisibility}
+                  className={`
+                      w-6 h-6 cursor-pointer
+                      transition-all duration-200 ease-in-out
+                      ${isPasswordVisible ? "opacity-0 scale-90" : "opacity-100 scale-100"}
+                      text-neutral-400 hover:text-neutral-600`}
+                />
+              </div>
+            </Form.InputWrapper>
           </Form.Field>
 
           <Link

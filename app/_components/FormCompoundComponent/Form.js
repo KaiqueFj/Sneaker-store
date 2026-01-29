@@ -18,6 +18,10 @@ Form.Label = function Label({ children }) {
   );
 };
 
+Form.InputWrapper = function InputWrapper({ children }) {
+  return <div className="relative">{children}</div>;
+};
+
 Form.Input = function Input({ className = "", ...props }) {
   return (
     <input
