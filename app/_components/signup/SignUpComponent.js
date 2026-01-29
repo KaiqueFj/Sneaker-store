@@ -94,7 +94,7 @@ export default function SignUpComponent() {
               href="/login"
               className="text-primary-600 text-sm hover:underline"
             >
-              Sign up
+              Sign in
             </Link>
           </div>
         </Form>

@@ -23,10 +23,10 @@ export default function ResetPasswordEmail({ resetUrl }) {
             {/* Logo */}
             <Section className="mb-6 text-center">
               <Img
-                src="https://i.postimg.cc/T1BqZ7X7/image.png"
+                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Ficonen-gratis%2Fnike_318-565950.jpg&f=1&nofb=1&ipt=687890fd7f3b648309272347a073437169025728ff0d3f2fe08c131de3aff42d"
                 alt="Shark Store"
                 width="60"
-                height="40"
+                height="60"
                 className="mx-auto"
               />
             </Section>
