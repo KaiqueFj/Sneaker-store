@@ -5,14 +5,20 @@ import Form from "@/app/_components/FormCompoundComponent/Form";
 import Logo from "@/app/_components/Header/logo/Logo";
 import { resetPassword } from "@/lib/actions";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 export default function ResetPasswordForm({ token }) {
+  const router = useRouter();
+
   async function handleSubmit(formData) {
     try {
       await toast.promise(resetPassword(formData), {
         loading: "Resetting password...",
-        success: (data) => data.message,
+        success: (data) => {
+          router.push("/login");
+          return data.message;
+        },
         error: (err) => err.message,
       });
     } catch {}
