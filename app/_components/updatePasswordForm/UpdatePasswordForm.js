@@ -40,7 +40,14 @@ export default function UpdatePasswordForm() {
 
       {/* Actions */}
       <Form.Actions>
-        <Button pendingLabel="Updating...">Update password</Button>
+        <Button
+          className="w-fit"
+          size="lg"
+          variant="primary"
+          pendingLabel="Updating..."
+        >
+          Update password
+        </Button>
       </Form.Actions>
     </Form>
   );

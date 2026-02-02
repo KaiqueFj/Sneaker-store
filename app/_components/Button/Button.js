@@ -26,7 +26,7 @@ export default function Button({
           "bg-transparent underline text-primary-600": variant === "link",
 
           // Sizes
-          "px-6 py-4 text-base": size === "lg",
+          "px-4 py-3 text-base": size === "lg",
           "px-4 py-2 text-sm": size === "md",
           "px-3 py-1.5 text-xs": size === "sm",
         },

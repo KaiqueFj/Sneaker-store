@@ -40,7 +40,14 @@ export default function UpdateProfileForm({ user }) {
 
       {/* Actions */}
       <Form.Actions>
-        <Button pendingLabel="Updating...">Save changes</Button>
+        <Button
+          pendingLabel="Updating..."
+          className="w-fit"
+          size="lg"
+          variant="primary"
+        >
+          Save changes
+        </Button>
       </Form.Actions>
     </Form>
   );

@@ -98,7 +98,12 @@ export default function SignUpComponent() {
 
           {/* Actions */}
           <Form.Actions className="w-full">
-            <Button className="w-full" pendingLabel="Creating...">
+            <Button
+              className="w-full"
+              size="lg"
+              variant="primary"
+              pendingLabel="Creating..."
+            >
               Create account
             </Button>
           </Form.Actions>
