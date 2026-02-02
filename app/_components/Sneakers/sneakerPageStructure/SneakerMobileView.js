@@ -1,4 +1,4 @@
-import Cart from "@/app/_components/cart/Cart";
+import CartModal from "@/app/_components/cart/CartModal";
 import SneakerDetailsModal from "@/app/_components/Sneakers/modal/SneakerDetailsModal";
 import SneakerImageCarousel from "@/app/_components/Sneakers/sneakerPageStructure/SneakerImageCarousel";
 import StarRating from "@/app/_components/star/StarRating";
@@ -136,7 +136,7 @@ export default function SneakerMobileView({ product, ui, actions, meta }) {
         )}
       </div>
 
-      <Cart />
+      <CartModal />
     </div>
   );
 }

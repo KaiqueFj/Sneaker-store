@@ -1,9 +1,15 @@
 import crypto from "crypto";
 
-export const formatCurrency = (value) =>
-  new Intl.NumberFormat("en", { style: "currency", currency: "USD" }).format(
-    value,
-  );
+export function formatCurrency(value) {
+  const number = Number(value);
+
+  if (Number.isNaN(number)) return "—";
+
+  return number.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+}
 
 export const formatDate = (value) => {
   const date = new Date(value + "Z");

@@ -1,4 +1,4 @@
-import Cart from "@/app/_components/cart/Cart";
+import CartModal from "@/app/_components/cart/CartModal";
 import SneakerDetailsModal from "@/app/_components/Sneakers/modal/SneakerDetailsModal";
 import StarRating from "@/app/_components/star/StarRating";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
@@ -183,7 +183,7 @@ export default function SneakerDesktopView({
 
         {children}
 
-        <Cart />
+        <CartModal />
       </div>
     </div>
   );

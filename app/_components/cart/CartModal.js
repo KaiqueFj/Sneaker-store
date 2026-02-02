@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useSneaker } from "../../../context/SneakerContext";
 
-export default function Cart() {
+export default function CartModal() {
   const { state } = useSneaker();
   const totalItems = state.items.reduce((acc, item) => acc + item.quantity, 0);
   const [visible, setVisible] = useState(false);
