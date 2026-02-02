@@ -1,5 +1,9 @@
 "use client";
 
+import Button from "@/app/_components/Button/Button";
+import Form from "@/app/_components/FormCompoundComponent/Form";
+import ShippingOptions from "@/app/_components/ShippingOptions/ShippingOptions";
+import { getShippingByCep } from "@/lib/actions";
 import {
   ArrowDownIcon,
   MinusCircleIcon,
@@ -10,25 +14,40 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSneaker } from "../../../context/SneakerContext";
 import { createOrder } from "../../../lib/data-service";
-import { formatCurrency } from "../../../utils/helpers";
+import { formatCep, formatCurrency } from "../../../utils/helpers";
 
 export default function CartBag() {
   const { state, dispatch } = useSneaker();
   const { data: session, status } = useSession();
+  const [cep, setCep] = useState("");
+  const [shipping, setShipping] = useState(null);
+
   const router = useRouter();
 
   const rawTotalPrice = state.items.reduce(
     (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
-    0
+    0,
   );
+
+  const handleCalculateShipping = async (e) => {
+    const rawCep = cep.replace(/\D/g, "");
+
+    if (rawCep.length !== 8) return;
+
+    try {
+      const result = await getShippingByCep(rawCep);
+      setShipping(result);
+    } catch {}
+  };
 
   const handleOrderBtn = async () => {
     if (!session?.user?.userId) {
       toast.error(
-        "You must log in first to place an order! Redirecting you to the login page..."
+        "You must log in first to place an order! Redirecting you to the login page...",
       );
       setTimeout(() => router.push("/login"), 3000);
       return;
@@ -44,7 +63,7 @@ export default function CartBag() {
           loading: "Saving your order...",
           success: "Order saved successfully!",
           error: "Order could not be done! Try again!",
-        }
+        },
       );
 
       dispatch({ type: "CLEAR_CART" });
@@ -132,14 +151,41 @@ export default function CartBag() {
         )}
 
         {/* Shipping info */}
-        <div className="mt-6">
-          <span className="text-lg font-medium text-primary-600">Shipping</span>
-          <div className="flex gap-1 text-sm">
-            <span className="text-primary-600">Arrives by Fri, Sep 5 to</span>
-            <span className="font-semibold text-primary-600 underline underline-offset-2">
-              06765001
-            </span>
-          </div>
+        <div className="mt-6 flex flex-col gap-2 w-2/4">
+          <span className="text-2xl font-medium text-primary-600">
+            Shipping
+          </span>
+
+          <Form action={handleCalculateShipping} className="">
+            <Form.Field>
+              <Form.InputWrapper>
+                <Form.Input
+                  type="text"
+                  name="cep"
+                  id="cep"
+                  inputMode="numeric"
+                  placeholder="00000-000"
+                  value={cep}
+                  onChange={(e) => setCep(formatCep(e.target.value))}
+                  maxLength={9}
+                />
+                <div className="absolute right-2 top-[10%] -translate-y-1/3">
+                  <Form.Actions className="w-full">
+                    <Button
+                      size="md"
+                      variant="primary"
+                      pendingLabel="Calculating..."
+                      className="w-fit"
+                    >
+                      Calculate
+                    </Button>
+                  </Form.Actions>
+                </div>
+              </Form.InputWrapper>
+            </Form.Field>
+          </Form>
+
+          {shipping && <ShippingOptions shipping={shipping} />}
         </div>
       </div>
 
@@ -176,8 +222,8 @@ export default function CartBag() {
             {formatCurrency(
               state.items.reduce(
                 (acc, sneaker) => acc + sneaker.price * sneaker.quantity,
-                0
-              )
+                0,
+              ),
             )}
           </span>
         </div>

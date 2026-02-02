@@ -81,8 +81,7 @@ export default function SignUpComponent() {
                     w-6 h-6 absolute cursor-pointer
                     transition-all duration-200 ease-in-out
                     ${isPasswordVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"}
-                    text-neutral-400 hover:text-neutral-600
-    `}
+                    text-neutral-400 hover:text-neutral-600`}
                 />
 
                 <EyeSlashIcon

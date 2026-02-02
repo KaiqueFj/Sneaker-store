@@ -113,7 +113,12 @@ export default function LoginComponent() {
 
           {/* Actions */}
           <Form.Actions className="w-full">
-            <Button className="w-full" pendingLabel="Signing in...">
+            <Button
+              className="w-full"
+              size="lg"
+              variant="primary"
+              pendingLabel="Signing in..."
+            >
               Sign in
             </Button>
           </Form.Actions>
