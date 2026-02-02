@@ -25,6 +25,7 @@ export default function CartBag() {
   const { data: session, status } = useSession();
   const [cep, setCep] = useState("");
   const [shipping, setShipping] = useState(null);
+  const [selectedShipping, setSelectedShipping] = useState(null);
 
   const router = useRouter();
 
@@ -41,6 +42,12 @@ export default function CartBag() {
     try {
       const result = await getShippingByCep(rawCep);
       setShipping(result);
+
+      setSelectedShipping(
+        result.options.reduce((cheapest, option) =>
+          option.price < cheapest.price ? option : cheapest,
+        ),
+      );
     } catch {}
   };
 
@@ -210,7 +217,15 @@ export default function CartBag() {
           <span className="text-base text-primary-600">
             Shipping & Handling
           </span>
-          <span className="text-base font-semibold text-primary-600">Free</span>
+          <span className="text-base font-semibold text-primary-600">
+            <span className="text-base font-semibold text-primary-600">
+              {selectedShipping
+                ? selectedShipping.price === 0
+                  ? "Free"
+                  : formatCurrency(selectedShipping.price)
+                : "—"}
+            </span>
+          </span>
         </div>
         <div className="flex justify-between items-center mb-4">
           <span className="text-base text-primary-600">Estimated Tax</span>
