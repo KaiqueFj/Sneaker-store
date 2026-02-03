@@ -24,26 +24,38 @@ export default function CartShipping({ onShippingSelect }) {
   };
 
   return (
-    <div className="mt-6 flex flex-col gap-3 w-2/4">
-      <span className="text-2xl font-medium">Shipping</span>
+    <div className="mt-8 flex flex-col gap-4 bg-white rounded-lg border border-primary-200 p-6">
+      <div>
+        <h2 className="text-xl font-semibold text-primary-600 mb-1">
+          Shipping
+        </h2>
+        <p className="text-sm text-primary-400">
+          Enter your postal code to calculate shipping
+        </p>
+      </div>
       <Form action={handleCalculateShipping}>
         <Form.Field>
-          <Form.InputWrapper>
+          <Form.InputWrapper className="relative">
             <Form.Input
               type="text"
               placeholder="00000-000"
               value={cep}
               onChange={(e) => setCep(formatCep(e.target.value))}
               maxLength={9}
+              className="pr-20"
             />
-            <Form.Actions className="absolute right-2 top-1/2 -translate-y-1/2">
-              <Button size="md">Calculate</Button>
+            <Form.Actions className="absolute right-2 top-2.5 -translate-y-1/2">
+              <Button pendingLabel="Calculating..." size="md">
+                Calculate
+              </Button>
             </Form.Actions>
           </Form.InputWrapper>
         </Form.Field>
       </Form>
       {shipping && (
-        <ShippingOptions shipping={shipping} onSelect={onShippingSelect} />
+        <div className="mt-3">
+          <ShippingOptions shipping={shipping} onSelect={onShippingSelect} />
+        </div>
       )}
     </div>
   );

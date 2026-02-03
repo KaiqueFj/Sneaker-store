@@ -14,29 +14,34 @@ export default function CartSummary({ selectedShipping }) {
   const total = subtotal + shippingPrice;
 
   return (
-    <div className="bg-white shadow-md rounded-2xl  p-6">
-      <h2 className="text-2xl font-semibold mb-4">Summary</h2>
+    <div className="bg-white border border-primary-200 rounded-lg p-6 shadow-sm">
+      <h2 className="text-xl font-semibold text-primary-600 mb-5">
+        Order Summary
+      </h2>
 
-      <div className="flex flex-col gap-4 ">
+      <div className="flex flex-col gap-3 mb-5">
         {/* Promo */}
-        <div className="flex justify-between items-center">
-          <span className="text-base font-medium">
-            Do you have a promo code?
+        <button className="flex justify-between items-center p-3 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors group">
+          <span className="text-sm font-medium text-primary-600">
+            Have a promo code?
           </span>
-          <ArrowDownIcon className="h-5 w-5" />
-        </div>
+          <ArrowDownIcon className="h-4 w-4 text-primary-400 group-hover:text-primary-600 transition-colors" />
+        </button>
+      </div>
 
+      <div className="flex flex-col gap-3 py-4 border-t border-b border-primary-200">
         {/* Subtotal */}
-
         <div className="flex justify-between">
-          <span className="text-base font-medium">Subtotal</span>
-          <span>{formatCurrency(subtotal)}</span>
+          <span className="text-sm text-primary-400">Subtotal</span>
+          <span className="font-medium text-primary-600">
+            {formatCurrency(subtotal)}
+          </span>
         </div>
 
         {/* Shipping */}
-        <div className="flex justify-between mt-2">
-          <span className="text-base font-medium">Shipping</span>
-          <span>
+        <div className="flex justify-between">
+          <span className="text-sm text-primary-400">Shipping</span>
+          <span className="font-medium text-primary-600">
             {selectedShipping
               ? selectedShipping.price === 0
                 ? "Free"
@@ -46,9 +51,11 @@ export default function CartSummary({ selectedShipping }) {
         </div>
       </div>
 
-      <div className="flex justify-between mt-4 border-t pt-4">
-        <span className="font-semibold">Total</span>
-        <span className="font-bold">{formatCurrency(total)}</span>
+      <div className="flex justify-between items-center mt-4 pt-1">
+        <span className="text-base font-semibold text-primary-600">Total</span>
+        <span className="text-2xl font-bold text-primary-600">
+          {formatCurrency(total)}
+        </span>
       </div>
     </div>
   );

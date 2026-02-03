@@ -12,7 +12,7 @@ export default function StepperHeader({ currentPath }) {
   const currentIndex = options.findIndex((opt) => opt.href === currentPath);
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-8">
+    <div className="flex max-w-7xl mx-auto w-full justify-center mt-10">
       <div className="flex flex-row w-full">
         {options.map((option, index) => {
           const isCurrent = currentIndex === index;
