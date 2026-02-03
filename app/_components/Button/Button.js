@@ -9,12 +9,14 @@ export default function Button({
   pendingLabel,
   variant = "primary",
   size = "md",
+  ...props
 }) {
   const { pending } = useFormStatus();
 
   return (
     <button
       disabled={pending}
+      {...props}
       className={clsx(
         "rounded-full font-medium transition-all disabled:opacity-60 disabled:cursor-not-allowed",
         {
