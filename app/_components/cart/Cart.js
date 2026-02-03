@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/app/_components/Button/Button";
+import CartCupomDiscount from "@/app/_components/cart/CartCupomDiscount";
 import CartItemList from "@/app/_components/cart/CartItemsList";
 import CartShipping from "@/app/_components/cart/cartShipping";
 import CartSummary from "@/app/_components/cart/CartSummary";
@@ -25,7 +26,10 @@ export default function Cart() {
 
         <CartItemList editable />
 
-        <CartShipping onShippingSelect={setSelectedShipping} />
+        <div className="flex flex-row w-full justify-between">
+          <CartShipping onShippingSelect={setSelectedShipping} />
+          <CartCupomDiscount />
+        </div>
       </div>
 
       <div className="md:w-96 gap-4 md:sticky md:top-24 md:h-fit">

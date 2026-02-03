@@ -25,7 +25,7 @@ export default function CartItemList({ variant = "full", editable = false }) {
         state.items.map((sneaker) => (
           <div
             key={`${sneaker.id}-${sneaker.size}`}
-            className="flex gap-4 border border-primary-200 rounded-lg p-5 bg-white hover:shadow-md transition-shadow"
+            className="flex flex-row  gap-4 rounded-lg p-5 bg-white hover:shadow-md transition-shadow"
           >
             <Link href={`/sneaker/${sneaker.id}`} className="shrink-0">
               <Image
@@ -63,7 +63,7 @@ export default function CartItemList({ variant = "full", editable = false }) {
             </div>
 
             {editable && (
-              <div className="flex flex-col items-center justify-center gap-3 shrink-0 pl-4 border-l border-primary-200">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-3 shrink-0 pl-4 border-l border-primary-200">
                 <div className="flex items-center gap-3 bg-primary-50 rounded-lg px-3 py-2">
                   {sneaker.quantity === 1 ? (
                     <button

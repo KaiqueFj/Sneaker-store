@@ -23,29 +23,33 @@ export default function ShopLayout({ children }) {
 
         {isCheckoutPage && (
           // Checkout pages: 3-column Nike layout
-          <div className="grid grid-cols-12 gap-8">
-            <aside className="col-span-3">
-              <CartItemList variant="compact" />
-            </aside>
-            <main className="col-span-6">{children}</main>
+          <div className="flex max-w-7xl mx-auto w-full justify-center mt-10">
+            <div className="grid grid-cols-12 gap-8">
+              <aside className="col-span-3">
+                <CartItemList variant="compact" />
+              </aside>
+              <main className="col-span-6">{children}</main>
 
-            <aside className="col-span-3 opacity-50">
-              <CartSummary />
-            </aside>
+              <aside className="col-span-3 opacity-50">
+                <CartSummary />
+              </aside>
+            </div>
           </div>
         )}
 
         {isCheckoutPaymentPage && (
           // Checkout pages: 3-column Nike layout
-          <div className="grid grid-cols-12 gap-8">
-            <aside className="col-span-3">
-              <CartItemList variant="compact" />
-            </aside>
+          <div className="flex max-w-7xl mx-auto w-full justify-center mt-10">
+            <div className="grid grid-cols-12 gap-8">
+              <aside className="col-span-3">
+                <CartItemList variant="compact" />
+              </aside>
 
-            <aside className="col-span-3 opacity-50 ">
-              <CheckoutComponent />
-            </aside>
-            <main className="col-span-6">{children}</main>
+              <aside className="col-span-6 opacity-50 ">
+                <CheckoutComponent />
+              </aside>
+              <main className="col-span-3">{children}</main>
+            </div>
           </div>
         )}
       </div>

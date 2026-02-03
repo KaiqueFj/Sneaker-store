@@ -24,7 +24,7 @@ export default function CartShipping({ onShippingSelect }) {
   };
 
   return (
-    <div className="mt-8 flex flex-col gap-4 bg-white rounded-lg border border-primary-200 p-6">
+    <div className="mt-8 flex flex-col gap-4 bg-white rounded-lg  p-6">
       <div>
         <h2 className="text-xl font-semibold text-primary-600 mb-1">
           Shipping
@@ -53,7 +53,7 @@ export default function CartShipping({ onShippingSelect }) {
         </Form.Field>
       </Form>
       {shipping && (
-        <div className="mt-3">
+        <div className="mt-0.5">
           <ShippingOptions shipping={shipping} onSelect={onShippingSelect} />
         </div>
       )}

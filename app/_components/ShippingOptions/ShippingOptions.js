@@ -8,12 +8,6 @@ export default function ShippingOptions({ shipping, onSelect }) {
           key={option.type}
           className="flex items-start gap-3 cursor-pointer"
         >
-          <input
-            type="radio"
-            name="shipping"
-            onChange={() => onSelect(option)}
-          />
-
           <div>
             <p className="font-semibold">
               {option.type} —{" "}
