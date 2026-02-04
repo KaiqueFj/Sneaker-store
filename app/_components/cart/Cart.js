@@ -6,11 +6,9 @@ import CartItemList from "@/app/_components/cart/CartItemsList";
 import CartShipping from "@/app/_components/cart/cartShipping";
 import CartSummary from "@/app/_components/cart/CartSummary";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 export default function Cart() {
   const router = useRouter();
-  const [selectedShipping, setSelectedShipping] = useState(null);
 
   return (
     <div className="flex flex-col md:flex-row gap-8 p-4 md:p-6 max-w-7xl mx-auto w-full">
@@ -27,13 +25,13 @@ export default function Cart() {
         <CartItemList editable />
 
         <div className="flex flex-row w-full justify-between">
-          <CartShipping onShippingSelect={setSelectedShipping} />
+          <CartShipping />
           <CartCupomDiscount />
         </div>
       </div>
 
       <div className="md:w-96 gap-4 md:sticky md:top-24 md:h-fit">
-        <CartSummary selectedShipping={selectedShipping} />
+        <CartSummary />
 
         <Button
           variant="primary"

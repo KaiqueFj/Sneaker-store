@@ -2,17 +2,17 @@ import { useCheckout } from "@/context/checkoutContext";
 import { useSneaker } from "@/context/SneakerContext";
 import { formatCurrency } from "@/utils/helpers";
 
-export default function CartSummary({ selectedShipping }) {
+export default function CartSummary() {
   const { state } = useSneaker();
   const { state: checkout } = useCheckout();
+  const discountPercentage = checkout.cupom?.value ?? 0;
+  const shippingPrice = checkout.shipping ? checkout.shipping.price : null;
 
   const subtotal = state.items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
-  const discountPercentage = checkout.cupom?.value ?? 0;
 
-  const shippingPrice = selectedShipping?.price ?? 0;
   const total =
     subtotal + shippingPrice - (subtotal * discountPercentage) / 100;
 
@@ -37,13 +37,16 @@ export default function CartSummary({ selectedShipping }) {
         {/* Shipping */}
         <div className="flex justify-between">
           <span className="text-sm text-primary-400">Shipping</span>
-          <span className="font-medium text-primary-600">
-            {selectedShipping
-              ? selectedShipping.price === 0
+
+          {checkout.shipping ? (
+            <span className="font-medium text-primary-600">
+              {checkout.shipping.price === 0
                 ? "Free"
-                : formatCurrency(selectedShipping.price)
-              : "—"}
-          </span>
+                : formatCurrency(checkout.shipping.price)}
+            </span>
+          ) : (
+            <span className="text-sm text-primary-400">-</span>
+          )}
         </div>
 
         {/* Coupon */}

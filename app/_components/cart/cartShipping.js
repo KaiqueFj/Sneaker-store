@@ -7,7 +7,7 @@ import { getShippingByCep } from "@/lib/actions";
 import { formatCep } from "@/utils/helpers";
 import { useState } from "react";
 
-export default function CartShipping({ onShippingSelect }) {
+export default function CartShipping({}) {
   const [cep, setCep] = useState("");
   const [shipping, setShipping] = useState(null);
 
@@ -15,12 +15,8 @@ export default function CartShipping({ onShippingSelect }) {
     const rawCep = cep.replace(/\D/g, "");
     if (rawCep.length !== 8) return;
 
-    try {
-      const result = await getShippingByCep(rawCep);
-      setShipping(result);
-    } catch (err) {
-      console.error(err);
-    }
+    const result = await getShippingByCep(rawCep);
+    setShipping(result);
   };
 
   return (
@@ -52,11 +48,7 @@ export default function CartShipping({ onShippingSelect }) {
           </Form.InputWrapper>
         </Form.Field>
       </Form>
-      {shipping && (
-        <div className="mt-0.5">
-          <ShippingOptions shipping={shipping} onSelect={onShippingSelect} />
-        </div>
-      )}
+      {shipping && <ShippingOptions shipping={shipping} />}
     </div>
   );
 }

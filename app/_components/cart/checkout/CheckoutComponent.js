@@ -1,10 +1,15 @@
 "use client";
 
 import Button from "@/app/_components/Button/Button";
+import { useCheckout } from "@/context/checkoutContext";
+import { formatCurrency } from "@/utils/helpers";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function CheckoutComponent() {
   const router = useRouter();
+  const { data: session } = useSession();
+  const { state: checkout } = useCheckout();
 
   return (
     <div className="mx-auto max-w-3xl flex flex-col gap-10">
@@ -14,22 +19,24 @@ export default function CheckoutComponent() {
 
         <h2 className="text-xl font-medium mb-4">Personal information</h2>
 
-        <div className="space-y-3 text-sm">
-          <div>
-            <p className="text-gray-500">Name</p>
-            <p className="font-medium">Kaique Ferraz de Jesus</p>
-          </div>
+        {session?.user && (
+          <div className="space-y-3 text-sm">
+            <div>
+              <p className="text-gray-500">Name</p>
+              <p className="font-medium">{session.user.name}</p>
+            </div>
 
-          <div>
-            <p className="text-gray-500">CPF</p>
-            <p className="font-medium">***.***.***-30</p>
-          </div>
+            <div>
+              <p className="text-gray-500">CPF</p>
+              <p className="font-medium">***.***.***-30</p>
+            </div>
 
-          <div>
-            <p className="text-gray-500">E-mail</p>
-            <p className="font-medium">kaiquelferraz@teste.com.br</p>
+            <div>
+              <p className="text-gray-500">E-mail</p>
+              <p className="font-medium">{session.user.email}</p>
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
       {/* SHIPPING ADDRESS */}
@@ -60,34 +67,26 @@ export default function CheckoutComponent() {
         </button>
       </section>
 
-      {/* SHIPPING METHOD */}
       <section>
         <h2 className="text-2xl font-medium mb-4">Shipping method</h2>
 
-        <div className="flex flex-col gap-4">
-          <label className="flex items-start gap-3 cursor-pointer border rounded-lg p-4">
-            <input
-              type="radio"
-              name="shippingMethod"
-              defaultChecked
-              className="mt-1"
-            />
-
-            <div>
-              <p className="font-medium">Standard — Free</p>
-              <p className="text-sm text-gray-600">3 business days</p>
-            </div>
-          </label>
-
-          <label className="flex items-start gap-3 cursor-pointer border rounded-lg p-4">
-            <input type="radio" name="shippingMethod" className="mt-1" />
-
-            <div>
-              <p className="font-medium">Express — $10</p>
-              <p className="text-sm text-gray-600">2 business days</p>
-            </div>
-          </label>
-        </div>
+        {checkout.shipping ? (
+          <div className="border rounded-lg p-4 bg-gray-50">
+            <p className="font-medium">
+              {checkout.shipping.type} —{" "}
+              {checkout.shipping.price === 0
+                ? "Free"
+                : formatCurrency(checkout.shipping.price)}
+            </p>
+            <p className="text-sm text-gray-600">
+              {checkout.shipping.days} business days
+            </p>
+          </div>
+        ) : (
+          <p className="text-sm text-gray-500">
+            Please select a shipping method
+          </p>
+        )}
       </section>
 
       {/* Forward */}

@@ -13,7 +13,6 @@ export default function CartCupomDiscount() {
   async function handleSubmit(formData) {
     try {
       const discount = await getCouponDiscount(formData);
-      console.log(discount);
       dispatch({
         type: "SET_CUPOM",
         payload: {
