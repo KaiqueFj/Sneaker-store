@@ -56,8 +56,8 @@ export default function CartItemList({ variant = "full", editable = false }) {
               <Image
                 src={sneaker.image}
                 alt={sneaker.name}
-                width={600}
-                height={600}
+                width={variant === "compact" ? 80 : 600}
+                height={variant === "compact" ? 80 : 600}
                 className="w-full h-auto rounded-lg object-cover hover:opacity-90 transition-opacity"
               />
             </Link>
