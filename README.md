@@ -85,31 +85,46 @@ This is more than a frontend: it’s a **full-stack web application** with authe
 ## 📁 Project Structure
 
 ```
-├── app/                        # Next.js App Router
-│   ├── _components/            # Shared UI components
-│   ├── _styles/                # Global & component styles
-│   ├── account/                # Account pages
-│   ├── cart/                   # Cart pages
-│   ├── favorites/              # Favorites pages
-│   ├── hooks/                  # Custom React hooks
-│   ├── login/                  # Login page
-│   ├── signup/                 # Signup page
-│   ├── sneaker/                # Single sneaker page
-│   ├── sneakers/               # Sneakers listing page
-│   ├── error.js                # Error boundary
-│   ├── icon.png                # App icon
-│   ├── layout.js               # Root layout
-│   ├── not-found.js            # 404 page
-│   └── page.js                 # Home page
+├── app/                             # Next.js App Router
+│   ├── _components/                 # Shared UI components
+│   ├── _styles/                     # Global & component styles
 │
-├── context/                     # Global contexts (cart, user, sneakers)
-├── lib/                         # Configs, services, API helpers
-├── public/                      # Static assets
-├── utils/                       # Utility functions & helpers
+│   ├── (auth)/                      # Auth route group
+│   │   ├── login/
+│   │   ├── signup/
+│   │   └── password-reset/
 │
-├── .env                         # Environment variables
-├── jsconfig.json                # Path aliases
-├── proxy.js                     # Proxy configuration for auth and redirect
+│   ├── (cart-checkout)/             # Cart & checkout route group
+│   │   ├── cart/
+│   │   └── checkout/
+│
+│   ├── (products)/                  # Products route group
+│   │   ├── favorites/
+│   │   ├── sneaker/
+│   │   └── sneakers/
+│
+│   ├── account/                     # Account pages
+│   │   ├── orders/
+│   │   ├── profile/
+│   │   └── updatePassword/
+│
+│   ├── hooks/                       # App-scoped custom hooks
+│
+│   ├── error.js                     # Error boundary
+│   ├── icon.png                     # App icon
+│   ├── layout.js                    # Root layout
+│   ├── not-found.js                 # 404 page
+│   └── page.js                      # Home page
+│
+├── context/                         # Global contexts (cart, user, sneakers)
+├── lib/                             # Configs, services, API helpers
+├── public/                          # Static assets
+├── utils/                           # Utility functions & helpers
+│
+├── .env                             # Environment variables
+├── jsconfig.json                    # Path aliases
+├── proxy.js                         # Proxy configuration (auth / redirects)
+
 ```
 
 ---
