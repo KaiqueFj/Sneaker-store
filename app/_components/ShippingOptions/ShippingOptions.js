@@ -25,6 +25,7 @@ export default function ShippingOptions({ shipping }) {
               name="shipping"
               checked={isSelected}
               onChange={() => handleSelect(option)}
+              className="mt-1"
             />
 
             <div>
@@ -41,7 +42,10 @@ export default function ShippingOptions({ shipping }) {
       })}
 
       <p className="mt-2 text-sm text-gray-500">
-        Deliver to {shipping.location.city}, {shipping.location.state}
+        Deliver to{" "}
+        <span className="font-medium">
+          {shipping.location.city}, {shipping.location.state}
+        </span>
       </p>
     </div>
   );

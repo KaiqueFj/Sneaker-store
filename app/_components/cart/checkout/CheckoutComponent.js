@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 export default function CheckoutComponent() {
   const router = useRouter();
   const { data: session } = useSession();
-  const { state: checkout } = useCheckout();
+  const { state: checkout, dispatch } = useCheckout();
 
   return (
     <div className="mx-auto max-w-3xl flex flex-col gap-10">
@@ -67,24 +67,52 @@ export default function CheckoutComponent() {
         </button>
       </section>
 
+      {/* Shipping options */}
       <section>
         <h2 className="text-2xl font-medium mb-4">Shipping method</h2>
 
-        {checkout.shipping ? (
-          <div className="border rounded-lg p-4 bg-gray-50">
-            <p className="font-medium">
-              {checkout.shipping.type} —{" "}
-              {checkout.shipping.price === 0
-                ? "Free"
-                : formatCurrency(checkout.shipping.price)}
-            </p>
-            <p className="text-sm text-gray-600">
-              {checkout.shipping.days} business days
-            </p>
+        {checkout.shippingOptions?.length ? (
+          <div className="flex flex-col gap-3">
+            {checkout.shippingOptions.map((option) => {
+              const isSelected = checkout.shipping?.type === option.type;
+
+              return (
+                <label
+                  key={option.type}
+                  className={`flex items-start gap-3 cursor-pointer rounded-lg border p-4 transition
+              ${
+                isSelected ? "border-black bg-gray-50" : "hover:border-gray-400"
+              }
+            `}
+                >
+                  <input
+                    type="radio"
+                    name="shippingMethod"
+                    checked={isSelected}
+                    onChange={() =>
+                      dispatch({ type: "SET_SHIPPING", payload: option })
+                    }
+                    className="mt-1"
+                  />
+
+                  <div>
+                    <p className="font-medium">
+                      {option.type} —{" "}
+                      {option.price === 0
+                        ? "Free"
+                        : formatCurrency(option.price)}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      {option.days} business days
+                    </p>
+                  </div>
+                </label>
+              );
+            })}
           </div>
         ) : (
           <p className="text-sm text-gray-500">
-            Please select a shipping method
+            Please calculate shipping in your cart
           </p>
         )}
       </section>
@@ -93,6 +121,7 @@ export default function CheckoutComponent() {
       <section>
         <Button
           onClick={() => router.push("/checkout/payment")}
+          disabled={!checkout.shipping}
           className="w-full"
           variant="primary"
           size="lg"

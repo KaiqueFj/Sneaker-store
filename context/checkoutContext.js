@@ -27,6 +27,12 @@ function checkoutReducer(state, action) {
         shipping: action.payload,
       };
 
+    case "SET_SHIPPING_OPTIONS":
+      return {
+        ...state,
+        shippingOptions: action.payload,
+      };
+
     case "REMOVE_SHIPPING":
       return {
         ...state,

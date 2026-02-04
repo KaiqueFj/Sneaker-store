@@ -3,6 +3,7 @@
 import Button from "@/app/_components/Button/Button";
 import Form from "@/app/_components/FormCompoundComponent/Form";
 import ShippingOptions from "@/app/_components/ShippingOptions/ShippingOptions";
+import { useCheckout } from "@/context/checkoutContext";
 import { getShippingByCep } from "@/lib/actions";
 import { formatCep } from "@/utils/helpers";
 import { useState } from "react";
@@ -10,13 +11,23 @@ import { useState } from "react";
 export default function CartShipping({}) {
   const [cep, setCep] = useState("");
   const [shipping, setShipping] = useState(null);
+  const { dispatch } = useCheckout();
+  const { state: checkout } = useCheckout();
+
+  console.log("checkout.shipping", checkout.shipping);
 
   const handleCalculateShipping = async () => {
     const rawCep = cep.replace(/\D/g, "");
     if (rawCep.length !== 8) return;
 
-    const result = await getShippingByCep(rawCep);
-    setShipping(result);
+    const { location, options } = await getShippingByCep(rawCep);
+
+    setShipping({
+      location,
+      options,
+    });
+
+    dispatch({ type: "SET_SHIPPING_OPTIONS", payload: options });
   };
 
   return (
