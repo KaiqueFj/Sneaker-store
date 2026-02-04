@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "@/app/_components/Button/Button";
 import CartCupomDiscount from "@/app/_components/cart/CartCupomDiscount";
 import CartItemList from "@/app/_components/cart/CartItemsList";
 import CartShipping from "@/app/_components/cart/cartShipping";
@@ -32,23 +31,6 @@ export default function Cart() {
 
       <div className="md:w-96 gap-4 md:sticky md:top-24 md:h-fit">
         <CartSummary />
-
-        <Button
-          variant="primary"
-          size="md"
-          className="w-full mt-4 py-3.5"
-          onClick={() => router.push("/checkout")}
-        >
-          Proceed to Checkout
-        </Button>
-        <Button
-          variant="secondary"
-          size="md"
-          className="w-full mt-4 py-3.5"
-          onClick={() => router.push("/")}
-        >
-          Continue Shopping
-        </Button>
       </div>
     </div>
   );
