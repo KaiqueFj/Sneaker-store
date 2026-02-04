@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/app/_components/Button/Button";
-import Form from "@/app/_components/FormCompoundComponent/Form";
+import Form from "@/app/_components/Forms/FormCompoundComponent/Form";
 import ShippingOptions from "@/app/_components/ShippingOptions/ShippingOptions";
 import { useCheckout } from "@/context/checkoutContext";
 import { getShippingByCep } from "@/lib/actions";
@@ -12,8 +12,6 @@ export default function CartShipping({}) {
   const [cep, setCep] = useState("");
   const [shipping, setShipping] = useState(null);
   const { dispatch } = useCheckout();
-  const { state: checkout } = useCheckout();
-
   const handleCalculateShipping = async () => {
     const rawCep = cep.replace(/\D/g, "");
     if (rawCep.length !== 8) return;

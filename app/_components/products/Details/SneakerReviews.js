@@ -1,4 +1,4 @@
-import StarRating from "@/app/_components/star/StarRating";
+import StarRating from "@/app/_components/ui/star/StarRating";
 import { formatDateNoZ } from "@/utils/helpers";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { AnimatePresence, motion } from "framer-motion";

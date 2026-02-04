@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import { auth } from "../lib/auth";
-import Footer from "./_components/Footer";
-import Header from "./_components/Header/Header";
+import Footer from "./_components/layout/Footer";
+import Header from "./_components/layout/Header/Header";
 import "./_styles/globals.css";
 import { Providers } from "./providers";
 

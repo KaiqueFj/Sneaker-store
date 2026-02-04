@@ -1,6 +1,6 @@
 "use client";
 
-import StarRating from "@/app/_components/star/StarRating";
+import StarRating from "@/app/_components/ui/star/StarRating";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import Image from "next/image";

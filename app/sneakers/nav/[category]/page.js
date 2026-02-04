@@ -1,5 +1,5 @@
 import { getSneakers } from "../../../../lib/data-service";
-import Category from "../../../_components/HeaderPages/Category";
+import Category from "../../../_components/layout/HeaderPages/Category";
 import Filter from "../../../_components/Sneakers/filter/filter";
 import SneakersList from "../../../_components/Sneakers/sneakerList";
 

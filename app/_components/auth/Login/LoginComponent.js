@@ -1,18 +1,16 @@
 "use client";
 
 import Button from "@/app/_components/Button/Button";
-import Form from "@/app/_components/FormCompoundComponent/Form";
-import { signUpNewUserAction } from "@/lib/actions";
+import Form from "@/app/_components/Forms/FormCompoundComponent/Form";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from "react-hot-toast";
-import SignInButton from "../login/SignInButton";
+import { toast } from "react-hot-toast";
+import SignInButton from "./SignInButton";
 
-export const metadata = { title: "Sign Up" };
-
-export default function SignUpComponent() {
+export default function LoginComponent() {
   const router = useRouter();
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -22,37 +20,47 @@ export default function SignUpComponent() {
   };
 
   async function handleSubmit(formData) {
+    const email = formData.get("email");
+    const password = formData.get("password");
+
     try {
-      await toast.promise(signUpNewUserAction(formData), {
-        loading: "Creating account...",
-        success: (data) => {
-          router.push("/login");
-          return data.message;
+      await toast.promise(
+        (async () => {
+          const result = await signIn("credentials", {
+            email,
+            password,
+            redirect: false,
+          });
+
+          if (result?.error) {
+            throw new Error("Invalid email or password");
+          }
+          return result;
+        })(),
+        {
+          loading: "Signing in...",
+          success: () => {
+            router.push("/account");
+            return "Signed in successfully";
+          },
+          error: (err) => err.message,
         },
-        error: (err) => err.message,
-      });
-    } catch (error) {}
+      );
+    } catch {}
   }
 
   return (
     <div className="flex flex-col items-center px-4 mt-16 gap-8">
       {/* Title */}
       <div className="text-center space-y-1">
-        <h2 className="text-3xl font-semibold">Sign up to your account</h2>
+        <h2 className="text-3xl font-semibold">Sign in to your account</h2>
+        <p className="text-sm text-neutral-500">
+          Welcome back! Please enter your details.
+        </p>
       </div>
 
-      {/* Card */}
       <div className="w-full max-w-md bg-white rounded-2xl border border-primary-600/10 shadow-sm">
         <Form action={handleSubmit} className="mt-6 p-6">
-          <Form.Field>
-            <Form.Label>Full name</Form.Label>
-            <Form.Input
-              name="name"
-              type="text"
-              placeholder="John Doe"
-              required
-            />
-          </Form.Field>
           <Form.Field>
             <Form.Label>Email</Form.Label>
             <Form.Input
@@ -60,7 +68,7 @@ export default function SignUpComponent() {
               type="email"
               placeholder="you@example.com"
               required
-            />
+            ></Form.Input>
           </Form.Field>
 
           <Form.Field>
@@ -96,15 +104,22 @@ export default function SignUpComponent() {
             </Form.InputWrapper>
           </Form.Field>
 
+          <Link
+            href="/password-reset"
+            className="text-sm text-primary-600 hover:underline"
+          >
+            Forgot your password?
+          </Link>
+
           {/* Actions */}
           <Form.Actions className="w-full">
             <Button
               className="w-full"
               size="lg"
               variant="primary"
-              pendingLabel="Creating..."
+              pendingLabel="Signing in..."
             >
-              Create account
+              Sign in
             </Button>
           </Form.Actions>
 
@@ -124,14 +139,14 @@ export default function SignUpComponent() {
           {/* Link to signup */}
           <div className="flex flex-row gap-2 items-center justify-center">
             <p className="text-sm text-center text-neutral-600">
-              {"Already have an account?"}
+              {"Don't have an account?"}
             </p>
 
             <Link
-              href="/login"
+              href="/signup"
               className="text-primary-600 text-sm hover:underline"
             >
-              Sign in
+              Sign up
             </Link>
           </div>
         </Form>

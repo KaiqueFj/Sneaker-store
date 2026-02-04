@@ -2,7 +2,7 @@
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import SearchModal from "../../SearchModal/SearchModal";
+import SearchModal from "../../../ui/SearchModal/SearchModal";
 
 export default function SearchBar() {
   const [open, setOpen] = useState(false);

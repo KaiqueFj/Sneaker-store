@@ -1,6 +1,6 @@
 import { auth } from "../../../lib/auth";
 import { getOrders, getUserReviews } from "../../../lib/data-service";
-import Order from "../../_components/orders/Order";
+import Order from "../../_components/layout/orders/Order";
 
 export default async function page() {
   const session = await auth();

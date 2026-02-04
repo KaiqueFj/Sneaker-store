@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useSneaker } from "../../../../context/SneakerContext";
+import { useSneaker } from "../../../../../context/SneakerContext";
 import NavigationList from "../nav/NavigationList";
 import SearchBar from "./SearchBar";
 

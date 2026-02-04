@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { getSneakers } from "../../../lib/data-service";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "../ui/Spinner/Spinner";
 import SneakerMainCard from "./SneakersMainPageCard";
 
 export default async function Catalog() {
@@ -10,7 +10,7 @@ export default async function Catalog() {
     sneakers.reduce((acc, sneaker) => {
       if (!acc[sneaker.model]) acc[sneaker.model] = sneaker;
       return acc;
-    }, {})
+    }, {}),
   ).slice(0, 10);
   return (
     <>

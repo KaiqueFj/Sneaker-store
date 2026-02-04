@@ -1,5 +1,5 @@
 import { auth } from "../../lib/auth";
-import AccountMenu from "../_components/AccountMenu/Navigation";
+import AccountMenu from "../_components/layout/AccountMenu/Navigation";
 
 export const metadata = {
   title: "Account",

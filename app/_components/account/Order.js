@@ -1,10 +1,10 @@
 "use client";
 
-import ReviewComponent from "@/app/_components/Review/ReviewComponent";
+import ReviewComponent from "@/app/_components/ui/Review/ReviewComponent";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { formatDate } from "../../../utils/helpers";
+import { formatDate } from "../../../../utils/helpers";
 
 export default function Order({ orders, reviews }) {
   const [openOrderId, setOpenOrderId] = useState(null);
@@ -66,7 +66,7 @@ export default function Order({ orders, reviews }) {
                 <div className="md:col-span-2 space-y-6">
                   {order.order_items.map((item) => {
                     const userReview = reviewsState.find(
-                      (r) => r.sneaker_id == item.sneaker_id
+                      (r) => r.sneaker_id == item.sneaker_id,
                     );
                     return (
                       <div key={item.id} className="flex gap-6 items-start">
@@ -116,14 +116,15 @@ export default function Order({ orders, reviews }) {
                               onSuccess={(newReview) => {
                                 setReviewsState((prev) => {
                                   const exists = prev.find(
-                                    (r) => r.sneaker_id === newReview.sneaker_id
+                                    (r) =>
+                                      r.sneaker_id === newReview.sneaker_id,
                                   );
 
                                   if (exists) {
                                     return prev.map((r) =>
                                       r.sneaker_id === newReview.sneaker_id
                                         ? newReview
-                                        : r
+                                        : r,
                                     );
                                   }
 
