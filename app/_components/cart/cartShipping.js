@@ -1,8 +1,8 @@
 "use client";
 
-import Button from "@/app/_components/Button/Button";
-import Form from "@/app/_components/Forms/FormCompoundComponent/Form";
-import ShippingOptions from "@/app/_components/ShippingOptions/ShippingOptions";
+import ShippingOptions from "@/app/_components/shipping/ShippingOptions";
+import Button from "@/app/_components/ui/Button/Button";
+import Form from "@/app/_components/ui/Form/Form";
 import { useCheckout } from "@/context/checkoutContext";
 import { getShippingByCep } from "@/lib/actions";
 import { formatCep } from "@/utils/helpers";

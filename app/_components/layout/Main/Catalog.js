@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { getSneakers } from "../../../lib/data-service";
-import Spinner from "../ui/Spinner/Spinner";
+import { getSneakers } from "@/lib/data-service";
+import Spinner from "@/app/_components/ui/Spinner/Spinner";
 import SneakerMainCard from "./SneakersMainPageCard";
 
 export default async function Catalog() {

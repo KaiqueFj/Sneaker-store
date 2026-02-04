@@ -5,7 +5,7 @@ import { getPreviewText } from "@/utils/helpers";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { useFavoriteSneaker } from "../../hooks/useFavoriteSneaker";
+import { useFavoriteSneaker } from "./useFavoriteSneaker";
 
 export function useSneakerPageController(sneaker) {
   const {

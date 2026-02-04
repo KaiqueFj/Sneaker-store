@@ -1,4 +1,4 @@
-import Button from "@/app/_components/Button/Button";
+import Button from "@/app/_components/ui/Button/Button";
 import { useCheckout } from "@/context/checkoutContext";
 import { useSneaker } from "@/context/SneakerContext";
 import { createOrder } from "@/lib/data-service";

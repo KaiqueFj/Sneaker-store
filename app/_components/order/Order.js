@@ -1,10 +1,10 @@
 "use client";
 
 import ReviewComponent from "@/app/_components/ui/Review/ReviewComponent";
+import { formatDate } from "@/utils/helpers";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { formatDate } from "../../../../utils/helpers";
 
 export default function Order({ orders, reviews }) {
   const [openOrderId, setOpenOrderId] = useState(null);

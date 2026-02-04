@@ -1,5 +1,5 @@
-import { getSneaker, getSneakersReviews } from "../../../lib/data-service";
-import SneakerSelectedInformation from "../../_components/Sneakers/sneakerSelectedInformation";
+import SneakerSelectedInformation from "@/app/_components/products/Details/sneakerSelectedInformation";
+import { getSneaker, getSneakersReviews } from "@/lib/data-service";
 
 export default async function Page({ params }) {
   const { slug } = await params;

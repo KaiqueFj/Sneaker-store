@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/app/_components/Button/Button";
-import Form from "@/app/_components/Forms/FormCompoundComponent/Form";
+import Button from "@/app/_components/ui/Button/Button";
+import Form from "@/app/_components/ui/Form/Form";
 import { useCheckout } from "@/context/checkoutContext";
 import { getCouponDiscount } from "@/lib/actions";
 import { useEffect, useState } from "react";

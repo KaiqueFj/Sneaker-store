@@ -1,5 +1,5 @@
-import Sneaker from "@/app/_components/SneakerCompoundComponent/Sneaker";
-import SneakerDetails from "./sneakerDetails";
+import SneakerDetails from "@/app/_components/products/Details/sneakerDetails";
+import Sneaker from "@/app/_components/products/Sneaker";
 
 export default function SneakersList({ filter = "all", sneakers }) {
   if (!sneakers) return null;

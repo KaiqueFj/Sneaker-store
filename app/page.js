@@ -1,5 +1,5 @@
-import Catalog from "./_components/Main/Catalog";
-import Banner from "./_components/Main/Banner";
+import Banner from "@/app/_components/layout/Main/Banner";
+import Catalog from "@/app/_components/layout/Main/Catalog";
 
 export default function Home() {
   return (

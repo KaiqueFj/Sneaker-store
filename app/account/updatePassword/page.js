@@ -1,4 +1,4 @@
-import UpdatePasswordForm from "@/app/_components/Forms/updatePasswordForm/UpdatePasswordForm";
+import UpdatePasswordForm from "@/app/_components/auth/PasswordReset/PasswordResetForm";
 
 export const metadata = {
   title: "Update Password",

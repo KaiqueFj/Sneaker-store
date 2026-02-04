@@ -1,4 +1,4 @@
-import SneakersList from "@/app/_components/Sneakers/sneakerList";
+import SneakersList from "@/app/_components/products/List/sneakerList";
 import { getFavorites } from "@/lib/data-service";
 
 export default async function page() {

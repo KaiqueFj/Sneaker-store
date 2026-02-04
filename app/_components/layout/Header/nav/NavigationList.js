@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import SignOutButton from "../../login/SignOutButton";
+import SignOutButton from "@/app/_components/auth/Login/SignOutButton";
 
 export default function NavigationList({
   navItems,

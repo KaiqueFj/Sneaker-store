@@ -1,9 +1,9 @@
 "use client";
 
-import SneakerDesktopView from "./sneakerPageStructure/SneakerDesktopView";
-import SneakerMobileView from "./sneakerPageStructure/SneakerMobileView";
-import SneakerReviews from "./sneakerPageStructure/SneakerReviews";
-import { useSneakerPageController } from "./useSneakerPageController";
+import SneakerDesktopView from "@/app/_components/products/Details/SneakerDesktopView";
+import SneakerMobileView from "@/app/_components/products/Details/SneakerMobileView";
+import SneakerReviews from "@/app/_components/products/Details/SneakerReviews";
+import { useSneakerPageController } from "@/hooks/useSneakerPageController";
 
 export default function SneakerSelectedInformation({ sneaker, reviews }) {
   const controller = useSneakerPageController(sneaker);

@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/app/_components/Button/Button";
+import Button from "@/app/_components/ui/Button/Button";
 import { useCheckout } from "@/context/checkoutContext";
 import { formatCurrency } from "@/utils/helpers";
 import { useSession } from "next-auth/react";

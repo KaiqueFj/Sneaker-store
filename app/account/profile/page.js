@@ -1,6 +1,6 @@
-import { auth } from "../../../lib/auth";
-import { getUser } from "../../../lib/data-service";
-import UpdateProfileForm from "../../_components/updateProfileForm/UpdateProfileForm";
+import UpdateProfileForm from "@/app/_components/auth/UpdateProfile/UpdateProfileForm";
+import { auth } from "@/lib/auth";
+import { getUser } from "@/lib/data-service";
 
 export const metadata = {
   title: "Update profile",

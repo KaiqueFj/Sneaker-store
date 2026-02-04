@@ -1,4 +1,5 @@
 "use client";
+import { useSneaker } from "@/context/SneakerContext";
 import {
   CheckCircleIcon,
   ShoppingCartIcon,
@@ -7,7 +8,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useSneaker } from "../../../context/SneakerContext";
 
 export default function CartModal() {
   const { state } = useSneaker();

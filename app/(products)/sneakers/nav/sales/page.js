@@ -1,7 +1,7 @@
-import { getSneakersOnSale } from "../../../../lib/data-service";
-import Category from "../../../_components/layout/HeaderPages/Category";
-import Filter from "../../../_components/Sneakers/filter/filter";
-import SneakersList from "../../../_components/Sneakers/sneakerList";
+import Category from "@/app/_components/layout/HeaderPages/Category";
+import Filter from "@/app/_components/products/Filter/filter";
+import SneakersList from "@/app/_components/products/List/sneakerList";
+import { getSneakersOnSale } from "@/lib/data-service";
 
 export async function generateMetadata() {
   return { title: ` Sneakers on sale ` };

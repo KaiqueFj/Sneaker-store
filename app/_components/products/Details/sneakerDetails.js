@@ -1,6 +1,6 @@
 "use client";
 
-import Sneaker from "@/app/_components/SneakerCompoundComponent/Sneaker";
+import Sneaker from "@/app/_components/products/Sneaker";
 import { createFavorite, removeFavorite } from "@/lib/data-service";
 import { slugify } from "@/utils/helpers";
 import { useSession } from "next-auth/react";

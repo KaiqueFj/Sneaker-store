@@ -1,6 +1,6 @@
 import CartModal from "@/app/_components/cart/CartModal";
-import SneakerDetailsModal from "@/app/_components/Sneakers/modal/SneakerDetailsModal";
-import SneakerImageCarousel from "@/app/_components/Sneakers/sneakerPageStructure/SneakerImageCarousel";
+import SneakerImageCarousel from "@/app/_components/products/Details/SneakerImageCarousel";
+import SneakerDetailsModal from "@/app/_components/products/Modal/SneakerDetailsModal";
 import StarRating from "@/app/_components/ui/star/StarRating";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid, LinkIcon } from "@heroicons/react/24/solid";

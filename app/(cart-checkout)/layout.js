@@ -3,8 +3,8 @@
 import CartItemList from "@/app/_components/cart/CartItemsList";
 import CartSummary from "@/app/_components/cart/CartSummary";
 import CheckoutComponent from "@/app/_components/checkout/CheckoutComponent";
-import CheckoutTransition from "@/app/_components/CheckoutTransition/CheckoutTransition";
 import StepperHeader from "@/app/_components/ui/StepperHeader/StepperHeader";
+import CheckoutTransition from "@/app/_components/ui/TransitionEffects/CheckoutTransition";
 import { usePathname } from "next/navigation";
 
 export default function ShopLayout({ children }) {

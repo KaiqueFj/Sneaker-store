@@ -1,14 +1,14 @@
 "use client";
 
-import Button from "@/app/_components/Button/Button";
-import Form from "@/app/_components/Forms/FormCompoundComponent/Form";
+import SignInButton from "@/app/_components/auth/Login/SignInButton";
+import Form from "@/app/_components/forms/Form";
+import Button from "@/app/_components/ui/Button/Button";
 import { signUpNewUserAction } from "@/lib/actions";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import SignInButton from "../login/SignInButton";
 
 export const metadata = { title: "Sign Up" };
 
