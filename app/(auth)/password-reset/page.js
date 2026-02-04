@@ -1,7 +1,7 @@
 "use client";
 
-import SendResetPasswordEmail from "@/app/_components/Forms/PasswordReset/SendResetPasswordEmail";
+import SendEmailToUserForm from "@/app/_components/auth/PasswordReset/SendEmailToUserForm";
 
 export default function Page() {
-  return <SendResetPasswordEmail />;
+  return <SendEmailToUserForm />;
 }
