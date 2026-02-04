@@ -1,33 +1,29 @@
+import { useCheckout } from "@/context/checkoutContext";
 import { useSneaker } from "@/context/SneakerContext";
 import { formatCurrency } from "@/utils/helpers";
-import { ArrowDownIcon } from "@heroicons/react/24/solid";
 
 export default function CartSummary({ selectedShipping }) {
   const { state } = useSneaker();
+  const { state: checkout } = useCheckout();
 
   const subtotal = state.items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
+  const discountPercentage = checkout.cupom?.value ?? 0;
 
   const shippingPrice = selectedShipping?.price ?? 0;
-  const total = subtotal + shippingPrice;
+  const total =
+    subtotal + shippingPrice - (subtotal * discountPercentage) / 100;
+
+  const discountValue =
+    discountPercentage > 0 ? (subtotal * discountPercentage) / 100 : 0;
 
   return (
     <div className="bg-white border border-primary-200 rounded-lg p-6 shadow-sm">
       <h2 className="text-xl font-semibold text-primary-600 mb-5">
         Order Summary
       </h2>
-
-      <div className="flex flex-col gap-3 mb-5">
-        {/* Promo */}
-        <button className="flex justify-between items-center p-3 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors group">
-          <span className="text-sm font-medium text-primary-600">
-            Have a promo code?
-          </span>
-          <ArrowDownIcon className="h-4 w-4 text-primary-400 group-hover:text-primary-600 transition-colors" />
-        </button>
-      </div>
 
       <div className="flex flex-col gap-3 py-4 border-t border-b border-primary-200">
         {/* Subtotal */}
@@ -49,6 +45,21 @@ export default function CartSummary({ selectedShipping }) {
               : "—"}
           </span>
         </div>
+
+        {/* Coupon */}
+        {checkout.cupom && (
+          <div className="flex justify-between text-sm text-green-600">
+            <span>
+              Coupon applied
+              <span className="ml-1 font-medium uppercase">
+                ({checkout.cupom.code ?? `${discountPercentage}% OFF`})
+              </span>
+            </span>
+            <span className="font-medium">
+              -{formatCurrency(discountValue)}
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="flex justify-between items-center mt-4 pt-1">

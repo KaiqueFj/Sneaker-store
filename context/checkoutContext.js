@@ -1,4 +1,4 @@
-const { createContext } = require("react");
+const { createContext, useReducer, useContext } = require("react");
 
 const initialState = {
   cupom: null,
