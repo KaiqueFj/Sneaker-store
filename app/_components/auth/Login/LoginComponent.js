@@ -1,7 +1,7 @@
 "use client";
 
-import Form from "@/app/_components/forms/Form";
 import Button from "@/app/_components/ui/Button/Button";
+import Form from "@/app/_components/ui/Form/Form";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { signIn } from "next-auth/react";
 import Link from "next/link";

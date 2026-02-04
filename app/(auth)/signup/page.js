@@ -1,4 +1,4 @@
-import SignUpComponent from "../_components/layout/signup/SignUpComponent";
+import SignUpComponent from "@/app/_components/auth/Signup/SignUpComponent";
 
 export const metadata = {
   title: "Sign Up",

@@ -1,4 +1,4 @@
-import LoginComponent from "../_components/layout/login/LoginComponent";
+import LoginComponent from "@/app/_components/auth/Login/LoginComponent";
 
 export const metadata = {
   title: "Login",
