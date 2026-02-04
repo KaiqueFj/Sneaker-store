@@ -12,12 +12,12 @@ export default function CheckoutComponent() {
   const { state: checkout, dispatch } = useCheckout();
 
   return (
-    <div className="mx-auto max-w-3xl flex flex-col gap-10">
+    <div className="mx-auto max-w-3xl flex flex-col gap-6">
       {/* IDENTIFICATION */}
-      <section className="border-b pb-6">
-        <h1 className="text-3xl font-semibold mb-6">Identification</h1>
+      <section className="border-b pb-3">
+        <h1 className="text-3xl font-semibold mb-5">Identification</h1>
 
-        <h2 className="text-xl font-medium mb-4">Personal information</h2>
+        <h2 className="text-xl font-medium mb-3">Personal information</h2>
 
         {session?.user && (
           <div className="space-y-3 text-sm">
@@ -40,7 +40,7 @@ export default function CheckoutComponent() {
       </section>
 
       {/* SHIPPING ADDRESS */}
-      <section className="border-b pb-6">
+      <section className="border-b pb-3">
         <h2 className="text-2xl font-medium mb-4">Shipping address</h2>
 
         <label className="flex items-start gap-3 cursor-pointer">
