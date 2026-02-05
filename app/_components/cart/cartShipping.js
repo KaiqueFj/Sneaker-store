@@ -12,6 +12,8 @@ export default function CartShipping({}) {
   const [cep, setCep] = useState("");
   const [shipping, setShipping] = useState(null);
   const { dispatch } = useCheckout();
+  const { state: checkout } = useCheckout();
+
   const handleCalculateShipping = async () => {
     const rawCep = cep.replace(/\D/g, "");
     if (rawCep.length !== 8) return;

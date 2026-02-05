@@ -90,14 +90,20 @@ export function AddressModal({ open, setOpen, adress }) {
             />
           </Form.Field>
 
+          <Form.Field>
+            <Form.Label>Street</Form.Label>
+            <Form.Input name="street" type="text" defaultValue={street ?? ""} />
+          </Form.Field>
+
           {/* Street + Number */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Complement */}
             <Form.Field>
-              <Form.Label>Street</Form.Label>
+              <Form.Label>Complement (optional)</Form.Label>
               <Form.Input
-                name="street"
+                name="complement"
                 type="text"
-                defaultValue={street ?? ""}
+                defaultValue={complement ?? ""}
               />
             </Form.Field>
 
@@ -110,16 +116,6 @@ export function AddressModal({ open, setOpen, adress }) {
               />
             </Form.Field>
           </div>
-
-          {/* Complement */}
-          <Form.Field>
-            <Form.Label>Complement (optional)</Form.Label>
-            <Form.Input
-              name="complement"
-              type="text"
-              defaultValue={complement ?? ""}
-            />
-          </Form.Field>
 
           {/* City / State */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

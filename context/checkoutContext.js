@@ -3,7 +3,9 @@ const { createContext, useReducer, useContext } = require("react");
 const initialState = {
   cupom: null,
   shipping: null,
+  shippingOptions: [],
   address: null,
+  cep: null,
 };
 
 const CheckoutContext = createContext();
@@ -50,6 +52,19 @@ function checkoutReducer(state, action) {
       return {
         ...state,
         address: null,
+      };
+
+    case "SET_CEP":
+      return {
+        ...state,
+        cep: action.payload,
+      };
+
+    case "CLEAR_SHIPPING_OPTIONS":
+      return {
+        ...state,
+        shippingOptions: [],
+        shipping: null,
       };
 
     case "RESET_CHECKOUT":
