@@ -33,11 +33,11 @@ export default function ShopLayout({ children }) {
               </aside>
 
               {/* CENTER – Checkout (always visible) */}
-              <main className="col-span-12 md:col-span-6">
+              <main className="col-span-12 md:col-span-5">
                 <CheckoutTransition>{children}</CheckoutTransition>
               </main>
               {/* RIGHT – Summary (desktop only) */}
-              <aside className="hidden md:block md:col-span-3 opacity-50">
+              <aside className="hidden md:block md:col-span-4 opacity-50">
                 <CartSummary />
               </aside>
             </div>
