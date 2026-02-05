@@ -42,7 +42,7 @@ export function AddressModal({ open, setOpen, adress }) {
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-lg rounded-xl bg-white p-6 shadow-xl">
+      <div className="relative w-full max-w-lg md:mx-4 rounded-xl bg-white p-6 shadow-xl">
         {/* Header */}
         <div className="mb-6 flex items-start justify-between">
           <div>
@@ -59,7 +59,7 @@ export function AddressModal({ open, setOpen, adress }) {
 
           <button
             onClick={() => setOpen(false)}
-            className="text-neutral-400 hover:text-neutral-900"
+            className="text-lg text-primary-50 hover:bg-black/70 bg-black rounded-full transition-all duration-200 w-8 h-8"
           >
             ✕
           </button>
@@ -91,7 +91,7 @@ export function AddressModal({ open, setOpen, adress }) {
           </Form.Field>
 
           {/* Street + Number */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Form.Field>
               <Form.Label>Street</Form.Label>
               <Form.Input
@@ -122,7 +122,7 @@ export function AddressModal({ open, setOpen, adress }) {
           </Form.Field>
 
           {/* City / State */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Form.Field>
               <Form.Label>City</Form.Label>
               <Form.Input name="city" type="text" defaultValue={city ?? ""} />
@@ -135,7 +135,7 @@ export function AddressModal({ open, setOpen, adress }) {
           </div>
 
           {/* Postal code / Country */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Form.Field>
               <Form.Label>Postal code</Form.Label>
               <Form.Input
@@ -155,28 +155,30 @@ export function AddressModal({ open, setOpen, adress }) {
             </Form.Field>
           </div>
 
-          {/* Default address */}
-
-          {/* Recipient */}
           <Form.Field>
-            <Form.Label>Set as default address</Form.Label>
-            <Form.InputWrapper>
-              <Form.Input
+            <label className="flex items-center justify-between gap-4 rounded-lg border border-neutral-200 px-4 py-3 cursor-pointer hover:border-neutral-400 transition">
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-neutral-900">
+                  Set as default address
+                </span>
+                <span className="text-xs text-neutral-500">
+                  This address will be used by default at checkout
+                </span>
+              </div>
+
+              <input
                 name="is_default"
                 type="checkbox"
-                className="h-4 w-4 rounded border-neutral-300 text-primary-600 focus:ring-primary-600"
                 defaultChecked={is_default ?? false}
+                className="h-5 w-5 rounded border-neutral-300 text-primary-600 focus:ring-primary-600"
               />
-              <div className="absolute right-2 top-1/2 -translate-y-1/2">
-                <p>Set as default address</p>
-              </div>
-            </Form.InputWrapper>
+            </label>
           </Form.Field>
 
           {/* Actions */}
           <Form.Actions className="flex justify-end gap-3">
-            <Button type="submit" size="lg">
-              Save address
+            <Button type="submit" size="lg" pendingLabel="Saving...">
+              {isEditing ? "Update address" : "Add address"}
             </Button>
           </Form.Actions>
         </Form>

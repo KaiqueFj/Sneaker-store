@@ -7,6 +7,8 @@ export default function AddressesClient({ addresses }) {
   const [open, setOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
 
+  console.log(addresses);
+
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-12">
       {/* Header */}
@@ -33,7 +35,7 @@ export default function AddressesClient({ addresses }) {
             >
               <div className="flex flex-col gap-1">
                 {address.is_default && (
-                  <span className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+                  <span className="text-xs uppercase tracking-wide text-primary-600 font-bold">
                     Default address
                   </span>
                 )}
