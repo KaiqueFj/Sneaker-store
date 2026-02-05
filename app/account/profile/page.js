@@ -1,4 +1,4 @@
-import UpdateProfileForm from "@/app/_components/auth/UpdateProfile/UpdateProfileForm";
+import UpdateProfileForm from "@/app/_components/account/UpdateProfile/UpdateProfileForm";
 import { auth } from "@/lib/auth";
 import { getUser } from "@/lib/data-service";
 

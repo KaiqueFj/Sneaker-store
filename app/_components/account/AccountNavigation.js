@@ -46,6 +46,7 @@ export default function AccountMenu() {
 
         <Section title="Account">
           <MenuItem href="/account/profile" label="Update profile" />
+          <MenuItem href="/account/adresses" label="Adressess" />
           <MenuItem href="/account/updatePassword" label="Update password" />
         </Section>
 
