@@ -7,8 +7,6 @@ export default function AddressesClient({ addresses }) {
   const [open, setOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
 
-  console.log(addresses);
-
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-12">
       {/* Header */}

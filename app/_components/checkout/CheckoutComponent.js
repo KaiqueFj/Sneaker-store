@@ -6,7 +6,7 @@ import { formatCurrency } from "@/utils/helpers";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-export default function CheckoutComponent() {
+export default function CheckoutComponent({ addresses }) {
   const router = useRouter();
   const { data: session } = useSession();
   const { state: checkout, dispatch } = useCheckout();
@@ -43,26 +43,36 @@ export default function CheckoutComponent() {
       <section className="border-b pb-3">
         <h2 className="text-2xl font-medium mb-4">Shipping address</h2>
 
-        <label className="flex items-start gap-3 cursor-pointer">
-          <input type="radio" name="address" className="mt-1" defaultChecked />
+        {addresses.map((address) => {
+          const isSelected = checkout.address?.id === address.id;
 
-          <div className="flex flex-col gap-1">
-            <p className="font-medium">Default address</p>
-            <p className="text-sm text-gray-600">Rua Dr. João Pessoa, nº 10</p>
-
-            <button
-              type="button"
-              className="text-sm text-primary-600 underline w-fit"
+          return (
+            <label
+              key={address.id}
+              className={`flex items-start gap-3 cursor-pointer rounded-lg border p-4 mb-3
+              ${isSelected ? "border-black bg-gray-50" : "hover:border-gray-300"}
+            `}
             >
-              Edit address
-            </button>
-          </div>
-        </label>
+              <input
+                type="radio"
+                checked={isSelected}
+                onChange={() =>
+                  dispatch({ type: "SET_ADDRESS", payload: address })
+                }
+                className="mt-1"
+              />
 
-        <button
-          type="button"
-          className="mt-4 text-sm font-medium text-primary-600"
-        >
+              <div>
+                <p className="font-medium">{address.label}</p>
+                <p className="text-sm text-gray-600">
+                  {address.street}, nº {address.number}
+                </p>
+              </div>
+            </label>
+          );
+        })}
+
+        <button className="mt-4 text-sm font-medium text-primary-600">
           + Add new address
         </button>
       </section>

@@ -3,6 +3,7 @@ const { createContext, useReducer, useContext } = require("react");
 const initialState = {
   cupom: null,
   shipping: null,
+  address: null,
 };
 
 const CheckoutContext = createContext();
@@ -37,6 +38,18 @@ function checkoutReducer(state, action) {
       return {
         ...state,
         shipping: null,
+      };
+
+    case "SET_ADDRESS":
+      return {
+        ...state,
+        address: action.payload,
+      };
+
+    case "REMOVE_ADDRESS":
+      return {
+        ...state,
+        address: null,
       };
 
     case "RESET_CHECKOUT":

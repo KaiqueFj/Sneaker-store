@@ -1,7 +1,10 @@
-"use client";
-
 import CheckoutComponent from "@/app/_components/checkout/CheckoutComponent";
+import { auth } from "@/lib/auth";
+import { getUserAddresses } from "@/lib/data-service";
 
-export default function page() {
-  return <CheckoutComponent />;
+export default async function Page() {
+  const session = await auth();
+  const addresses = await getUserAddresses(session?.user?.userId);
+
+  return <CheckoutComponent addresses={addresses} />;
 }
