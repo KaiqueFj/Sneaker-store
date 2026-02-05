@@ -1,6 +1,6 @@
 "use client";
 
-import { AddressModal } from "@/app/_components/account/Adresses/AdressModal";
+import { AddressModal } from "@/app/_components/account/addresses/AdressModal";
 import { useState } from "react";
 
 export default function AddressesClient({ addresses }) {

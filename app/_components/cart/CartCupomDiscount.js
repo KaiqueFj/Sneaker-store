@@ -46,6 +46,7 @@ export default function CartCupomDiscount() {
               type="text"
               name="coupon"
               value={couponInput}
+              placeholder="Enter your coupon (`NIKE10`)"
               onChange={(e) => setCouponInput(e.target.value)}
               className="pr-20"
             />

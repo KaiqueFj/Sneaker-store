@@ -1,6 +1,6 @@
 "use client";
 
-import { AddressModal } from "@/app/_components/account/Adresses/AdressModal";
+import { AddressModal } from "@/app/_components/account/addresses/AdressModal";
 import Button from "@/app/_components/ui/Button/Button";
 import { useCheckout } from "@/context/checkoutContext";
 import { formatCurrency } from "@/utils/helpers";
