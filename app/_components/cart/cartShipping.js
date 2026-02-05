@@ -6,30 +6,41 @@ import Form from "@/app/_components/ui/Form/Form";
 import { useCheckout } from "@/context/checkoutContext";
 import { getShippingByCep } from "@/lib/actions";
 import { formatCep } from "@/utils/helpers";
-import { useState } from "react";
+import { useEffect } from "react";
 
-export default function CartShipping({}) {
-  const [cep, setCep] = useState("");
-  const [shipping, setShipping] = useState(null);
-  const { dispatch } = useCheckout();
-  const { state: checkout } = useCheckout();
+export default function CartShipping() {
+  const { state, dispatch } = useCheckout();
+  const cep = state.address?.postal_code ?? "";
 
-  const handleCalculateShipping = async () => {
+  async function handleCalculateShipping() {
     const rawCep = cep.replace(/\D/g, "");
     if (rawCep.length !== 8) return;
 
-    const { location, options } = await getShippingByCep(rawCep);
+    const { options, location } = await getShippingByCep(rawCep);
 
-    setShipping({
-      location,
-      options,
+    dispatch({
+      type: "SET_SHIPPING_OPTIONS",
+      payload: options,
     });
 
-    dispatch({ type: "SET_SHIPPING_OPTIONS", payload: options });
-  };
+    dispatch({
+      type: "SET_ADDRESS",
+      payload: {
+        ...state.address,
+        city: location.city,
+        state: location.state,
+      },
+    });
+  }
+
+  useEffect(() => {
+    if (cep && !state.shippingOptions.length) {
+      handleCalculateShipping();
+    }
+  }, [cep]);
 
   return (
-    <div className="mt-8 flex flex-col gap-4 bg-white rounded-lg  p-6">
+    <div className="mt-8 flex flex-col gap-4 bg-white rounded-lg p-6">
       <div>
         <h2 className="text-xl font-semibold text-primary-600 mb-1">
           Shipping
@@ -38,14 +49,15 @@ export default function CartShipping({}) {
           Enter your postal code to calculate shipping
         </p>
       </div>
+
       <Form action={handleCalculateShipping}>
         <Form.Field>
           <Form.InputWrapper className="relative">
             <Form.Input
               type="text"
               placeholder="00000-000"
-              value={cep}
-              onChange={(e) => setCep(formatCep(e.target.value))}
+              value={formatCep(cep)}
+              onChange={(e) => handleCepChange(formatCep(e.target.value))}
               maxLength={9}
               className="pr-20"
             />
@@ -57,7 +69,10 @@ export default function CartShipping({}) {
           </Form.InputWrapper>
         </Form.Field>
       </Form>
-      {shipping && <ShippingOptions shipping={shipping} />}
+
+      {state.shippingOptions.length > 0 && (
+        <ShippingOptions shipping={state.shippingOptions} />
+      )}
     </div>
   );
 }

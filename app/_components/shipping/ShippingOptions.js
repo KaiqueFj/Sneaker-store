@@ -10,22 +10,15 @@ export default function ShippingOptions({ shipping }) {
 
   return (
     <div className="flex flex-col gap-3 rounded-md bg-gray-100 p-4">
-      {shipping.options.map((option) => {
+      {shipping.map((option) => {
         const isSelected = state.shipping?.type === option.type;
 
         return (
-          <label
-            key={option.type}
-            className={`flex items-start gap-3 cursor-pointer rounded-md p-3 transition
-              ${isSelected ? "bg-white ring-1 ring-black" : "hover:bg-white/60"}
-            `}
-          >
+          <label key={option.type} className="flex gap-3 cursor-pointer">
             <input
               type="radio"
-              name="shipping"
               checked={isSelected}
               onChange={() => handleSelect(option)}
-              className="mt-1"
             />
 
             <div>
@@ -41,12 +34,14 @@ export default function ShippingOptions({ shipping }) {
         );
       })}
 
-      <p className="mt-2 text-sm text-gray-500">
-        Deliver to{" "}
-        <span className="font-medium">
-          {shipping.location.city}, {shipping.location.state}
-        </span>
-      </p>
+      {state.address?.city && (
+        <p className="mt-2 text-sm text-gray-500">
+          Deliver to{" "}
+          <span className="font-medium">
+            {state.address.city}, {state.address.state}
+          </span>
+        </p>
+      )}
     </div>
   );
 }

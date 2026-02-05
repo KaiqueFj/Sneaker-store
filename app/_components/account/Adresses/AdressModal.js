@@ -2,11 +2,12 @@
 
 import Button from "@/app/_components/ui/Button/Button";
 import Form from "@/app/_components/ui/Form/Form";
+import { useCheckout } from "@/context/checkoutContext";
 import { upsertUserAdress } from "@/lib/data-service";
 import toast from "react-hot-toast";
 
 export function AddressModal({ open, setOpen, adress }) {
-  if (!open) return null;
+  const { dispatch } = useCheckout();
   const isEditing = Boolean(adress);
 
   const {
@@ -23,12 +24,21 @@ export function AddressModal({ open, setOpen, adress }) {
     is_default,
   } = adress ?? {};
 
+  if (!open) return null;
+
   async function handleSubmit(formData) {
     await toast.promise(upsertUserAdress(formData), {
       loading: "Saving address...",
       success: (data) => data.message,
       error: (err) => err.message,
     });
+
+    if (result?.address) {
+      dispatch({
+        type: "SET_ADDRESS",
+        payload: result.address,
+      });
+    }
 
     setOpen(false);
   }

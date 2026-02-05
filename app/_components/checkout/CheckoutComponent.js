@@ -6,7 +6,7 @@ import { useCheckout } from "@/context/checkoutContext";
 import { formatCurrency } from "@/utils/helpers";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CheckoutComponent({ addresses }) {
   const router = useRouter();
@@ -17,6 +17,15 @@ export default function CheckoutComponent({ addresses }) {
   const [selectedAddress, setSelectedAddress] = useState(null);
 
   const defaultAddress = addresses?.find((a) => a.is_default) ?? addresses?.[0];
+
+  useEffect(() => {
+    if (defaultAddress && !checkout.address) {
+      dispatch({
+        type: "SET_ADDRESS",
+        payload: defaultAddress,
+      });
+    }
+  }, [defaultAddress, checkout.address]);
 
   return (
     <div className="mx-auto max-w-3xl space-y-10">
