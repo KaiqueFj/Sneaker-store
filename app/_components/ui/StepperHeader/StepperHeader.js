@@ -54,7 +54,7 @@ export default function StepperHeader({ currentPath }) {
                         isCompleted
                           ? "bg-primary-600 text-white"
                           : isCurrent
-                            ? "bg-white text-primary-700 ring-2 ring-primary-600"
+                            ? "bg-white text-primary-600 ring-2 ring-primary-600"
                             : "bg-gray-400 text-white"
                       }
                     `}
@@ -68,9 +68,9 @@ export default function StepperHeader({ currentPath }) {
                       hidden md:inline text-sm font-medium transition-colors
                       ${
                         isCurrent
-                          ? "text-primary-700"
+                          ? "text-primary-600"
                           : isCompleted
-                            ? "text-primary-500"
+                            ? "text-primary-600"
                             : "text-gray-400"
                       }
                     `}
