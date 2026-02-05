@@ -64,7 +64,7 @@ export default function CheckoutComponent({ addresses }) {
               </Button>
 
               <Button
-                variant="ghost"
+                variant="secondary"
                 size="sm"
                 onClick={() => {
                   setSelectedAddress(null);
