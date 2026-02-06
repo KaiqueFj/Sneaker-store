@@ -4,11 +4,11 @@ import Button from "@/app/_components/ui/Button/Button";
 import Form from "@/app/_components/ui/Form/Form";
 import ModalTransition from "@/app/_components/ui/TransitionEffects/ModalTransition";
 import { useCheckout } from "@/context/checkoutContext";
-import { upsertUserAdress } from "@/lib/data-service";
+import { removeUserAddress, upsertUserAdress } from "@/lib/data-service";
 import toast from "react-hot-toast";
 
 export function AddressModal({ open, setOpen, adress }) {
-  const { dispatch } = useCheckout();
+  const { dispatch, state: addressInfo } = useCheckout();
   const isEditing = Boolean(adress);
 
   const {
@@ -38,6 +38,25 @@ export function AddressModal({ open, setOpen, adress }) {
       dispatch({
         type: "SET_ADDRESS",
         payload: result.address,
+      });
+
+      setOpen(false);
+    } catch {}
+  }
+
+  async function handleDelete() {
+    if (!id) return;
+
+    try {
+      await toast.promise(removeUserAddress(id), {
+        loading: "Deleting address...",
+        success: "Address deleted",
+        error: (err) => err.message,
+      });
+
+      dispatch({
+        type: "REMOVE_ADDRESS",
+        payload: id,
       });
 
       setOpen(false);
@@ -198,10 +217,29 @@ export function AddressModal({ open, setOpen, adress }) {
               </Form.Field>
 
               {/* Actions */}
-              <Form.Actions className="flex justify-end gap-3">
-                <Button type="submit" size="lg" pendingLabel="Saving...">
-                  {isEditing ? "Update address" : "Add address"}
-                </Button>
+              <Form.Actions className="flex justify-between gap-3">
+                {isEditing ? (
+                  <>
+                    {/* Delete */}
+                    <Button
+                      type="button"
+                      size="lg"
+                      variant="secondary"
+                      onClick={handleDelete}
+                    >
+                      Delete address
+                    </Button>
+
+                    {/* Save */}
+                    <Button type="submit" size="lg" pendingLabel="Saving...">
+                      Update address
+                    </Button>
+                  </>
+                ) : (
+                  <Button type="submit" size="lg" pendingLabel="Saving...">
+                    Add address
+                  </Button>
+                )}
               </Form.Actions>
             </Form>
           </div>
