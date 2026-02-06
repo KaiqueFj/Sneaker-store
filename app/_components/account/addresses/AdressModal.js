@@ -33,8 +33,6 @@ export function AddressModal({ open, setOpen, adress }) {
         error: (err) => err.message,
       });
 
-      console.log(result);
-
       if (!result?.address) return;
 
       dispatch({

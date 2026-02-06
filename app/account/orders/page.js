@@ -5,7 +5,6 @@ import { auth } from "../../../lib/auth";
 export default async function page() {
   const session = await auth();
   const orders = await getOrders(session?.user?.userId);
-
   const reviews = await getUserReviews(session?.user?.userId);
 
   return (

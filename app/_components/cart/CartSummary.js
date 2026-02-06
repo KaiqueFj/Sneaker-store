@@ -1,3 +1,5 @@
+"use client";
+
 import Button from "@/app/_components/ui/Button/Button";
 import { useCheckout } from "@/context/checkoutContext";
 import { useSneaker } from "@/context/SneakerContext";
@@ -42,9 +44,10 @@ export default function CartSummary() {
       createOrder({
         cartItems: state.items,
         total_price: total,
-      }).then((res) => {
+        address: checkout.address,
+      }).then((order) => {
         dispatch({ type: "CLEAR_CART" });
-        return res;
+        return order;
       }),
       {
         loading: "Saving your order...",
