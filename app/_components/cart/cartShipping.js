@@ -12,6 +12,17 @@ export default function CartShipping() {
   const { state, dispatch } = useCheckout();
   const cep = state.address?.postal_code ?? "";
 
+  function handleCepChange(val) {
+    const formattedCep = formatCep(val);
+    dispatch({
+      type: "SET_ADDRESS",
+      payload: {
+        ...state.address,
+        postal_code: formattedCep,
+      },
+    });
+  }
+
   async function handleCalculateShipping() {
     const rawCep = cep.replace(/\D/g, "");
     if (rawCep.length !== 8) return;
@@ -37,7 +48,7 @@ export default function CartShipping() {
     if (cep && !state.shippingOptions.length) {
       handleCalculateShipping();
     }
-  }, [cep]);
+  }, [cep, handleCalculateShipping, state.shippingOptions.length]);
 
   return (
     <div className="mt-8 flex flex-col gap-4 bg-white rounded-lg p-6">
