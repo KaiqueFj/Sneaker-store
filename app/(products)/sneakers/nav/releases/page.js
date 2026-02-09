@@ -1,7 +1,7 @@
 import Category from "@/app/_components/layout/HeaderPages/Category";
 import Filter from "@/app/_components/products/Filter/filter";
 import SneakersList from "@/app/_components/products/List/sneakerList";
-import { getNewestSneakers } from "@/lib/data-service";
+import { getNewestSneakers } from "@/services/sneakers-service";
 
 export async function generateMetadata() {
   return { title: `New & Featured Sneakers` };

@@ -2,11 +2,14 @@
 
 import { supabase } from "@/lib/supabase";
 
-export async function fetchAdressByCep(cep) {
+async function fetchAdressByCep(cep) {
+  console.log("Fetching address for CEP:", cep);
   const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+
   const data = await res.json();
 
   if (data.erro) {
+    console.log("Error fetching address:", data.erro);
     throw new Error(data.erro.msg);
   }
 
@@ -42,6 +45,7 @@ export async function getUserAddresses(userId) {
 }
 
 export async function getShippingByCep(cep) {
+  console.log("Calculating shipping for CEP:", cep);
   const address = await fetchAdressByCep(cep);
   const options = calculateShipping(address.state);
 

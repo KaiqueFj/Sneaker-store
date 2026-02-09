@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getSneakers } from "@/lib/data-service";
+import { getSneakers } from "@/services/sneakers-service";
 import Spinner from "@/app/_components/ui/Spinner/Spinner";
 import SneakerMainCard from "./SneakersMainPageCard";
 

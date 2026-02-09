@@ -1,5 +1,6 @@
 import SneakerSelectedInformation from "@/app/_components/products/Details/sneakerSelectedInformation";
-import { getSneaker, getSneakersReviews } from "@/lib/data-service";
+import { getSneaker } from "@/services/sneakers-service";
+import { getSneakersReviews } from "@/services/reviews-service";
 
 export default async function Page({ params }) {
   const { slug } = await params;

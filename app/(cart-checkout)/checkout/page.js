@@ -1,6 +1,6 @@
 import CheckoutComponent from "@/app/_components/checkout/CheckoutComponent";
 import { auth } from "@/lib/auth";
-import { getUserAddresses } from "@/lib/data-service";
+import { getUserAddresses } from "@/services/address-service";
 
 export default async function Page() {
   const session = await auth();

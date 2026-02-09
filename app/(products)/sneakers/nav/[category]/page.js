@@ -1,7 +1,7 @@
 import Category from "@/app/_components/layout/HeaderPages/Category";
 import Filter from "@/app/_components/products/Filter/filter";
 import SneakersList from "@/app/_components/products/List/sneakerList";
-import { getSneakers } from "@/lib/data-service";
+import { getSneakers } from "@/services/sneakers-service";
 
 export async function generateMetadata({ params }) {
   const { category } = await params;

@@ -4,7 +4,7 @@ import ShippingOptions from "@/app/_components/shipping/ShippingOptions";
 import Button from "@/app/_components/ui/Button/Button";
 import Form from "@/app/_components/ui/Form/Form";
 import { useCheckout } from "@/context/checkoutContext";
-import { getShippingByCep } from "@/lib/actions";
+import { getShippingByCep } from "@/services/address-service";
 import { formatCep } from "@/utils/helpers";
 import { useEffect } from "react";
 
@@ -23,6 +23,7 @@ export default function CartShipping() {
     });
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   async function handleCalculateShipping() {
     const rawCep = cep.replace(/\D/g, "");
     if (rawCep.length !== 8) return;

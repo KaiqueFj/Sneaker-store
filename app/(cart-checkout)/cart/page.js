@@ -1,6 +1,6 @@
 import Cart from "@/app/_components/cart/Cart";
 import { auth } from "@/lib/auth";
-import { getUserAddresses } from "@/lib/data-service";
+import { getUserAddresses } from "@/services/address-service";
 
 export default async function page() {
   const session = await auth();

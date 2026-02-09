@@ -1,5 +1,6 @@
 import Order from "@/app/_components/order/Order";
-import { getOrders, getUserReviews } from "@/lib/data-service";
+import { getOrders } from "@/services/orders-service";
+import { getUserReviews } from "@/services/reviews-service";
 import { auth } from "../../../lib/auth";
 
 export default async function page() {

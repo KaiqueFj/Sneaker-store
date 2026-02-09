@@ -1,4 +1,4 @@
-import { getCouponDiscount } from "@/lib/actions";
+import { getCouponDiscount } from "@/actions/coupons-action";
 import { useState } from "react";
 
 export function useCoupon(onApply) {

@@ -1,5 +1,5 @@
 import SneakersList from "@/app/_components/products/List/sneakerList";
-import { getFavorites } from "@/lib/data-service";
+import { getFavorites } from "@/services/favorite-service";
 
 export default async function page() {
   const favorites = await getFavorites();

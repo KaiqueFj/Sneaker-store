@@ -8,7 +8,11 @@ export default function CartCupomDiscount() {
   const { dispatch } = useCheckout();
   const [couponInput, setCouponInput] = useState("");
 
-  const { applyCoupon, status, loading, resetStatus } = useCoupon((data) => {
+  function handleSubmit(formData) {
+    applyCoupon(formData);
+  }
+
+  const { applyCoupon, status, loading } = useCoupon((data) => {
     dispatch({
       type: "SET_CUPOM",
       payload: {
@@ -17,10 +21,6 @@ export default function CartCupomDiscount() {
       },
     });
   });
-
-  function handleSubmit(formData) {
-    applyCoupon(formData);
-  }
 
   return (
     <div className="mt-8 flex flex-col gap-4 bg-white rounded-lg  p-6">

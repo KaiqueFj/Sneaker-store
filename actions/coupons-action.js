@@ -1,5 +1,7 @@
 "use server";
 
+import { supabase } from "@/lib/supabase";
+
 export async function getCouponDiscount(formData) {
   const coupon = formData.get("coupon");
 
@@ -30,6 +32,7 @@ export async function getCouponDiscount(formData) {
       message: "Coupon applied successfully",
     };
   } catch (err) {
+    console.log(err);
     return {
       success: false,
       message: "Unexpected error. Try again later.",

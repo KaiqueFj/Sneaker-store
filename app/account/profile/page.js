@@ -1,6 +1,6 @@
 import UpdateProfileForm from "@/app/_components/account/UpdateProfile/UpdateProfileForm";
 import { auth } from "@/lib/auth";
-import { getUser } from "@/lib/data-service";
+import { getUser } from "@/services/users-service";
 
 export const metadata = {
   title: "Update profile",

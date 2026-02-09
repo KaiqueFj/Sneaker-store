@@ -1,7 +1,7 @@
 "use client";
 
 import SearchResultItem from "@/app/_components/products/SearchResult/SearchResultItem";
-import { getSneakerSearch } from "@/lib/data-service";
+import { getSneakerSearch } from "@/services/sneakers-service";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";

@@ -3,7 +3,7 @@
 import Button from "@/app/_components/ui/Button/Button";
 import { useCheckout } from "@/context/checkoutContext";
 import { useSneaker } from "@/context/SneakerContext";
-import { createOrder } from "@/lib/data-service";
+import { createOrder } from "@/services/orders-service";
 import { formatCurrency } from "@/utils/helpers";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";

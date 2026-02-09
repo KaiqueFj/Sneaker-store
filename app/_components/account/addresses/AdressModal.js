@@ -4,7 +4,7 @@ import Button from "@/app/_components/ui/Button/Button";
 import Form from "@/app/_components/ui/Form/Form";
 import ModalTransition from "@/app/_components/ui/TransitionEffects/ModalTransition";
 import { useCheckout } from "@/context/checkoutContext";
-import { removeUserAddress, upsertUserAdress } from "@/lib/data-service";
+import { removeUserAddress, upsertUserAdress } from "@/actions/address-action";
 import toast from "react-hot-toast";
 
 export function AddressModal({ open, setOpen, adress }) {

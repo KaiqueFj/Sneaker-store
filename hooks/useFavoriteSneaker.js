@@ -1,4 +1,4 @@
-import { createFavorite, removeFavorite } from "@/lib/data-service";
+import { createFavorite, removeFavorite } from "@/services/favorite-service";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";

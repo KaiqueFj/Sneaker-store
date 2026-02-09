@@ -1,6 +1,6 @@
 import MiniSpinner from "@/app/_components/ui/Spinner/miniSpinner";
 import StarInput from "@/app/_components/ui/star/starInput";
-import { upsertReview } from "@/lib/data-service";
+import { upsertReview } from "@/services/reviews-service";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
