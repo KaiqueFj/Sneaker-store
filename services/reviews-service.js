@@ -6,7 +6,7 @@ import { supabase } from "@/lib/supabase";
 export async function getReviews() {
   const { data, error } = await supabase
     .from("reviews")
-    .select(`*, sneakers (rating_avg, rating_count), users (name)`);
+    .select(`*, products (rating_avg, rating_count), users (name)`);
 
   if (error) {
     throw new Error("Reviews could not be loaded");
@@ -18,8 +18,8 @@ export async function getReviews() {
 export async function getSneakersReviews(sneakerId) {
   const { data, error } = await supabase
     .from("reviews")
-    .select(`*, sneakers (rating_avg, rating_count), users (name)`)
-    .eq("sneaker_id", sneakerId);
+    .select(`*, products (rating_avg, rating_count), users (name)`)
+    .eq("product_id", sneakerId);
 
   if (error) {
     throw new Error("Reviews could not be loaded");
@@ -42,7 +42,7 @@ export async function getUserReviews(userId) {
 }
 
 /* Upsert review (create or update) */
-export async function upsertReview({ sneaker_id, rating, comment }) {
+export async function upsertReview({ product_id, rating, comment }) {
   const session = await auth();
 
   if (!session?.user?.userId) {
@@ -53,12 +53,12 @@ export async function upsertReview({ sneaker_id, rating, comment }) {
     .from("reviews")
     .upsert(
       {
-        sneaker_id,
+        product_id,
         client_id: session.user.userId,
         rating,
         comment,
       },
-      { onConflict: "client_id,sneaker_id" },
+      { onConflict: "client_id,product_id" },
     )
     .select()
     .single();

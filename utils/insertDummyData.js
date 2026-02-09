@@ -5,7 +5,7 @@ export async function seedSneakersTable() {
   try {
     const sneakers = await getSneakersFromApi();
 
-    const { data, error } = await supabase.from("sneakers").insert(sneakers);
+    const { data, error } = await supabase.from("products").insert(sneakers);
 
     if (error) {
       console.error("❌ Error inserting sneakers:", error);

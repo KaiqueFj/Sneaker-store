@@ -19,12 +19,13 @@ export async function createOrder({ cartItems, address, total_price }) {
     .single();
 
   if (orderError) {
+    console.log(orderError);
     throw new Error("Order could not be created");
   }
 
   const orderItems = cartItems.map((item) => ({
     order_id: order.id,
-    sneaker_id: item.id,
+    product_id: item.id,
     quantity: item.quantity || 1,
     price: item.price,
     size: item.size,
@@ -41,6 +42,7 @@ export async function createOrder({ cartItems, address, total_price }) {
     .insert(orderItems);
 
   if (itemsError) {
+    console.log(itemsError);
     throw new Error("Order items could not be created");
   }
 

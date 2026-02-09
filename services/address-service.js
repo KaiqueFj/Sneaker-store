@@ -45,7 +45,6 @@ export async function getUserAddresses(userId) {
 }
 
 export async function getShippingByCep(cep) {
-  console.log("Calculating shipping for CEP:", cep);
   const address = await fetchAdressByCep(cep);
   const options = calculateShipping(address.state);
 

@@ -12,7 +12,7 @@ export async function createFavorite(sneakerId) {
   }
 
   const { error } = await supabase.from("favorites").insert({
-    sneaker_id: sneakerId,
+    product_id: sneakerId,
     client_id: session.user.userId,
   });
 
@@ -31,7 +31,7 @@ export async function removeFavorite(sneakerId) {
     .from("favorites")
     .delete()
     .eq("client_id", session.user.userId)
-    .eq("sneaker_id", sneakerId);
+    .eq("product_id", sneakerId);
 
   revalidatePath("/favorites");
   revalidatePath("/");
@@ -50,7 +50,7 @@ export async function getFavorites() {
       `
         id,
         created_at,
-        sneakers (
+        products (
           id,
           name,
           price,
@@ -71,9 +71,8 @@ export async function getFavorites() {
   if (error) {
     throw new Error(error.message);
   }
-
   return data.map((f) => ({
-    ...f.sneakers,
+    ...f.products,
     isFavorite: true,
     favoriteId: f.id,
   }));

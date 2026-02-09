@@ -14,7 +14,7 @@ export default function ReviewComponent({ item, onClose, onSuccess, review }) {
 
     try {
       const updatedReview = {
-        sneaker_id: item.sneaker_id,
+        product_id: item.product_id,
         rating,
         comment,
       };

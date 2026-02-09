@@ -8,7 +8,7 @@ export async function getSneakers(filterKey, filterValue) {
   const userId = session?.user?.userId ?? null;
 
   let query = supabase
-    .from("sneakers")
+    .from("products")
     .select(
       `
         *,
@@ -60,7 +60,7 @@ export async function getSneakers(filterKey, filterValue) {
 
 export async function getSneakerSearch(searchTerm) {
   const { data, error } = await supabase
-    .from("sneakers")
+    .from("products")
     .select("*")
     .ilike("name", `%${searchTerm}%`);
 
@@ -73,7 +73,7 @@ export async function getSneaker(id) {
   const userId = session?.user?.userId ?? null;
 
   const { data, error } = await supabase
-    .from("sneakers")
+    .from("products")
     .select(
       `
         *,
@@ -118,7 +118,7 @@ export async function getSneakersOnSale() {
   const userId = session?.user?.userId ?? null;
 
   const { data, error } = await supabase
-    .from("sneakers")
+    .from("products")
     .select(
       `
         *,
@@ -171,7 +171,7 @@ export async function getNewestSneakers() {
   threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 
   const { data, error } = await supabase
-    .from("sneakers")
+    .from("products")
     .select(
       `
         *,

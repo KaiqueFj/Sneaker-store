@@ -87,7 +87,7 @@ export default function Order({ orders, reviews }) {
                   <div className="md:col-span-2 space-y-8">
                     {order.order_items.map((item) => {
                       const userReview = reviewsState.find(
-                        (r) => r.sneaker_id == item.sneaker_id,
+                        (r) => r.product_id == item.product_id,
                       );
 
                       return (
@@ -95,7 +95,7 @@ export default function Order({ orders, reviews }) {
                           key={item.id}
                           className="flex gap-6 items-start rounded-lg border p-4 sm:p-5"
                         >
-                          <Link href={`/sneaker/${item.sneaker_id}`}>
+                          <Link href={`/sneaker/${item.product_id}`}>
                             <Image
                               src={item.image[0]}
                               alt={item.name}
@@ -136,12 +136,12 @@ export default function Order({ orders, reviews }) {
                                   setReviewsState((prev) => {
                                     const exists = prev.find(
                                       (r) =>
-                                        r.sneaker_id === newReview.sneaker_id,
+                                        r.product_id === newReview.product_id,
                                     );
 
                                     if (exists) {
                                       return prev.map((r) =>
-                                        r.sneaker_id === newReview.sneaker_id
+                                        r.product_id === newReview.product_id
                                           ? newReview
                                           : r,
                                       );
