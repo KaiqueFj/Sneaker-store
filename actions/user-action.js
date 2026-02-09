@@ -1,15 +1,9 @@
 "use server";
 
-import sendMail from "@/lib/mailer";
-import { createResetToken } from "@/utils/helpers";
-import bcrypt from "bcrypt";
-import crypto from "crypto";
+import { auth } from "@/lib/auth";
+import { createUser, getUserByHashedToken } from "@/services/users-service";
+import { signIn, signOut } from "next-auth/react";
 import { revalidatePath } from "next/cache";
-import { auth, signIn, signOut } from "./auth";
-
-import { calculateShipping } from "@/lib/business-rules";
-import { createUser, fetchAdressByCep, getUser } from "./data-service";
-import { supabase } from "./supabase";
 
 export async function signUpNewUserAction(formData) {
   const name = formData.get("name")?.toString();
@@ -81,21 +75,6 @@ export async function updateUserProfile(formData) {
     throw new Error("Something went wrong. Please try again.");
   }
 }
-
-export const getUserByHashedToken = async (token) => {
-  const now = new Date().toISOString();
-
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("reset_token_hash", token)
-    .gt("reset_token_expires_at", now)
-    .maybeSingle();
-
-  if (error || !data) return null;
-
-  return data;
-};
 
 export async function sendResetPasswordlinkToEmail(formData) {
   try {
@@ -219,52 +198,5 @@ export async function updateUserPassword(formData) {
     return { message: "Password updated successfully" };
   } catch (error) {
     throw new Error("Something went wrong. Please try again later.");
-  }
-}
-
-export async function getShippingByCep(cep) {
-  const address = await fetchAdressByCep(cep);
-  const options = calculateShipping(address.state);
-
-  return {
-    location: address,
-    options,
-  };
-}
-
-export async function getCouponDiscount(formData) {
-  const coupon = formData.get("coupon");
-
-  if (!coupon) {
-    return {
-      success: false,
-      message: "Coupon is required",
-    };
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from("coupons")
-      .select("value")
-      .eq("code", coupon)
-      .single();
-
-    if (error || !data) {
-      return {
-        success: false,
-        message: "Coupon is invalid or expired",
-      };
-    }
-
-    return {
-      success: true,
-      data,
-      message: "Coupon applied successfully",
-    };
-  } catch (err) {
-    return {
-      success: false,
-      message: "Unexpected error. Try again later.",
-    };
   }
 }
