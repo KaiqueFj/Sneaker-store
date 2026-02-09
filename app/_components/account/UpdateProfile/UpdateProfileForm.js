@@ -1,8 +1,8 @@
 "use client";
 
+import { updateUserProfile } from "@/actions/user-action";
 import Button from "@/app/_components/ui/Button/Button";
 import Form from "@/app/_components/ui/Form/Form";
-import { updateUserProfile } from "@/lib/actions";
 import { toast } from "react-hot-toast";
 
 export default function UpdateProfileForm({ user }) {

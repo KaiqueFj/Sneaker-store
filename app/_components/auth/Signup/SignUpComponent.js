@@ -1,9 +1,9 @@
 "use client";
 
+import { signUpNewUserAction } from "@/actions/user-action";
 import SignInButton from "@/app/_components/auth/Login/SignInButton";
 import Button from "@/app/_components/ui/Button/Button";
 import Form from "@/app/_components/ui/Form/Form";
-import { signUpNewUserAction } from "@/lib/actions";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

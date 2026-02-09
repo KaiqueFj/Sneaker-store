@@ -1,9 +1,9 @@
 "use client";
 
+import { resetPassword } from "@/actions/user-action";
 import Logo from "@/app/_components/layout/Header/logo/Logo";
 import Button from "@/app/_components/ui/Button/Button";
 import Form from "@/app/_components/ui/Form/Form";
-import { resetPassword } from "@/lib/actions";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";

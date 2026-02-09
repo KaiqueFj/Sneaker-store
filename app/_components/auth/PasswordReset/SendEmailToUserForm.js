@@ -1,9 +1,9 @@
 "use client";
 
+import { sendResetPasswordlinkToEmail } from "@/actions/user-action";
 import Logo from "@/app/_components/layout/Header/logo/Logo";
 import Button from "@/app/_components/ui/Button/Button";
 import Form from "@/app/_components/ui/Form/Form";
-import { sendResetPasswordlinkToEmail } from "@/lib/actions";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
