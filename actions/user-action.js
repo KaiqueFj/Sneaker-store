@@ -1,7 +1,14 @@
 "use server";
 
 import { auth } from "@/lib/auth";
-import { createUser, getUserByHashedToken } from "@/services/users-service";
+import sendMail from "@/lib/mailer";
+import {
+  createUser,
+  getUser,
+  getUserByHashedToken,
+} from "@/services/users-service";
+import bcrypt from "bcrypt";
+import crypto from "crypto";
 import { signIn, signOut } from "next-auth/react";
 import { revalidatePath } from "next/cache";
 
@@ -32,7 +39,8 @@ export async function signUpNewUserAction(formData) {
     return {
       message: "Account created successfully",
     };
-  } catch {
+  } catch (error) {
+    console.log(error);
     throw new Error("Something went wrong. Please try again.");
   }
 }

@@ -2,15 +2,39 @@
 
 import { supabase } from "@/lib/supabase";
 
-async function fetchAdressByCep(cep) {
-  console.log("Fetching address for CEP:", cep);
-  const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+type Address = {
+  city: string;
+  state: string;
+};
 
+type Shipping = {
+  type: string;
+  price: number;
+  days: number;
+};
+
+type ShippingOptions = {
+  location: Address;
+  options: Shipping[];
+};
+
+type UserAddress = {
+  city: string;
+  state: string;
+  client_id: string;
+  created_at: string;
+};
+
+async function fetchAdressByCep(cep?: string): Promise<Address> {
+  if (!cep) {
+    throw new Error("CEP is required");
+  }
+
+  const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
   const data = await res.json();
 
   if (data.erro) {
-    console.log("Error fetching address:", data.erro);
-    throw new Error(data.erro.msg);
+    throw new Error("Invalid CEP");
   }
 
   return {
@@ -19,7 +43,7 @@ async function fetchAdressByCep(cep) {
   };
 }
 
-function calculateShipping(state) {
+function calculateShipping(state?: string): Shipping[] {
   if (state === "SP") {
     return [
       { type: "Standard", price: 0, days: 3 },
@@ -33,7 +57,7 @@ function calculateShipping(state) {
   ];
 }
 
-export async function getUserAddresses(userId) {
+export async function getUserAddresses(userId: string): Promise<UserAddress[]> {
   const { data, error } = await supabase
     .from("addresses")
     .select("*")
@@ -44,7 +68,7 @@ export async function getUserAddresses(userId) {
   return data;
 }
 
-export async function getShippingByCep(cep) {
+export async function getShippingByCep(cep?: string): Promise<ShippingOptions> {
   const address = await fetchAdressByCep(cep);
   const options = calculateShipping(address.state);
 

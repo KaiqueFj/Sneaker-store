@@ -1,6 +1,9 @@
 import crypto from "crypto";
 
-export function formatCurrency(value) {
+/**
+ * Formats a number into USD currency.
+ */
+export function formatCurrency(value: number | string): string {
   const number = Number(value);
 
   if (Number.isNaN(number)) return "—";
@@ -11,8 +14,12 @@ export function formatCurrency(value) {
   });
 }
 
-export const formatDate = (value) => {
+/**
+ * Formats a UTC date string into São Paulo timezone.
+ */
+export function formatDate(value: string): string {
   const date = new Date(value + "Z");
+
   return date.toLocaleDateString("en-US", {
     timeZone: "America/Sao_Paulo",
     day: "numeric",
@@ -21,9 +28,12 @@ export const formatDate = (value) => {
     hour: "2-digit",
     minute: "2-digit",
   });
-};
+}
 
-export const formatDateNoZ = (value) => {
+/**
+ * Formats a date string without forcing UTC.
+ */
+export function formatDateNoZ(value?: string): string {
   if (!value) return "";
 
   const date = new Date(value);
@@ -34,9 +44,15 @@ export const formatDateNoZ = (value) => {
     month: "numeric",
     year: "numeric",
   });
-};
+}
 
-export const getPreviewText = (text, limit = 220) => {
+/**
+ * Returns a preview text or splits intro / benefits.
+ */
+export function getPreviewText(
+  text?: string,
+  limit: number = 220,
+): string | { intro: string; benefits: string } {
   if (!text) return "";
 
   if (text.length <= limit) return text;
@@ -47,9 +63,12 @@ export const getPreviewText = (text, limit = 220) => {
     intro: intro.trim(),
     benefits: rest.length ? "Benefits" + rest.join("").trim() : "",
   };
-};
+}
 
-export function slugify(text) {
+/**
+ * Creates a URL-friendly slug.
+ */
+export function slugify(text: string): string {
   return text
     .toLowerCase()
     .normalize("NFD")
@@ -58,7 +77,13 @@ export function slugify(text) {
     .replace(/(^-|-$)+/g, "");
 }
 
-export function createResetToken() {
+/**
+ * Creates a password reset token.
+ */
+export function createResetToken(): {
+  rawToken: string;
+  hashedToken: string;
+} {
   const rawToken = crypto.randomBytes(32).toString("hex");
 
   const hashedToken = crypto
@@ -72,7 +97,10 @@ export function createResetToken() {
   };
 }
 
-export function formatCep(value) {
+/**
+ * Formats a Brazilian CEP.
+ */
+export function formatCep(value: string): string {
   return value
     .replace(/\D/g, "")
     .replace(/^(\d{5})(\d)/, "$1-$2")

@@ -3,7 +3,48 @@
 import { auth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 
-export async function createOrder({ cartItems, address, total_price }) {
+type CartItem = {
+  id: string;
+  name: string;
+  price: number;
+  quantity?: number;
+  size?: string;
+  image: string;
+  category: string;
+  model: string;
+  colors: string[];
+  gender: string;
+};
+
+type OrderAddressInput = {
+  recipient_name: string;
+  street: string;
+  number: string;
+  complement?: string;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+};
+
+type CreateOrderInput = {
+  cartItems: CartItem[];
+  address: OrderAddressInput;
+  total_price: number;
+};
+
+type Order = {
+  id: string;
+  client_id: string;
+  total_price: number;
+  created_at: string;
+};
+
+export async function createOrder({
+  cartItems,
+  address,
+  total_price,
+}: CreateOrderInput): Promise<Order> {
   const session = await auth();
 
   if (!session?.user?.userId) {
@@ -68,7 +109,7 @@ export async function createOrder({ cartItems, address, total_price }) {
   return order;
 }
 
-export async function getOrders(clientId) {
+export async function getOrders(clientId: string): Promise<Order[]> {
   const { data, error } = await supabase
     .from("orders")
     .select(
@@ -86,19 +127,6 @@ export async function getOrders(clientId) {
 
   if (error) {
     throw new Error("Orders could not be loaded");
-  }
-
-  return data;
-}
-
-export async function getOrderItems(orderId) {
-  const { data, error } = await supabase
-    .from("order_items")
-    .select("*")
-    .eq("order_id", orderId);
-
-  if (error) {
-    throw new Error("Order items could not be loaded");
   }
 
   return data;

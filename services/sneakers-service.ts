@@ -3,7 +3,47 @@
 import { auth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 
-export async function getSneakers(filterKey, filterValue) {
+type Product = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+  model: string;
+  colors: string[];
+  gender: string;
+};
+
+type Sale = {
+  discountPercentage: number;
+  startDate: string;
+  endDate: string;
+};
+
+type Favorite = {
+  id: string;
+  client_id: string;
+};
+
+type ProductRow = Product & {
+  sales: Sale[] | null;
+  favorites: Favorite[] | null;
+};
+
+type ProductListItem = Product & {
+  sale: Sale | null;
+  isFavorite: boolean;
+  favoriteId: string | null;
+};
+
+type NewestProductRow = Product & {
+  favorites: Favorite[] | null;
+};
+
+export async function getSneakers(
+  filterKey: string,
+  filterValue: string,
+): Promise<ProductListItem[]> {
   const session = await auth();
   const userId = session?.user?.userId ?? null;
 
@@ -38,27 +78,31 @@ export async function getSneakers(filterKey, filterValue) {
 
   const now = new Date();
 
-  return data.map((s) => {
-    const activeSale = s.sales?.find(
-      (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now,
-    );
+  return (data as ProductRow[]).map((s) => {
+    const activeSale =
+      s.sales?.find(
+        (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now,
+      ) ?? null;
 
-    const favorite = userId
-      ? s.favorites?.find((f) => f.client_id === userId)
-      : null;
+    const favorite =
+      userId && s.favorites
+        ? s.favorites.find((f) => f.client_id === userId)
+        : null;
 
-    const { sales, favorites, ...sneaker } = s;
+    const { sales, favorites, ...product } = s;
 
     return {
-      ...sneaker,
-      sale: activeSale || null,
+      ...product,
+      sale: activeSale,
       isFavorite: Boolean(favorite),
       favoriteId: favorite?.id ?? null,
     };
   });
 }
 
-export async function getSneakerSearch(searchTerm) {
+export async function getSneakerSearch(
+  searchTerm: string,
+): Promise<ProductListItem[]> {
   const { data, error } = await supabase
     .from("products")
     .select("*")
@@ -68,7 +112,7 @@ export async function getSneakerSearch(searchTerm) {
   return data;
 }
 
-export async function getSneaker(id) {
+export async function getSneaker(id: string): Promise<ProductListItem> {
   const session = await auth();
   const userId = session?.user?.userId ?? null;
 
@@ -89,31 +133,35 @@ export async function getSneaker(id) {
       `,
     )
     .eq("id", id)
-    .single();
+    .single<ProductRow>();
 
-  if (error) throw new Error("Sneaker could not be loaded");
+  if (error || !data) {
+    throw new Error("Sneaker could not be loaded");
+  }
 
   const now = new Date();
 
-  const activeSale = data.sales?.find(
-    (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now,
-  );
+  const activeSale =
+    data.sales?.find(
+      (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now,
+    ) ?? null;
 
-  const favorite = userId
-    ? data.favorites?.find((f) => f.client_id === userId)
-    : null;
+  const favorite =
+    userId && data.favorites
+      ? data.favorites.find((f) => f.client_id === userId)
+      : null;
 
   const { sales, favorites, ...sneaker } = data;
 
   return {
     ...sneaker,
-    sale: activeSale || null,
+    sale: activeSale,
     isFavorite: Boolean(favorite),
     favoriteId: favorite?.id ?? null,
   };
 }
 
-export async function getSneakersOnSale() {
+export async function getSneakersOnSale(): Promise<ProductListItem[]> {
   const session = await auth();
   const userId = session?.user?.userId ?? null;
 
@@ -140,7 +188,7 @@ export async function getSneakersOnSale() {
 
   const now = new Date();
 
-  return data
+  return (data as ProductRow[])
     .map((s) => {
       const activeSale = s.sales?.find(
         (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now,
@@ -164,9 +212,10 @@ export async function getSneakersOnSale() {
     .filter(Boolean);
 }
 
-export async function getNewestSneakers() {
+export async function getNewestSneakers(): Promise<ProductListItem[]> {
   const session = await auth();
   const userId = session?.user?.userId ?? null;
+
   const threeMonthsAgo = new Date();
   threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 
@@ -184,19 +233,21 @@ export async function getNewestSneakers() {
     .gte("created_at", threeMonthsAgo.toISOString())
     .order("created_at", { ascending: false });
 
-  if (error) {
-    throw new Error("Sneakers could not be loaded: " + error.message);
+  if (error || !data) {
+    throw new Error("Sneakers could not be loaded: " + error?.message);
   }
 
-  return data.map((s) => {
-    const favorite = userId
-      ? s.favorites?.find((f) => f.client_id === userId)
-      : null;
+  return (data as NewestProductRow[]).map((s) => {
+    const favorite =
+      userId && s.favorites
+        ? s.favorites.find((f) => f.client_id === userId)
+        : null;
 
-    const { favorites, ...sneaker } = s;
+    const { favorites, ...product } = s;
 
     return {
-      ...sneaker,
+      ...product,
+      sale: null,
       isFavorite: Boolean(favorite),
       favoriteId: favorite?.id ?? null,
     };

@@ -4,7 +4,26 @@ import { auth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 
-export async function createFavorite(sneakerId) {
+type Product = {
+  id: string;
+  name: string;
+  price: number;
+  category: string;
+  images: string[];
+  sizes: string[];
+  colors: string[];
+  gender: string;
+  model: string;
+  rating_avg: number;
+  rating_count: number;
+};
+
+type FavoriteProduct = Product & {
+  isFavorite: true;
+  favoriteId: string;
+};
+
+export async function createFavorite(sneakerId: string): Promise<void> {
   const session = await auth();
 
   if (!session?.user?.userId) {
@@ -24,20 +43,28 @@ export async function createFavorite(sneakerId) {
   revalidatePath("/");
 }
 
-export async function removeFavorite(sneakerId) {
+export async function removeFavorite(sneakerId: string): Promise<void> {
   const session = await auth();
 
-  await supabase
+  if (!session?.user?.userId) {
+    throw new Error("User not authenticated");
+  }
+
+  const { error } = await supabase
     .from("favorites")
     .delete()
     .eq("client_id", session.user.userId)
     .eq("product_id", sneakerId);
 
+  if (error) {
+    throw new Error("Could not remove favorite");
+  }
+
   revalidatePath("/favorites");
   revalidatePath("/");
 }
 
-export async function getFavorites() {
+export async function getFavorites(): Promise<FavoriteProduct[]> {
   const session = await auth();
 
   if (!session?.user?.userId) {
@@ -49,7 +76,6 @@ export async function getFavorites() {
     .select(
       `
         id,
-        created_at,
         products (
           id,
           name,
@@ -71,9 +97,20 @@ export async function getFavorites() {
   if (error) {
     throw new Error(error.message);
   }
-  return data.map((f) => ({
-    ...f.products,
-    isFavorite: true,
-    favoriteId: f.id,
-  }));
+
+  if (!data) return [];
+
+  return data
+    .map((f) => {
+      const product = Array.isArray(f.products) ? f.products[0] : f.products;
+
+      if (!product) return null;
+
+      return {
+        ...product,
+        isFavorite: true,
+        favoriteId: f.id,
+      } satisfies FavoriteProduct;
+    })
+    .filter(Boolean);
 }
