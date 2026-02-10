@@ -2,7 +2,13 @@
 
 import { supabase } from "@/lib/supabase";
 
-export async function getCouponDiscount(formData) {
+type CouponDiscount = {
+  value: number;
+};
+
+export async function getCouponDiscount(
+  formData: FormData,
+): Promise<{ success: boolean; data?: CouponDiscount; message: string }> {
   const coupon = formData.get("coupon");
 
   if (!coupon) {

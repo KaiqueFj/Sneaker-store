@@ -4,7 +4,24 @@ import { auth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 
-export async function upsertUserAdress(formData) {
+type Address = {
+  id: string;
+  client_id: string;
+  label: string;
+  recipient_name: string;
+  street: string;
+  number: string;
+  complement: string;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+  is_default: boolean;
+};
+
+export async function upsertUserAdress(
+  formData: FormData,
+): Promise<{ message: string; address: Address }> {
   const session = await auth();
   if (!session?.user?.userId) {
     throw new Error("User not authenticated");
@@ -57,7 +74,7 @@ export async function upsertUserAdress(formData) {
   };
 }
 
-export async function removeUserAddress(addressId) {
+export async function removeUserAddress(addressId: string): Promise<void> {
   const session = await auth();
   if (!session?.user?.userId) {
     throw new Error("User not authenticated");

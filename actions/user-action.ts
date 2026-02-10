@@ -2,17 +2,30 @@
 
 import { auth } from "@/lib/auth";
 import sendMail from "@/lib/mailer";
+import { supabase } from "@/lib/supabase";
 import {
   createUser,
   getUser,
   getUserByHashedToken,
 } from "@/services/users-service";
+import { createResetToken } from "@/utils/helpers";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { signIn, signOut } from "next-auth/react";
 import { revalidatePath } from "next/cache";
 
-export async function signUpNewUserAction(formData) {
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  provider: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export async function signUpNewUserAction(
+  formData: FormData,
+): Promise<{ message: string }> {
   const name = formData.get("name")?.toString();
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
@@ -45,15 +58,17 @@ export async function signUpNewUserAction(formData) {
   }
 }
 
-export async function signInAction() {
+export async function signInAction(): Promise<void> {
   await signIn("google", { redirectTo: "/account" });
 }
 
-export async function signOutAction() {
+export async function signOutAction(): Promise<void> {
   await signOut({ redirectTo: "/" });
 }
 
-export async function updateUserProfile(formData) {
+export async function updateUserProfile(
+  formData: FormData,
+): Promise<{ message: string; ok: boolean }> {
   const session = await auth();
 
   const client_id = session.user.userId;
@@ -78,13 +93,15 @@ export async function updateUserProfile(formData) {
       .eq("id", client_id);
 
     revalidatePath("/account/profile");
-    return { message: "Profile updated successfully" };
+    return { message: "Profile updated successfully", ok: true };
   } catch (error) {
     throw new Error("Something went wrong. Please try again.");
   }
 }
 
-export async function sendResetPasswordlinkToEmail(formData) {
+export async function sendResetPasswordlinkToEmail(
+  formData: FormData,
+): Promise<{ message: string }> {
   try {
     const email = formData.get("email");
 
@@ -125,10 +142,16 @@ export async function sendResetPasswordlinkToEmail(formData) {
   }
 }
 
-export async function resetPassword(formData) {
-  const password = formData.get("password");
-  const confirm = formData.get("confirmPassword");
-  const token = formData.get("token");
+export async function resetPassword(
+  formData: FormData,
+): Promise<{ message: string }> {
+  const password = formData.get("password")?.toString();
+  const confirm = formData.get("confirmPassword")?.toString();
+  const token = formData.get("token")?.toString();
+
+  if (!password || !confirm || !token) {
+    throw new Error("Invalid request");
+  }
 
   if (password.length < 8) {
     throw new Error("Password must be at least 8 characters");
@@ -168,10 +191,12 @@ export async function resetPassword(formData) {
   }
 }
 
-export async function updateUserPassword(formData) {
+export async function updateUserPassword(
+  formData: FormData,
+): Promise<{ message: string }> {
   const session = await auth();
-  const NewPassword = formData.get("New-password");
-  const ReenterPassword = formData.get("Reenter-password");
+  const NewPassword = formData.get("New-password").toString();
+  const ReenterPassword = formData.get("Reenter-password").toString();
 
   if (!NewPassword || !ReenterPassword) {
     throw new Error("Passwords are required");
