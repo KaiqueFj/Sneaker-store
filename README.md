@@ -9,9 +9,28 @@ A fully responsive and dynamic sneaker e-commerce platform inspired by **Nike’
 This project delivers a complete, modern online shopping experience.  
 Users can browse sneakers, add them to the cart, manage quantities, simulate orders, update their profile, and log in with Google — all wrapped in a clean, Nike-inspired interface.
 
-This is more than a frontend: it’s a **full-stack web application** with authentication, real dynamic data, and a powerful shopping workflow.
+This project goes beyond UI and styling — it implements real backend logic, authentication, database persistence, protected routes, and end-to-end user flows.
 
 ---
+
+## 🎯 Project Goals
+
+This project was built to simulate a real-world e-commerce platform and demonstrate:
+
+- Full authentication and protected routes
+- State management for cart and orders
+- Backend integration with Supabase
+- Clean UI/UX inspired by large-scale products
+- Scalable folder and routing structure using Next.js App Router
+
+---
+
+## 🧠 Key Technical Decisions
+
+- **Next.js App Router** for scalable routing and layouts
+- **Supabase** for rapid backend prototyping with real auth and database
+- **Context API** to manage cart and user state without overengineering
+- **Server-side data fetching** where applicable for better UX
 
 ## ✨ Key Features
 

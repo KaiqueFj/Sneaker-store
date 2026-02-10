@@ -34,7 +34,7 @@ export async function getSneakers(filterKey, filterValue) {
   }
 
   const { data, error } = await query;
-  if (error) throw new Error("Sneakers could not be loaded");
+  if (error) throw new Error("products could not be loaded");
 
   const now = new Date();
 
@@ -64,7 +64,7 @@ export async function getSneakerSearch(searchTerm) {
     .select("*")
     .ilike("name", `%${searchTerm}%`);
 
-  if (error) throw new Error("Sneakers could not be loaded");
+  if (error) throw new Error("products could not be loaded");
   return data;
 }
 

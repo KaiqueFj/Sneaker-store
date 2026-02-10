@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Banner() {
   const bannerImages = [
@@ -17,27 +18,36 @@ export default function Banner() {
       label: "Second banner image ",
       src: "/_assets/second-banner/airJordan4-white.jpg",
       subtitle: "Feel the power of Jordan",
+      category: "Air jordan 4",
       description: "Step into greatness with the Air Jordan 4 white edition.",
+      href: "/sneakers/nav/air jordan 4",
     },
     {
       label: "Second banner image 2",
       src: "/_assets/second-banner/airJordan1-blackRed.jpg",
       subtitle: "Be like Mike",
+      category: "Air jordan 1",
       description:
         "Experience the thrill of the Air Jordan 1 black/red edition.",
+      href: "/sneakers/nav/air jordan 1",
     },
     {
       label: "Second banner image 3",
-      src: "/_assets/second-banner/runningShoes.jpg",
-      subtitle: "Running Shoes",
-      description: "Step into the world of running with the Running Shoes.",
+      src: "/_assets/second-banner/nike-dunk.jpg",
+      category: "Nike Dunk",
+      subtitle: "Feel the energy of the Dunk",
+      description:
+        "Unleash your style with the Nike Dunk, a true icon of the streets.",
+      href: "/sneakers/nav/Nike dunk",
     },
     {
       label: "Second banner image 4",
-      src: "/_assets/second-banner/sportPhotoshoot.jpg",
-      subtitle: "Performance Gear",
+      src: "/_assets/second-banner/air-jordan11.jpg",
+      subtitle: "Air Jordan 11",
+      category: "Fly like the wind",
       description:
-        "Elevate your game with our performance gear, designed for champions.",
+        "Experience the legendary Air Jordan 11, a timeless classic that soars with style and performance.",
+      href: "/sneakers/nav/air jordan 11",
     },
   ];
 
@@ -83,10 +93,6 @@ export default function Banner() {
                   ? "Designed for strength, endurance and performance."
                   : "Engineered for speed, agility and control."}
               </p>
-
-              <button className="mt-6 w-fit bg-white text-black px-8 py-3 text-sm font-bold uppercase tracking-wide hover:bg-gray-200 transition">
-                Shop Now
-              </button>
             </div>
           </div>
         ))}
@@ -131,9 +137,12 @@ export default function Banner() {
                 {banner.description}
               </p>
 
-              <button className="mt-6 w-fit bg-white text-black px-8 py-3 text-sm font-bold uppercase tracking-wide hover:bg-gray-200 transition">
+              <Link
+                href={banner.href}
+                className="mt-6 w-fit bg-white text-black px-8 py-3 text-sm font-bold uppercase tracking-wide hover:bg-gray-200 transition"
+              >
                 Shop Now
-              </button>
+              </Link>
             </div>
           </div>
         ))}
