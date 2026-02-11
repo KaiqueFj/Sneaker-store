@@ -21,7 +21,7 @@ export default function SignUpComponent() {
     setIsPasswordVisible((prev) => !prev);
   };
 
-  async function handleSubmit(formData) {
+  async function handleSubmit(formData: FormData) {
     try {
       await toast.promise(signUpNewUserAction(formData), {
         loading: "Creating account...",
