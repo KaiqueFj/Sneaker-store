@@ -19,7 +19,7 @@ export default function LoginComponent() {
     setIsPasswordVisible((prev) => !prev);
   };
 
-  async function handleSubmit(formData) {
+  async function handleSubmit(formData: FormData) {
     const email = formData.get("email");
     const password = formData.get("password");
 

@@ -8,10 +8,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-export default function ResetPasswordForm({ token }) {
+export default function ResetPasswordForm({ token }: { token: string }) {
   const router = useRouter();
 
-  async function handleSubmit(formData) {
+  async function handleSubmit(formData: FormData) {
     try {
       await toast.promise(resetPassword(formData), {
         loading: "Resetting password...",

@@ -8,14 +8,16 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 
 export default function SendEmailToUserForm() {
-  async function handleSubmit(formData) {
+  async function handleSubmit(formData: FormData) {
     try {
       await toast.promise(sendResetPasswordlinkToEmail(formData), {
         loading: "Sending...",
         success: (data) => data.message,
         error: (err) => err.message,
       });
-    } catch {}
+    } catch {
+      // errors are already handled by toast.promise
+    }
   }
 
   return (
