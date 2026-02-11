@@ -1,5 +1,10 @@
 import crypto from "crypto";
 
+type PreviewText = {
+  intro: string;
+  benefits: string;
+};
+
 /**
  * Formats a number into USD currency.
  */
@@ -50,12 +55,16 @@ export function formatDateNoZ(value?: string): string {
  * Returns a preview text or splits intro / benefits.
  */
 export function getPreviewText(
-  text?: string,
+  text: string = "",
   limit: number = 220,
-): string | { intro: string; benefits: string } {
-  if (!text) return "";
+): PreviewText {
+  if (!text) {
+    return { intro: "", benefits: "" };
+  }
 
-  if (text.length <= limit) return text;
+  if (text.length <= limit) {
+    return { intro: text, benefits: "" };
+  }
 
   const [intro, ...rest] = text.split("Benefits");
 

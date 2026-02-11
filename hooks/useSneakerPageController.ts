@@ -7,7 +7,23 @@ import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useFavoriteSneaker } from "./useFavoriteSneaker";
 
-export function useSneakerPageController(sneaker) {
+type Sneaker = {
+  id: string;
+  name: string;
+  price: number;
+  category: string;
+  images: string[];
+  sizes: string[];
+  colors: string[];
+  gender: string;
+  model: string;
+  isFavorite: boolean;
+  rating_avg: number;
+  rating_count: number;
+  description: string;
+};
+
+export function useSneakerPageController(sneaker: Sneaker) {
   const {
     id,
     name,
@@ -24,13 +40,13 @@ export function useSneakerPageController(sneaker) {
     description,
   } = sneaker;
 
-  const [mainImage, setMainImage] = useState(images[0]);
-  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
-  const [sneakerSize, setSneakerSize] = useState(sizes[0]);
-  const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const [mainImage, setMainImage] = useState<string>(images[0] ?? "");
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
+  const [sneakerSize, setSneakerSize] = useState<string>(sizes[0] ?? "");
+  const [isReviewOpen, setIsReviewOpen] = useState<boolean>(false);
 
-  const reviewsDesktopRef = useRef(null);
-  const reviewsMobileRef = useRef(null);
+  const reviewsDesktopRef = useRef<HTMLDivElement | null>(null);
+  const reviewsMobileRef = useRef<HTMLDivElement | null>(null);
 
   const { dispatch } = useSneaker();
   const pathname = usePathname();

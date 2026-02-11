@@ -4,13 +4,13 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
-export function useFavoriteSneaker(initialValue, sneakerId) {
-  const [isFavoriteState, setIsFavoriteState] = useState(initialValue);
+export function useFavoriteSneaker(initialValue: boolean, sneakerId: string) {
+  const [isFavoriteState, setIsFavoriteState] = useState<boolean>(initialValue);
   const [isPending, startTransition] = useTransition();
   const { data: session } = useSession();
   const router = useRouter();
 
-  const handleFavorite = (e) => {
+  const handleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
     e?.preventDefault();
 
     if (!session?.user?.userId) {
