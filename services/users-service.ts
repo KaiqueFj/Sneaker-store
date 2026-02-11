@@ -1,6 +1,6 @@
 "use server";
 
-import { supabase } from "@/lib/supabase";
+import { supabase } from "../lib/supabase";
 
 type User = {
   id: string;
@@ -10,10 +10,17 @@ type User = {
   created_at: string;
 };
 
+type DbUser = {
+  id: string;
+  email: string;
+  name: string | null;
+  password: string | null;
+};
+
 type CreateUserInput = {
   name?: string | null;
   email: string;
-  password: string;
+  password: string | null;
   provider: "credentials" | "google" | "github";
 };
 
@@ -31,14 +38,14 @@ export async function createUser(user: CreateUserInput): Promise<User> {
   return data;
 }
 
-export async function getUser(email: string): Promise<User | null> {
+export async function getUser(email: string): Promise<DbUser | null> {
   const { data } = await supabase
     .from("users")
     .select("*")
     .eq("email", email)
-    .maybeSingle();
+    .single();
 
-  return data;
+  return data ?? null;
 }
 
 export async function getUserByHashedToken(token: string) {

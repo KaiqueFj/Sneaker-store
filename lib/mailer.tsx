@@ -1,8 +1,11 @@
-import ResetUserPasswordEmail from "@/app/_components/ui/Email/ResetUserPasswordEmail";
 import { pretty, render } from "@react-email/render";
 import nodemailer from "nodemailer";
+import ResetUserPasswordEmail from "../app/_components/ui/Email/ResetUserPasswordEmail";
 
-export default async function sendMail(email, resetUrl) {
+export default async function sendMail(
+  email: string,
+  resetUrl: string,
+): Promise<{ message: string }> {
   try {
     const rendered = await render(
       <ResetUserPasswordEmail resetUrl={resetUrl} />,

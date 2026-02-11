@@ -1,8 +1,8 @@
-import { createUser, getUser } from "@/services/users-service";
 import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import Google from "next-auth/providers/google";
+import { createUser, getUser } from "../services/users-service";
+import authConfig from "./auth-config";
 
 export const {
   auth,
@@ -10,15 +10,19 @@ export const {
   signOut,
   handlers: { GET, POST },
 } = NextAuth({
+  ...authConfig,
+
   providers: [
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
-    }),
+    ...authConfig.providers!,
 
     CredentialsProvider({
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+        if (
+          typeof credentials?.email !== "string" ||
+          typeof credentials?.password !== "string"
+        ) {
+          return null;
+        }
 
         const user = await getUser(credentials.email);
         if (!user?.password) return null;
@@ -27,6 +31,7 @@ export const {
           credentials.password,
           user.password,
         );
+
         if (!isValid) return null;
 
         return {
@@ -40,13 +45,22 @@ export const {
 
   callbacks: {
     async signIn({ user, account }) {
+      if (typeof user.email !== "string") return false;
+
+      const provider =
+        account?.provider === "google"
+          ? "google"
+          : account?.provider === "github"
+            ? "github"
+            : "credentials";
+
       const existingUser = await getUser(user.email);
 
       if (!existingUser) {
         await createUser({
           email: user.email,
           name: user.name,
-          provider: account?.provider,
+          provider,
           password: null,
         });
       }
@@ -55,7 +69,7 @@ export const {
     },
 
     async jwt({ token, user }) {
-      if (user?.email) {
+      if (user && typeof user.email === "string") {
         const dbUser = await getUser(user.email);
         if (dbUser) token.userId = dbUser.id;
       }
@@ -63,13 +77,10 @@ export const {
     },
 
     async session({ session, token }) {
-      if (session.user && token.userId) {
+      if (session.user && typeof token.userId === "string") {
         session.user.userId = token.userId;
       }
-
       return session;
     },
   },
-
-  session: { strategy: "jwt" },
 });
