@@ -2,26 +2,8 @@
 
 import { auth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
+import { FavoriteProduct } from "@/types/favorite";
 import { revalidatePath } from "next/cache";
-
-type Product = {
-  id: string;
-  name: string;
-  price: number;
-  category: string;
-  images: string[];
-  sizes: string[];
-  colors: string[];
-  gender: string;
-  model: string;
-  rating_avg: number;
-  rating_count: number;
-};
-
-type FavoriteProduct = Product & {
-  isFavorite: true;
-  favoriteId: string;
-};
 
 export async function createFavorite(sneakerId: string): Promise<void> {
   const session = await auth();

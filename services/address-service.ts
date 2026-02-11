@@ -1,31 +1,14 @@
 "use server";
 
 import { supabase } from "@/lib/supabase";
+import {
+  AddressCep,
+  Shipping,
+  ShippingOptions,
+  UserAddress,
+} from "@/types/shipping";
 
-type Address = {
-  city: string;
-  state: string;
-};
-
-type Shipping = {
-  type: string;
-  price: number;
-  days: number;
-};
-
-type ShippingOptions = {
-  location: Address;
-  options: Shipping[];
-};
-
-type UserAddress = {
-  city: string;
-  state: string;
-  client_id: string;
-  created_at: string;
-};
-
-async function fetchAdressByCep(cep?: string): Promise<Address> {
+async function fetchAdressByCep(cep?: string): Promise<AddressCep> {
   if (!cep) {
     throw new Error("CEP is required");
   }

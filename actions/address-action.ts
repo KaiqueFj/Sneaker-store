@@ -2,22 +2,8 @@
 
 import { auth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
+import { Address } from "@/types/shipping";
 import { revalidatePath } from "next/cache";
-
-type Address = {
-  id: string;
-  client_id: string;
-  label: string;
-  recipient_name: string;
-  street: string;
-  number: string;
-  complement: string;
-  city: string;
-  state: string;
-  postal_code: string;
-  country: string;
-  is_default: boolean;
-};
 
 export async function upsertUserAdress(
   formData: FormData,

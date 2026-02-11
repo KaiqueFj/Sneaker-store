@@ -2,43 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
-
-type Product = {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-  model: string;
-  colors: string[];
-  gender: string;
-};
-
-type Sale = {
-  discountPercentage: number;
-  startDate: string;
-  endDate: string;
-};
-
-type Favorite = {
-  id: string;
-  client_id: string;
-};
-
-type ProductRow = Product & {
-  sales: Sale[] | null;
-  favorites: Favorite[] | null;
-};
-
-type ProductListItem = Product & {
-  sale: Sale | null;
-  isFavorite: boolean;
-  favoriteId: string | null;
-};
-
-type NewestProductRow = Product & {
-  favorites: Favorite[] | null;
-};
+import { NewestProductRow, ProductListItem, ProductRow } from "@/types/product";
 
 export async function getSneakers(
   filterKey: string,

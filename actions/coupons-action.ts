@@ -1,10 +1,7 @@
 "use server";
 
 import { supabase } from "@/lib/supabase";
-
-type CouponDiscount = {
-  value: number;
-};
+import { CouponDiscount } from "@/types/coupom";
 
 export async function getCouponDiscount(
   formData: FormData,

@@ -2,43 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
-
-type CartItem = {
-  id: string;
-  name: string;
-  price: number;
-  quantity?: number;
-  size?: string;
-  image: string;
-  category: string;
-  model: string;
-  colors: string[];
-  gender: string;
-};
-
-type OrderAddressInput = {
-  recipient_name: string;
-  street: string;
-  number: string;
-  complement?: string;
-  city: string;
-  state: string;
-  postal_code: string;
-  country: string;
-};
-
-type CreateOrderInput = {
-  cartItems: CartItem[];
-  address: OrderAddressInput;
-  total_price: number;
-};
-
-type Order = {
-  id: string;
-  client_id: string;
-  total_price: number;
-  created_at: string;
-};
+import { CreateOrderInput, Order } from "@/types/order";
 
 export async function createOrder({
   cartItems,

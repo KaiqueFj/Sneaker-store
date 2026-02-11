@@ -1,28 +1,7 @@
 "use server";
 
+import { CreateUserInput, DbUser, User } from "@/types/user";
 import { supabase } from "../lib/supabase";
-
-type User = {
-  id: string;
-  name: string | null;
-  email: string;
-  provider: string;
-  created_at: string;
-};
-
-type DbUser = {
-  id: string;
-  email: string;
-  name: string | null;
-  password: string | null;
-};
-
-type CreateUserInput = {
-  name?: string | null;
-  email: string;
-  password: string | null;
-  provider: "credentials" | "google" | "github";
-};
 
 export async function createUser(user: CreateUserInput): Promise<User> {
   const { data, error } = await supabase

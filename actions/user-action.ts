@@ -14,15 +14,6 @@ import crypto from "crypto";
 import { signIn, signOut } from "next-auth/react";
 import { revalidatePath } from "next/cache";
 
-type User = {
-  id: string;
-  name: string;
-  email: string;
-  provider: string;
-  created_at: string;
-  updated_at: string;
-};
-
 export async function signUpNewUserAction(
   formData: FormData,
 ): Promise<{ message: string }> {
