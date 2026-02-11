@@ -34,4 +34,5 @@ export type UserAddress = {
   state: string;
   client_id: string;
   created_at: string;
+  is_default: boolean;
 };
