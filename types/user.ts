@@ -4,6 +4,7 @@ export type User = {
   email: string;
   provider: string;
   created_at: string;
+  birthday: string | null;
 };
 
 export type DbUser = {

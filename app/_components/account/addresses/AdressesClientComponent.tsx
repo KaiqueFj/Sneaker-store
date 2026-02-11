@@ -1,9 +1,14 @@
 "use client";
 
 import { AddressModal } from "@/app/_components/account/addresses/AdressModal";
+import { Address } from "@/types/shipping";
 import { useState } from "react";
 
-export default function AddressesClient({ addresses }) {
+export default function AddressesClient({
+  addresses,
+}: {
+  addresses: Address[];
+}) {
   const [open, setOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
 
@@ -72,12 +77,7 @@ export default function AddressesClient({ addresses }) {
       </section>
 
       {open && (
-        <AddressModal
-          addresses={addresses}
-          open={open}
-          setOpen={setOpen}
-          adress={selectedAddress}
-        />
+        <AddressModal addresses={addresses} open={open} setOpen={setOpen} />
       )}
     </div>
   );

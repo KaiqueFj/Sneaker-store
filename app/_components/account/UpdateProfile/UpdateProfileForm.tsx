@@ -3,12 +3,13 @@
 import { updateUserProfile } from "@/actions/user-action";
 import Button from "@/app/_components/ui/Button/Button";
 import Form from "@/app/_components/ui/Form/Form";
+import { User } from "@/types/user";
 import { toast } from "react-hot-toast";
 
-export default function UpdateProfileForm({ user }) {
+export default function UpdateProfileForm({ user }: { user: User }) {
   const { name, email, birthday } = user;
 
-  async function handleSubmit(formData) {
+  async function handleSubmit(formData: FormData) {
     try {
       await toast.promise(updateUserProfile(formData), {
         loading: "Updating...",

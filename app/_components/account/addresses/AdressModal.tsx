@@ -1,15 +1,15 @@
 "use client";
 
+import { removeUserAddress, upsertUserAdress } from "@/actions/address-action";
 import Button from "@/app/_components/ui/Button/Button";
 import Form from "@/app/_components/ui/Form/Form";
 import ModalTransition from "@/app/_components/ui/TransitionEffects/ModalTransition";
 import { useCheckout } from "@/context/checkoutContext";
-import { removeUserAddress, upsertUserAdress } from "@/actions/address-action";
 import toast from "react-hot-toast";
 
-export function AddressModal({ open, setOpen, adress }) {
+export function AddressModal({ open, setOpen, addresses }) {
   const { dispatch, state: addressInfo } = useCheckout();
-  const isEditing = Boolean(adress);
+  const isEditing = Boolean(addresses);
 
   const {
     id,
@@ -23,7 +23,7 @@ export function AddressModal({ open, setOpen, adress }) {
     postal_code,
     country,
     is_default,
-  } = adress ?? {};
+  } = addresses ?? {};
 
   async function handleSubmit(formData) {
     try {
@@ -54,10 +54,7 @@ export function AddressModal({ open, setOpen, adress }) {
         error: (err) => err.message,
       });
 
-      dispatch({
-        type: "REMOVE_ADDRESS",
-        payload: id,
-      });
+      dispatch({ type: "REMOVE_ADDRESS" });
 
       setOpen(false);
     } catch {}

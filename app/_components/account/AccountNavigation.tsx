@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 
-function Section({ title, children }) {
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex flex-col gap-2">
       <h2 className="text-sm font-semibold tracking-widest uppercase text-primary-600">
@@ -16,7 +22,7 @@ function Section({ title, children }) {
   );
 }
 
-function MenuItem({ href, label }) {
+function MenuItem({ href, label }: { href: string; label: string }) {
   return (
     <li>
       <Link
