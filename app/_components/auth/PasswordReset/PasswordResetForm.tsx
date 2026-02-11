@@ -6,7 +6,7 @@ import Form from "@/app/_components/ui/Form/Form";
 import { toast } from "react-hot-toast";
 
 export default function UpdatePasswordForm() {
-  async function handleSubmit(formData) {
+  async function handleSubmit(formData: FormData) {
     try {
       await toast.promise(updateUserPassword(formData), {
         loading: "Updating...",
