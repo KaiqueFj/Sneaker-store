@@ -3,7 +3,11 @@ import Filter from "@/app/_components/products/Filter/filter";
 import SneakersList from "@/app/_components/products/List/sneakerList";
 import { getSneakers } from "@/services/sneakers-service";
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
   const { category } = await params;
   const pageCategory = await decodeURIComponent(category);
 
@@ -29,7 +33,7 @@ export default async function Page({ params, searchParams }) {
 
     sneakers = await getSneakers(filterKey, category);
   } else {
-    sneakers = await getSneakers();
+    sneakers = await getSneakers("all", "all");
   }
 
   return (

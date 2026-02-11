@@ -1,8 +1,12 @@
 import SneakerSelectedInformation from "@/app/_components/products/Details/sneakerSelectedInformation";
-import { getSneaker } from "@/services/sneakers-service";
 import { getSneakersReviews } from "@/services/reviews-service";
+import { getSneaker } from "@/services/sneakers-service";
 
-export default async function Page({ params }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
 
   const id = slug.split("-")[0];

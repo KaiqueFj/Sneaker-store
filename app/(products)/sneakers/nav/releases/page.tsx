@@ -7,7 +7,11 @@ export async function generateMetadata() {
   return { title: `New & Featured Sneakers` };
 }
 
-export default async function Page({ searchParams }) {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ order?: string }>;
+}) {
   const resolvedSearchParams = await searchParams;
   const filter = resolvedSearchParams?.order ?? "all";
   let sneakers = [];
