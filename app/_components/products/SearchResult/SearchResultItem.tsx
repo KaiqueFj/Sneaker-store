@@ -1,10 +1,17 @@
 "use client";
 
+import { ProductListItem } from "@/types/product";
 import { slugify } from "@/utils/helpers";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function SearchResultItem({ sneaker, onClose }) {
+export default function SearchResultItem({
+  sneaker,
+  onClose,
+}: {
+  sneaker: ProductListItem;
+  onClose: () => void;
+}) {
   const { id, name, price, images, category, gender, sale } = sneaker;
   const slug = `${id}-${slugify(name)}`;
 

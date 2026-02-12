@@ -37,6 +37,7 @@ export type Sale = {
   discountPercentage: number;
   startDate: string;
   endDate: string;
+  discountPrice?: number;
 };
 
 export type Favorite = {
