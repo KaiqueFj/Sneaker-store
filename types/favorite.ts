@@ -1,6 +1,6 @@
-import { Product } from "./product";
+import { ProductListItem } from "./product";
 
-export type FavoriteProduct = Product & {
+export type FavoriteProduct = ProductListItem & {
   isFavorite: true;
   favoriteId: string;
 };

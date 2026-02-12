@@ -4,8 +4,16 @@ import SneakerDesktopView from "@/app/_components/products/Details/SneakerDeskto
 import SneakerMobileView from "@/app/_components/products/Details/SneakerMobileView";
 import SneakerReviews from "@/app/_components/products/Details/SneakerReviews";
 import { useSneakerPageController } from "@/hooks/useSneakerPageController";
+import { FavoriteProduct } from "@/types/product";
+import { ReviewWithRelations } from "@/types/review";
 
-export default function SneakerSelectedInformation({ sneaker, reviews }) {
+export default function SneakerSelectedInformation({
+  sneaker,
+  reviews,
+}: {
+  sneaker: FavoriteProduct;
+  reviews: ReviewWithRelations[];
+}) {
   const controller = useSneakerPageController(sneaker);
 
   return (

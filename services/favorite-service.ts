@@ -2,7 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
-import { FavoriteProduct } from "@/types/favorite";
+import { FavoriteProduct } from "@/types/product";
 import { revalidatePath } from "next/cache";
 
 export async function createFavorite(sneakerId: string): Promise<void> {
@@ -85,14 +85,14 @@ export async function getFavorites(): Promise<FavoriteProduct[]> {
   return data
     .map((f) => {
       const product = Array.isArray(f.products) ? f.products[0] : f.products;
-
       if (!product) return null;
 
       return {
         ...product,
         isFavorite: true,
         favoriteId: f.id,
+        sale: null, // 👈 required by ProductListItem
       } satisfies FavoriteProduct;
     })
-    .filter(Boolean);
+    .filter(Boolean) as FavoriteProduct[];
 }

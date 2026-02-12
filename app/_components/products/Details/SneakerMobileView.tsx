@@ -2,10 +2,17 @@ import CartModal from "@/app/_components/cart/CartModal";
 import SneakerImageCarousel from "@/app/_components/products/Details/SneakerImageCarousel";
 import SneakerDetailsModal from "@/app/_components/products/Modal/SneakerDetailsModal";
 import StarRating from "@/app/_components/ui/star/StarRating";
+import { SneakerDesktopViewProps } from "@/types/product";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid, LinkIcon } from "@heroicons/react/24/solid";
+import toast from "react-hot-toast";
 
-export default function SneakerMobileView({ product, ui, actions, meta }) {
+export default function SneakerMobileView({
+  product,
+  ui,
+  actions,
+  meta,
+}: SneakerDesktopViewProps) {
   const {
     name,
     category,
@@ -29,7 +36,7 @@ export default function SneakerMobileView({ product, ui, actions, meta }) {
     goToReviews,
   } = actions;
 
-  const { isFavoriteState, currentUrl, toast } = meta;
+  const { isFavoriteState, currentUrl } = meta;
 
   return (
     <div className="flex flex-col gap-10 lg:hidden">

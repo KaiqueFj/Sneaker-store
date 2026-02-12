@@ -2,13 +2,18 @@
 
 import Sneaker from "@/app/_components/products/Sneaker";
 import { createFavorite, removeFavorite } from "@/services/favorite-service";
+import { ProductListItem } from "@/types/product";
 import { slugify } from "@/utils/helpers";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
-export default function SneakerDetails({ sneaker }) {
+export default function SneakerDetails({
+  sneaker,
+}: {
+  sneaker: ProductListItem;
+}) {
   const {
     id,
     name,
@@ -22,7 +27,7 @@ export default function SneakerDetails({ sneaker }) {
   } = sneaker;
 
   const [isPending, startTransition] = useTransition();
-  const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
+  const [isFavoriteState, setIsFavoriteState] = useState<boolean>(isFavorite);
 
   const { data: session } = useSession();
   const router = useRouter();

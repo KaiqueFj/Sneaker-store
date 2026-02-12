@@ -1,29 +1,14 @@
 "use client";
 
 import { useSneaker } from "@/context/SneakerContext";
+import { ProductDetails } from "@/types/product";
 import { getPreviewText } from "@/utils/helpers";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useFavoriteSneaker } from "./useFavoriteSneaker";
 
-type Sneaker = {
-  id: string;
-  name: string;
-  price: number;
-  category: string;
-  images: string[];
-  sizes: string[];
-  colors: string[];
-  gender: string;
-  model: string;
-  isFavorite: boolean;
-  rating_avg: number;
-  rating_count: number;
-  description: string;
-};
-
-export function useSneakerPageController(sneaker: Sneaker) {
+export function useSneakerPageController(sneaker: ProductDetails) {
   const {
     id,
     name,

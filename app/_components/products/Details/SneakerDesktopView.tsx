@@ -1,9 +1,11 @@
 import CartModal from "@/app/_components/cart/CartModal";
 import SneakerDetailsModal from "@/app/_components/products/Modal/SneakerDetailsModal";
 import StarRating from "@/app/_components/ui/star/StarRating";
+import { SneakerDesktopViewProps } from "@/types/product";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid, LinkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 export default function SneakerDesktopView({
   product,
@@ -11,7 +13,7 @@ export default function SneakerDesktopView({
   actions,
   meta,
   children,
-}) {
+}: SneakerDesktopViewProps) {
   const {
     name,
     category,
@@ -36,7 +38,7 @@ export default function SneakerDesktopView({
     goToReviews,
   } = actions;
 
-  const { isFavoriteState, isPending, currentUrl, toast } = meta;
+  const { isFavoriteState, isPending, currentUrl } = meta;
 
   return (
     <div className="hidden lg:flex justify-center gap-12 items-start">

@@ -10,9 +10,7 @@ export function useFavoriteSneaker(initialValue: boolean, sneakerId: string) {
   const { data: session } = useSession();
   const router = useRouter();
 
-  const handleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e?.preventDefault();
-
+  const handleFavorite = () => {
     if (!session?.user?.userId) {
       toast.error("Log in to favorite this product. Redirecting...");
       setTimeout(() => router.push("/login"), 2500);

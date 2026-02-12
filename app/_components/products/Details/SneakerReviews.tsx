@@ -1,14 +1,20 @@
 import StarRating from "@/app/_components/ui/star/StarRating";
 import ReviewsTransition from "@/app/_components/ui/TransitionEffects/ReviewsTransition";
+import { ReviewWithRelations } from "@/types/review";
 import { formatDateNoZ } from "@/utils/helpers";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { Dispatch, SetStateAction } from "react";
 
 export default function SneakerReviews({
   reviews,
   setIsReviewOpen,
   isReviewOpen,
+}: {
+  reviews: ReviewWithRelations[];
+  setIsReviewOpen: Dispatch<SetStateAction<boolean>>;
+  isReviewOpen: boolean;
 }) {
-  const ratingAvg = reviews?.[0]?.sneakers?.rating_avg ?? 0;
+  const ratingAvg = reviews?.[0]?.products?.rating_avg ?? 0;
 
   return (
     <>

@@ -4,7 +4,13 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function SneakerImageCarousel({ images, name }) {
+export default function SneakerImageCarousel({
+  images,
+  name,
+}: {
+  images: string[];
+  name: string;
+}) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     align: "start",
@@ -22,7 +28,9 @@ export default function SneakerImageCarousel({ images, name }) {
     emblaApi.on("select", onSelect);
     onSelect();
 
-    return () => emblaApi.off("select", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
   }, [emblaApi]);
 
   return (
