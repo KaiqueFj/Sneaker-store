@@ -1,4 +1,4 @@
-import SignOutButton from "@/app/_components/auth/Login/SignOutButton.js";
+import SignOutButton from "@/app/_components/auth/Login/SignOutButton";
 import Link from "next/link";
 
 export default function NavigationList({

@@ -1,15 +1,23 @@
 "use client";
 
 import ReviewComponent from "@/app/_components/ui/Review/ReviewComponent";
+import { OrderItem, Order as OrderType } from "@/types/order";
+import { Review } from "@/types/review";
 import { formatDate } from "@/utils/helpers";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Order({ orders, reviews }) {
-  const [openOrderId, setOpenOrderId] = useState(null);
-  const [reviewItem, setReviewItem] = useState(null);
-  const [reviewsState, setReviewsState] = useState(reviews);
+export default function Order({
+  orders,
+  reviews,
+}: {
+  orders: OrderType[];
+  reviews: Review[];
+}) {
+  const [openOrderId, setOpenOrderId] = useState<string | null>(null);
+  const [reviewItem, setReviewItem] = useState<OrderItem | null>(null);
+  const [reviewsState, setReviewsState] = useState<Review[]>(reviews);
 
   if (!orders || orders.length === 0) {
     return (
