@@ -1,10 +1,17 @@
 import SneakerDetails from "@/app/_components/products/Details/sneakerDetails";
 import Sneaker from "@/app/_components/products/Sneaker";
+import { ProductListItem } from "@/types/product";
 
-export default function SneakersList({ filter = "all", sneakers }) {
+export default function SneakersList({
+  filter = "all",
+  sneakers,
+}: {
+  filter: string;
+  sneakers: ProductListItem[];
+}) {
   if (!sneakers) return null;
 
-  let displayedSneaker;
+  let displayedSneaker: ProductListItem[] = [];
 
   if (filter === "all") displayedSneaker = sneakers;
 
