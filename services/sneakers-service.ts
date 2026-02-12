@@ -5,8 +5,8 @@ import { supabase } from "@/lib/supabase";
 import { NewestProductRow, ProductListItem, ProductRow } from "@/types/product";
 
 export async function getSneakers(
-  filterKey: string,
-  filterValue: string,
+  filterKey?: string,
+  filterValue?: string,
 ): Promise<ProductListItem[]> {
   const session = await auth();
   const userId = session?.user?.userId ?? null;

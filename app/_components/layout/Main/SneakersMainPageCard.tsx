@@ -1,14 +1,19 @@
+import { ProductListItem } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function SneakerMainCard({ sneaker }) {
+export default function SneakerMainCard({
+  sneaker,
+}: {
+  sneaker: ProductListItem;
+}) {
   const { images, model } = sneaker;
 
   return (
     <article
       className="group relative bg-gray-100 hover:shadow-md transition-shadow duration-300 
                  w-2/4 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg 
-                 flex-shrink-0 flex flex-col rounded-2xl overflow-hidden"
+                 shrink-0 flex flex-col rounded-2xl overflow-hidden"
     >
       <Link
         href={`/sneakers/nav/${model}`}
@@ -16,7 +21,7 @@ export default function SneakerMainCard({ sneaker }) {
         aria-label={`View ${model} collection`}
       >
         {/* Image */}
-        <div className="relative w-full aspect-square sm:aspect-[3/2] flex items-center justify-center">
+        <div className="relative w-full aspect-square sm:aspect-3/2 flex items-center justify-center">
           <Image
             src={images[0]}
             alt={`${model} sneaker`}

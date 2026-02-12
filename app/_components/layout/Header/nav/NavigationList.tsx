@@ -1,4 +1,5 @@
 import SignOutButton from "@/app/_components/auth/Login/SignOutButton";
+import { NavigationListProps } from "@/types/UiTypes";
 import Link from "next/link";
 
 export default function NavigationList({
@@ -6,9 +7,9 @@ export default function NavigationList({
   className = "",
   classNameLi = "",
   onItemClick,
-}) {
+}: NavigationListProps) {
   return (
-    <ul className={`flex  ${className}`}>
+    <ul className={`flex ${className}`}>
       {navItems.map((nav) => (
         <li
           key={nav.label}

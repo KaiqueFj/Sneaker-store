@@ -1,6 +1,7 @@
 "use client";
 
 import { useSneaker } from "@/context/SneakerContext";
+import { MobileMenuProps, NavItem } from "@/types/UiTypes";
 import {
   Bars3Icon,
   HeartIcon,
@@ -8,6 +9,7 @@ import {
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,9 +20,12 @@ import SearchBar from "./SearchBar";
 export default function OtherOptions() {
   const { state } = useSneaker();
   const { data: session } = useSession();
-  const totalItems = state.items.reduce((acc, item) => acc + item.quantity, 0);
+  const totalItems = state.items.reduce(
+    (acc, item) => acc + (item.quantity ?? 0),
+    0,
+  );
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const modalRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const navOptionsDesk = [
     {
@@ -47,8 +52,11 @@ export default function OtherOptions() {
 
   // Close mobile menu on outside click
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
         setMobileMenuOpen(false);
       }
     }
@@ -79,7 +87,7 @@ export default function OtherOptions() {
 
 /* ------------------- Subcomponents ------------------- */
 
-function Cart({ totalItems }) {
+function Cart({ totalItems }: { totalItems: number }) {
   return (
     <Link href="/cart">
       <button className="relative transition-colors rounded-xl p-2 hover:bg-gray-300">
@@ -106,7 +114,13 @@ function FavoritesBtn() {
   );
 }
 
-function UserMenu({ session, navOptions }) {
+function UserMenu({
+  session,
+  navOptions,
+}: {
+  session: Session | null;
+  navOptions: NavItem[];
+}) {
   return (
     <div className="hidden md:block md:relative group">
       {session?.user ? (
@@ -156,7 +170,7 @@ function MobileMenu({
   setMobileMenuOpen,
   mobileMenuOpen,
   modalRef,
-}) {
+}: MobileMenuProps) {
   return (
     <div className="relative md:hidden" ref={modalRef}>
       {/* Open button */}
