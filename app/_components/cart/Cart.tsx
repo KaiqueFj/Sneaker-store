@@ -1,13 +1,14 @@
 "use client";
 
 import { useCheckout } from "@/context/checkoutContext";
+import { Address } from "@/types/shipping";
 import { useEffect } from "react";
 import CartCupomDiscount from "./CartCupomDiscount";
 import CartItemList from "./CartItemsList";
 import CartShipping from "./cartShipping";
 import CartSummary from "./CartSummary";
 
-export default function Cart({ defaultAddress }) {
+export default function Cart({ defaultAddress }: { defaultAddress: Address }) {
   const { state, dispatch } = useCheckout();
 
   useEffect(() => {

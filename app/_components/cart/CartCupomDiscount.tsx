@@ -8,7 +8,7 @@ export default function CartCupomDiscount() {
   const { dispatch } = useCheckout();
   const [couponInput, setCouponInput] = useState("");
 
-  function handleSubmit(formData) {
+  function handleSubmit(formData: FormData) {
     applyCoupon(formData);
   }
 
@@ -34,13 +34,15 @@ export default function CartCupomDiscount() {
       </div>
       <Form action={handleSubmit}>
         <Form.Field>
-          <Form.InputWrapper className="relative">
+          <Form.InputWrapper>
             <Form.Input
               type="text"
               name="coupon"
               value={couponInput}
               placeholder="Coupon (`NIKE10`)"
-              onChange={(e) => setCouponInput(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setCouponInput(e.target.value)
+              }
               className="pr-20"
             />
             <Form.Actions className="absolute right-2 top-2.5 -translate-y-1/2">

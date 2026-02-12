@@ -12,7 +12,7 @@ export default function CartShipping() {
   const { state, dispatch } = useCheckout();
   const cep = state.address?.postal_code ?? "";
 
-  function handleCepChange(val) {
+  function handleCepChange(val: string) {
     const formattedCep = formatCep(val);
     dispatch({
       type: "SET_ADDRESS",
@@ -69,7 +69,9 @@ export default function CartShipping() {
               type="text"
               placeholder="00000-000"
               value={formatCep(cep)}
-              onChange={(e) => handleCepChange(formatCep(e.target.value))}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleCepChange(formatCep(e.target.value))
+              }
               maxLength={9}
               className="pr-20"
             />
