@@ -5,8 +5,9 @@ import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
-export default function Sneaker({ children }) {
+export default function Sneaker({ children }: { children: React.ReactNode }) {
   return (
     <div className="grid gap-x-2 gap-y-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 w-full">
       {children}
