@@ -1,10 +1,15 @@
 import { useCheckout } from "@/context/checkoutContext";
+import { Shipping } from "@/types/shipping";
 import { formatCurrency } from "@/utils/helpers";
 
-export default function ShippingOptions({ shipping }) {
+export default function ShippingOptions({
+  shipping,
+}: {
+  shipping: Shipping[];
+}) {
   const { state, dispatch } = useCheckout();
 
-  function handleSelect(option) {
+  function handleSelect(option: Shipping) {
     dispatch({ type: "SET_SHIPPING", payload: option });
   }
 
