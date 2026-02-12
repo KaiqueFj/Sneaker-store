@@ -3,12 +3,17 @@
 import { AddressModal } from "@/app/_components/account/addresses/AdressModal";
 import Button from "@/app/_components/ui/Button/Button";
 import { useCheckout } from "@/context/checkoutContext";
+import { Address } from "@/types/shipping";
 import { formatCurrency } from "@/utils/helpers";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function CheckoutComponent({ addresses }) {
+export default function CheckoutComponent({
+  addresses,
+}: {
+  addresses: Address[];
+}) {
   const router = useRouter();
   const { data: session } = useSession();
   const { state: checkout, dispatch } = useCheckout();
@@ -25,7 +30,7 @@ export default function CheckoutComponent({ addresses }) {
         payload: defaultAddress,
       });
     }
-  }, [defaultAddress, checkout.address]);
+  }, [defaultAddress, checkout.address, dispatch]);
 
   return (
     <div className="mx-auto max-w-3xl space-y-10">
@@ -107,7 +112,7 @@ export default function CheckoutComponent({ addresses }) {
           <AddressModal
             open={open}
             setOpen={setOpen}
-            adress={selectedAddress}
+            addresses={selectedAddress}
           />
         )}
       </section>

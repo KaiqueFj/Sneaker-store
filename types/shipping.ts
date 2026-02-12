@@ -3,6 +3,7 @@ export type Address = {
   client_id: string;
   label: string;
   recipient_name: string;
+  cep: string;
   street: string;
   number: string;
   complement: string;
