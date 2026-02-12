@@ -82,6 +82,11 @@ export type SneakerDesktopUI = {
   isDescriptionOpen: boolean;
 };
 
+export type ProductDetails = Product & {
+  isFavorite: boolean;
+  favoriteId: string | null;
+};
+
 export type SneakerDesktopActions = {
   setMainImage: (img: string) => void;
   setSneakerSize: (size: string) => void;

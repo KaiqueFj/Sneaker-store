@@ -2,11 +2,17 @@
 
 import SneakerDetailsTransition from "@/app/_components/ui/TransitionEffects/SneakerDetailsTransition";
 
+type SneakerDetailsModalProps = {
+  description: string;
+  isDescriptionOpen: boolean;
+  setIsDescriptionOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 export default function SneakerDetailsModal({
   description,
   isDescriptionOpen,
   setIsDescriptionOpen,
-}) {
+}: SneakerDetailsModalProps) {
   return (
     <SneakerDetailsTransition
       isOpen={isDescriptionOpen}
