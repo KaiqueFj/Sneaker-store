@@ -11,7 +11,11 @@ import {
   Text,
 } from "@react-email/components";
 
-export default function ResetUserPasswordEmail({ resetUrl }) {
+export default function ResetUserPasswordEmail({
+  resetUrl,
+}: {
+  resetUrl: string;
+}) {
   return (
     <Html>
       <Head />

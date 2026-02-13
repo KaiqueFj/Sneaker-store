@@ -1,4 +1,10 @@
-export default function StarRating({ rating, max = 5 }) {
+export default function StarRating({
+  rating,
+  max = 5,
+}: {
+  rating: number;
+  max?: number;
+}) {
   const starSize = 16;
   const filledWidth = (rating / max) * starSize * max;
 

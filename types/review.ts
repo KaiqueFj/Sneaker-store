@@ -8,6 +8,8 @@ export type Review = {
 };
 
 export type ReviewWithRelations = Review & {
+  name: string;
+
   products: {
     rating_avg: number;
     rating_count: number;
@@ -19,6 +21,6 @@ export type ReviewWithRelations = Review & {
 
 export type ReviewInput = {
   product_id: string;
-  rating: string;
+  rating: number;
   comment: string;
 };

@@ -2,7 +2,13 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 
-export default function ReviewsTransition({ isOpen, children }) {
+export default function ReviewsTransition({
+  isOpen,
+  children,
+}: {
+  isOpen: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <AnimatePresence initial={false}>
       {isOpen && (

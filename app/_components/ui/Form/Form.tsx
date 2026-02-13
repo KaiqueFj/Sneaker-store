@@ -1,4 +1,11 @@
-function Form({ children, className = "", ...props }) {
+function Form({
+  children,
+  className = "",
+  ...props
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
     <form className={`flex flex-col gap-6 ${className}`} {...props}>
       {children}
@@ -18,11 +25,22 @@ Form.Label = function Label({ children }) {
   );
 };
 
-Form.InputWrapper = function InputWrapper({ className = "", children }) {
+Form.InputWrapper = function InputWrapper({
+  className = "",
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
   return <div className={`relative ${className}`}>{children}</div>;
 };
 
-Form.Input = function Input({ className = "", ...props }) {
+Form.Input = function Input({
+  className = "",
+  ...props
+}: {
+  className?: string;
+}) {
   return (
     <input
       className={`
@@ -44,7 +62,13 @@ Form.Input = function Input({ className = "", ...props }) {
   );
 };
 
-Form.Actions = function Actions({ className = "", children }) {
+Form.Actions = function Actions({
+  className = "",
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
   return <div className={`pt-4 ${className}`}>{children}</div>;
 };
 

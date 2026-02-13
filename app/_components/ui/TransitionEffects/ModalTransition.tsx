@@ -2,7 +2,13 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 
-export default function ModalTransition({ open, children }) {
+export default function ModalTransition({
+  open,
+  children,
+}: {
+  open: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <AnimatePresence>
       {open && (

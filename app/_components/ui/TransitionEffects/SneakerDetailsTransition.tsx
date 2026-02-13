@@ -6,6 +6,10 @@ export default function SneakerDetailsTransition({
   isOpen,
   onClose,
   children,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
 }) {
   return (
     <AnimatePresence>

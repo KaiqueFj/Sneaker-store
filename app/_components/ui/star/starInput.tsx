@@ -1,6 +1,14 @@
 "use client";
 
-export default function StarInput({ value, onChange, max = 5 }) {
+export default function StarInput({
+  value,
+  onChange,
+  max = 5,
+}: {
+  value: number;
+  onChange: (value: number) => void;
+  max?: number;
+}) {
   return (
     <div className="flex gap-1">
       {Array.from({ length: max }).map((_, index) => {

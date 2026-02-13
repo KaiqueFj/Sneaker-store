@@ -1,10 +1,23 @@
 import MiniSpinner from "@/app/_components/ui/Spinner/miniSpinner";
 import StarInput from "@/app/_components/ui/star/starInput";
 import { upsertReview } from "@/services/reviews-service";
+import { Review, ReviewInput, ReviewWithRelations } from "@/types/review";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function ReviewComponent({ item, onClose, onSuccess, review }) {
+type ReviewComponentProps = {
+  item: ReviewWithRelations;
+  onClose: () => void;
+  onSuccess: () => void;
+  review?: Review;
+};
+
+export default function ReviewComponent({
+  item,
+  onClose,
+  onSuccess,
+  review,
+}: ReviewComponentProps) {
   const [rating, setRating] = useState(review?.rating ?? 0);
   const [comment, setComment] = useState(review?.comment ?? "");
   const [loading, setLoading] = useState(false);
@@ -13,7 +26,7 @@ export default function ReviewComponent({ item, onClose, onSuccess, review }) {
     setLoading(true);
 
     try {
-      const updatedReview = {
+      const updatedReview: ReviewInput = {
         product_id: item.product_id,
         rating,
         comment,
@@ -27,7 +40,7 @@ export default function ReviewComponent({ item, onClose, onSuccess, review }) {
         error: "Review could not be saved. Try again!",
       });
 
-      onSuccess(updatedReview);
+      onSuccess();
       onClose();
     } finally {
       setLoading(false);

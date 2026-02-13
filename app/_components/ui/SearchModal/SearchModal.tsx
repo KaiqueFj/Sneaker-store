@@ -6,7 +6,7 @@ import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export default function SearchModal({ onClose }) {
+export default function SearchModal({ onClose }: { onClose: () => void }) {
   const [term, setTerm] = useState("");
   const [results, setResults] = useState([]);
 

@@ -2,7 +2,11 @@
 
 import { useRouter } from "next/navigation";
 
-export default function StepperHeader({ currentPath }) {
+export default function StepperHeader({
+  currentPath,
+}: {
+  currentPath: string;
+}) {
   const router = useRouter();
 
   const options = [
