@@ -18,7 +18,7 @@ export async function getCouponDiscount(
   try {
     const { data, error } = await supabase
       .from("coupons")
-      .select("value")
+      .select("value, code")
       .eq("code", coupon)
       .single();
 
@@ -31,7 +31,7 @@ export async function getCouponDiscount(
 
     return {
       success: true,
-      data,
+      data: { value: data.value, code: data.code },
       message: "Coupon applied successfully",
     };
   } catch (err) {
