@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 type ReviewComponentProps = {
   item: ReviewWithRelations;
   onClose: () => void;
-  onSuccess: () => void;
+  onSuccess: (newReview: Review) => void;
   review?: Review;
 };
 
@@ -32,7 +32,7 @@ export default function ReviewComponent({
         comment,
       };
 
-      await toast.promise(upsertReview(updatedReview), {
+      const savedReview = await toast.promise(upsertReview(updatedReview), {
         loading: "Saving your review...",
         success: review
           ? "Review updated successfully!"
@@ -40,7 +40,7 @@ export default function ReviewComponent({
         error: "Review could not be saved. Try again!",
       });
 
-      onSuccess();
+      onSuccess(savedReview);
       onClose();
     } finally {
       setLoading(false);

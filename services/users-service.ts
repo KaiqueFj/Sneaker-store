@@ -17,7 +17,7 @@ export async function createUser(user: CreateUserInput): Promise<User> {
   return data;
 }
 
-export async function getUser(email: string): Promise<DbUser | null> {
+export async function getUser(email: string): Promise<User | null> {
   const { data } = await supabase
     .from("users")
     .select("*")
@@ -25,6 +25,18 @@ export async function getUser(email: string): Promise<DbUser | null> {
     .single();
 
   return data ?? null;
+}
+
+export async function getUserForAuth(email: string): Promise<DbUser | null> {
+  const { data, error } = await supabase
+    .from("users")
+    .select("id, email, name, password")
+    .eq("email", email)
+    .single();
+
+  if (error) return null;
+
+  return data;
 }
 
 export async function getUserByHashedToken(token: string) {

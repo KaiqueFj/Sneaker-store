@@ -1,3 +1,5 @@
+import { ReviewWithRelations } from "@/types/review";
+
 export type CartItem = {
   id: string;
   name: string;
@@ -28,7 +30,7 @@ export type OrderAddressInput = {
   country: string;
 };
 
-export type OrderItem = {
+export type OrderItem = ReviewWithRelations & {
   id: string;
   product_id: string;
   name: string;

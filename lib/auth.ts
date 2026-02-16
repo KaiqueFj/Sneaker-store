@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { createUser, getUser } from "../services/users-service";
+import { createUser, getUser, getUserForAuth } from "../services/users-service";
 import authConfig from "./auth-config";
 
 export const {
@@ -24,7 +24,7 @@ export const {
           return null;
         }
 
-        const user = await getUser(credentials.email);
+        const user = await getUserForAuth(credentials.email);
         if (!user?.password) return null;
 
         const isValid = await bcrypt.compare(

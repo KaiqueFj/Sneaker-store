@@ -76,7 +76,7 @@ export async function getSneakerSearch(
   return data;
 }
 
-export async function getSneaker(id: string): Promise<ProductListItem> {
+export async function getSneakerListItem(id: string): Promise<ProductListItem> {
   const session = await auth();
   const userId = session?.user?.userId ?? null;
 
@@ -124,6 +124,47 @@ export async function getSneaker(id: string): Promise<ProductListItem> {
     favoriteId: favorite?.id ?? null,
   };
 }
+
+import { ProductDetails } from "@/types/product";
+
+export async function getSneakerDetails(
+  id: string
+): Promise<ProductDetails> {
+  const session = await auth();
+  const userId = session?.user?.userId ?? null;
+
+  const { data, error } = await supabase
+    .from("products")
+    .select(
+      `
+        *,
+        favorites (
+          id,
+          client_id
+        )
+      `
+    )
+    .eq("id", id)
+    .single<ProductRow>();
+
+  if (error || !data) {
+    throw new Error("Sneaker could not be loaded");
+  }
+
+  const favorite =
+    userId && data.favorites
+      ? data.favorites.find((f) => f.client_id === userId)
+      : null;
+
+  const { favorites, ...product } = data;
+
+  return {
+    ...product, 
+    isFavorite: Boolean(favorite),
+    favoriteId: favorite?.id ?? null,
+  };
+}
+
 
 export async function getSneakersOnSale(): Promise<ProductListItem[]> {
   const session = await auth();
