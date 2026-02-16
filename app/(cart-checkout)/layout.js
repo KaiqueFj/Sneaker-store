@@ -19,13 +19,11 @@ export default function ShopLayout({ children }) {
 
       <div className="mt-8">
         {/* CART */}
-        {isCartPage && (
-          <main className="max-w-7xl mx-auto px-4">{children}</main>
-        )}
+        {isCartPage && <main className="max-w-7xl mx-auto ">{children}</main>}
 
         {/* CHECKOUT */}
         {isCheckoutPage && (
-          <div className="max-w-7xl mx-auto w-full mt-10 px-4">
+          <div className="max-w-7xl mx-auto w-full mt-10 px-2 ">
             <div className="grid grid-cols-12 gap-8">
               {/* LEFT – Cart items (desktop only) */}
               <aside className="hidden md:block md:col-span-3">
@@ -49,17 +47,17 @@ export default function ShopLayout({ children }) {
           <div className="max-w-7xl mx-auto w-full mt-10 px-4">
             <div className="grid grid-cols-12 gap-8">
               {/* LEFT – Cart items (desktop only) */}
-              <aside className="hidden md:block md:col-span-3">
+              <aside className="col-span-12 md:col-span-4">
                 <CartItemList variant="compact" />
               </aside>
 
               {/* CENTER – Checkout info (desktop only) */}
-              <aside className="hidden md:block md:col-span-6 opacity-50">
+              <aside className=" col-span-12 md:block md:col-span-4 opacity-50">
                 <CheckoutComponent />
               </aside>
 
               {/* RIGHT – Payment (always visible) */}
-              <main className="col-span-12 md:col-span-3">
+              <main className="col-span-12 md:col-span-4">
                 {" "}
                 <CheckoutTransition>{children}</CheckoutTransition>
               </main>

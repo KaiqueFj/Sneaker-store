@@ -2,10 +2,10 @@
 
 import { supabase } from "@/lib/supabase";
 import {
+  Address,
   AddressCep,
   Shipping,
   ShippingOptions,
-  UserAddress,
 } from "@/types/shipping";
 
 async function fetchAdressByCep(cep?: string): Promise<AddressCep> {
@@ -40,7 +40,7 @@ function calculateShipping(state?: string): Shipping[] {
   ];
 }
 
-export async function getUserAddresses(userId: string): Promise<UserAddress[]> {
+export async function getUserAddresses(userId: string): Promise<Address[]> {
   const { data, error } = await supabase
     .from("addresses")
     .select("*")

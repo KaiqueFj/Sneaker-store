@@ -1,11 +1,8 @@
-function Form({
-  children,
-  className = "",
-  ...props
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+import React from "react";
+
+type FormProps = React.FormHTMLAttributes<HTMLFormElement>;
+
+function Form({ children, className = "", ...props }: FormProps) {
   return (
     <form className={`flex flex-col gap-6 ${className}`} {...props}>
       {children}
@@ -38,9 +35,7 @@ Form.InputWrapper = function InputWrapper({
 Form.Input = function Input({
   className = "",
   ...props
-}: {
-  className?: string;
-}) {
+}: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
       className={`
@@ -49,11 +44,9 @@ Form.Input = function Input({
         px-1 py-2.5
         text-base text-neutral-900
         placeholder:text-neutral-400
-
         transition-colors duration-200
         focus:border-primary-600
         focus:outline-none
-
         disabled:opacity-50 disabled:cursor-not-allowed
         ${className}
       `}

@@ -21,8 +21,8 @@ export default function Cart({ defaultAddress }: { defaultAddress: Address }) {
   }, [defaultAddress, state.address, dispatch]);
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 p-4 md:p-6 max-w-7xl mx-auto w-full">
-      <div className="flex flex-col gap-6 flex-1">
+    <div className="flex flex-col md:flex-row gap-8 md:p-6 max-w-7xl mx-auto w-full">
+      <div className="flex flex-col gap-6 px-3 flex-1">
         <CartItemList editable />
 
         <div className="flex flex-col md:flex-row gap-6">

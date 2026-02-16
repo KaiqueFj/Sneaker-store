@@ -3,7 +3,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
-export default function CheckoutTransition({ children }) {
+export default function CheckoutTransition({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
 
   return (

@@ -14,6 +14,8 @@ export default function CartItemList({ variant = "full", editable = false }) {
 
   return (
     <div className="flex flex-col gap-3">
+      <h1 className="text-primary-600 font-bold text-lg">Products</h1>
+
       {state.items.length === 0 ? (
         <div className="text-center py-12 bg-white rounded-xl border border-primary-200">
           <p className="text-primary-400 text-base">Your bag is empty</p>
@@ -25,7 +27,7 @@ export default function CartItemList({ variant = "full", editable = false }) {
         state.items.map((sneaker) => (
           <div
             key={`${sneaker.id}-${sneaker.size}`}
-            className="flex flex-col md:flex-row gap-4 rounded-lg p-5 bg-white hover:shadow-md transition-shadow"
+            className="flex flex-col md:flex-row gap-4 rounded-lg  bg-white hover:shadow-md transition-shadow"
           >
             {/* TOP – sneaker info (mobile) */}
             <div className="flex flex-col gap-1 md:hidden">
@@ -56,8 +58,8 @@ export default function CartItemList({ variant = "full", editable = false }) {
               <Image
                 src={sneaker.image}
                 alt={sneaker.name}
-                width={variant === "compact" ? 80 : 600}
-                height={variant === "compact" ? 80 : 600}
+                width={variant === "compact" ? 60 : 600}
+                height={variant === "compact" ? 60 : 600}
                 className="w-full h-auto rounded-lg object-cover hover:opacity-90 transition-opacity"
               />
             </Link>
@@ -96,7 +98,10 @@ export default function CartItemList({ variant = "full", editable = false }) {
                   {sneaker.quantity === 1 ? (
                     <button
                       onClick={() =>
-                        dispatch({ type: "REMOVE_FROM_CART", payload: sneaker })
+                        dispatch({
+                          type: "REMOVE_FROM_CART",
+                          payload: sneaker,
+                        })
                       }
                       className="text-red-500 hover:text-red-600 transition-colors"
                       aria-label="Remove from cart"
@@ -146,7 +151,10 @@ export default function CartItemList({ variant = "full", editable = false }) {
                   {sneaker.quantity === 1 ? (
                     <button
                       onClick={() =>
-                        dispatch({ type: "REMOVE_FROM_CART", payload: sneaker })
+                        dispatch({
+                          type: "REMOVE_FROM_CART",
+                          payload: sneaker,
+                        })
                       }
                       className="text-red-500 hover:text-red-600 transition-colors"
                       aria-label="Remove from cart"

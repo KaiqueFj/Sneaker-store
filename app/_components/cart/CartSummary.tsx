@@ -17,6 +17,7 @@ export default function CartSummary() {
   const router = useRouter();
   const discountPercentage = checkout.cupom?.value ?? 0;
   const shippingPrice = checkout.shipping ? checkout.shipping.price : null;
+  const isAuthenticated = !!session?.user?.userId;
 
   const isCheckoutPage =
     pathname.includes("/checkout/payment") || pathname.includes("/checkout");
@@ -32,14 +33,19 @@ export default function CartSummary() {
   const discountValue =
     discountPercentage > 0 ? (subtotal * discountPercentage) / 100 : 0;
 
-  const handleOrderBtn = async () => {
-    // 1️⃣ Check authentication first
-    if (!session?.user?.userId) {
-      toast.error("You must log in first to place an order! Redirecting...");
+  const handleProceedToCheckout = () => {
+    if (!isAuthenticated) {
+      toast.error("You must log in first!");
       router.push("/login");
+      return;
     }
 
-    // 2️⃣ Continue with the normal order flow
+    router.push("/checkout");
+  };
+
+  const handleOrderBtn = async () => {
+    if (!isAuthenticated) return;
+
     await toast.promise(
       createOrder({
         cartItems: state.items,
@@ -47,6 +53,7 @@ export default function CartSummary() {
         address: checkout.address,
       }).then((order) => {
         dispatch({ type: "CLEAR_CART" });
+        router.push("/account/orders/thankyou");
         return order;
       }),
       {
@@ -56,6 +63,7 @@ export default function CartSummary() {
       },
     );
   };
+
   return (
     <div className="bg-white border border-primary-200 rounded-lg p-6 shadow-sm">
       <h2 className="text-xl font-semibold text-primary-600 mb-5">
@@ -112,11 +120,7 @@ export default function CartSummary() {
       <div className="mt-1 ">
         {isCheckoutPage && state.items.length > 0 ? (
           <Button
-            onClick={() =>
-              handleOrderBtn().then(() =>
-                router.push("/account/orders/thankyou"),
-              )
-            }
+            onClick={() => handleOrderBtn()}
             variant="primary"
             size="md"
             className="mt-4 w-full py-3.5"
@@ -130,7 +134,7 @@ export default function CartSummary() {
               variant="primary"
               size="md"
               className="w-full mt-4 py-3.5"
-              onClick={() => router.push("/checkout")}
+              onClick={() => handleProceedToCheckout()}
             >
               Proceed to Checkout
             </Button>
