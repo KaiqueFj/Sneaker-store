@@ -1,30 +1,29 @@
-import { pretty, render } from "@react-email/render";
 import nodemailer from "nodemailer";
-import ResetUserPasswordEmail from "../app/_components/ui/Email/ResetUserPasswordEmail";
 
-export default async function sendMail(
-  email: string,
-  resetUrl: string,
-): Promise<{ message: string }> {
+type SendMailProps = {
+  to: string;
+  subject: string;
+  html: string;
+};
+
+export default async function sendMail({
+  to,
+  subject,
+  html,
+}: SendMailProps): Promise<{ message: string }> {
   try {
-    const rendered = await render(
-      <ResetUserPasswordEmail resetUrl={resetUrl} />,
-    );
-
-    const html = await pretty(rendered);
-
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "kaiqueferraz.dev@gmail.com",
+        user: process.env.EMAIL_USER,
         pass: process.env.GOOGLE_APP_PASSWORD,
       },
     });
 
     await transporter.sendMail({
-      from: '"Shark Store team" <kaiqueferraz.dev@gmail.com>',
-      to: email,
-      subject: "This is your reset password link",
+      from: `"Shark Store Team" <${process.env.EMAIL_USER}>`,
+      to,
+      subject,
       html,
     });
 

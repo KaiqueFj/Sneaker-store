@@ -1,5 +1,7 @@
 "use server";
 
+import ResetUserPasswordEmail from "@/app/_components/ui/Email/ResetUserPasswordEmail";
+import ContactMessageEmail from "@/app/_components/ui/Email/contactMessageEmail";
 import { auth } from "@/lib/auth";
 import sendMail from "@/lib/mailer";
 import { supabase } from "@/lib/supabase";
@@ -9,6 +11,7 @@ import {
   getUserByHashedToken,
 } from "@/services/users-service";
 import { createResetToken } from "@/utils/helpers";
+import { pretty, render } from "@react-email/render";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { signIn, signOut } from "next-auth/react";
@@ -44,7 +47,6 @@ export async function signUpNewUserAction(
       message: "Account created successfully",
     };
   } catch (error) {
-    console.log(error);
     throw new Error("Something went wrong. Please try again.");
   }
 }
@@ -111,7 +113,7 @@ export async function sendResetPasswordlinkToEmail(
     const { hashedToken, rawToken } = createResetToken();
     const resetUrl = `${process.env.NEXTAUTH_URL.replace(/\/$/, "")}/password-reset/${rawToken}`;
 
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("users")
       .update({
         reset_token_hash: hashedToken,
@@ -123,13 +125,52 @@ export async function sendResetPasswordlinkToEmail(
       throw new Error("Something went wrong. Please try again later.");
     }
 
-    await sendMail(user.email, resetUrl);
+    const rendered = await render(
+      <ResetUserPasswordEmail resetUrl={resetUrl} />,
+    );
 
+    const html = await pretty(rendered);
+
+    await sendMail({
+      to: user.email,
+      subject: "This is your reset password link",
+      html,
+    });
     return {
       message: "If an account exists with this email, a reset link was sent.",
     };
   } catch (err) {
     throw new Error("Something went wrong. Please try again later.");
+  }
+}
+
+export async function sendContactMessage(
+  formData: FormData,
+): Promise<{ message: string }> {
+  try {
+    const name = formData.get("name")?.toString();
+    const email = formData.get("email")?.toString();
+    const message = formData.get("message")?.toString();
+
+    if (!name || !email || !message) {
+      throw new Error("All fields are required.");
+    }
+
+    const rendered = await render(
+      <ContactMessageEmail name={name} email={email} message={message} />,
+    );
+
+    const html = await pretty(rendered);
+
+    await sendMail({
+      to: process.env.EMAIL_USER!,
+      subject: "New Contact Message",
+      html,
+    });
+
+    return { message: "Message sent successfully." };
+  } catch (error) {
+    throw new Error("Something went wrong. Please try again.");
   }
 }
 

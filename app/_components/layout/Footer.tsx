@@ -14,13 +14,16 @@ export default function Footer() {
           <Link href="/" className="hover:text-white transition">
             Home
           </Link>
-          <Link href="/sales" className="hover:text-white transition">
+          <Link
+            href="/sneakers/nav/sales"
+            className="hover:text-white transition"
+          >
             Sales
           </Link>
-          <Link href="#" className="hover:text-white transition">
+          <Link href="/about" className="hover:text-white transition">
             About
           </Link>
-          <Link href="#" className="hover:text-white transition">
+          <Link href="contact" className="hover:text-white transition">
             Contact
           </Link>
         </div>
