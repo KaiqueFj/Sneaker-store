@@ -68,9 +68,7 @@ export default function OtherOptions() {
 
   return (
     <div className="flex items-center justify-end gap-2 text-md">
-      <div className="hidden md:flex">
-        <SearchBar />
-      </div>
+      <SearchBar />
       <Cart totalItems={totalItems} />
       <FavoritesBtn />
       <UserMenu session={session} navOptions={navOptionsDesk} />

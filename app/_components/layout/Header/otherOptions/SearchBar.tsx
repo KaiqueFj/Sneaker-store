@@ -11,7 +11,7 @@ export default function SearchBar() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="p-2 rounded-full hover:bg-gray-200 transition-colors"
+        className=" p-2 rounded-full hover:bg-gray-200 transition-colors"
         aria-label="Buscar"
       >
         <MagnifyingGlassIcon className="w-5 h-5 text-primary-600" />

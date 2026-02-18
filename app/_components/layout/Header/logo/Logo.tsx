@@ -10,7 +10,7 @@ export default function Logo() {
         width={60}
         height={60}
       />
-      <span className="text-lg flex lg:text-xl font-bold text-primary-600">
+      <span className=" hidden text-lg md:flex lg:text-xl font-bold text-primary-600">
         Shark Store
       </span>
     </Link>
