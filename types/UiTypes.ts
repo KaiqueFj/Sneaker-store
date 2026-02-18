@@ -11,6 +11,7 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 export type NavItem = {
   label: string;
   href?: string;
+  icon?: ReactNode;
 };
 
 export type NavigationListProps = {

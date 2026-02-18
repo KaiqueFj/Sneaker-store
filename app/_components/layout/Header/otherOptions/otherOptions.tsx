@@ -27,7 +27,7 @@ export default function OtherOptions() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const navOptionsDesk = [
+  const navOptionsDesk: NavItem[] = [
     {
       label: "Conta",
       href: "/account",
@@ -41,7 +41,7 @@ export default function OtherOptions() {
     { label: "Sair" },
   ];
 
-  const navOptionsMob = [
+  const navOptionsMob: NavItem[] = [
     { label: "Promoção", href: "/sneakers/nav/sales" },
     { label: "Lançamentos", href: "/" },
     { label: "Homens", href: "/sneakers/nav/men" },
@@ -67,7 +67,7 @@ export default function OtherOptions() {
   }, [mobileMenuOpen]);
 
   return (
-    <div className="flex items-center  justify-end gap-2 text-md">
+    <div className="flex items-center justify-end gap-2 text-md">
       <div className="hidden md:flex">
         <SearchBar />
       </div>
@@ -90,7 +90,10 @@ export default function OtherOptions() {
 function Cart({ totalItems }: { totalItems: number }) {
   return (
     <Link href="/cart">
-      <button className="relative transition-colors rounded-xl p-2 hover:bg-gray-300">
+      <button
+        aria-label="Cart"
+        className="relative transition-colors rounded-xl p-2 hover:bg-gray-300"
+      >
         <div className="relative w-6 h-6 flex items-center justify-center">
           <ShoppingBagIcon className="text-primary-600 w-6 h-6" />
           {totalItems > 0 && (
@@ -107,7 +110,10 @@ function Cart({ totalItems }: { totalItems: number }) {
 function FavoritesBtn() {
   return (
     <Link href="/favorites">
-      <button className="transition-colors rounded-xl p-2 hover:bg-gray-300">
+      <button
+        aria-label="Favorites"
+        className="transition-colors rounded-xl p-2 hover:bg-gray-300"
+      >
         <HeartIcon className="text-primary-600 w-6 h-6" />
       </button>
     </Link>
@@ -125,7 +131,10 @@ function UserMenu({
     <div className="hidden md:block md:relative group">
       {session?.user ? (
         <>
-          <button className="transition-colors rounded-full p-2 hover:bg-gray-300 flex items-center gap-2">
+          <button
+            aria-label="Account menu"
+            className="transition-colors rounded-full p-2 hover:bg-gray-300 flex items-center gap-2"
+          >
             {session.user.image ? (
               <Image
                 className="h-8 w-8 rounded-full"
@@ -144,8 +153,8 @@ function UserMenu({
           </button>
 
           <div
-            className="absolute right-0 w-40 bg-white border border-gray-200 rounded-xl shadow-lg 
-                       opacity-0 invisible group-hover:opacity-100 group-hover:visible 
+            className="absolute right-0 w-40 bg-white border border-gray-200 rounded-xl shadow-lg
+                       opacity-0 invisible group-hover:opacity-100 group-hover:visible
                        transition-opacity duration-200"
           >
             <NavigationList navItems={navOptions} className="flex-col" />
@@ -155,6 +164,7 @@ function UserMenu({
         <Link
           href="/account"
           className="transition-colors hover:text-accent-400 flex items-center gap-2"
+          aria-label="Guest area"
         >
           <UserCircleIcon className="text-primary-600 w-6 h-6" />
           <span className="text-primary-600 sm:inline">Guest area</span>
@@ -176,6 +186,7 @@ function MobileMenu({
       {/* Open button */}
       {!mobileMenuOpen && (
         <button
+          aria-label="Open menu"
           onClick={() => setMobileMenuOpen(true)}
           className="transition-colors rounded-xl p-2 hover:bg-gray-300"
         >
@@ -190,6 +201,7 @@ function MobileMenu({
       >
         <div className="flex justify-end border-b-2 border-primary-600/20 ">
           <button
+            aria-label="Close menu"
             onClick={() => setMobileMenuOpen(false)}
             className="transition-colors rounded-xl p-2 hover:bg-gray-300"
           >
@@ -204,7 +216,8 @@ function MobileMenu({
                 <UserCircleIcon className="text-primary-600 w-6 h-6 mr-1" />
                 <Link
                   href="/account"
-                  className="flex text-primary-600 hover:bg-gray-100 py-1 px-1 rounded-md    transition-colors"
+                  className="flex text-primary-600 hover:bg-gray-100 py-1 px-1 rounded-md transition-colors"
+                  aria-label={`Hello, ${session.user?.name?.split(" ")[0] ?? "User"}`}
                 >
                   Hello, {session.user?.name?.split(" ")[0] ?? "User"}
                 </Link>
@@ -219,7 +232,8 @@ function MobileMenu({
             <>
               <Link
                 href="/account"
-                className="transition-colors w-fit text-sm hover:text-primary-50 bg-primary-600 hover:bg-primary-600/40 text-primary-50 rounded-xl px-4 py-2.5 flex items-center  duration-300"
+                className="transition-colors w-fit text-sm hover:text-primary-50 bg-primary-600 hover:bg-primary-600/40 text-primary-50 rounded-xl px-4 py-2.5 flex items-center duration-300"
+                aria-label="Log in"
               >
                 Log in
               </Link>
