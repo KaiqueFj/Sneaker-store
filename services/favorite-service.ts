@@ -91,7 +91,7 @@ export async function getFavorites(): Promise<FavoriteProduct[]> {
         ...product,
         isFavorite: true,
         favoriteId: f.id,
-        sale: null, // 👈 required by ProductListItem
+        sale: null,
       } satisfies FavoriteProduct;
     })
     .filter(Boolean) as FavoriteProduct[];

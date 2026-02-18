@@ -13,12 +13,11 @@ export default async function page() {
     <div className="flex flex-col gap-10">
       <div className="flex flex-col items-center gap-3 px-4 py-10 text-center">
         <h2 className="text-4xl font-bold tracking-tight text-black">
-          Welcome, {firstName}
+          Olá, {firstName}
         </h2>
 
         <p className="max-w-sm text-sm text-gray-500">
-          View your orders, manage your account, and update your personal
-          information.
+          Veja seus pedidos e atualize suas informações de contato e endereço.
         </p>
       </div>
 

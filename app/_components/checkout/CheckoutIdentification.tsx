@@ -9,7 +9,7 @@ export default function CheckoutIdentification() {
 
   return (
     <section className="space-y-6">
-      <h2 className="text-2xl font-medium">Identification</h2>
+      <h2 className="text-2xl font-medium">Dados</h2>
 
       <div className="grid gap-4 rounded-xl border bg-white p-6">
         <InfoRow label="Name" value={session.user.name} />

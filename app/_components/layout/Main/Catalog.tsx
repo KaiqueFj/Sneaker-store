@@ -18,10 +18,10 @@ export default async function Catalog() {
       <div className="flex flex-col items-center w-full gap-6 p-4 my-10">
         <p className="text-3xl text-primary-600 font-bold text-center">
           <span className="block">
-            A collection of sneakers that can make you feel like a champion
+            Uma coleção de tênis que pode fazer você se sentir como um campeão
           </span>
-          <span className="block">And</span>
-          <span className="block">achieve a dream</span>
+          <span className="block">E</span>
+          <span className="block">alcançar um sonho</span>
         </p>
       </div>
 

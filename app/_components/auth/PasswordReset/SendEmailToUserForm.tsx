@@ -11,7 +11,7 @@ export default function SendEmailToUserForm() {
   async function handleSubmit(formData: FormData) {
     try {
       await toast.promise(sendResetPasswordlinkToEmail(formData), {
-        loading: "Sending...",
+        loading: "Enviando...",
         success: (data) => data.message,
         error: (err) => err.message,
       });
@@ -31,23 +31,19 @@ export default function SendEmailToUserForm() {
 
         {/* Title */}
         <h1 className="text-3xl font-semibold leading-tight text-gray-900">
-          Enter your e-mail
+          Digite seu e-mail
           <br />
-          to reset your password
+          para redefinir sua senha
         </h1>
 
         <p className="mt-3 text-sm text-gray-600">
-          {"We will send you an email with a link to reset your password."}
+          {"Enviaremos um e-mail com um link para redefinir sua senha."}
         </p>
 
         <Form action={handleSubmit} className="mt-8 space-y-6">
           <Form.Field>
             <Form.Label>E-mail</Form.Label>
-            <Form.Input
-              name="email"
-              type="email"
-              placeholder="your@email.com"
-            />
+            <Form.Input name="email" type="email" placeholder="seu@email.com" />
           </Form.Field>
 
           {/* Actions */}
@@ -56,15 +52,15 @@ export default function SendEmailToUserForm() {
               href="/login"
               className="text-base text-primary-600 border-primary-600/20 border-2 px-8 py-3 rounded-full hover:border-primary-600 transition"
             >
-              Cancel
+              Cancelar
             </Link>
             <Button
-              pendingLabel="Sending..."
+              pendingLabel="Enviando..."
               variant="primary"
               size="lg"
               className="font-medium"
             >
-              Send link
+              Enviar link
             </Button>
           </div>
         </Form>

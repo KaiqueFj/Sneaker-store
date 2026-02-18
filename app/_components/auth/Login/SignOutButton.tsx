@@ -11,7 +11,7 @@ function SignOutButton() {
       hover:bg-primary-900 hover:text-primary-600/20 text-primary-600"
     >
       <ArrowRightCircleIcon className="w-5 h-5 text-primary-600/70" />
-      <span>Sign out</span>
+      <span>Sair</span>
     </button>
   );
 }

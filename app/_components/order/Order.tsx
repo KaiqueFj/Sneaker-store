@@ -22,7 +22,7 @@ export default function Order({
   if (!orders || orders.length === 0) {
     return (
       <div className="rounded-lg border bg-white p-8 text-center text-gray-500">
-        No orders found. You have no orders yet!
+        Nenhum pedido encontrado. Você ainda não fez nenhum pedido!
       </div>
     );
   }
@@ -43,10 +43,10 @@ export default function Order({
             <div className="flex items-start justify-between gap-4">
               <div className="space-y-1">
                 <p className="text-sm font-semibold text-green-600">
-                  Order delivered
+                  Pedido entregue
                 </p>
                 <p className="text-sm text-gray-600">
-                  Order ID{" "}
+                  ID do pedido{" "}
                   <span className="font-medium text-gray-700">{order.id}</span>
                 </p>
                 <p className="text-xs text-gray-500">
@@ -60,7 +60,9 @@ export default function Order({
                 }
                 className="text-sm font-medium text-primary-600 hover:underline"
               >
-                {openOrderId === order.id ? "Hide details" : "Show details"}
+                {openOrderId === order.id
+                  ? "Ocultar detalhes"
+                  : "Mostrar detalhes"}
               </button>
             </div>
 
@@ -70,7 +72,7 @@ export default function Order({
                 {/* Delivery info */}
                 <div className="border-t pt-5 space-y-2">
                   <p className="text-sm font-semibold text-gray-800">
-                    Delivery address
+                    Endereço de entrega
                   </p>
 
                   {shippingAddress ? (
@@ -84,7 +86,7 @@ export default function Order({
                     </p>
                   ) : (
                     <p className="text-sm text-gray-400">
-                      Shipping address not available
+                      Endereço de entrega não disponível
                     </p>
                   )}
                 </div>
@@ -119,10 +121,10 @@ export default function Order({
                             </p>
 
                             <div className="space-y-1 text-sm text-gray-600">
-                              <p>Price: ${item.price}</p>
-                              <p>Size: {item.size}</p>
-                              <p>Color: {item.colors[0]}</p>
-                              <p>Quantity: {item.quantity}</p>
+                              <p>Preço: ${item.price}</p>
+                              <p>Tamanho: {item.size}</p>
+                              <p>Cor: {item.colors[0]}</p>
+                              <p>Quantidade: {item.quantity}</p>
                             </div>
 
                             <button
@@ -131,8 +133,8 @@ export default function Order({
                             >
                               ⭐{" "}
                               {userReview
-                                ? "Update your review"
-                                : "Rate this product"}
+                                ? "Atualizar sua avaliação"
+                                : "Avaliar este produto"}
                             </button>
 
                             {reviewItem?.id === item.id && (
@@ -169,22 +171,22 @@ export default function Order({
                   {/* ===== RIGHT: Order summary ===== */}
                   <div className="h-fit rounded-lg border bg-gray-50 p-5 space-y-4">
                     <h3 className="text-sm font-semibold text-gray-800">
-                      Order summary
+                      Resumo do pedido
                     </h3>
 
                     <div className="flex justify-between text-sm text-gray-600">
-                      <span>Date</span>
+                      <span>Data</span>
                       <span>{formatDate(order.created_at)}</span>
                     </div>
 
                     <div className="flex justify-between text-sm text-gray-600">
-                      <span>Items ({order.order_items.length})</span>
+                      <span>Itens ({order.order_items.length})</span>
                       <span>${order.total_price}</span>
                     </div>
 
                     <div className="flex justify-between text-sm text-gray-600">
-                      <span>Shipping</span>
-                      <span className="font-medium text-green-600">Free</span>
+                      <span>Frete</span>
+                      <span className="font-medium text-green-600">Grátis</span>
                     </div>
 
                     <div className="border-t pt-3 flex justify-between text-base font-semibold text-gray-900">
@@ -196,10 +198,14 @@ export default function Order({
 
                 {/* ===== Help section ===== */}
                 <div className="border-t pt-6 space-y-2 text-sm">
-                  <p className="font-semibold text-gray-800">Need help?</p>
+                  <p className="font-semibold text-gray-800">
+                    Precisa de ajuda?
+                  </p>
                   <div className="flex gap-6 text-primary-600">
-                    <button className="hover:underline">Contact us</button>
-                    <button className="hover:underline">Return policy</button>
+                    <button className="hover:underline">Fale conosco</button>
+                    <button className="hover:underline">
+                      Política de devolução
+                    </button>
                   </div>
                 </div>
               </>

@@ -28,7 +28,7 @@ export function AddressModal({ open, setOpen, addresses }) {
   async function handleSubmit(formData) {
     try {
       const result = await toast.promise(upsertUserAdress(formData), {
-        loading: "Saving address...",
+        loading: "Salvando endereço...",
         success: (data) => data.message,
         error: (err) => err.message,
       });
@@ -49,8 +49,8 @@ export function AddressModal({ open, setOpen, addresses }) {
 
     try {
       await toast.promise(removeUserAddress(id), {
-        loading: "Deleting address...",
-        success: "Address deleted",
+        loading: "Excluindo endereço...",
+        success: "Endereço excluído",
         error: (err) => err.message,
       });
 
@@ -76,13 +76,13 @@ export function AddressModal({ open, setOpen, addresses }) {
             {" "}
             <div>
               <h3 className="text-xl font-semibold text-neutral-900">
-                {isEditing ? "Edit address" : "Add new address"}
+                {isEditing ? "Editar endereço" : "Adicionar novo endereço"}
               </h3>
 
               <p className="mt-1 text-sm text-neutral-500">
                 {isEditing
-                  ? "Update your address details below."
-                  : "Fill in the details to add a new address."}
+                  ? "Atualize os detalhes do seu endereço abaixo."
+                  : "Preencha os detalhes para adicionar um novo endereço."}
               </p>
             </div>
             <button
@@ -100,10 +100,10 @@ export function AddressModal({ open, setOpen, addresses }) {
 
               {/* Label */}
               <Form.Field>
-                <Form.Label>Label</Form.Label>
+                <Form.Label>Rótulo</Form.Label>
                 <Form.Input
                   name="label"
-                  placeholder="Home, Work"
+                  placeholder="Casa, Trabalho"
                   type="text"
                   defaultValue={label ?? ""}
                 />
@@ -111,7 +111,7 @@ export function AddressModal({ open, setOpen, addresses }) {
 
               {/* Recipient */}
               <Form.Field>
-                <Form.Label>Recipient name</Form.Label>
+                <Form.Label>Nome do destinatário</Form.Label>
                 <Form.Input
                   name="recipient_name"
                   type="text"
@@ -120,7 +120,7 @@ export function AddressModal({ open, setOpen, addresses }) {
               </Form.Field>
 
               <Form.Field>
-                <Form.Label>Street</Form.Label>
+                <Form.Label>Rua</Form.Label>
                 <Form.Input
                   name="street"
                   type="text"
@@ -132,7 +132,7 @@ export function AddressModal({ open, setOpen, addresses }) {
                 {/*  Number */}
 
                 <Form.Field>
-                  <Form.Label>Number</Form.Label>
+                  <Form.Label>Número</Form.Label>
                   <Form.Input
                     name="number"
                     type="text"
@@ -142,7 +142,7 @@ export function AddressModal({ open, setOpen, addresses }) {
 
                 {/* Complement */}
                 <Form.Field>
-                  <Form.Label>Complement (optional)</Form.Label>
+                  <Form.Label>Complemento (opcional)</Form.Label>
                   <Form.Input
                     name="complement"
                     type="text"
@@ -154,7 +154,7 @@ export function AddressModal({ open, setOpen, addresses }) {
               {/* City / State */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Form.Field>
-                  <Form.Label>City</Form.Label>
+                  <Form.Label>Cidade</Form.Label>
                   <Form.Input
                     name="city"
                     type="text"
@@ -163,7 +163,7 @@ export function AddressModal({ open, setOpen, addresses }) {
                 </Form.Field>
 
                 <Form.Field>
-                  <Form.Label>State</Form.Label>
+                  <Form.Label>Estado</Form.Label>
                   <Form.Input
                     name="state"
                     type="text"
@@ -175,7 +175,7 @@ export function AddressModal({ open, setOpen, addresses }) {
               {/* Postal code / Country */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Form.Field>
-                  <Form.Label>Postal code</Form.Label>
+                  <Form.Label>Código postal</Form.Label>
                   <Form.Input
                     name="postal_code"
                     type="text"
@@ -184,7 +184,7 @@ export function AddressModal({ open, setOpen, addresses }) {
                 </Form.Field>
 
                 <Form.Field>
-                  <Form.Label>Country</Form.Label>
+                  <Form.Label>País</Form.Label>
                   <Form.Input
                     name="country"
                     type="text"
@@ -197,10 +197,10 @@ export function AddressModal({ open, setOpen, addresses }) {
                 <label className="flex items-center justify-between gap-4 rounded-lg border border-neutral-200 px-4 py-3 cursor-pointer hover:border-neutral-400 transition">
                   <div className="flex flex-col">
                     <span className="text-sm font-medium text-neutral-900">
-                      Set as default address
+                      Definir como endereço padrão
                     </span>
                     <span className="text-xs text-neutral-500">
-                      This address will be used by default at checkout
+                      Este endereço será usado por padrão no checkout
                     </span>
                   </div>
 
@@ -224,17 +224,17 @@ export function AddressModal({ open, setOpen, addresses }) {
                       variant="secondary"
                       onClick={handleDelete}
                     >
-                      Delete address
+                      Excluir endereço
                     </Button>
 
                     {/* Save */}
-                    <Button type="submit" size="lg" pendingLabel="Saving...">
-                      Update address
+                    <Button type="submit" size="lg" pendingLabel="Salvando...">
+                      Atualizar endereço
                     </Button>
                   </>
                 ) : (
-                  <Button type="submit" size="lg" pendingLabel="Saving...">
-                    Add address
+                  <Button type="submit" size="lg" pendingLabel="Salvando...">
+                    Adicionar endereço
                   </Button>
                 )}
               </Form.Actions>

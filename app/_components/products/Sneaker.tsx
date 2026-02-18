@@ -92,7 +92,7 @@ Sneaker.Category = function Category({ children }) {
 Sneaker.Colors = function Colors({ count }) {
   return (
     <p className="text-xs text-gray-500">
-      {count > 1 ? `${count} colors` : `${count} color`}
+      {count > 1 ? `${count} cores` : `${count} cor`}
     </p>
   );
 };
@@ -103,18 +103,18 @@ Sneaker.Price = function Price({ sale, price }) {
       {sale ? (
         <span className="flex items-center gap-2">
           <span className="font-bold text-primary-600">
-            $
+            R${" "}
             {(
               sale.discountPrice ?? price * (1 - sale.discountPercentage / 100)
             ).toFixed(2)}
           </span>
 
           <span className="line-through font-normal text-gray-500">
-            ${price}
+            R$ {price}
           </span>
 
           <span className="text-green-700 text-sm font-medium">
-            {sale.discountPercentage}% off
+            {sale.discountPercentage}% de desconto
           </span>
         </span>
       ) : (

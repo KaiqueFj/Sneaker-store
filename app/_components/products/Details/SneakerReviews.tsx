@@ -21,7 +21,7 @@ export default function SneakerReviews({
       {/* ===== Header ===== */}
       <div className="flex justify-between w-full py-6 items-center border-b border-primary-600/10">
         <h2 className="text-primary-600 text-xl font-normal">
-          Reviews ({reviews.length})
+          Avaliações ({reviews.length})
         </h2>
 
         <button

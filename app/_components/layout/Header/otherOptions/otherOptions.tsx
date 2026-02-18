@@ -29,25 +29,25 @@ export default function OtherOptions() {
 
   const navOptionsDesk = [
     {
-      label: "Account",
+      label: "Conta",
       href: "/account",
       icon: <UserCircleIcon className="text-primary-600 w-6 h-6" />,
     },
     {
-      label: "Orders",
+      label: "Pedidos",
       href: "/account/orders",
       icon: <ShoppingBagIcon className="text-primary-600 w-6 h-6" />,
     },
-    { label: "Sign out" },
+    { label: "Sair" },
   ];
 
   const navOptionsMob = [
-    { label: "Sale", href: "/sneakers/nav/sales" },
-    { label: "Releases", href: "/" },
-    { label: "Men", href: "/sneakers/nav/men" },
-    { label: "Women", href: "/sneakers/nav/women" },
-    { label: "Orders", href: "/account/orders" },
-    { label: "Sign out" },
+    { label: "Promoção", href: "/sneakers/nav/sales" },
+    { label: "Lançamentos", href: "/" },
+    { label: "Homens", href: "/sneakers/nav/men" },
+    { label: "Mulheres", href: "/sneakers/nav/women" },
+    { label: "Pedidos", href: "/account/orders" },
+    { label: "Sair" },
   ];
 
   // Close mobile menu on outside click

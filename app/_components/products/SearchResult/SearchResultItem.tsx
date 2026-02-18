@@ -33,7 +33,7 @@ export default function SearchResultItem({
         </p>
 
         <p className="text-sm text-gray-500">
-          {category} · {gender?.[0] ?? "Unisex"}
+          {category} · {gender?.[0] ?? "Unissex"}
         </p>
 
         <p className="mt-1 text-base font-semibold text-gray-900">

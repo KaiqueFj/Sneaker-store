@@ -18,7 +18,7 @@ function SignInButton() {
         height={24}
         width={24}
       />
-      <span>Continue with Google</span>
+      <span>Continuar com Google</span>
     </button>
   );
 }

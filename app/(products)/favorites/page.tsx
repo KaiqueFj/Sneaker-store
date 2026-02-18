@@ -6,10 +6,10 @@ export default async function page() {
 
   return (
     <div className="flex flex-col items-center mx-auto justify-center gap-4">
-      <h2 className="text-2xl font-bold">Favorites</h2>
+      <h2 className="text-2xl font-bold">Favoritos</h2>
 
       <div className="flex flex-row justify-center w-3/4">
-        <SneakersList filter="all" sneakers={favorites} />
+        <SneakersList filter="Todos" sneakers={favorites} />
       </div>
     </div>
   );

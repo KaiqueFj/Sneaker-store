@@ -25,12 +25,12 @@ export async function signUpNewUserAction(
   const password = formData.get("password")?.toString();
 
   if (!email || !password) {
-    throw new Error("Email and password are required");
+    throw new Error("Email e senha são obrigatórios");
   }
 
   const existingUser = await getUser(email);
   if (existingUser) {
-    throw new Error("User already exists");
+    throw new Error("Usuário já existe");
   }
 
   try {
@@ -44,10 +44,10 @@ export async function signUpNewUserAction(
     });
 
     return {
-      message: "Account created successfully",
+      message: "Conta criada com sucesso",
     };
   } catch (error) {
-    throw new Error("Something went wrong. Please try again.");
+    throw new Error("Algo deu errado. Por favor, tente novamente.");
   }
 }
 
@@ -69,7 +69,7 @@ export async function updateUserProfile(
   if (!session) {
     return {
       ok: false,
-      message: "You must be logged in to update your profile",
+      message: "Você precisa estar logado para atualizar seu perfil",
     };
   }
 
@@ -86,9 +86,9 @@ export async function updateUserProfile(
       .eq("id", client_id);
 
     revalidatePath("/account/profile");
-    return { message: "Profile updated successfully", ok: true };
+    return { message: "Perfil atualizado com sucesso", ok: true };
   } catch (error) {
-    throw new Error("Something went wrong. Please try again.");
+    throw new Error("Algo deu errado. Por favor, tente novamente.");
   }
 }
 
@@ -106,7 +106,8 @@ export async function sendResetPasswordlinkToEmail(
 
     if (!user || user.provider === "google") {
       return {
-        message: "If an account exists with this email, a reset link was sent.",
+        message:
+          "Se existir uma conta com este email, um link de redefinição foi enviado.",
       };
     }
 
@@ -133,14 +134,15 @@ export async function sendResetPasswordlinkToEmail(
 
     await sendMail({
       to: user.email,
-      subject: "This is your reset password link",
+      subject: "Link para redefinir sua senha",
       html,
     });
     return {
-      message: "If an account exists with this email, a reset link was sent.",
+      message:
+        "Se existir uma conta com este email, um link de redefinição foi enviado.",
     };
   } catch (err) {
-    throw new Error("Something went wrong. Please try again later.");
+    throw new Error("Algo deu errado. Tente novamente mais tarde.");
   }
 }
 
@@ -153,7 +155,7 @@ export async function sendContactMessage(
     const message = formData.get("message")?.toString();
 
     if (!name || !email || !message) {
-      throw new Error("All fields are required.");
+      throw new Error("Todos os campos são obrigatórios.");
     }
 
     const rendered = await render(
@@ -164,13 +166,13 @@ export async function sendContactMessage(
 
     await sendMail({
       to: process.env.EMAIL_USER!,
-      subject: "New Contact Message",
+      subject: "Nova mensagem de contato",
       html,
     });
 
-    return { message: "Message sent successfully." };
+    return { message: "Mensagem enviada com sucesso." };
   } catch (error) {
-    throw new Error("Something went wrong. Please try again.");
+    throw new Error("Algo deu errado. Por favor, tente novamente.");
   }
 }
 
@@ -182,15 +184,15 @@ export async function resetPassword(
   const token = formData.get("token")?.toString();
 
   if (!password || !confirm || !token) {
-    throw new Error("Invalid request");
+    throw new Error("Solicitação inválida");
   }
 
   if (password.length < 8) {
-    throw new Error("Password must be at least 8 characters");
+    throw new Error("A senha deve ter pelo menos 8 caracteres");
   }
 
   if (password !== confirm) {
-    throw new Error("Passwords do not match");
+    throw new Error("As senhas não coincidem");
   }
 
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
@@ -198,7 +200,7 @@ export async function resetPassword(
   const user = await getUserByHashedToken(hashedToken);
 
   if (!user) {
-    throw new Error("Invalid or expired token");
+    throw new Error("Token inválido ou expirado");
   }
 
   const hashedPassword = await bcrypt.hash(password, 12);
@@ -214,12 +216,12 @@ export async function resetPassword(
       .eq("id", user.id);
 
     if (error) {
-      throw new Error("Something went wrong. Please try again.");
+      throw new Error("Algo deu errado. Por favor, tente novamente.");
     }
 
-    return { message: "Password updated successfully" };
+    return { message: "Senha atualizada com sucesso" };
   } catch (error) {
-    throw new Error("Something went wrong. Please try again later.");
+    throw new Error("Algo deu errado. Tente novamente mais tarde.");
   }
 }
 

@@ -9,10 +9,10 @@ import CheckoutIdentification from "./CheckoutIdentification";
 import CheckoutShipping from "./CheckoutShipping";
 
 export default function CheckoutComponent({
-  addresses,
+  addresses = null,
   variant = "default",
 }: {
-  addresses: Address[];
+  addresses?: Address[] | null;
   variant?: "default" | "compact";
 }) {
   const { state: checkout, dispatch } = useCheckout();

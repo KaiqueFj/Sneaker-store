@@ -85,7 +85,7 @@ export default function SneakerDesktopView({
               className="w-8 h-8 text-primary-600 font-semibold cursor-pointer"
               onClick={() => {
                 navigator.clipboard.writeText(currentUrl);
-                toast.success("Link copied!");
+                toast.success("Link copiado!");
               }}
             />
           </div>
@@ -99,19 +99,19 @@ export default function SneakerDesktopView({
                 onClick={goToReviews}
                 className="text-sm underline cursor-pointer text-gray-600"
               >
-                View reviews ({rating_count})
+                Ver avaliações ({rating_count})
               </button>
             ) : (
-              <p>No reviews yet</p>
+              <p>Ainda sem avaliações</p>
             )}
           </div>
 
-          <p className="text-2xl font-medium mt-6">${price}</p>
+          <p className="text-2xl font-medium mt-6">R$ {price}</p>
         </div>
 
         {/* SIZE */}
         <div>
-          <p className="text-sm font-medium mb-3">Select Size</p>
+          <p className="text-sm font-medium mb-3">Selecionar tamanho</p>
           <div className="grid grid-cols-4 gap-3">
             {sizes.map((size) => (
               <button
@@ -136,7 +136,7 @@ export default function SneakerDesktopView({
             onClick={addToCart}
             className="h-14 w-3/4 px-6 py-3  rounded-full bg-black  text-white text-base font-medium tracking-wide transition hover:bg-black/70 active:scale-[0.99]"
           >
-            Add to Bag
+            Adicionar à sacola
           </button>
 
           <button
@@ -144,7 +144,7 @@ export default function SneakerDesktopView({
             disabled={isPending}
             className="h-14 w-3/4 px-6 py-3  rounded-full border border-primary-600/25 flex items-center justify-center text-base font-medium tracking-wide transition hover:bg-black/5 active:scale-[0.99] gap-2"
           >
-            {isFavoriteState ? "Favorited" : "Favorite"}
+            {isFavoriteState ? "Favoritado" : "Favoritar"}
             {isFavoriteState ? (
               <HeartSolid className="w-6 h-6 text-red-500" />
             ) : (
@@ -155,7 +155,7 @@ export default function SneakerDesktopView({
           {/* Description */}
           <div className="mt-12 max-w-prose">
             <h3 className="mb-4 text-xl font-semibold text-primary-600">
-              Description
+              Descrição
             </h3>
 
             <p className="whitespace-pre-line text-lg font-medium leading-7 text-primary-600 [&>strong]:text-primary-600">
@@ -168,7 +168,7 @@ export default function SneakerDesktopView({
                   onClick={() => setIsDescriptionOpen(true)}
                   className="mt-2 text-lg underline font-semibold text-primary-600 hover:text-gray-600"
                 >
-                  Read more
+                  Ler mais
                 </button>
               )}
             </p>

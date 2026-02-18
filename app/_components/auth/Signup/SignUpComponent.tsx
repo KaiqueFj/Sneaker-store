@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export const metadata = { title: "Sign Up" };
+export const metadata = { title: "Cadastrar" };
 
 export default function SignUpComponent() {
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function SignUpComponent() {
   async function handleSubmit(formData: FormData) {
     try {
       await toast.promise(signUpNewUserAction(formData), {
-        loading: "Creating account...",
+        loading: "Criando conta...",
         success: (data) => {
           router.push("/login");
           return data.message;
@@ -38,33 +38,33 @@ export default function SignUpComponent() {
     <div className="flex flex-col items-center px-4 mt-16 gap-8">
       {/* Title */}
       <div className="text-center space-y-1">
-        <h2 className="text-3xl font-semibold">Sign up to your account</h2>
+        <h2 className="text-3xl font-semibold">Cadastre-se na sua conta</h2>
       </div>
 
       {/* Card */}
       <div className="w-full max-w-md bg-white rounded-2xl border border-primary-600/10 shadow-sm">
         <Form action={handleSubmit} className="mt-6 p-6">
           <Form.Field>
-            <Form.Label>Full name</Form.Label>
+            <Form.Label>Nome completo</Form.Label>
             <Form.Input
               name="name"
               type="text"
-              placeholder="John Doe"
+              placeholder="João Silva"
               required
             />
           </Form.Field>
           <Form.Field>
-            <Form.Label>Email</Form.Label>
+            <Form.Label>E-mail</Form.Label>
             <Form.Input
               name="email"
               type="email"
-              placeholder="you@example.com"
+              placeholder="voce@exemplo.com"
               required
             />
           </Form.Field>
 
           <Form.Field>
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Senha</Form.Label>
 
             <Form.InputWrapper>
               <Form.Input
@@ -102,9 +102,9 @@ export default function SignUpComponent() {
               className="w-full"
               size="lg"
               variant="primary"
-              pendingLabel="Creating..."
+              pendingLabel="Criando..."
             >
-              Create account
+              Criar conta
             </Button>
           </Form.Actions>
 
@@ -112,7 +112,7 @@ export default function SignUpComponent() {
           <div className="flex items-center gap-4">
             <div className="h-px flex-1 bg-neutral-200"></div>
             <span className="text-xs uppercase tracking-wide text-neutral-400">
-              or
+              ou
             </span>
             <div className="h-px flex-1 bg-neutral-200"></div>
           </div>
@@ -124,14 +124,14 @@ export default function SignUpComponent() {
           {/* Link to signup */}
           <div className="flex flex-row gap-2 items-center justify-center">
             <p className="text-sm text-center text-neutral-600">
-              {"Already have an account?"}
+              {"Já tem uma conta?"}
             </p>
 
             <Link
               href="/login"
               className="text-primary-600 text-sm hover:underline"
             >
-              Sign in
+              Entrar
             </Link>
           </div>
         </Form>

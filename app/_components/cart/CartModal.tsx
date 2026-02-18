@@ -68,7 +68,7 @@ export default function CartModal() {
             <div className="flex gap-2 items-center">
               <CheckCircleIcon className="w-8 h-10 text-green-500" />
               <span className="text-lg text-primary-600 font-medium">
-                Added to bag
+                Adicionado à sacola
               </span>
             </div>
 
@@ -114,13 +114,13 @@ export default function CartModal() {
               <div className="flex flex-col items-center gap-4">
                 <Link className="w-11/12" href="/cart">
                   <button className="flex flex-row font-semibold items-center h-14 justify-center bg-primary-600 w-full  text-white px-6 py-2 rounded-full hover:bg-gray-800 transition">
-                    View bag ({totalItems})
+                    Ver sacola ({totalItems})
                     <ShoppingCartIcon className="ml-2 h-5 w-5" />
                   </button>
                 </Link>
 
                 <button className="flex gap-2 flex-row  w-11/12 items-center h-14 justify-center border-primary-500/20 border-2  text-primary-600 px-4 rounded-full hover:bg-primary-600/10 transition hover:text-red-500">
-                  Checkout
+                  Finalizar compra
                 </button>
               </div>
             </div>

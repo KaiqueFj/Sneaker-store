@@ -3,7 +3,7 @@ import Sneaker from "@/app/_components/products/Sneaker";
 import { ProductListItem } from "@/types/product";
 
 export default function SneakersList({
-  filter = "all",
+  filter = "Todos",
   sneakers,
 }: {
   filter: string;
@@ -13,19 +13,19 @@ export default function SneakersList({
 
   let displayedSneaker: ProductListItem[] = [];
 
-  if (filter === "all") displayedSneaker = sneakers;
+  if (filter === "Todos") displayedSneaker = sneakers;
 
-  if (filter === "Price Low to High")
+  if (filter === "Menor preço")
     displayedSneaker = [...sneakers].sort(
       (a, b) => Number(a.price) - Number(b.price),
     );
 
-  if (filter === "Price High to Low")
+  if (filter === "Maior preço")
     displayedSneaker = [...sneakers].sort(
       (a, b) => Number(b.price) - Number(a.price),
     );
 
-  if (filter === "Sale")
+  if (filter === "Oferta")
     displayedSneaker = sneakers
       .filter((s) => s.sale)
       .sort(
@@ -41,7 +41,7 @@ export default function SneakersList({
         ))
       ) : (
         <div className="col-span-full text-center text-gray-500 py-10">
-          No sneakers available.
+          Nenhum tenis encontrado
         </div>
       )}
     </Sneaker>

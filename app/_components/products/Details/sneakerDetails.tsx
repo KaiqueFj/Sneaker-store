@@ -37,7 +37,7 @@ export default function SneakerDetails({
   function handleFavorite() {
     if (!session?.user?.userId) {
       toast.error(
-        "You must log in first to favorite a sneaker! Redirecting you to the login page...",
+        "Você precisa entrar primeiro para favoritar um tênis! Redirecionando para a página de login...",
       );
 
       setTimeout(() => {

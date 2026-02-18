@@ -29,14 +29,14 @@ async function fetchAdressByCep(cep?: string): Promise<AddressCep> {
 function calculateShipping(state?: string): Shipping[] {
   if (state === "SP") {
     return [
-      { type: "Standard", price: 0, days: 3 },
-      { type: "Express", price: 10, days: 2 },
+      { type: "Normal", price: 0, days: 3 },
+      { type: "Expresso", price: 10, days: 2 },
     ];
   }
 
   return [
-    { type: "Standard", price: 30, days: 7 },
-    { type: "Express", price: 40, days: 4 },
+    { type: "Normal", price: 30, days: 7 },
+    { type: "Expresso", price: 40, days: 4 },
   ];
 }
 

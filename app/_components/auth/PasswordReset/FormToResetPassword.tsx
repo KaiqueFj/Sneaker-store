@@ -14,7 +14,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
   async function handleSubmit(formData: FormData) {
     try {
       await toast.promise(resetPassword(formData), {
-        loading: "Resetting password...",
+        loading: "Redefinindo senha...",
         success: (data) => {
           router.push("/login");
           return data.message;
@@ -36,17 +36,17 @@ export default function ResetPasswordForm({ token }: { token: string }) {
 
         {/* Title */}
         <h1 className="text-3xl font-semibold leading-tight text-gray-900">
-          Create a new password
+          Crie uma nova senha
         </h1>
 
         <p className="mt-3 text-sm text-gray-600">
-          Choose a new password to access your account.
+          Escolha uma nova senha para acessar sua conta.
         </p>
 
         <Form action={handleSubmit} className="mt-8 ">
           {/* Password */}
           <Form.Field>
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Senha</Form.Label>
             <Form.Input
               name="password"
               type="password"
@@ -56,7 +56,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
 
           {/* Confirm password */}
           <Form.Field>
-            <Form.Label>Confirm password</Form.Label>
+            <Form.Label>Confirmar senha</Form.Label>
             <Form.Input
               name="confirmPassword"
               type="password"
@@ -66,7 +66,9 @@ export default function ResetPasswordForm({ token }: { token: string }) {
 
           {/* Helper text */}
           <p className="text-xs text-gray-500">
-            {" Make sure it's at least 15 characters OR at least 8 characters"}
+            {
+              "Certifique-se de que tenha pelo menos 15 caracteres OU pelo menos 8 caracteres"
+            }
           </p>
 
           <Form.Field>
@@ -79,15 +81,15 @@ export default function ResetPasswordForm({ token }: { token: string }) {
               href="/login"
               className="text-base text-primary-600 border-primary-600/20 border-2 px-8 py-3 rounded-full hover:border-primary-600 transition"
             >
-              Cancel
+              Cancelar
             </Link>
             <Button
-              pendingLabel="resetting..."
+              pendingLabel="Redefinindo..."
               variant="primary"
               size="lg"
               className="font-medium"
             >
-              Reset password
+              Redefinir senha
             </Button>
           </div>
         </Form>

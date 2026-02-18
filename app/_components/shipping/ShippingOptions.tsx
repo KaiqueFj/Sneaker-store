@@ -29,10 +29,10 @@ export default function ShippingOptions({
             <div>
               <p className="font-semibold">
                 {option.type} —{" "}
-                {option.price === 0 ? "Free" : formatCurrency(option.price)}
+                {option.price === 0 ? "Grátis" : formatCurrency(option.price)}
               </p>
-              <p className="text-sm text-gray-600">
-                {option.days} business days
+              <p className="text-sm text-primary-600">
+                {option.days} dias úteis
               </p>
             </div>
           </label>
@@ -40,8 +40,8 @@ export default function ShippingOptions({
       })}
 
       {state.address?.city && (
-        <p className="mt-2 text-sm text-gray-500">
-          Deliver to{" "}
+        <p className="mt-2 text-sm text-primary-600 font-medium">
+          Entregar para{" "}
           <span className="font-medium">
             {state.address.city}, {state.address.state}
           </span>

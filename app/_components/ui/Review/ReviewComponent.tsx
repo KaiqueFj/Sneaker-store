@@ -33,11 +33,11 @@ export default function ReviewComponent({
       };
 
       const savedReview = await toast.promise(upsertReview(updatedReview), {
-        loading: "Saving your review...",
+        loading: "Salvando sua avaliação...",
         success: review
-          ? "Review updated successfully!"
-          : "Review saved successfully!",
-        error: "Review could not be saved. Try again!",
+          ? "Avaliação atualizada com sucesso!"
+          : "Avaliação salva com sucesso!",
+        error: "Erro ao salvar a avaliação. Tente novamente.",
       });
 
       onSuccess(savedReview);
@@ -50,7 +50,7 @@ export default function ReviewComponent({
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md">
-        <h3 className="font-semibold text-lg mb-2">Review {item.name}</h3>
+        <h3 className="font-semibold text-lg mb-2">Avaliação {item.name}</h3>
 
         <StarInput value={rating} onChange={setRating} />
 
@@ -62,7 +62,7 @@ export default function ReviewComponent({
         />
 
         <div className="flex justify-end gap-3 mt-4">
-          <button onClick={onClose}>Cancel</button>
+          <button onClick={onClose}>Cancelar</button>
 
           <button
             disabled={loading}
@@ -72,10 +72,10 @@ export default function ReviewComponent({
             {loading ? (
               <>
                 <MiniSpinner />
-                Saving...
+                Salvando...
               </>
             ) : (
-              "Submit review"
+              "Salvar avaliação"
             )}
           </button>
         </div>

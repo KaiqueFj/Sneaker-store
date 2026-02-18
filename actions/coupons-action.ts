@@ -35,7 +35,6 @@ export async function getCouponDiscount(
       message: "Coupon applied successfully",
     };
   } catch (err) {
-    console.log(err);
     return {
       success: false,
       message: "Unexpected error. Try again later.",

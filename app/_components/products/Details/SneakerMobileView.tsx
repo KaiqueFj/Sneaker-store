@@ -48,7 +48,7 @@ export default function SneakerMobileView({
             className="w-6.5 h-6.5 text-primary-600 font-semibold cursor-pointer"
             onClick={() => {
               navigator.clipboard.writeText(currentUrl);
-              toast.success("Link copied!");
+              toast.success("Link copiado!");
             }}
           />
         </div>
@@ -60,11 +60,11 @@ export default function SneakerMobileView({
               onClick={goToReviews}
               className="text-sm underline cursor-pointer text-gray-600"
             >
-              View reviews ({rating_count})
+              Ver avaliações ({rating_count})
             </button>
           )}
         </div>
-        <p className="text-2xl font-medium mt-6">${price}</p>
+        <p className="text-2xl font-medium mt-6">R${price}</p>
       </div>
 
       {/* IMAGE */}
@@ -72,7 +72,7 @@ export default function SneakerMobileView({
 
       {/* SIZE */}
       <div className="px-4">
-        <p className="text-sm font-medium mb-3">Select Size</p>
+        <p className="text-sm font-medium mb-3">Selecionar tamanho</p>
         <div className="grid grid-cols-4 gap-3">
           {sizes.map((size) => (
             <button
@@ -97,14 +97,14 @@ export default function SneakerMobileView({
           onClick={addToCart}
           className="h-14 rounded-full bg-black text-white font-medium transition hover:bg-black/70"
         >
-          Add to Bag
+          Adicionar ao carrinho
         </button>
 
         <button
           onClick={handleFavorite}
           className="h-14 rounded-full border flex items-center justify-center gap-2 transition hover:bg-black/5"
         >
-          {isFavoriteState ? "Favorited" : "Favorite"}
+          {isFavoriteState ? "Favoritado" : "Favoritar"}
           {isFavoriteState ? (
             <HeartSolid className="w-6 h-6 text-red-500" />
           ) : (
@@ -116,7 +116,7 @@ export default function SneakerMobileView({
       {/* Description */}
       <div className="mt-12 px-4 max-w-prose">
         <h3 className="mb-4 text-xl font-semibold text-primary-600">
-          Description
+          Descrição
         </h3>
 
         <p className="whitespace-pre-line text-lg font-medium leading-7 text-primary-600 [&>strong]:text-primary-600">
@@ -129,7 +129,7 @@ export default function SneakerMobileView({
               onClick={() => setIsDescriptionOpen(true)}
               className="mt-2 text-lg underline font-semibold text-primary-600 hover:text-gray-600"
             >
-              Read more
+              Ler mais
             </button>
           )}
         </p>

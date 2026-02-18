@@ -4,13 +4,13 @@ function NotFound() {
   return (
     <main className="mt-4 space-y-6 text-center">
       <h1 className="text-3xl text-primary-600 font-semibold">
-        This page could not be found :(
+        Não foi possivel encontrar essa página :(
       </h1>
       <Link
         href="/"
         className="inline-block px-6 py-3 text-lg bg-accent-500 text-primary-600/70 hover:underline"
       >
-        Go back home
+        Voltar para a página inicial
       </Link>
     </main>
   );

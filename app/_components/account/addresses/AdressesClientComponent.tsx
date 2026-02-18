@@ -17,17 +17,18 @@ export default function AddressesClient({
       {/* Header */}
       <header className="mb-12 text-center">
         <h2 className="mb-3 text-4xl font-bold tracking-tight text-neutral-900">
-          Addresses
+          Endereços
         </h2>
         <p className="text-sm text-neutral-500">
-          Manage your saved addresses for a faster checkout experience.
+          Gerencie seus endereços salvos para uma experiência de checkout mais
+          rápida.
         </p>
       </header>
 
       {/* List */}
       <section>
         <h3 className="mb-6 text-2xl font-semibold text-neutral-900">
-          Your Addresses
+          Seus Endereços
         </h3>
 
         <div className="flex flex-col gap-4">
@@ -39,7 +40,7 @@ export default function AddressesClient({
               <div className="flex flex-col gap-1">
                 {address.is_default && (
                   <span className="text-xs uppercase tracking-wide text-primary-600 font-bold">
-                    Default address
+                    Endereço padrão
                   </span>
                 )}
 
@@ -59,7 +60,7 @@ export default function AddressesClient({
                 }}
                 className="text-sm font-medium text-neutral-900 hover:underline"
               >
-                Edit
+                Editar
               </button>
             </div>
           ))}
@@ -71,7 +72,7 @@ export default function AddressesClient({
             }}
             className="mt-4 rounded-lg border border-dashed border-neutral-300 px-4 py-3 text-sm font-medium text-neutral-700 hover:border-neutral-900 hover:text-neutral-900"
           >
-            + Add new address
+            + Adicionar novo endereço
           </button>
         </div>
       </section>

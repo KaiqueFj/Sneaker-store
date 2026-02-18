@@ -46,18 +46,18 @@ export default function AccountMenu() {
   return (
     <div className="mx-auto w-full max-w-xl px-4">
       <div className="flex flex-col p-4 bg-gray-100/20 gap-8">
-        <Section title="Orders">
-          <MenuItem href="/account/orders" label="Last orders" />
+        <Section title="Pedidos">
+          <MenuItem href="/account/orders" label="Últimos pedidos" />
         </Section>
 
-        <Section title="Account">
-          <MenuItem href="/account/profile" label="Update profile" />
-          <MenuItem href="/account/addresses" label="Addresses" />
-          <MenuItem href="/account/updatePassword" label="Update password" />
+        <Section title="Conta">
+          <MenuItem href="/account/profile" label="Atualizar perfil" />
+          <MenuItem href="/account/addresses" label="Endereços" />
+          <MenuItem href="/account/updatePassword" label="Atualizar senha" />
         </Section>
 
-        <Section title="Services">
-          <MenuItem href="/favorites" label="Favorites" />
+        <Section title="Serviços">
+          <MenuItem href="/favorites" label="Favoritos" />
         </Section>
       </div>
     </div>

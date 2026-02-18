@@ -7,30 +7,31 @@ export default function Footer() {
     <footer className="bg-primary-600 text-primary-50 py-6 mt-10">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
         {/* Brand */}
-        <h2 className="text-lg font-bold text-white">Shark Store</h2>
+        <h2 className="text-lg font-bold text-white">Loja Tubarão</h2>
 
         {/* Links */}
         <div className="flex gap-6 mt-4 md:mt-0">
           <Link href="/" className="hover:text-white transition">
-            Home
+            Início
           </Link>
           <Link
             href="/sneakers/nav/sales"
             className="hover:text-white transition"
           >
-            Sales
+            Promoções
           </Link>
           <Link href="/about" className="hover:text-white transition">
-            About
+            Sobre
           </Link>
           <Link href="contact" className="hover:text-white transition">
-            Contact
+            Contato
           </Link>
         </div>
 
         {/* Copyright */}
         <p className="text-sm mt-4 md:mt-0">
-          © {new Date().getFullYear()} Shark Store. All rights reserved.
+          © {new Date().getFullYear()} Shark store. Todos os direitos
+          reservados.
         </p>
       </div>
     </footer>

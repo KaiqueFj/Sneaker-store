@@ -12,7 +12,7 @@ export default function UpdateProfileForm({ user }: { user: User }) {
   async function handleSubmit(formData: FormData) {
     try {
       await toast.promise(updateUserProfile(formData), {
-        loading: "Updating...",
+        loading: "Atualizando...",
         success: (data) => data.message,
         error: (err) => err.message,
       });
@@ -23,31 +23,31 @@ export default function UpdateProfileForm({ user }: { user: User }) {
     <Form action={handleSubmit}>
       {/* Name */}
       <Form.Field>
-        <Form.Label>Full name</Form.Label>
+        <Form.Label>Nome completo</Form.Label>
         <Form.Input name="name" type="text" defaultValue={name} />
       </Form.Field>
 
       {/* Email */}
       <Form.Field>
-        <Form.Label>Email address</Form.Label>
+        <Form.Label>Endereço de e-mail</Form.Label>
         <Form.Input name="email" type="email" defaultValue={email} />
       </Form.Field>
 
       {/* Birthday */}
       <Form.Field>
-        <Form.Label>Birthday</Form.Label>
+        <Form.Label>Aniversário</Form.Label>
         <Form.Input name="birthday" type="date" defaultValue={birthday ?? ""} />
       </Form.Field>
 
       {/* Actions */}
       <Form.Actions>
         <Button
-          pendingLabel="Updating..."
+          pendingLabel="Atualizando..."
           className="w-fit"
           size="lg"
           variant="primary"
         >
-          Save changes
+          Salvar alterações
         </Button>
       </Form.Actions>
     </Form>

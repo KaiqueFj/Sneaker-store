@@ -18,7 +18,7 @@ export default async function Page({ params, searchParams }) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
 
-  const filter = resolvedSearchParams?.order ?? "all";
+  const filter = resolvedSearchParams?.order ?? "Todos";
 
   // decode category from URL
   const rawCategory = resolvedParams?.category || null;
@@ -27,13 +27,13 @@ export default async function Page({ params, searchParams }) {
   let sneakers = [];
 
   if (category) {
-    const filterKey = ["men", "women"].includes(category.toLowerCase())
+    const filterKey = ["masculino", "feminino"].includes(category.toLowerCase())
       ? "gender"
       : "model";
 
     sneakers = await getSneakers(filterKey, category);
   } else {
-    sneakers = await getSneakers("all", "all");
+    sneakers = await getSneakers("Todos", "Todos");
   }
 
   return (
@@ -41,9 +41,7 @@ export default async function Page({ params, searchParams }) {
       <div className="w-full flex flex-col gap-10 max-w-360 mx-auto px-2 lg:px-10 box-border py-0 ">
         {/* Header */}
         <div className="flex items-center h- justify-between px-6 lg:px-12">
-          <Category>
-            {category ? `${category} sneakers` : "All sneakers"}
-          </Category>
+          <Category>{category ? `Tênis ${category}` : "Todos tênis"}</Category>
           <Filter />
         </div>
 

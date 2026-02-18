@@ -13,7 +13,7 @@ export default async function Page({
   searchParams: Promise<{ order?: string }>;
 }) {
   const resolvedSearchParams = await searchParams;
-  const filter = resolvedSearchParams?.order ?? "all";
+  const filter = resolvedSearchParams?.order ?? "Todos";
   let sneakers = [];
 
   sneakers = await getNewestSneakers();
@@ -21,7 +21,7 @@ export default async function Page({
   return (
     <div className="flex flex-col justify-center mx-auto gap-6 place-items-center">
       <div className="flex items-center justify-between w-3/4 sticky">
-        <Category>{`New & Featured Sneakers (${sneakers.length})`}</Category>
+        <Category>{`Tênis adicionados recentemente (${sneakers.length})`}</Category>
         <Filter />
       </div>
       <div className="flex justify-center lg:px-6 ">

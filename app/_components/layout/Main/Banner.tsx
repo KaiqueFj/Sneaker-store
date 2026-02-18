@@ -17,36 +17,35 @@ export default function Banner() {
     {
       label: "Second banner image ",
       src: "/_assets/second-banner/airJordan4-white.jpg",
-      subtitle: "Feel the power of Jordan",
+      subtitle: "Sinta o poder do Jordan",
       category: "Air jordan 4",
-      description: "Step into greatness with the Air Jordan 4 white edition.",
+      description: "Entre na grandeza com a edição branca do Air Jordan 4.",
       href: "/sneakers/nav/air jordan 4",
     },
     {
       label: "Second banner image 2",
       src: "/_assets/second-banner/airJordan1-blackRed.jpg",
-      subtitle: "Be like Mike",
+      subtitle: "Seja como Mike",
       category: "Air jordan 1",
-      description:
-        "Experience the thrill of the Air Jordan 1 black/red edition.",
+      description: "Experimente o prazer do Air Jordan 1 preto/vermelho.",
       href: "/sneakers/nav/air jordan 1",
     },
     {
       label: "Second banner image 3",
       src: "/_assets/second-banner/nike-dunk.jpg",
       category: "Nike Dunk",
-      subtitle: "Feel the energy of the Dunk",
+      subtitle: "Sinta a energia do Dunk",
       description:
-        "Unleash your style with the Nike Dunk, a true icon of the streets.",
+        "Liberte seu estilo com o Nike Dunk, um verdadeiro ícone das ruas.",
       href: "/sneakers/nav/Nike dunk",
     },
     {
       label: "Second banner image 4",
       src: "/_assets/second-banner/air-jordan11.jpg",
       subtitle: "Air Jordan 11",
-      category: "Fly like the wind",
+      category: "Voe como o vento",
       description:
-        "Experience the legendary Air Jordan 11, a timeless classic that soars with style and performance.",
+        "Experimente o lendário Air Jordan 11, um clássico atemporal que voa com estilo e performance.",
       href: "/sneakers/nav/air jordan 11",
     },
   ];
@@ -56,10 +55,10 @@ export default function Banner() {
       {/* Headline */}
       <div className="max-w-7xl mx-auto px-6 py-16">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-center">
-          STRIVE FOR <span className="text-primary-600">GREATNESS</span>
+          LUTE PELA <span className="text-primary-600">GRANDEZA</span>
         </h1>
         <p className="mt-4 text-center text-gray-500 text-lg">
-          Performance gear built for those who never settle.
+          Equipamentos de performance feito para aqueles que nunca se contentam.
         </p>
       </div>
 
@@ -85,13 +84,13 @@ export default function Banner() {
             {/* Content */}
             <div className="absolute inset-0 flex flex-col justify-end p-10 text-white">
               <h2 className="text-3xl md:text-5xl font-extrabold leading-tight max-w-md">
-                {index === 0 ? "Train Harder." : "Move Faster."}
+                {index === 0 ? "Treine Mais Forte." : "Mova-se Mais Rápido."}
               </h2>
 
               <p className="mt-3 text-sm md:text-base text-gray-200 max-w-sm">
                 {index === 0
-                  ? "Designed for strength, endurance and performance."
-                  : "Engineered for speed, agility and control."}
+                  ? "Projetado para força, resistência e performance."
+                  : "Projetado para velocidade, agilidade e controle."}
               </p>
             </div>
           </div>
@@ -101,10 +100,10 @@ export default function Banner() {
       {/* Second banner title */}
       <div className="max-w-7xl mx-auto px-6 py-16">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-center">
-          ICONS THAT <span className="text-primary-600">DEFINE THE GAME</span>
+          ÍCONES QUE <span className="text-primary-600">DEFINEM O JOGO</span>
         </h1>
         <p className="mt-4 text-center text-gray-500 text-lg">
-          Legendary sneakers and performance essentials, redefined.
+          Tênis lendários e essenciais de performance, redefinidos.
         </p>
       </div>
 
@@ -141,7 +140,7 @@ export default function Banner() {
                 href={banner.href}
                 className="mt-6 w-fit bg-white text-black px-8 py-3 text-sm font-bold uppercase tracking-wide hover:bg-gray-200 transition"
               >
-                Shop Now
+                Compre Agora
               </Link>
             </div>
           </div>

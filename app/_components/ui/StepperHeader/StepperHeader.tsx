@@ -10,9 +10,9 @@ export default function StepperHeader({
   const router = useRouter();
 
   const options = [
-    { label: "Cart", href: "/cart" },
-    { label: "Checkout", href: "/checkout" },
-    { label: "Payment", href: "/checkout/payment" },
+    { label: "Carrinho", href: "/cart" },
+    { label: "Finalizar compra", href: "/checkout" },
+    { label: "Pagamento", href: "/checkout/payment" },
   ];
 
   const currentIndex = options.findIndex((opt) => opt.href === currentPath);
@@ -24,7 +24,7 @@ export default function StepperHeader({
       <div className="max-w-7xl mx-auto px-4 py-4">
         {/* Mobile step indicator */}
         <div className="md:hidden mb-3 text-center text-base font-medium text-primary-600">
-          Step {currentIndex + 1} of {options.length}
+          Etapa {currentIndex + 1} de {options.length}
         </div>
 
         {/* Steps */}

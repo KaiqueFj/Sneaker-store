@@ -13,7 +13,7 @@ export default async function Page({
   searchParams: Promise<{ order?: string }>;
 }) {
   const resolvedSearchParams = await searchParams;
-  const filter = resolvedSearchParams?.order ?? "all";
+  const filter = resolvedSearchParams?.order ?? "Todos";
   let sneakers = [];
 
   sneakers = await getSneakersOnSale();
@@ -23,7 +23,7 @@ export default async function Page({
       <div className="w-full flex flex-col gap-10 max-w-360 mx-auto px-2 lg:px-10 box-border py-0 ">
         {/* Header */}
         <div className="flex items-center h- justify-between px-6 lg:px-12">
-          <Category>{`Sneakers on sale (${sneakers.length})`}</Category>
+          <Category>{`Tênis em promoção (${sneakers.length})`}</Category>
 
           <Filter />
         </div>

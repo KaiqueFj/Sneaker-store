@@ -16,7 +16,7 @@ export default function CheckoutContinue() {
         disabled={!checkout.shipping}
         onClick={() => router.push("/checkout/payment")}
       >
-        Continue to payment
+        Continuar para o pagamento
       </Button>
     </section>
   );

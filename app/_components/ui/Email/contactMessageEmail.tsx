@@ -23,24 +23,24 @@ export default function ContactMessageEmail({
   return (
     <Html>
       <Head />
-      <Preview>New message from your website</Preview>
+      <Preview>Nova mensagem de contato do projeto</Preview>
 
       <Tailwind>
         <Body className="bg-gray-100 px-4 py-10 font-sans">
           <Container className="mx-auto max-w-md rounded-2xl bg-white p-8 shadow-lg">
             <Text className="text-2xl font-semibold text-gray-900">
-              New Contact Message
+              Nova mensagem de contato
             </Text>
 
             <Section className="mt-6 space-y-2">
               <Text>
-                <strong>Name:</strong> {name}
+                <strong>Nome:</strong> {name}
               </Text>
               <Text>
-                <strong>Email:</strong> {email}
+                <strong>E-mail:</strong> {email}
               </Text>
               <Text className="mt-4">
-                <strong>Message:</strong>
+                <strong>Mensagem:</strong>
               </Text>
               <Text className="text-gray-600">{message}</Text>
             </Section>

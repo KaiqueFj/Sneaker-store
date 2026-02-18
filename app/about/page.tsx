@@ -7,42 +7,46 @@ export default function AboutPage() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
       {/* Title */}
       <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 tracking-tight">
-        About Us
+        Sobre mim
       </h1>
 
       {/* Text Content */}
       <div className="space-y-6 text-base sm:text-lg leading-relaxed text-primary-600 max-w-3xl mx-auto">
         <p>
-          Hey there! I’m <strong>Kaique Ferraz</strong>, a passionate Fullstack
-          Developer from São Paulo, Brazil. I love building sleek and modern web
-          experiences that feel intuitive and polished.
+          Olá! Eu sou <strong>Kaique Ferraz</strong>, desenvolvedor Fullstack
+          baseado em São Paulo, Brasil, com experiência na construção de
+          aplicações web escaláveis e centradas no usuário. Tenho paixão por
+          criar experiências digitais modernas, intuitivas e de alto desempenho.
         </p>
 
         <p>
-          This e-commerce project — inspired by Nike’s UI/UX — is my way of
-          pushing myself as a developer and exploring real-world commerce flows
-          with authentication, cart management and a custom backend. From
-          product browsing to simulated orders and user profiles, everything
-          here is crafted with performance and user experience in mind.
+          Este projeto de e-commerce, inspirado no design da Nike, é um exemplo
+          do meu trabalho em end-to-end development. Ele inclui autenticação de
+          usuários, gerenciamento de carrinho, backend customizado, catálogo de
+          produtos, pedidos simulados e perfis de usuário — tudo pensado para
+          performance, escalabilidade e experiência do usuário.
         </p>
 
         <p>
-          I built this store using <strong>Next.js</strong>,{" "}
-          <strong>Supabase</strong>, <strong>NextAuth</strong>, and{" "}
-          <strong>Tailwind CSS</strong>, emphasizing scalability, clean
-          architecture and mobile-first design principles.
+          Para construir esta loja, utilizei tecnologias como{" "}
+          <strong>Next.js</strong>, <strong>Supabase</strong>,{" "}
+          <strong>NextAuth</strong> e <strong>Tailwind CSS</strong>. O foco foi
+          aplicar boas práticas de arquitetura, design mobile-first e integração
+          de sistemas, garantindo código limpo e de fácil manutenção.
         </p>
 
         <p>
-          If you want to explore the code, collaborate, or just connect — feel
-          free to reach out through any of the platforms below.
+          Estou sempre aberto a explorar novas oportunidades, colaborar em
+          projetos desafiadores ou compartilhar conhecimento. Sinta-se à vontade
+          para conferir meu código, portfólio e conectar-se comigo nas
+          plataformas abaixo.
         </p>
       </div>
 
       {/* Social Links */}
       <div className="mt-12 sm:mt-16">
         <h2 className="text-lg sm:text-xl font-semibold text-center mb-6 tracking-wide">
-          Connect With Me
+          Conecte-se comigo
         </h2>
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
@@ -70,7 +74,7 @@ export default function AboutPage() {
             className="w-full sm:w-auto flex justify-center items-center gap-3 px-6 py-3 border rounded-lg hover:bg-black hover:text-white transition-all duration-300"
           >
             <FiGlobe size={20} />
-            Portfolio
+            Portfólio
           </Link>
         </div>
       </div>

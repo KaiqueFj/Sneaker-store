@@ -21,7 +21,7 @@ export default function CheckoutAddress({
     <section className={isCompact ? "space-y-3" : "space-y-4"}>
       {isCompact ? (
         <>
-          <h1 className="text-2xl font-semibold">Address</h1>
+          <h1 className="text-2xl font-semibold">Endereço</h1>
 
           {address ? (
             <AddressCompact
@@ -41,7 +41,7 @@ export default function CheckoutAddress({
         </>
       ) : (
         <>
-          <h2 className="text-2xl font-medium">Shipping address</h2>
+          <h2 className="text-2xl font-medium">Endereço de entrega</h2>
 
           {address ? (
             <AddressCard
@@ -85,10 +85,10 @@ function AddressCompact({ address, onEdit, onAdd }: any) {
 
       <div className="flex gap-4 pt-2">
         <button className="underline" onClick={onEdit}>
-          Edit
+          Editar
         </button>
         <button className="underline" onClick={onAdd}>
-          Add new
+          Adicionar endereço
         </button>
       </div>
     </div>
@@ -109,11 +109,11 @@ function AddressCard({ address, onEdit, onAdd }: any) {
 
       <div className="flex gap-3 pt-2">
         <Button size="sm" onClick={onEdit}>
-          Edit address
+          Editar endereço
         </Button>
 
         <Button variant="secondary" size="sm" onClick={onAdd}>
-          Add new address
+          Adicionar endereço
         </Button>
       </div>
     </div>
@@ -123,10 +123,10 @@ function AddressCard({ address, onEdit, onAdd }: any) {
 function EmptyAddress({ onAdd }: { onAdd: () => void }) {
   return (
     <div className="rounded-xl border bg-white p-6 space-y-3">
-      <p className="font-medium">No address found</p>
+      <p className="font-medium">Nenhum endereço encontrado</p>
 
       <Button size="sm" onClick={onAdd}>
-        Add new address
+        Adicionar um novo endereço
       </Button>
     </div>
   );

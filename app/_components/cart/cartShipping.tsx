@@ -54,11 +54,9 @@ export default function CartShipping() {
   return (
     <div className="mt-8 flex flex-col gap-4 bg-white rounded-lg p-6">
       <div>
-        <h2 className="text-xl font-semibold text-primary-600 mb-1">
-          Shipping
-        </h2>
+        <h2 className="text-xl font-semibold text-primary-600 mb-1">Frete</h2>
         <p className="text-sm text-primary-400">
-          Enter your postal code to calculate shipping
+          Digite seu CEP para calcular o frete
         </p>
       </div>
 
@@ -76,8 +74,8 @@ export default function CartShipping() {
               className="pr-20"
             />
             <Form.Actions className="absolute right-2 top-2.5 -translate-y-1/2">
-              <Button pendingLabel="Calculating..." size="md">
-                Calculate
+              <Button pendingLabel="Calculando..." size="md">
+                Calcular
               </Button>
             </Form.Actions>
           </Form.InputWrapper>

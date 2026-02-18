@@ -8,7 +8,7 @@ export default function CheckoutShipping() {
 
   return (
     <section className="space-y-4">
-      <h2 className="text-2xl font-medium">Shipping method</h2>
+      <h2 className="text-2xl font-medium">Método de envio</h2>
 
       {checkout.shippingOptions?.length ? (
         <div className="space-y-3">
@@ -40,11 +40,13 @@ export default function CheckoutShipping() {
                 <div>
                   <p className="font-medium">
                     {option.type} —{" "}
-                    {option.price === 0 ? "Free" : formatCurrency(option.price)}
+                    {option.price === 0
+                      ? "Grátis"
+                      : formatCurrency(option.price)}
                   </p>
 
                   <p className="text-sm text-gray-600">
-                    {option.days} business days
+                    {option.days} dias úteis
                   </p>
                 </div>
               </label>
@@ -53,7 +55,7 @@ export default function CheckoutShipping() {
         </div>
       ) : (
         <p className="text-sm text-gray-500">
-          Please calculate shipping in your cart
+          Por favor, calcule o frete no seu carrinho
         </p>
       )}
     </section>

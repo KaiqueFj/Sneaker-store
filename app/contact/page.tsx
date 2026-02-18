@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 export default function ContactPage() {
   async function handleSubmit(formData: FormData) {
     await toast.promise(sendContactMessage(formData), {
-      loading: "Sending...",
+      loading: "Enviando...",
       success: (data) => data.message,
       error: (err) => err.message,
     });
@@ -16,19 +16,19 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white px-6 py-10">
       <div className="mx-auto max-w-lg space-y-6">
-        <h1 className="text-3xl font-semibold">Contact Us</h1>
+        <h1 className="text-3xl font-semibold">Fale conosco</h1>
 
         <Form action={handleSubmit} className="space-y-4">
-          <Form.Input name="name" placeholder="Your name" />
-          <Form.Input name="email" type="email" placeholder="Your email" />
+          <Form.Input name="name" placeholder="Seu nome" />
+          <Form.Input name="email" type="email" placeholder="Seu email" />
           <textarea
             name="message"
-            placeholder="Your message"
+            placeholder="Sua mensagem"
             className="w-full border p-3 rounded-lg"
           />
 
           <Button variant="primary" size="lg" pendingLabel="sending...">
-            Send message
+            Enviar mensagem
           </Button>
         </Form>
       </div>

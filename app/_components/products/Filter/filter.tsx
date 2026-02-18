@@ -10,7 +10,7 @@ export default function Filter() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathName = usePathname();
-  const activeFilter = searchParams.get("order") || "all";
+  const activeFilter = searchParams.get("order") || "Todos";
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -26,7 +26,7 @@ export default function Filter() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  function handleFilter(filter) {
+  function handleFilter(filter: string) {
     const params = new URLSearchParams(searchParams);
 
     params.set("order", filter);
@@ -41,7 +41,7 @@ export default function Filter() {
         className="flex items-center text-primary-600 font-medium rounded-md px-4 py-2 transition cursor-pointer"
       >
         <span className="lg:text-lg">
-          <span className="text-primary-600 font-semibold">Sort by:</span>
+          <span className="text-primary-600 font-semibold">Ordenar por:</span>
           <span className="ml-1 text-primary-600/50">{activeFilter}</span>
         </span>
         <span className="relative ml-2 w-5 h-5">
@@ -60,32 +60,32 @@ export default function Filter() {
       {isOpen && (
         <div className="flex flex-col gap-2  ml-[20%] p-2 absolute rounded-md  right-auto mt-2 w-48 z-50 bg-white shadow-lg">
           <FilterOptions
-            filter="all"
+            filter="Todos"
             handleFilter={handleFilter}
             activeFilter={activeFilter}
           >
-            All
+            Todos
           </FilterOptions>
           <FilterOptions
-            filter="Price Low to High"
+            filter="Menor preço"
             handleFilter={handleFilter}
             activeFilter={activeFilter}
           >
-            Price Low to High
+            Menor preço
           </FilterOptions>
           <FilterOptions
-            filter="Price High to Low"
+            filter="Maior preço"
             handleFilter={handleFilter}
             activeFilter={activeFilter}
           >
-            Price High to Low
+            Maior preço
           </FilterOptions>
           <FilterOptions
-            filter="Sale"
+            filter="Oferta"
             handleFilter={handleFilter}
             activeFilter={activeFilter}
           >
-            Sale
+            Oferta
           </FilterOptions>
         </div>
       )}

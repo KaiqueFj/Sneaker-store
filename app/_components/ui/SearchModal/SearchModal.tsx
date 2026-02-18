@@ -52,14 +52,14 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
               autoFocus
               value={term}
               onChange={(e) => setTerm(e.target.value)}
-              placeholder="Search sneakers"
+              placeholder="Pesquisar tênis"
               className=" w-full pl-8 pr-12 text-lg sm:text-xl bg-transparent outline-none placeholder:text-gray-400"
             />
 
             {/* Close button */}
             <button
               onClick={onClose}
-              aria-label="Close search"
+              aria-label="Fechar busca"
               className=" absolute right-0 p-2 rounded-full text-gray-400 hover:text-gray-900 hover:bg-gray-100 transition"
             >
               <XMarkIcon className="w-6 h-6" />
@@ -81,7 +81,7 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
             ) : (
               term.length >= 2 && (
                 <p className="mt-8 text-center text-sm text-gray-500">
-                  No sneakers found
+                  Nenhum tênis encontrado
                 </p>
               )
             )}

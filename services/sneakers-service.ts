@@ -38,6 +38,7 @@ export async function getSneakers(
   }
 
   const { data, error } = await query;
+
   if (error) throw new Error("products could not be loaded");
 
   const now = new Date();
@@ -127,9 +128,7 @@ export async function getSneakerListItem(id: string): Promise<ProductListItem> {
 
 import { ProductDetails } from "@/types/product";
 
-export async function getSneakerDetails(
-  id: string
-): Promise<ProductDetails> {
+export async function getSneakerDetails(id: string): Promise<ProductDetails> {
   const session = await auth();
   const userId = session?.user?.userId ?? null;
 
@@ -142,7 +141,7 @@ export async function getSneakerDetails(
           id,
           client_id
         )
-      `
+      `,
     )
     .eq("id", id)
     .single<ProductRow>();
@@ -159,12 +158,11 @@ export async function getSneakerDetails(
   const { favorites, ...product } = data;
 
   return {
-    ...product, 
+    ...product,
     isFavorite: Boolean(favorite),
     favoriteId: favorite?.id ?? null,
   };
 }
-
 
 export async function getSneakersOnSale(): Promise<ProductListItem[]> {
   const session = await auth();

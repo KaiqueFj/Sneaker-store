@@ -13,9 +13,9 @@ export function formatCurrency(value: number | string): string {
 
   if (Number.isNaN(number)) return "—";
 
-  return number.toLocaleString("en-US", {
+  return number.toLocaleString("pt-BR", {
     style: "currency",
-    currency: "USD",
+    currency: "BRL",
   });
 }
 
@@ -25,7 +25,7 @@ export function formatCurrency(value: number | string): string {
 export function formatDate(value: string): string {
   const date = new Date(value + "Z");
 
-  return date.toLocaleDateString("en-US", {
+  return date.toLocaleDateString("pt-BR", {
     timeZone: "America/Sao_Paulo",
     day: "numeric",
     month: "short",
@@ -66,11 +66,11 @@ export function getPreviewText(
     return { intro: text, benefits: "" };
   }
 
-  const [intro, ...rest] = text.split("Benefits");
+  const [intro, ...rest] = text.split("Benefícios");
 
   return {
     intro: intro.trim(),
-    benefits: rest.length ? "Benefits" + rest.join("").trim() : "",
+    benefits: rest.length ? "Benefícios" + rest.join("").trim() : "",
   };
 }
 

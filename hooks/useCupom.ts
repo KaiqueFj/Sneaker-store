@@ -30,7 +30,7 @@ export function useCoupon(onApply: (data: CouponData) => void) {
 
     setStatus({
       type: "success",
-      message: `Coupon applied! ${res.data.value}% off 🎉`,
+      message: `Cupom aplicado! ${res.data.value}% off 🎉`,
     });
 
     onApply(res.data);

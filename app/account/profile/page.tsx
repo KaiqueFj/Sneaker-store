@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { getUser } from "@/services/users-service";
 
 export const metadata = {
-  title: "Update profile",
+  title: "Atualizar perfil",
 };
 
 export default async function Page() {
@@ -14,11 +14,12 @@ export default async function Page() {
     <div className="mx-auto w-full max-w-xl px-4 py-12">
       <header className="mb-12 text-center">
         <h2 className="mb-3 text-4xl font-bold tracking-tight text-black">
-          Update profile
+          Atualizar perfil
         </h2>
 
         <p className="text-sm text-gray-500">
-          Keep your details up to date for a faster and smoother experience.
+          Mantenha seus dados atualizados para uma experiência mais rápida e
+          fluida.
         </p>
       </header>
 

@@ -12,15 +12,15 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Sneakers Store",
-  description: "Shop the latest sneakers",
+  title: "Sneaker-store",
+  description: "Veja os melhores tênis de todo mundo",
 };
 
 export default async function RootLayout({ children }) {
   const session = await auth();
 
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body
         className={` ${inter.className} relative  min-h-screen antialiased bg-white flex flex-col text-primary-600`}
       >

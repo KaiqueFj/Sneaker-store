@@ -26,10 +26,10 @@ export default function CartCupomDiscount() {
     <div className="mt-8 flex flex-col gap-4 bg-white rounded-lg  p-6">
       <div>
         <h2 className="text-xl font-semibold text-primary-600 mb-1">
-          Promo Code
+          Código Promocional
         </h2>
         <p className="text-sm text-primary-400">
-          Enter your promo code to get a discount
+          Digite seu código promocional para obter desconto
         </p>
       </div>
       <Form action={handleSubmit}>
@@ -39,15 +39,15 @@ export default function CartCupomDiscount() {
               type="text"
               name="coupon"
               value={couponInput}
-              placeholder="Coupon (`NIKE10`)"
+              placeholder="Cupom (`NIKE10`)"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setCouponInput(e.target.value)
               }
               className="pr-20"
             />
             <Form.Actions className="absolute right-2 top-2.5 -translate-y-1/2">
-              <Button pendingLabel="Applying" size="md" disabled={loading}>
-                Apply
+              <Button pendingLabel="Aplicando" size="md" disabled={loading}>
+                Aplicar
               </Button>
             </Form.Actions>
           </Form.InputWrapper>

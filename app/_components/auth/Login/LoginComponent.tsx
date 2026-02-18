@@ -33,15 +33,15 @@ export default function LoginComponent() {
           });
 
           if (result?.error) {
-            throw new Error("Invalid email or password");
+            throw new Error("E-mail ou senha inválidos");
           }
           return result;
         })(),
         {
-          loading: "Signing in...",
+          loading: "Entrando...",
           success: () => {
             router.push("/account");
-            return "Signed in successfully";
+            return "Entrou com sucesso";
           },
           error: (err) => err.message,
         },
@@ -53,9 +53,9 @@ export default function LoginComponent() {
     <div className="flex flex-col items-center px-4 mt-16 gap-8">
       {/* Title */}
       <div className="text-center space-y-1">
-        <h2 className="text-3xl font-semibold">Sign in to your account</h2>
+        <h2 className="text-3xl font-semibold">Entre na sua conta</h2>
         <p className="text-sm text-neutral-500">
-          Welcome back! Please enter your details.
+          Bem-vindo de volta! Por favor, insira seus dados.
         </p>
       </div>
 
@@ -66,13 +66,13 @@ export default function LoginComponent() {
             <Form.Input
               name="email"
               type="email"
-              placeholder="you@example.com"
+              placeholder="voce@exemplo.com"
               required
             ></Form.Input>
           </Form.Field>
 
           <Form.Field>
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Senha</Form.Label>
 
             <Form.InputWrapper>
               <Form.Input
@@ -108,7 +108,7 @@ export default function LoginComponent() {
             href="/password-reset"
             className="text-sm text-primary-600 hover:underline"
           >
-            Forgot your password?
+            Esqueceu sua senha?
           </Link>
 
           {/* Actions */}
@@ -117,9 +117,9 @@ export default function LoginComponent() {
               className="w-full"
               size="lg"
               variant="primary"
-              pendingLabel="Signing in..."
+              pendingLabel="Entrando..."
             >
-              Sign in
+              Entrar
             </Button>
           </Form.Actions>
 
@@ -127,7 +127,7 @@ export default function LoginComponent() {
           <div className="flex items-center gap-4">
             <div className="h-px flex-1 bg-neutral-200"></div>
             <span className="text-xs uppercase tracking-wide text-neutral-400">
-              or
+              ou
             </span>
             <div className="h-px flex-1 bg-neutral-200"></div>
           </div>
@@ -139,14 +139,14 @@ export default function LoginComponent() {
           {/* Link to signup */}
           <div className="flex flex-row gap-2 items-center justify-center">
             <p className="text-sm text-center text-neutral-600">
-              {"Don't have an account?"}
+              {"Não tem uma conta?"}
             </p>
 
             <Link
               href="/signup"
               className="text-primary-600 text-sm hover:underline"
             >
-              Sign up
+              Cadastrar-se
             </Link>
           </div>
         </Form>

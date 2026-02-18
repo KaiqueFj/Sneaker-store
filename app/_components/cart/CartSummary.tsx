@@ -35,7 +35,7 @@ export default function CartSummary() {
 
   const handleProceedToCheckout = () => {
     if (!isAuthenticated) {
-      toast.error("You must log in first!");
+      toast.error("Você precisa entrar primeiro!");
       router.push("/login");
       return;
     }
@@ -57,9 +57,9 @@ export default function CartSummary() {
         return order;
       }),
       {
-        loading: "Saving your order...",
-        success: "Order saved successfully!",
-        error: "Order could not be done! Try again!",
+        loading: "Salvando seu pedido...",
+        success: "Pedido salvo com sucesso!",
+        error: "Não foi possível concluir o pedido! Tente novamente!",
       },
     );
   };
@@ -67,7 +67,7 @@ export default function CartSummary() {
   return (
     <div className="bg-white border border-primary-200 rounded-lg p-6 shadow-sm">
       <h2 className="text-xl font-semibold text-primary-600 mb-5">
-        Order Summary
+        Resumo do pedido
       </h2>
 
       <div className="flex flex-col gap-3 py-4 border-t border-b border-primary-200">
@@ -79,14 +79,14 @@ export default function CartSummary() {
           </span>
         </div>
 
-        {/* Shipping */}
+        {/* Frete */}
         <div className="flex justify-between">
-          <span className="text-sm text-primary-400">Shipping</span>
+          <span className="text-sm text-primary-400">Frete</span>
 
           {checkout.shipping ? (
             <span className="font-medium text-primary-600">
               {checkout.shipping.price === 0
-                ? "Free"
+                ? "Grátis"
                 : formatCurrency(checkout.shipping.price)}
             </span>
           ) : (
@@ -98,9 +98,9 @@ export default function CartSummary() {
         {checkout.cupom && (
           <div className="flex justify-between text-sm text-green-600">
             <span>
-              Coupon applied
+              Cupom aplicado
               <span className="ml-1 font-medium uppercase">
-                ({checkout.cupom.code ?? `${discountPercentage}% OFF`})
+                ({checkout.cupom.code ?? `${discountPercentage}% de desconto`})
               </span>
             </span>
             <span className="font-medium">
@@ -124,9 +124,9 @@ export default function CartSummary() {
             variant="primary"
             size="md"
             className="mt-4 w-full py-3.5"
-            pendingLabel="Processing..."
+            pendingLabel="Processando..."
           >
-            Checkout
+            Finalizar compra
           </Button>
         ) : (
           <>
@@ -136,7 +136,7 @@ export default function CartSummary() {
               className="w-full mt-4 py-3.5"
               onClick={() => handleProceedToCheckout()}
             >
-              Proceed to Checkout
+              Ir para finalizar compra
             </Button>
 
             <Button
@@ -145,7 +145,7 @@ export default function CartSummary() {
               className="w-full mt-4 py-3.5"
               onClick={() => router.push("/")}
             >
-              Continue Shopping
+              Continuar comprando
             </Button>
           </>
         )}

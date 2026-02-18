@@ -12,7 +12,7 @@ export function useFavoriteSneaker(initialValue: boolean, sneakerId: string) {
 
   const handleFavorite = () => {
     if (!session?.user?.userId) {
-      toast.error("Log in to favorite this product. Redirecting...");
+      toast.error("Faça login para favoritar este produto. Redirecionando...");
       setTimeout(() => router.push("/login"), 2500);
       return;
     }
