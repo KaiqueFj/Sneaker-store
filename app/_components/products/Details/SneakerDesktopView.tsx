@@ -70,7 +70,6 @@ export default function SneakerDesktopView({
             src={mainImage}
             alt={name}
             fill
-            priority
             className="object-contain p-10"
           />
         </div>

@@ -1,15 +1,25 @@
 # 👟 Sneakers Store — Modern E-commerce Experience
 
-A fully responsive and dynamic sneaker e-commerce platform inspired by **Nike’s UI/UX**, built with **Next.js**, **Supabase**, **NextAuth**, and **Toastify**.
+A fully responsive and dynamic sneaker e-commerce platform inspired by **Nike’s UI/UX**, built with **Next.js**, **Supabase**, **NextAuth**, and **React Toastify**.
 
 ---
 
 ## 🚀 Overview
 
-This project delivers a complete, modern online shopping experience.  
-Users can browse sneakers, add them to the cart, manage quantities, simulate orders, update their profile, and log in with Google — all wrapped in a clean, Nike-inspired interface.
+**Sneakers Store** delivers a complete, production-style online shopping experience.
 
-This project goes beyond UI and styling — it implements real backend logic, authentication, database persistence, protected routes, and end-to-end user flows.
+Users can:
+
+- Browse products
+- View detailed sneaker pages
+- Add items to cart
+- Manage quantities
+- Simulate checkout
+- Track orders
+- Manage their profile
+- Authenticate with Google
+
+This project goes beyond UI styling — it implements real backend logic, authentication, database persistence, protected routes, and end-to-end user flows.
 
 ---
 
@@ -17,65 +27,125 @@ This project goes beyond UI and styling — it implements real backend logic, au
 
 This project was built to simulate a real-world e-commerce platform and demonstrate:
 
-- Full authentication and protected routes
-- State management for cart and orders
-- Backend integration with Supabase
-- Clean UI/UX inspired by large-scale products
-- Scalable folder and routing structure using Next.js App Router
+- Secure authentication & protected routes
+- Full CRUD operations with Supabase
+- Scalable routing with Next.js App Router
+- Clean and modern UI/UX design
+- Structured and maintainable project architecture
+- Real database relationships (products, reviews, users, orders)
+- Performance optimization aligned with Lighthouse best practices
 
 ---
 
-## 🧠 Key Technical Decisions
+## 🧠 Architecture & Technical Decisions
 
-- **Next.js App Router** for scalable routing and layouts
-- **Supabase** for rapid backend prototyping with real auth and database
-- **Context API** to manage cart and user state without overengineering
-- **Server-side data fetching** where applicable for better UX
+### 🧩 Frontend Architecture
+
+- **Next.js App Router** for scalable layouts and nested routing
+- Route Groups for logical feature separation
+- Server Components where possible for performance
+- Client Components only where interactivity is required
+
+### 🗄️ Backend Architecture
+
+- **Supabase PostgreSQL** as primary database
+- Relational schema with foreign keys
+- Database triggers for rating recalculation
+- Secure row-level logic for user-based operations
+
+### 🔐 Authentication
+
+- **NextAuth** for Google OAuth login
+- Protected routes for account-related pages
+- Session-based access control
+
+### 🛒 State Management
+
+- **React Context API**
+  - Cart state
+  - User state
+- Lightweight and scalable without overengineering
+
+### ⚡ Performance Considerations
+
+- Next.js Image Optimization
+- Optimized database queries
+- Server-side data fetching
+- Clean component boundaries
+- Reduced unnecessary re-renders
+
+---
 
 ## ✨ Key Features
 
 ### 🖥️ Fully Responsive UI
 
 - Mobile-first layout
-- Smooth, modern design modeled after Nike's website
-- Adaptive navbar, dropdowns, modals, and dynamic pages
+- Nike-inspired minimal aesthetic
+- Adaptive navbar and modals
+- Smooth transitions and UX feedback
 
-### 🔐 Authentication
+---
 
-- Sign in with **Google** (via NextAuth)
-- Protected pages for account, orders, and profile
+### 🔐 Authentication System
+
+- Sign in with Google (OAuth)
+- Protected account pages
+- Session management
+- Secure user-based data access
+
+---
+
+### 👟 Product System
+
+- Product listing page
+- Dynamic product details pages
+- Real-time average rating calculation
+- Database-driven content
+
+---
 
 ### 🛒 Shopping Cart
 
-- Add sneakers to the cart
-- Manage item quantity
+- Add to cart
+- Update quantities
 - Remove items
-- Cart saved through context/state
-- Realtime UI updates
+- Live UI updates
+- Persistent cart state
+
+---
 
 ### 📦 Order Simulation System
 
-- Place a simulated order
+- Simulated checkout flow
 - Orders stored in Supabase
-- View previous orders
-- Order details page
+- Order history page
+- Detailed order view
+
+---
+
+### ⭐ Review System
+
+- Authenticated users can leave reviews
+- Automatic product rating recalculation via PostgreSQL trigger
+- Reviews linked via foreign keys:
+  - `reviews.product_id → products.id`
+  - `reviews.client_id → users.id`
+
+---
 
 ### 👤 User Profile Management
 
 - Update profile information
-- Track orders
+- View past orders
 - Manage account settings
 
-### 🗄️ Supabase Backend
+---
 
-- Database for sneakers, users, and orders
-- OAuth login
-- Realtime-capable backend
+### 🔔 Notifications
 
-### 🔔 Toastify Notifications
-
-- Success and error alerts
-- Smooth UX feedback
+- Success & error feedback via **React Toastify**
+- Smooth user experience with visual confirmation
 
 ---
 
@@ -86,100 +156,143 @@ This project was built to simulate a real-world e-commerce platform and demonstr
 - **Next.js 14**
 - **React**
 - **Tailwind CSS**
-- **Context API** / custom hooks
+- **Context API**
+- **Next/Image**
 
 ### Backend
 
-- **Supabase**
+- **Supabase (PostgreSQL)**
 - **NextAuth**
 
-### Utilities
+### Utilities & Libraries
 
-- **Toastify**
+- **React Toastify**
 - **Heroicons**
-- **Next/Image**
+- Custom utility helpers
 
 ---
 
 ## 📁 Project Structure
 
 ```
-├── app/                             # Next.js App Router
-│   ├── _components/                 # Shared UI components
-│   ├── _styles/                     # Global & component styles
+├── app/ # Next.js App Router
+│ ├── _components/ # Shared UI components
+│ ├── _styles/ # Global & component styles
 │
-│   ├── (auth)/                      # Auth route group
-│   │   ├── login/
-│   │   ├── signup/
-│   │   └── password-reset/
+│ ├── (auth)/ # Auth route group
+│ │ ├── login/
+│ │ ├── signup/
+│ │ └── password-reset/
 │
-│   ├── (cart-checkout)/             # Cart & checkout route group
-│   │   ├── cart/
-│   │   └── checkout/
+│ ├── (cart-checkout)/ # Cart & checkout route group
+│ │ ├── cart/
+│ │ └── checkout/
 │
-│   ├── (products)/                  # Products route group
-│   │   ├── favorites/
-│   │   ├── sneaker/
-│   │   └── sneakers/
+│ ├── (products)/ # Products route group
+│ │ ├── favorites/
+│ │ ├── sneaker/
+│ │ └── sneakers/
 │
-│   ├── account/                     # Account pages
-│   │   ├── orders/
-│   │   ├── profile/
-│   │   └── updatePassword/
+│ ├── account/ # Account pages
+│ │ ├── orders/
+│ │ ├── profile/
+│ │ └── updatePassword/
 │
-│   ├── hooks/                       # App-scoped custom hooks
+│ ├── hooks/ # App-scoped custom hooks
 │
-│   ├── error.js                     # Error boundary
-│   ├── icon.png                     # App icon
-│   ├── layout.js                    # Root layout
-│   ├── not-found.js                 # 404 page
-│   └── page.js                      # Home page
+│ ├── error.js # Error boundary
+│ ├── icon.png # App icon
+│ ├── layout.js # Root layout
+│ ├── not-found.js # 404 page
+│ └── page.js # Home page
 │
-├── context/                         # Global contexts (cart, user, sneakers)
-├── lib/                             # Configs, services, API helpers
-├── public/                          # Static assets
-├── utils/                           # Utility functions & helpers
+├── context/ # Global contexts (cart, user)
+├── lib/ # Supabase configs & services
+├── public/ # Static assets
+├── utils/ # Utility functions
 │
-├── .env                             # Environment variables
-├── jsconfig.json                    # Path aliases
-├── proxy.js                         # Proxy configuration (auth / redirects)
+├── .env.local # Environment variables
+├── jsconfig.json # Path aliases
+└── proxy.js # Route protection logic
 
 ```
 
 ---
 
-## 🧪 Features Preview
+## 🧪 Feature Flow Overview
 
-- 🏠 Homepage
-- 👟 Sneaker listing
-- 📄 Sneaker details
-- 🛒 Cart
-- 🔐 Login
-- 📦 Orders
-- 👤 Profile
+1. User visits homepage
+2. Browses sneaker catalog
+3. Views sneaker details
+4. Adds item to cart
+5. Authenticates with Google
+6. Places simulated order
+7. Order stored in database
+8. User views order history
+9. User leaves review
+10. Product rating auto-recalculates
+
+---
+
+## 📊 Database Relationships
+
+### Core Tables
+
+- `users`
+- `products`
+- `reviews`
+- `orders`
+- `order_items`
+- `coupons`
+
+### Key Relationships
+
+- `reviews.product_id → products.id`
+- `reviews.client_id → users.id`
+- `order_items.order_id → orders.id`
+- `order_items.product_id → products.id`
+
+Triggers ensure:
+
+- Automatic rating recalculation
+- Data consistency
 
 ---
 
-## 🌎 Take a look at the live project
+## 🌎 Live Demo
 
-[https://sharkf-store.netlify.app](https://sharkf-store.netlify.app)
+🔗 **Live Project:**  
+https://sharkf-store.netlify.app
 
----
+## 📈 Performance Focus
+
+This project aims for high Lighthouse scores through:
+
+- Optimized images
+
+- Server components
+
+- Minimal client-side JavaScript
+
+- Efficient database queries
+
+- Clean layout structure
+
+- Proper caching strategies
 
 ## 🤝 Contributing
 
-Contributions are welcome!  
-Open an issue or submit a pull request to propose changes.
+1. Contributions are welcome.
 
----
+2. Fork the repository
 
-## 📝 License
+3. Create a feature branch
 
-This project is licensed under the **MIT License**.
+4. Commit changes
 
----
+5. Open a Pull Request
 
 ## ⭐ Support
 
-If you enjoyed this project, consider giving the repository a **star** on GitHub!  
-It helps a lot and motivates further improvements.
+If you enjoyed this project, consider giving the repository a star on GitHub.
+It helps support future improvements and new features.

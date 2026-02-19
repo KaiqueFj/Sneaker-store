@@ -1,3 +1,5 @@
+"use client";
+
 import { CouponDiscount } from "@/types/coupom";
 import { Address, Shipping } from "@/types/shipping";
 import { createContext, ReactNode, useContext, useReducer } from "react";

@@ -165,7 +165,9 @@ function UserMenu({
           aria-label="Guest area"
         >
           <UserCircleIcon className="text-primary-600 w-6 h-6" />
-          <span className="text-primary-600 sm:inline">Guest area</span>
+          <span className="text-primary-600 sm:inline">
+            Usuário sem sessão{" "}
+          </span>
         </Link>
       )}
     </div>
@@ -215,9 +217,9 @@ function MobileMenu({
                 <Link
                   href="/account"
                   className="flex text-primary-600 hover:bg-gray-100 py-1 px-1 rounded-md transition-colors"
-                  aria-label={`Hello, ${session.user?.name?.split(" ")[0] ?? "User"}`}
+                  aria-label={`Olá, ${session.user?.name?.split(" ")[0] ?? "User"}`}
                 >
-                  Hello, {session.user?.name?.split(" ")[0] ?? "User"}
+                  Olá, {session.user?.name?.split(" ")[0] ?? "User"}
                 </Link>
               </div>
               <NavigationList

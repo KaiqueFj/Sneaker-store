@@ -44,19 +44,28 @@ export async function upsertReview({
     throw new Error("User not authenticated");
   }
 
-  const { data } = await supabase
-    .from("reviews")
-    .upsert(
-      {
-        product_id,
-        client_id: session.user.userId,
-        rating,
-        comment,
-      },
-      { onConflict: "client_id,product_id" },
-    )
-    .select()
-    .single();
+  try {
+    const { data, error } = await supabase
+      .from("reviews")
+      .upsert(
+        {
+          product_id,
+          client_id: session.user.userId,
+          rating,
+          comment,
+        },
+        { onConflict: "client_id,product_id" },
+      )
+      .select()
+      .single();
 
-  return data;
+    if (error) {
+      console.log(error);
+      throw new Error("Review could not be created");
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error("Review could not be created");
+  }
 }
