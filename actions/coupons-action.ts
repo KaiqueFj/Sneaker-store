@@ -1,6 +1,6 @@
 "use server";
 
-import { supabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase-server";
 import { CouponDiscount } from "@/types/coupom";
 
 export async function getCouponDiscount(
@@ -16,7 +16,7 @@ export async function getCouponDiscount(
   }
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from("coupons")
       .select("value, code")
       .eq("code", coupon)

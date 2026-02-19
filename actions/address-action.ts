@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/lib/auth";
-import { supabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase-server";
 import { Address } from "@/types/shipping";
 import { revalidatePath } from "next/cache";
 
@@ -17,7 +17,7 @@ export async function upsertUserAdress(
   const isDefault = formData.get("is_default") === "on";
 
   if (isDefault) {
-    await supabase
+    await supabaseServer
       .from("addresses")
       .update({ is_default: false })
       .eq("client_id", clientId)
@@ -37,7 +37,7 @@ export async function upsertUserAdress(
     is_default: isDefault,
   };
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("addresses")
     .upsert(
       {
@@ -66,7 +66,7 @@ export async function removeUserAddress(addressId: string): Promise<void> {
     throw new Error("User not authenticated");
   }
 
-  const { error } = await supabase
+  const { error } = await supabaseServer
     .from("addresses")
     .delete()
     .eq("client_id", session.user.userId)

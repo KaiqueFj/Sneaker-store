@@ -1,13 +1,13 @@
 "use server";
 
 import { auth } from "@/lib/auth";
-import { supabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase-server";
 import { Review, ReviewInput, ReviewWithRelations } from "@/types/review";
 
 export async function getSneakersReviews(
   sneakerId: string,
 ): Promise<ReviewWithRelations[]> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("reviews")
     .select(`*, products (rating_avg, rating_count), users (name)`)
     .eq("product_id", sneakerId);
@@ -20,7 +20,7 @@ export async function getSneakersReviews(
 }
 
 export async function getUserReviews(userId: string): Promise<Review[]> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("reviews")
     .select("*")
     .eq("client_id", userId);
@@ -45,7 +45,7 @@ export async function upsertReview({
   }
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from("reviews")
       .upsert(
         {

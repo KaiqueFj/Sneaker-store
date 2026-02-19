@@ -4,7 +4,7 @@ import ResetUserPasswordEmail from "@/app/_components/ui/Email/ResetUserPassword
 import ContactMessageEmail from "@/app/_components/ui/Email/contactMessageEmail";
 import { auth } from "@/lib/auth";
 import sendMail from "@/lib/mailer";
-import { supabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase-server";
 import {
   createUser,
   getUser,
@@ -80,7 +80,7 @@ export async function updateUserProfile(
   const updateData = { email, name, birthday };
 
   try {
-    const { error } = await supabase
+    const { error } = await supabaseServer
       .from("users")
       .update(updateData)
       .eq("id", client_id);
@@ -98,7 +98,7 @@ export async function sendResetPasswordlinkToEmail(
   try {
     const email = formData.get("email");
 
-    const { data: user } = await supabase
+    const { data: user } = await supabaseServer
       .from("users")
       .select("id, email, provider")
       .eq("email", email)
@@ -114,7 +114,7 @@ export async function sendResetPasswordlinkToEmail(
     const { hashedToken, rawToken } = createResetToken();
     const resetUrl = `${process.env.NEXTAUTH_URL.replace(/\/$/, "")}/password-reset/${rawToken}`;
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from("users")
       .update({
         reset_token_hash: hashedToken,
@@ -206,7 +206,7 @@ export async function resetPassword(
   const hashedPassword = await bcrypt.hash(password, 12);
 
   try {
-    const { error } = await supabase
+    const { error } = await supabaseServer
       .from("users")
       .update({
         password: hashedPassword,
@@ -251,7 +251,7 @@ export async function updateUserPassword(
   const hashedPassword = await bcrypt.hash(NewPassword, 12);
 
   try {
-    const { error } = await supabase
+    const { error } = await supabaseServer
       .from("users")
       .update({
         password: hashedPassword,

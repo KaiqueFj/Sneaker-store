@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/lib/auth";
-import { supabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase-server";
 import { NewestProductRow, ProductListItem, ProductRow } from "@/types/product";
 
 export async function getSneakers(
@@ -11,7 +11,7 @@ export async function getSneakers(
   const session = await auth();
   const userId = session?.user?.userId ?? null;
 
-  let query = supabase
+  let query = supabaseServer
     .from("products")
     .select(
       `
@@ -68,7 +68,7 @@ export async function getSneakers(
 export async function getSneakerSearch(
   searchTerm: string,
 ): Promise<ProductListItem[]> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("products")
     .select("*")
     .ilike("name", `%${searchTerm}%`);
@@ -81,7 +81,7 @@ export async function getSneakerListItem(id: string): Promise<ProductListItem> {
   const session = await auth();
   const userId = session?.user?.userId ?? null;
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("products")
     .select(
       `
@@ -132,7 +132,7 @@ export async function getSneakerDetails(id: string): Promise<ProductDetails> {
   const session = await auth();
   const userId = session?.user?.userId ?? null;
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("products")
     .select(
       `
@@ -168,7 +168,7 @@ export async function getSneakersOnSale(): Promise<ProductListItem[]> {
   const session = await auth();
   const userId = session?.user?.userId ?? null;
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("products")
     .select(
       `
@@ -222,7 +222,7 @@ export async function getNewestSneakers(): Promise<ProductListItem[]> {
   const threeMonthsAgo = new Date();
   threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("products")
     .select(
       `

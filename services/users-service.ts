@@ -1,10 +1,10 @@
 "use server";
 
+import { supabaseServer } from "@/lib/supabase-server";
 import { CreateUserInput, DbUser, User } from "@/types/user";
-import { supabase } from "../lib/supabase";
 
 export async function createUser(user: CreateUserInput): Promise<User> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("users")
     .insert(user)
     .select()
@@ -18,7 +18,7 @@ export async function createUser(user: CreateUserInput): Promise<User> {
 }
 
 export async function getUser(email: string): Promise<User | null> {
-  const { data } = await supabase
+  const { data } = await supabaseServer
     .from("users")
     .select("*")
     .eq("email", email)
@@ -28,7 +28,7 @@ export async function getUser(email: string): Promise<User | null> {
 }
 
 export async function getUserForAuth(email: string): Promise<DbUser | null> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("users")
     .select("id, email, name, password")
     .eq("email", email)
@@ -42,7 +42,7 @@ export async function getUserForAuth(email: string): Promise<DbUser | null> {
 export async function getUserByHashedToken(token: string) {
   const now = new Date().toISOString();
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("users")
     .select("*")
     .eq("reset_token_hash", token)

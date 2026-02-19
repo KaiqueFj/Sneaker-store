@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/lib/auth";
-import { supabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase-server";
 import { CreateOrderInput, Order } from "@/types/order";
 
 export async function createOrder({
@@ -17,7 +17,7 @@ export async function createOrder({
 
   const client_id = session.user.userId;
 
-  const { data: order, error: orderError } = await supabase
+  const { data: order, error: orderError } = await supabaseServer
     .from("orders")
     .insert({ client_id, total_price })
     .select()
@@ -41,7 +41,7 @@ export async function createOrder({
     gender: item.gender,
   }));
 
-  const { error: itemsError } = await supabase
+  const { error: itemsError } = await supabaseServer
     .from("order_items")
     .insert(orderItems);
 
@@ -49,7 +49,7 @@ export async function createOrder({
     throw new Error("Order items could not be created");
   }
 
-  const { error: addressError } = await supabase
+  const { error: addressError } = await supabaseServer
     .from("order_addresses")
     .insert({
       order_id: order.id,
@@ -72,7 +72,7 @@ export async function createOrder({
 }
 
 export async function getOrders(clientId: string): Promise<Order[]> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("orders")
     .select(
       `

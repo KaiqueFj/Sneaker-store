@@ -1,6 +1,6 @@
 "use server";
 
-import { supabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase-server";
 import {
   Address,
   AddressCep,
@@ -41,7 +41,7 @@ function calculateShipping(state?: string): Shipping[] {
 }
 
 export async function getUserAddresses(userId: string): Promise<Address[]> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("addresses")
     .select("*")
     .eq("client_id", userId)

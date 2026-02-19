@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/lib/auth";
-import { supabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase-server";
 import { FavoriteProduct } from "@/types/product";
 import { revalidatePath } from "next/cache";
 
@@ -12,7 +12,7 @@ export async function createFavorite(sneakerId: string): Promise<void> {
     throw new Error("User not authenticated");
   }
 
-  const { error } = await supabase.from("favorites").insert({
+  const { error } = await supabaseServer.from("favorites").insert({
     product_id: sneakerId,
     client_id: session.user.userId,
   });
@@ -32,7 +32,7 @@ export async function removeFavorite(sneakerId: string): Promise<void> {
     throw new Error("User not authenticated");
   }
 
-  const { error } = await supabase
+  const { error } = await supabaseServer
     .from("favorites")
     .delete()
     .eq("client_id", session.user.userId)
@@ -53,7 +53,7 @@ export async function getFavorites(): Promise<FavoriteProduct[]> {
     throw new Error("User not authenticated");
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseServer
     .from("favorites")
     .select(
       `
