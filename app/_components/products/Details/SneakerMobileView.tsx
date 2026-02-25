@@ -1,11 +1,21 @@
-import CartModal from "@/app/_components/cart/CartModal";
-import SneakerImageCarousel from "@/app/_components/products/Details/SneakerImageCarousel";
-import SneakerDetailsModal from "@/app/_components/products/Modal/SneakerDetailsModal";
 import StarRating from "@/app/_components/ui/star/StarRating";
 import { SneakerDesktopViewProps } from "@/types/product";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid, LinkIcon } from "@heroicons/react/24/solid";
+import dynamic from "next/dynamic";
 import toast from "react-hot-toast";
+
+const CartModal = dynamic(() => import("@/app/_components/cart/CartModal"), {
+  ssr: false,
+});
+const SneakerDetailsModal = dynamic(
+  () => import("@/app/_components/products/Modal/SneakerDetailsModal"),
+  { ssr: false },
+);
+const SneakerImageCarousel = dynamic(
+  () => import("@/app/_components/products/Details/SneakerImageCarousel"),
+  { ssr: false },
+);
 
 export default function SneakerMobileView({
   product,

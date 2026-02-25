@@ -1,8 +1,13 @@
 "use client";
 
-import SearchModal from "@/app/_components/ui/SearchModal/SearchModal";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import dynamic from "next/dynamic";
 import { useState } from "react";
+
+const SearchModal = dynamic(
+  () => import("@/app/_components/ui/SearchModal/SearchModal"),
+  { ssr: false },
+);
 
 export default function SearchBar() {
   const [open, setOpen] = useState<boolean>(false);

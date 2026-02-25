@@ -1,4 +1,4 @@
-import { ReviewWithRelations } from "@/types/review";
+import { ReviewWithRelations } from '@/types/review';
 
 export type CartItem = {
   id: string;
@@ -30,6 +30,19 @@ export type OrderAddressInput = {
   country: string;
 };
 
+export type order_item_input = {
+  product_id: string;
+  name: string;
+  price: number;
+  size: string;
+  category: string;
+  quantity: number;
+  colors: string[];
+  image: string[];
+  gender: string;
+  model: string;
+};
+
 export type OrderItem = ReviewWithRelations & {
   id: string;
   product_id: string;
@@ -52,7 +65,7 @@ export type OrderAddress = {
   state: string;
   postal_code: string;
   country: string;
-  type: "shipping" | "billing";
+  type: 'shipping' | 'billing';
   created_at: string;
 };
 

@@ -1,34 +1,23 @@
-"use client";
+'use client';
 
-import { removeUserAddress, upsertUserAdress } from "@/actions/address-action";
-import Button from "@/app/_components/ui/Button/Button";
-import Form from "@/app/_components/ui/Form/Form";
-import ModalTransition from "@/app/_components/ui/TransitionEffects/ModalTransition";
-import { useCheckout } from "@/context/checkoutContext";
-import toast from "react-hot-toast";
+import { removeUserAddress, upsertUserAddress } from '@/actions/address-action';
+import Button from '@/app/_components/ui/Button/Button';
+import Form from '@/app/_components/ui/Form/Form';
+import ModalTransition from '@/app/_components/ui/TransitionEffects/ModalTransition';
+import { useCheckout } from '@/context/checkoutContext';
+import toast from 'react-hot-toast';
 
 export function AddressModal({ open, setOpen, addresses }) {
   const { dispatch, state: addressInfo } = useCheckout();
   const isEditing = Boolean(addresses);
 
-  const {
-    id,
-    label,
-    recipient_name,
-    street,
-    number,
-    complement,
-    city,
-    state,
-    postal_code,
-    country,
-    is_default,
-  } = addresses ?? {};
+  const { id, label, recipient_name, street, number, complement, city, state, postal_code, country, is_default } =
+    addresses ?? {};
 
   async function handleSubmit(formData) {
     try {
-      const result = await toast.promise(upsertUserAdress(formData), {
-        loading: "Salvando endereço...",
+      const result = await toast.promise(upsertUserAddress(formData), {
+        loading: 'Salvando endereço...',
         success: (data) => data.message,
         error: (err) => err.message,
       });
@@ -36,7 +25,7 @@ export function AddressModal({ open, setOpen, addresses }) {
       if (!result?.address) return;
 
       dispatch({
-        type: "SET_ADDRESS",
+        type: 'SET_ADDRESS',
         payload: result.address,
       });
 
@@ -49,12 +38,12 @@ export function AddressModal({ open, setOpen, addresses }) {
 
     try {
       await toast.promise(removeUserAddress(id), {
-        loading: "Excluindo endereço...",
-        success: "Endereço excluído",
+        loading: 'Excluindo endereço...',
+        success: 'Endereço excluído',
         error: (err) => err.message,
       });
 
-      dispatch({ type: "REMOVE_ADDRESS" });
+      dispatch({ type: 'REMOVE_ADDRESS' });
 
       setOpen(false);
     } catch {}
@@ -64,25 +53,22 @@ export function AddressModal({ open, setOpen, addresses }) {
     <ModalTransition open={open}>
       <div className="fixed inset-0 z-50 flex items-center justify-center">
         {/* Backdrop */}
-        <div
-          className="absolute inset-0 bg-black/40"
-          onClick={() => setOpen(false)}
-        />
+        <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
 
         {/* Modal */}
         <div className=" relative w-full max-w-lg max-h-[90vh] md:mx-4 rounded-xl bg-white shadow-xl flex flex-col">
           {/* Header */}
           <div className="mb-6 flex items-start justify-between p-4">
-            {" "}
+            {' '}
             <div>
               <h3 className="text-xl font-semibold text-neutral-900">
-                {isEditing ? "Editar endereço" : "Adicionar novo endereço"}
+                {isEditing ? 'Editar endereço' : 'Adicionar novo endereço'}
               </h3>
 
               <p className="mt-1 text-sm text-neutral-500">
                 {isEditing
-                  ? "Atualize os detalhes do seu endereço abaixo."
-                  : "Preencha os detalhes para adicionar um novo endereço."}
+                  ? 'Atualize os detalhes do seu endereço abaixo.'
+                  : 'Preencha os detalhes para adicionar um novo endereço.'}
               </p>
             </div>
             <button
@@ -101,31 +87,18 @@ export function AddressModal({ open, setOpen, addresses }) {
               {/* Label */}
               <Form.Field>
                 <Form.Label>Rótulo</Form.Label>
-                <Form.Input
-                  name="label"
-                  placeholder="Casa, Trabalho"
-                  type="text"
-                  defaultValue={label ?? ""}
-                />
+                <Form.Input name="label" placeholder="Casa, Trabalho" type="text" defaultValue={label ?? ''} />
               </Form.Field>
 
               {/* Recipient */}
               <Form.Field>
                 <Form.Label>Nome do destinatário</Form.Label>
-                <Form.Input
-                  name="recipient_name"
-                  type="text"
-                  defaultValue={recipient_name ?? ""}
-                />
+                <Form.Input name="recipient_name" type="text" defaultValue={recipient_name ?? ''} />
               </Form.Field>
 
               <Form.Field>
                 <Form.Label>Rua</Form.Label>
-                <Form.Input
-                  name="street"
-                  type="text"
-                  defaultValue={street ?? ""}
-                />
+                <Form.Input name="street" type="text" defaultValue={street ?? ''} />
               </Form.Field>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -133,21 +106,13 @@ export function AddressModal({ open, setOpen, addresses }) {
 
                 <Form.Field>
                   <Form.Label>Número</Form.Label>
-                  <Form.Input
-                    name="number"
-                    type="text"
-                    defaultValue={number ?? ""}
-                  />
+                  <Form.Input name="number" type="text" defaultValue={number ?? ''} />
                 </Form.Field>
 
                 {/* Complement */}
                 <Form.Field>
                   <Form.Label>Complemento (opcional)</Form.Label>
-                  <Form.Input
-                    name="complement"
-                    type="text"
-                    defaultValue={complement ?? ""}
-                  />
+                  <Form.Input name="complement" type="text" defaultValue={complement ?? ''} />
                 </Form.Field>
               </div>
 
@@ -155,20 +120,12 @@ export function AddressModal({ open, setOpen, addresses }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Form.Field>
                   <Form.Label>Cidade</Form.Label>
-                  <Form.Input
-                    name="city"
-                    type="text"
-                    defaultValue={city ?? ""}
-                  />
+                  <Form.Input name="city" type="text" defaultValue={city ?? ''} />
                 </Form.Field>
 
                 <Form.Field>
                   <Form.Label>Estado</Form.Label>
-                  <Form.Input
-                    name="state"
-                    type="text"
-                    defaultValue={state ?? ""}
-                  />
+                  <Form.Input name="state" type="text" defaultValue={state ?? ''} />
                 </Form.Field>
               </div>
 
@@ -176,32 +133,20 @@ export function AddressModal({ open, setOpen, addresses }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Form.Field>
                   <Form.Label>Código postal</Form.Label>
-                  <Form.Input
-                    name="postal_code"
-                    type="text"
-                    defaultValue={postal_code ?? ""}
-                  />
+                  <Form.Input name="postal_code" type="text" defaultValue={postal_code ?? ''} />
                 </Form.Field>
 
                 <Form.Field>
                   <Form.Label>País</Form.Label>
-                  <Form.Input
-                    name="country"
-                    type="text"
-                    defaultValue={country ?? ""}
-                  />
+                  <Form.Input name="country" type="text" defaultValue={country ?? ''} />
                 </Form.Field>
               </div>
 
               <Form.Field>
                 <label className="flex items-center justify-between gap-4 rounded-lg border border-neutral-200 px-4 py-3 cursor-pointer hover:border-neutral-400 transition">
                   <div className="flex flex-col">
-                    <span className="text-sm font-medium text-neutral-900">
-                      Definir como endereço padrão
-                    </span>
-                    <span className="text-xs text-neutral-500">
-                      Este endereço será usado por padrão no checkout
-                    </span>
+                    <span className="text-sm font-medium text-neutral-900">Definir como endereço padrão</span>
+                    <span className="text-xs text-neutral-500">Este endereço será usado por padrão no checkout</span>
                   </div>
 
                   <input
@@ -218,12 +163,7 @@ export function AddressModal({ open, setOpen, addresses }) {
                 {isEditing ? (
                   <>
                     {/* Delete */}
-                    <Button
-                      type="button"
-                      size="lg"
-                      variant="secondary"
-                      onClick={handleDelete}
-                    >
+                    <Button type="button" size="lg" variant="secondary" onClick={handleDelete}>
                       Excluir endereço
                     </Button>
 

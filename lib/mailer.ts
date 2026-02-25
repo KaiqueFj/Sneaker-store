@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
 
 type SendMailProps = {
   to: string;
@@ -6,14 +6,10 @@ type SendMailProps = {
   html: string;
 };
 
-export default async function sendMail({
-  to,
-  subject,
-  html,
-}: SendMailProps): Promise<{ message: string }> {
+export default async function sendMail({ to, subject, html }: SendMailProps): Promise<{ message: string }> {
   try {
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.GOOGLE_APP_PASSWORD,
@@ -27,8 +23,8 @@ export default async function sendMail({
       html,
     });
 
-    return { message: "Email sent successfully" };
+    return { message: 'Email sent successfully' };
   } catch (error) {
-    return { message: "Email could not be sent. Try again later." };
+    return { message: 'Email could not be sent. Try again later.' };
   }
 }

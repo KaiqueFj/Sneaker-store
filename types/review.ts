@@ -20,6 +20,7 @@ export type ReviewWithRelations = Review & {
 };
 
 export type ReviewInput = {
+  userId?: string;
   product_id: string;
   rating: number;
   comment: string;

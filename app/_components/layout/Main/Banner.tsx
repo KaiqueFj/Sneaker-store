@@ -74,7 +74,10 @@ export default function Banner() {
               src={image.src}
               alt={image.label}
               fill
-              priority
+              priority={index === 0}
+              fetchPriority={index === 0 ? "high" : "auto"}
+              sizes="100vw"
+              loading="eager"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
 
@@ -119,7 +122,8 @@ export default function Banner() {
               src={banner.src}
               alt={banner.label}
               fill
-              priority
+              sizes="100vw, 50vw"
+              loading="eager"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
 

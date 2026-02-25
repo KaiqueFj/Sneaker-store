@@ -1,9 +1,9 @@
-import MiniSpinner from "@/app/_components/ui/Spinner/miniSpinner";
-import StarInput from "@/app/_components/ui/star/starInput";
-import { upsertReview } from "@/services/reviews-service";
-import { Review, ReviewInput, ReviewWithRelations } from "@/types/review";
-import { useState } from "react";
-import toast from "react-hot-toast";
+import { upsertReviewAction } from '@/actions/reviews-action';
+import MiniSpinner from '@/app/_components/ui/Spinner/miniSpinner';
+import StarInput from '@/app/_components/ui/star/starInput';
+import { Review, ReviewInput, ReviewWithRelations } from '@/types/review';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 type ReviewComponentProps = {
   item: ReviewWithRelations;
@@ -12,14 +12,9 @@ type ReviewComponentProps = {
   review?: Review;
 };
 
-export default function ReviewComponent({
-  item,
-  onClose,
-  onSuccess,
-  review,
-}: ReviewComponentProps) {
+export default function ReviewComponent({ item, onClose, onSuccess, review }: ReviewComponentProps) {
   const [rating, setRating] = useState(review?.rating ?? 0);
-  const [comment, setComment] = useState(review?.comment ?? "");
+  const [comment, setComment] = useState(review?.comment ?? '');
   const [loading, setLoading] = useState(false);
 
   async function handleSubmitReview() {
@@ -32,12 +27,10 @@ export default function ReviewComponent({
         comment,
       };
 
-      const savedReview = await toast.promise(upsertReview(updatedReview), {
-        loading: "Salvando sua avaliação...",
-        success: review
-          ? "Avaliação atualizada com sucesso!"
-          : "Avaliação salva com sucesso!",
-        error: "Erro ao salvar a avaliação. Tente novamente.",
+      const savedReview = await toast.promise(upsertReviewAction(updatedReview), {
+        loading: 'Salvando sua avaliação...',
+        success: review ? 'Avaliação atualizada com sucesso!' : 'Avaliação salva com sucesso!',
+        error: 'Erro ao salvar a avaliação. Tente novamente.',
       });
 
       onSuccess(savedReview);
@@ -75,7 +68,7 @@ export default function ReviewComponent({
                 Salvando...
               </>
             ) : (
-              "Salvar avaliação"
+              'Salvar avaliação'
             )}
           </button>
         </div>

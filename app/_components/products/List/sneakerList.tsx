@@ -1,8 +1,9 @@
 import SneakerDetails from "@/app/_components/products/Details/sneakerDetails";
 import Sneaker from "@/app/_components/products/Sneaker";
 import { ProductListItem } from "@/types/product";
+import { memo } from "react";
 
-export default function SneakersList({
+const SneakersList = memo(function SneakersList({
   filter = "Todos",
   sneakers,
 }: {
@@ -46,4 +47,6 @@ export default function SneakersList({
       )}
     </Sneaker>
   );
-}
+});
+
+export default SneakersList;

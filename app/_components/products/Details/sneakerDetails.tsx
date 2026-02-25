@@ -1,30 +1,16 @@
-"use client";
+'use client';
 
-import Sneaker from "@/app/_components/products/Sneaker";
-import { createFavorite, removeFavorite } from "@/services/favorite-service";
-import { ProductListItem } from "@/types/product";
-import { slugify } from "@/utils/helpers";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import toast from "react-hot-toast";
+import { createFavoriteAction, removeFavoriteAction } from '@/actions/favorite-action';
+import Sneaker from '@/app/_components/products/Sneaker';
+import { ProductListItem } from '@/types/product';
+import { slugify } from '@/utils/helpers';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
+import toast from 'react-hot-toast';
 
-export default function SneakerDetails({
-  sneaker,
-}: {
-  sneaker: ProductListItem;
-}) {
-  const {
-    id,
-    name,
-    price,
-    category,
-    images,
-    colors,
-    isFavorite,
-    sale,
-    rating_avg,
-  } = sneaker;
+export default function SneakerDetails({ sneaker }: { sneaker: ProductListItem }) {
+  const { id, name, price, category, images, colors, isFavorite, sale, rating_avg } = sneaker;
 
   const [isPending, startTransition] = useTransition();
   const [isFavoriteState, setIsFavoriteState] = useState<boolean>(isFavorite);
@@ -36,12 +22,10 @@ export default function SneakerDetails({
 
   function handleFavorite() {
     if (!session?.user?.userId) {
-      toast.error(
-        "Você precisa entrar primeiro para favoritar um tênis! Redirecionando para a página de login...",
-      );
+      toast.error('Você precisa entrar primeiro para favoritar um tênis! Redirecionando para a página de login...');
 
       setTimeout(() => {
-        router.push("/login");
+        router.push('/login');
       }, 3000);
 
       return;
@@ -53,9 +37,9 @@ export default function SneakerDetails({
     startTransition(async () => {
       try {
         if (nextValue) {
-          await createFavorite(id);
+          await createFavoriteAction(id);
         } else {
-          await removeFavorite(id);
+          await removeFavoriteAction(id);
         }
       } catch {
         setIsFavoriteState(!nextValue);
@@ -66,11 +50,7 @@ export default function SneakerDetails({
   return (
     <Sneaker.Card slug={slug}>
       <Sneaker.Cover src={images[0]} name={name} />
-      <Sneaker.Favorite
-        isFavoriteState={isFavoriteState}
-        handleFavorite={handleFavorite}
-        isPending={isPending}
-      />
+      <Sneaker.Favorite isFavoriteState={isFavoriteState} handleFavorite={handleFavorite} isPending={isPending} />
       <Sneaker.Info>
         <Sneaker.Title>{name}</Sneaker.Title>
         <Sneaker.Category>{category}</Sneaker.Category>

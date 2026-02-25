@@ -14,6 +14,20 @@ export type Address = {
   state: string;
 };
 
+export type AddressInput = {
+  id?: string;
+  label: string;
+  recipient_name: string;
+  street: string;
+  number: string;
+  complement?: string;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+  is_default: boolean;
+};
+
 export type AddressCep = {
   city: string;
   state: string;

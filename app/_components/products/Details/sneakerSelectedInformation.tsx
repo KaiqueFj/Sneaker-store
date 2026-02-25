@@ -2,10 +2,15 @@
 
 import SneakerDesktopView from "@/app/_components/products/Details/SneakerDesktopView";
 import SneakerMobileView from "@/app/_components/products/Details/SneakerMobileView";
-import SneakerReviews from "@/app/_components/products/Details/SneakerReviews";
 import { useSneakerPageController } from "@/hooks/useSneakerPageController";
 import { ProductDetails } from "@/types/product";
 import { ReviewWithRelations } from "@/types/review";
+import dynamic from "next/dynamic";
+
+const SneakerReviews = dynamic(
+  () => import("@/app/_components/products/Details/SneakerReviews"),
+  { ssr: false },
+);
 
 export default function SneakerSelectedInformation({
   sneaker,

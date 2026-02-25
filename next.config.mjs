@@ -4,15 +4,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "xdwfpeoyyofrxkqdlpad.supabase.co", // your Supabase images
+        hostname: "xdwfpeoyyofrxkqdlpad.supabase.co",
       },
       {
         protocol: "https",
-        hostname: "lh3.googleusercontent.com", // allow Google profile images
-      },
-      {
-        protocol: "https",
-        hostname: "images.stockx.com", // allow StockX images
+        hostname: "lh3.googleusercontent.com",
       },
 
       {

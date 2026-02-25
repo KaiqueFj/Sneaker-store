@@ -1,23 +1,32 @@
-"use server";
+import { deleteAddress, getUserAddresses, resetDefaultAddress, upsertAddress } from '@/repository/address-repository';
+import { Address, AddressCep, AddressInput, Shipping, ShippingOptions } from '@/types/shipping';
 
-import { supabaseServer } from "@/lib/supabase-server";
-import {
-  Address,
-  AddressCep,
-  Shipping,
-  ShippingOptions,
-} from "@/types/shipping";
+export async function upsertUserAddressService(userId: string, input: AddressInput) {
+  if (input.is_default) {
+    await resetDefaultAddress(userId);
+  }
+
+  return upsertAddress(userId, input);
+}
+
+export function removeUserAddressService(userId: string, addressId: string) {
+  return deleteAddress(userId, addressId);
+}
+
+export async function getUserAddressesService(userId: string): Promise<Address[]> {
+  return getUserAddresses(userId);
+}
 
 async function fetchAdressByCep(cep?: string): Promise<AddressCep> {
   if (!cep) {
-    throw new Error("CEP is required");
+    throw new Error('CEP is required');
   }
 
   const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
   const data = await res.json();
 
   if (data.erro) {
-    throw new Error("Invalid CEP");
+    throw new Error('Invalid CEP');
   }
 
   return {
@@ -27,28 +36,17 @@ async function fetchAdressByCep(cep?: string): Promise<AddressCep> {
 }
 
 function calculateShipping(state?: string): Shipping[] {
-  if (state === "SP") {
+  if (state === 'SP') {
     return [
-      { type: "Normal", price: 0, days: 3 },
-      { type: "Expresso", price: 10, days: 2 },
+      { type: 'Normal', price: 0, days: 3 },
+      { type: 'Expresso', price: 10, days: 2 },
     ];
   }
 
   return [
-    { type: "Normal", price: 30, days: 7 },
-    { type: "Expresso", price: 40, days: 4 },
+    { type: 'Normal', price: 30, days: 7 },
+    { type: 'Expresso', price: 40, days: 4 },
   ];
-}
-
-export async function getUserAddresses(userId: string): Promise<Address[]> {
-  const { data, error } = await supabaseServer
-    .from("addresses")
-    .select("*")
-    .eq("client_id", userId)
-    .order("created_at", { ascending: false });
-
-  if (error) throw error;
-  return data;
 }
 
 export async function getShippingByCep(cep?: string): Promise<ShippingOptions> {

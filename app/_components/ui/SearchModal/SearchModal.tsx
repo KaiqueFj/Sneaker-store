@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import SearchResultItem from "@/app/_components/products/SearchResult/SearchResultItem";
-import { getSneakerSearch } from "@/services/sneakers-service";
-import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { getSneakerSearchServiceAction } from '@/actions/sneakers-action';
+import SearchResultItem from '@/app/_components/products/SearchResult/SearchResultItem';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 export default function SearchModal({ onClose }: { onClose: () => void }) {
-  const [term, setTerm] = useState("");
+  const [term, setTerm] = useState('');
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
     }
 
     const id = setTimeout(() => {
-      getSneakerSearch(term).then(setResults);
+      getSneakerSearchServiceAction(term).then(setResults);
     }, 400);
 
     return () => clearTimeout(id);
@@ -36,7 +36,7 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
           initial={{ opacity: 0, scale: 0.96, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 20 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
           className=" relative w-full max-w-4xl max-h-[85vh] mt-24 bg-white rounded-3xl shadow-2xl p-6 sm:p-8 flex flex-col"
         >
           {/* Search header */}
@@ -71,19 +71,11 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
             {results.length > 0 ? (
               <div className="flex flex-col gap-2">
                 {results.map((sneaker) => (
-                  <SearchResultItem
-                    onClose={onClose}
-                    key={sneaker.id}
-                    sneaker={sneaker}
-                  />
+                  <SearchResultItem onClose={onClose} key={sneaker.id} sneaker={sneaker} />
                 ))}
               </div>
             ) : (
-              term.length >= 2 && (
-                <p className="mt-8 text-center text-sm text-gray-500">
-                  Nenhum tênis encontrado
-                </p>
-              )
+              term.length >= 2 && <p className="mt-8 text-center text-sm text-gray-500">Nenhum tênis encontrado</p>
             )}
           </div>
         </motion.div>

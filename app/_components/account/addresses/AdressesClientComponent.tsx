@@ -1,8 +1,16 @@
 "use client";
 
-import { AddressModal } from "@/app/_components/account/addresses/AdressModal";
 import { Address } from "@/types/shipping";
+import dynamic from "next/dynamic";
 import { useState } from "react";
+
+const AddressModal = dynamic(
+  () =>
+    import("@/app/_components/account/addresses/AdressModal").then((mod) => ({
+      default: mod.AddressModal,
+    })),
+  { ssr: false },
+);
 
 export default function AddressesClient({
   addresses,

@@ -1,9 +1,9 @@
-import { getSneakers } from "@/services/sneakers-service";
-import { ProductListItem } from "@/types/product";
-import SneakerMainCard from "./SneakersMainPageCard";
+import { getSneakersServiceAction } from '@/actions/sneakers-action';
+import { ProductListItem } from '@/types/product';
+import SneakerMainCard from './SneakersMainPageCard';
 
 export default async function Catalog() {
-  const sneakers = await getSneakers();
+  const sneakers = await getSneakersServiceAction();
 
   const byModel: Record<string, ProductListItem> = {};
 
@@ -17,9 +17,7 @@ export default async function Catalog() {
     <>
       <div className="flex flex-col items-center w-full gap-6 p-4 my-10">
         <p className="text-3xl text-primary-600 font-bold text-center">
-          <span className="block">
-            Uma coleção de tênis que pode fazer você se sentir como um campeão
-          </span>
+          <span className="block">Uma coleção de tênis que pode fazer você se sentir como um campeão</span>
           <span className="block">E</span>
           <span className="block">alcançar um sonho</span>
         </p>

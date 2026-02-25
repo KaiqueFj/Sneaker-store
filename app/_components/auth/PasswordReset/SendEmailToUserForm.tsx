@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { sendResetPasswordlinkToEmail } from "@/actions/user-action";
-import Logo from "@/app/_components/layout/Header/logo/Logo";
-import Button from "@/app/_components/ui/Button/Button";
-import Form from "@/app/_components/ui/Form/Form";
-import Link from "next/link";
-import toast from "react-hot-toast";
+import { sendResetPasswordLinkToEmailAction } from '@/actions/user-action';
+import Logo from '@/app/_components/layout/Header/logo/Logo';
+import Button from '@/app/_components/ui/Button/Button';
+import Form from '@/app/_components/ui/Form/Form';
+import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 export default function SendEmailToUserForm() {
   async function handleSubmit(formData: FormData) {
     try {
-      await toast.promise(sendResetPasswordlinkToEmail(formData), {
-        loading: "Enviando...",
+      await toast.promise(sendResetPasswordLinkToEmailAction(formData), {
+        loading: 'Enviando...',
         success: (data) => data.message,
         error: (err) => err.message,
       });
@@ -36,9 +36,7 @@ export default function SendEmailToUserForm() {
           para redefinir sua senha
         </h1>
 
-        <p className="mt-3 text-sm text-gray-600">
-          {"Enviaremos um e-mail com um link para redefinir sua senha."}
-        </p>
+        <p className="mt-3 text-sm text-gray-600">{'Enviaremos um e-mail com um link para redefinir sua senha.'}</p>
 
         <Form action={handleSubmit} className="mt-8 space-y-6">
           <Form.Field>
@@ -54,12 +52,7 @@ export default function SendEmailToUserForm() {
             >
               Cancelar
             </Link>
-            <Button
-              pendingLabel="Enviando..."
-              variant="primary"
-              size="lg"
-              className="font-medium"
-            >
+            <Button pendingLabel="Enviando..." variant="primary" size="lg" className="font-medium">
               Enviar link
             </Button>
           </div>

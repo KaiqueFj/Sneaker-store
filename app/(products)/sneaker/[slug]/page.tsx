@@ -1,28 +1,25 @@
-import SneakerSelectedInformation from "@/app/_components/products/Details/sneakerSelectedInformation";
-import { getSneakersReviews } from "@/services/reviews-service";
-import { getSneakerDetails } from "@/services/sneakers-service";
-import { notFound } from "next/navigation";
+import { getUsersReviewsAction } from '@/actions/reviews-action';
+import { getSneakerDetailsServiceAction } from '@/actions/sneakers-action';
+import SneakerSelectedInformation from '@/app/_components/products/Details/sneakerSelectedInformation';
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+import { notFound } from 'next/navigation';
+
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   if (!slug) {
     return notFound();
   }
 
-  const id = slug.split("-")[0];
+  const id = slug.split('-')[0];
 
-  const sneakerDetails = await getSneakerDetails(id);
+  const sneakerDetails = await getSneakerDetailsServiceAction(id);
 
   if (!sneakerDetails) {
     return notFound();
   }
 
-  const reviews = await getSneakersReviews(id);
+  const reviews = await getUsersReviewsAction(id);
 
   return (
     <div className="w-full justify-items-center">

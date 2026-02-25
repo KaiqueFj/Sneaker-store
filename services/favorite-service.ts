@@ -1,90 +1,23 @@
-"use server";
+import { createFavorite, getFavorites, removeFavorite } from '@/repository/favorites-repository';
+import { FavoriteProduct } from '@/types/product';
 
-import { auth } from "@/lib/auth";
-import { supabaseServer } from "@/lib/supabase-server";
-import { FavoriteProduct } from "@/types/product";
-import { revalidatePath } from "next/cache";
-
-export async function createFavorite(sneakerId: string): Promise<void> {
-  const session = await auth();
-
-  if (!session?.user?.userId) {
-    throw new Error("User not authenticated");
-  }
-
-  const { error } = await supabaseServer.from("favorites").insert({
-    product_id: sneakerId,
-    client_id: session.user.userId,
-  });
-
-  if (error) {
-    throw new Error("Could not add favorite");
-  }
-
-  revalidatePath("/favorites");
-  revalidatePath("/");
+export function createFavoriteService(userId: string, sneakerId: string) {
+  return createFavorite(userId, sneakerId);
 }
 
-export async function removeFavorite(sneakerId: string): Promise<void> {
-  const session = await auth();
-
-  if (!session?.user?.userId) {
-    throw new Error("User not authenticated");
-  }
-
-  const { error } = await supabaseServer
-    .from("favorites")
-    .delete()
-    .eq("client_id", session.user.userId)
-    .eq("product_id", sneakerId);
-
-  if (error) {
-    throw new Error("Could not remove favorite");
-  }
-
-  revalidatePath("/favorites");
-  revalidatePath("/");
+export function removeFavoriteService(userId: string, sneakerId: string): Promise<void> {
+  return removeFavorite(userId, sneakerId);
 }
 
-export async function getFavorites(): Promise<FavoriteProduct[]> {
-  const session = await auth();
-
-  if (!session?.user?.userId) {
-    throw new Error("User not authenticated");
-  }
-
-  const { data, error } = await supabaseServer
-    .from("favorites")
-    .select(
-      `
-        id,
-        products (
-          id,
-          name,
-          price,
-          category,
-          images,
-          sizes,
-          colors,
-          gender,
-          model,
-          rating_avg,
-          rating_count
-        )
-      `,
-    )
-    .eq("client_id", session.user.userId)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    throw new Error(error.message);
-  }
+export async function getFavoritesService(userId: string): Promise<FavoriteProduct[]> {
+  const data = await getFavorites(userId);
 
   if (!data) return [];
 
   return data
     .map((f) => {
       const product = Array.isArray(f.products) ? f.products[0] : f.products;
+
       if (!product) return null;
 
       return {

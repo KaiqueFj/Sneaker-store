@@ -1,269 +1,155 @@
-"use server";
+'use server';
 
-import ResetUserPasswordEmail from "@/app/_components/ui/Email/ResetUserPasswordEmail";
-import ContactMessageEmail from "@/app/_components/ui/Email/contactMessageEmail";
-import { auth } from "@/lib/auth";
-import sendMail from "@/lib/mailer";
-import { supabaseServer } from "@/lib/supabase-server";
+import ResetUserPasswordEmail from '@/app/_components/ui/Email/ResetUserPasswordEmail';
+import ContactMessageEmail from '@/app/_components/ui/Email/contactMessageEmail';
+import sendMail from '@/lib/mailer';
+import { requireUser } from '@/lib/requireUser';
 import {
-  createUser,
-  getUser,
-  getUserByHashedToken,
-} from "@/services/users-service";
-import { createResetToken } from "@/utils/helpers";
-import { pretty, render } from "@react-email/render";
-import bcrypt from "bcrypt";
-import crypto from "crypto";
-import { signIn, signOut } from "next-auth/react";
-import { revalidatePath } from "next/cache";
+  createUserService,
+  getUserServiceByEmail,
+  getUserServiceById,
+  resetUserPasswordService,
+  setResetTokenService,
+  updateUserPasswordService,
+  updateUserProfileService,
+} from '@/services/users-service';
+import { createResetToken } from '@/utils/helpers';
+import { pretty, render } from '@react-email/render';
+import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
+import { signIn, signOut } from 'next-auth/react';
+import { JSX } from 'react';
 
-export async function signUpNewUserAction(
-  formData: FormData,
-): Promise<{ message: string }> {
-  const name = formData.get("name")?.toString();
-  const email = formData.get("email")?.toString();
-  const password = formData.get("password")?.toString();
+// ----------------------------
+// Helpers
+// ----------------------------
 
-  if (!email || !password) {
-    throw new Error("Email e senha são obrigatórios");
-  }
-
-  const existingUser = await getUser(email);
-  if (existingUser) {
-    throw new Error("Usuário já existe");
-  }
-
-  try {
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    await createUser({
-      name,
-      email,
-      password: hashedPassword,
-      provider: "credentials",
-    });
-
-    return {
-      message: "Conta criada com sucesso",
-    };
-  } catch (error) {
-    throw new Error("Algo deu errado. Por favor, tente novamente.");
-  }
+async function validateAndHashPassword(newPassword: string, confirmPassword: string): Promise<string> {
+  if (!newPassword || !confirmPassword) throw new Error('As senhas são necessárias');
+  if (newPassword.length < 8 || confirmPassword.length < 8) throw new Error('A senha deve ter pelo menos 8 caracteres');
+  if (newPassword !== confirmPassword) throw new Error('As senhas não coincidem');
+  return await bcrypt.hash(newPassword, 12);
 }
 
-export async function signInAction(): Promise<void> {
-  await signIn("google", { redirectTo: "/account" });
+async function sendEmail(to: string, subject: string, component: JSX.Element) {
+  const rendered = await render(component);
+  const html = await pretty(rendered);
+  await sendMail({ to, subject, html });
 }
 
-export async function signOutAction(): Promise<void> {
-  await signOut({ redirectTo: "/" });
+// ----------------------------
+// Actions
+// ----------------------------
+
+// Get authenticated user info
+export async function getUserAction() {
+  const userId = await requireUser();
+  return await getUserServiceById(userId);
 }
 
-export async function updateUserProfile(
-  formData: FormData,
-): Promise<{ message: string; ok: boolean }> {
-  const session = await auth();
+// Sign up a new user
+export async function signUpNewUserAction(formData: FormData) {
+  const name = formData.get('name')?.toString();
+  const email = formData.get('email')?.toString();
+  const password = formData.get('password')?.toString();
 
-  const client_id = session.user.userId;
+  if (!email || !password) throw new Error('Email e senha são obrigatórios');
 
-  if (!session) {
-    return {
-      ok: false,
-      message: "Você precisa estar logado para atualizar seu perfil",
-    };
-  }
-
-  const email = formData.get("email");
-  const name = formData.get("name");
-  const birthday = formData.get("birthday");
-
-  const updateData = { email, name, birthday };
-
-  try {
-    const { error } = await supabaseServer
-      .from("users")
-      .update(updateData)
-      .eq("id", client_id);
-
-    revalidatePath("/account/profile");
-    return { message: "Perfil atualizado com sucesso", ok: true };
-  } catch (error) {
-    throw new Error("Algo deu errado. Por favor, tente novamente.");
-  }
-}
-
-export async function sendResetPasswordlinkToEmail(
-  formData: FormData,
-): Promise<{ message: string }> {
-  try {
-    const email = formData.get("email");
-
-    const { data: user } = await supabaseServer
-      .from("users")
-      .select("id, email, provider")
-      .eq("email", email)
-      .maybeSingle();
-
-    if (!user || user.provider === "google") {
-      return {
-        message:
-          "Se existir uma conta com este email, um link de redefinição foi enviado.",
-      };
-    }
-
-    const { hashedToken, rawToken } = createResetToken();
-    const resetUrl = `${process.env.NEXTAUTH_URL.replace(/\/$/, "")}/password-reset/${rawToken}`;
-
-    const { data, error } = await supabaseServer
-      .from("users")
-      .update({
-        reset_token_hash: hashedToken,
-        reset_token_expires_at: new Date(Date.now() + 10 * 60 * 1000),
-      })
-      .eq("id", user.id);
-
-    if (error) {
-      throw new Error("Something went wrong. Please try again later.");
-    }
-
-    const rendered = await render(
-      <ResetUserPasswordEmail resetUrl={resetUrl} />,
-    );
-
-    const html = await pretty(rendered);
-
-    await sendMail({
-      to: user.email,
-      subject: "Link para redefinir sua senha",
-      html,
-    });
-    return {
-      message:
-        "Se existir uma conta com este email, um link de redefinição foi enviado.",
-    };
-  } catch (err) {
-    throw new Error("Algo deu errado. Tente novamente mais tarde.");
-  }
-}
-
-export async function sendContactMessage(
-  formData: FormData,
-): Promise<{ message: string }> {
-  try {
-    const name = formData.get("name")?.toString();
-    const email = formData.get("email")?.toString();
-    const message = formData.get("message")?.toString();
-
-    if (!name || !email || !message) {
-      throw new Error("Todos os campos são obrigatórios.");
-    }
-
-    const rendered = await render(
-      <ContactMessageEmail name={name} email={email} message={message} />,
-    );
-
-    const html = await pretty(rendered);
-
-    await sendMail({
-      to: process.env.EMAIL_USER!,
-      subject: "Nova mensagem de contato",
-      html,
-    });
-
-    return { message: "Mensagem enviada com sucesso." };
-  } catch (error) {
-    throw new Error("Algo deu errado. Por favor, tente novamente.");
-  }
-}
-
-export async function resetPassword(
-  formData: FormData,
-): Promise<{ message: string }> {
-  const password = formData.get("password")?.toString();
-  const confirm = formData.get("confirmPassword")?.toString();
-  const token = formData.get("token")?.toString();
-
-  if (!password || !confirm || !token) {
-    throw new Error("Solicitação inválida");
-  }
-
-  if (password.length < 8) {
-    throw new Error("A senha deve ter pelo menos 8 caracteres");
-  }
-
-  if (password !== confirm) {
-    throw new Error("As senhas não coincidem");
-  }
-
-  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
-
-  const user = await getUserByHashedToken(hashedToken);
-
-  if (!user) {
-    throw new Error("Token inválido ou expirado");
-  }
+  const existingUser = await getUserServiceByEmail(email);
+  if (existingUser) throw new Error('Usuário já existe');
 
   const hashedPassword = await bcrypt.hash(password, 12);
 
-  try {
-    const { error } = await supabaseServer
-      .from("users")
-      .update({
-        password: hashedPassword,
-        reset_token_hash: null,
-        reset_token_expires_at: null,
-      })
-      .eq("id", user.id);
+  await createUserService({ name, email, password: hashedPassword, provider: 'credentials' });
 
-    if (error) {
-      throw new Error("Algo deu errado. Por favor, tente novamente.");
-    }
-
-    return { message: "Senha atualizada com sucesso" };
-  } catch (error) {
-    throw new Error("Algo deu errado. Tente novamente mais tarde.");
-  }
+  return { message: 'Conta criada com sucesso' };
 }
 
-export async function updateUserPassword(
-  formData: FormData,
-): Promise<{ message: string }> {
-  const session = await auth();
-  const NewPassword = formData.get("New-password").toString();
-  const ReenterPassword = formData.get("Reenter-password").toString();
+// Sign in / out
+export async function signInAction() {
+  await signIn('google', { redirectTo: '/account' });
+}
 
-  if (!NewPassword || !ReenterPassword) {
-    throw new Error("Passwords are required");
-  }
+export async function signOutAction() {
+  await signOut({ redirectTo: '/' });
+}
 
-  if (!session?.user?.userId) {
-    throw new Error("User not authenticated");
-  }
+// Update user profile
+export async function updateUserProfileAction(formData: FormData) {
+  const userId = await requireUser();
 
-  if (NewPassword.length <= 8 || ReenterPassword.length <= 8) {
-    throw new Error("Password must be at least 8 characters");
-  }
+  const updateData: Partial<{ email: string; name: string; birthday: string }> = {
+    email: formData.get('email')?.toString() || undefined,
+    name: formData.get('name')?.toString() || undefined,
+    birthday: formData.get('birthday')?.toString() || undefined,
+  };
 
-  if (NewPassword !== ReenterPassword) {
-    throw new Error("Passwords do not match");
-  }
+  const data = await updateUserProfileService(userId, updateData);
 
-  const hashedPassword = await bcrypt.hash(NewPassword, 12);
+  return { message: 'Perfil atualizado com sucesso', ok: true, data };
+}
 
-  try {
-    const { error } = await supabaseServer
-      .from("users")
-      .update({
-        password: hashedPassword,
-      })
-      .eq("id", session.user.userId);
+// Reset password via token
+export async function resetPasswordAction(formData: FormData) {
+  const password = formData.get('password')?.toString();
+  const confirm = formData.get('confirmPassword')?.toString();
+  const token = formData.get('token')?.toString();
 
-    if (error) {
-      throw new Error("Something went wrong. Please try again.");
-    }
+  if (!token) throw new Error('Solicitação inválida');
 
-    return { message: "Password updated successfully" };
-  } catch (error) {
-    throw new Error("Something went wrong. Please try again later.");
-  }
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+  const hashedPassword = await validateAndHashPassword(password!, confirm!);
+
+  const data = await resetUserPasswordService(hashedToken, hashedPassword);
+
+  return { message: 'Senha atualizada com sucesso', data };
+}
+
+// Update password (authenticated)
+export async function updateUserPasswordAction(formData: FormData) {
+  const userId = await requireUser();
+
+  const newPassword = formData.get('New-password')?.toString();
+  const reenterPassword = formData.get('Reenter-password')?.toString();
+
+  const hashedPassword = await validateAndHashPassword(newPassword!, reenterPassword!);
+
+  const data = await updateUserPasswordService(userId, hashedPassword);
+
+  return { message: 'Senha atualizada com sucesso', data };
+}
+
+// Send reset link email
+export async function sendResetPasswordLinkToEmailAction(formData: FormData) {
+  const email = formData.get('email')?.toString();
+  if (!email) throw new Error('Email é obrigatório');
+
+  const user = await getUserServiceByEmail(email);
+  if (!user) return { message: 'Se existir uma conta com este email, um link de redefinição foi enviado.' };
+
+  const { hashedToken, rawToken } = createResetToken();
+  await setResetTokenService(user.id, hashedToken, new Date(Date.now() + 10 * 60 * 1000));
+
+  const resetUrl = `${process.env.NEXTAUTH_URL?.replace(/\/$/, '')}/password-reset/${rawToken}`;
+
+  await sendEmail(user.email, 'Link para redefinir sua senha', <ResetUserPasswordEmail resetUrl={resetUrl} />);
+
+  return { message: 'Se existir uma conta com este email, um link de redefinição foi enviado.' };
+}
+
+// Send contact message
+export async function sendContactMessageAction(formData: FormData) {
+  const name = formData.get('name')?.toString();
+  const email = formData.get('email')?.toString();
+  const message = formData.get('message')?.toString();
+
+  if (!name || !email || !message) throw new Error('Todos os campos são obrigatórios.');
+
+  await sendEmail(
+    process.env.EMAIL_USER!,
+    'Nova mensagem de contato',
+    <ContactMessageEmail name={name} email={email} message={message} />,
+  );
+
+  return { message: 'Mensagem enviada com sucesso.' };
 }

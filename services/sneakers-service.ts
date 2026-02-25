@@ -1,255 +1,80 @@
-"use server";
+'use server';
 
-import { auth } from "@/lib/auth";
-import { supabaseServer } from "@/lib/supabase-server";
-import { NewestProductRow, ProductListItem, ProductRow } from "@/types/product";
+import {
+  getNewestSneakers,
+  getSneakerDetails,
+  getSneakers,
+  getSneakerSearch,
+  getSneakersOnSale,
+} from '@/repository/sneakers-repository';
+import { ProductDetails, ProductListItem, ProductRow } from '@/types/product';
 
-export async function getSneakers(
-  filterKey?: string,
-  filterValue?: string,
-): Promise<ProductListItem[]> {
-  const session = await auth();
-  const userId = session?.user?.userId ?? null;
-
-  let query = supabaseServer
-    .from("products")
-    .select(
-      `
-        *,
-        sales (
-          discountPercentage,
-          startDate,
-          endDate
-        ),
-        favorites (
-          id,
-          client_id
-        )
-      `,
-    )
-    .order("name");
-
-  if (filterKey && filterValue) {
-    if (["gender", "category"].includes(filterKey)) {
-      query = query.contains(filterKey, [filterValue]);
-    } else {
-      query = query.ilike(filterKey, `%${filterValue}%`);
-    }
-  }
-
-  const { data, error } = await query;
-
-  if (error) throw new Error("products could not be loaded");
-
-  const now = new Date();
-
-  return (data as ProductRow[]).map((s) => {
-    const activeSale =
-      s.sales?.find(
-        (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now,
-      ) ?? null;
-
-    const favorite =
-      userId && s.favorites
-        ? s.favorites.find((f) => f.client_id === userId)
-        : null;
-
-    const { sales, favorites, ...product } = s;
-
-    return {
-      ...product,
-      sale: activeSale,
-      isFavorite: Boolean(favorite),
-      favoriteId: favorite?.id ?? null,
-    };
-  });
+// Reusable function to get a user's favorite for a product
+function extractFavorite(favorites: { id: string; client_id: string }[] | undefined, userId: string | null) {
+  if (!userId || !favorites) return null;
+  return favorites.find((f) => f.client_id === userId) ?? null;
 }
 
-export async function getSneakerSearch(
-  searchTerm: string,
-): Promise<ProductListItem[]> {
-  const { data, error } = await supabaseServer
-    .from("products")
-    .select("*")
-    .ilike("name", `%${searchTerm}%`);
-
-  if (error) throw new Error("products could not be loaded");
-  return data;
-}
-
-export async function getSneakerListItem(id: string): Promise<ProductListItem> {
-  const session = await auth();
-  const userId = session?.user?.userId ?? null;
-
-  const { data, error } = await supabaseServer
-    .from("products")
-    .select(
-      `
-        *,
-        sales (
-          discountPercentage,
-          startDate,
-          endDate
-        ),
-        favorites (
-          id,
-          client_id
-        )
-      `,
-    )
-    .eq("id", id)
-    .single<ProductRow>();
-
-  if (error || !data) {
-    throw new Error("Sneaker could not be loaded");
-  }
-
+// Map ProductRow to ProductListItem with sale and favorite info
+function mapProductToListItem(product: ProductRow, userId?: string | null): ProductListItem {
   const now = new Date();
+  const activeSale = product.sales?.find((sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now) ?? null;
+  const favorite = extractFavorite(product.favorites, userId ?? null);
 
-  const activeSale =
-    data.sales?.find(
-      (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now,
-    ) ?? null;
-
-  const favorite =
-    userId && data.favorites
-      ? data.favorites.find((f) => f.client_id === userId)
-      : null;
-
-  const { sales, favorites, ...sneaker } = data;
+  const { sales, favorites, ...rest } = product;
 
   return {
-    ...sneaker,
+    ...rest,
     sale: activeSale,
     isFavorite: Boolean(favorite),
     favoriteId: favorite?.id ?? null,
   };
 }
 
-import { ProductDetails } from "@/types/product";
+// Get all sneakers with optional filter
+export async function getSneakersService(
+  userId: string | null,
+  filterKey?: string,
+  filterValue?: string,
+): Promise<ProductListItem[]> {
+  const data = await getSneakers(filterKey, filterValue);
+  return data.map((p) => mapProductToListItem(p, userId));
+}
 
-export async function getSneakerDetails(id: string): Promise<ProductDetails> {
-  const session = await auth();
-  const userId = session?.user?.userId ?? null;
+// Search sneakers
+export async function getSneakerSearchService(searchTerm: string, userId?: string | null): Promise<ProductListItem[]> {
+  const data = await getSneakerSearch(searchTerm);
+  return data.map((p) => mapProductToListItem(p, userId ?? null));
+}
 
-  const { data, error } = await supabaseServer
-    .from("products")
-    .select(
-      `
-        *,
-        favorites (
-          id,
-          client_id
-        )
-      `,
-    )
-    .eq("id", id)
-    .single<ProductRow>();
+// Get sneaker details
+export async function getSneakerDetailsService(userId: string | null, id: string): Promise<ProductDetails> {
+  const data = await getSneakerDetails(id);
+  const favorite = extractFavorite(data.favorites, userId);
 
-  if (error || !data) {
-    throw new Error("Sneaker could not be loaded");
-  }
-
-  const favorite =
-    userId && data.favorites
-      ? data.favorites.find((f) => f.client_id === userId)
-      : null;
-
-  const { favorites, ...product } = data;
+  const { favorites, ...rest } = data;
 
   return {
-    ...product,
+    ...rest,
     isFavorite: Boolean(favorite),
     favoriteId: favorite?.id ?? null,
   };
 }
 
-export async function getSneakersOnSale(): Promise<ProductListItem[]> {
-  const session = await auth();
-  const userId = session?.user?.userId ?? null;
-
-  const { data, error } = await supabaseServer
-    .from("products")
-    .select(
-      `
-        *,
-        sales (
-          discountPercentage,
-          startDate,
-          endDate
-        ),
-        favorites (
-          id,
-          client_id
-        )
-      `,
-    )
-    .not("sales", "is", null)
-    .order("name");
-
-  if (error) throw new Error("Sneakers could not be loaded");
-
-  const now = new Date();
-
-  return (data as ProductRow[])
-    .map((s) => {
-      const activeSale = s.sales?.find(
-        (sa) => new Date(sa.startDate) <= now && new Date(sa.endDate) >= now,
-      );
-
-      if (!activeSale) return null;
-
-      const favorite = userId
-        ? s.favorites?.find((f) => f.client_id === userId)
-        : null;
-
-      const { sales, favorites, ...sneaker } = s;
-
-      return {
-        ...sneaker,
-        sale: activeSale,
-        isFavorite: Boolean(favorite),
-        favoriteId: favorite?.id ?? null,
-      };
-    })
-    .filter(Boolean);
+// Sneakers currently on sale
+export async function getSneakersOnSaleService(userId: string | null): Promise<ProductListItem[]> {
+  const data = await getSneakersOnSale();
+  return data.map((p) => mapProductToListItem(p, userId)).filter((p) => p.sale !== null);
 }
 
-export async function getNewestSneakers(): Promise<ProductListItem[]> {
-  const session = await auth();
-  const userId = session?.user?.userId ?? null;
-
-  const threeMonthsAgo = new Date();
-  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-
-  const { data, error } = await supabaseServer
-    .from("products")
-    .select(
-      `
-        *,
-        favorites (
-          id,
-          client_id
-        )
-      `,
-    )
-    .gte("created_at", threeMonthsAgo.toISOString())
-    .order("created_at", { ascending: false });
-
-  if (error || !data) {
-    throw new Error("Sneakers could not be loaded: " + error?.message);
-  }
-
-  return (data as NewestProductRow[]).map((s) => {
-    const favorite =
-      userId && s.favorites
-        ? s.favorites.find((f) => f.client_id === userId)
-        : null;
-
-    const { favorites, ...product } = s;
-
+// Newest sneakers (last 3 months)
+export async function getNewestSneakersService(userId: string | null): Promise<ProductListItem[]> {
+  const data = await getNewestSneakers();
+  return data.map((p) => {
+    const favorite = extractFavorite(p.favorites, userId);
+    const { favorites, ...rest } = p;
     return {
-      ...product,
+      ...rest,
       sale: null,
       isFavorite: Boolean(favorite),
       favoriteId: favorite?.id ?? null,

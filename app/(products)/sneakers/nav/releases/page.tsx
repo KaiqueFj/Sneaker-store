@@ -1,22 +1,18 @@
-import Category from "@/app/_components/layout/HeaderPages/Category";
-import Filter from "@/app/_components/products/Filter/filter";
-import SneakersList from "@/app/_components/products/List/sneakerList";
-import { getNewestSneakers } from "@/services/sneakers-service";
+import { getNewestSneakersServiceAction } from '@/actions/sneakers-action';
+import Category from '@/app/_components/layout/HeaderPages/Category';
+import Filter from '@/app/_components/products/Filter/filter';
+import SneakersList from '@/app/_components/products/List/sneakerList';
 
 export async function generateMetadata() {
   return { title: `New & Featured Sneakers` };
 }
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ order?: string }>;
-}) {
+export default async function Page({ searchParams }: { searchParams: Promise<{ order?: string }> }) {
   const resolvedSearchParams = await searchParams;
-  const filter = resolvedSearchParams?.order ?? "Todos";
+  const filter = resolvedSearchParams?.order ?? 'Todos';
   let sneakers = [];
 
-  sneakers = await getNewestSneakers();
+  sneakers = await getNewestSneakersServiceAction();
 
   return (
     <div className="flex flex-col justify-center mx-auto gap-6 place-items-center">

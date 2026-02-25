@@ -1,78 +1,66 @@
-"use server";
+'use server';
 
-import { auth } from "@/lib/auth";
-import { supabaseServer } from "@/lib/supabase-server";
-import { Address } from "@/types/shipping";
-import { revalidatePath } from "next/cache";
+import { auth } from '@/lib/auth';
+import { requireUser } from '@/lib/requireUser';
+import {
+  getShippingByCep,
+  getUserAddressesService,
+  removeUserAddressService,
+  upsertUserAddressService,
+} from '@/services/address-service';
+import { AddressInput } from '@/types/shipping';
+import { revalidatePath } from 'next/cache';
 
-export async function upsertUserAdress(
-  formData: FormData,
-): Promise<{ message: string; address: Address }> {
-  const session = await auth();
-  if (!session?.user?.userId) {
-    throw new Error("User not authenticated");
-  }
-
-  const clientId = session.user.userId;
-  const isDefault = formData.get("is_default") === "on";
-
-  if (isDefault) {
-    await supabaseServer
-      .from("addresses")
-      .update({ is_default: false })
-      .eq("client_id", clientId)
-      .eq("is_default", true);
-  }
-
-  const adressData = {
-    label: formData.get("label"),
-    recipient_name: formData.get("recipient_name"),
-    street: formData.get("street"),
-    number: formData.get("number"),
-    complement: formData.get("complement"),
-    city: formData.get("city"),
-    state: formData.get("state"),
-    postal_code: formData.get("postal_code"),
-    country: formData.get("country"),
-    is_default: isDefault,
-  };
-
-  const { data, error } = await supabaseServer
-    .from("addresses")
-    .upsert(
-      {
-        id: formData.get("id") || undefined,
-        client_id: clientId,
-        ...adressData,
-      },
-      { onConflict: "id" },
-    )
-    .select()
-    .single();
-
-  if (error) throw new Error("Could not save address");
-
-  revalidatePath("/account/addresses");
-
+function parseAddressForm(formData: FormData): AddressInput {
   return {
-    message: "Address saved successfully",
-    address: data,
+    id: formData.get('id') as string | undefined,
+    label: formData.get('label') as string,
+    recipient_name: formData.get('recipient_name') as string,
+    street: formData.get('street') as string,
+    number: formData.get('number') as string,
+    complement: formData.get('complement') as string | undefined,
+    city: formData.get('city') as string,
+    state: formData.get('state') as string,
+    postal_code: formData.get('postal_code') as string,
+    country: formData.get('country') as string,
+    is_default: formData.get('is_default') === 'on',
   };
 }
 
-export async function removeUserAddress(addressId: string): Promise<void> {
+export async function getUserAddressesAction() {
   const session = await auth();
-  if (!session?.user?.userId) {
-    throw new Error("User not authenticated");
+  const userId = session?.user?.userId;
+
+  if (!userId) {
+    return [];
   }
 
-  const { error } = await supabaseServer
-    .from("addresses")
-    .delete()
-    .eq("client_id", session.user.userId)
-    .eq("id", addressId);
+  return getUserAddressesService(userId);
+}
 
-  if (error) throw error;
+export async function upsertUserAddress(formData: FormData) {
+  const userId = await requireUser();
 
-  revalidatePath("/account/addresses");
+  const input = parseAddressForm(formData);
+
+  const address = await upsertUserAddressService(userId, input);
+
+  revalidatePath('/account/addresses');
+
+  return {
+    message: 'Endereço salvo com sucesso',
+    address,
+  };
+}
+
+export async function getShippingByCepAction(cep: string) {
+  return getShippingByCep(cep);
+}
+
+export async function removeUserAddress(addressId: string) {
+  const userId = await requireUser();
+
+  await removeUserAddressService(userId, addressId);
+
+  revalidatePath('/account/addresses');
 }

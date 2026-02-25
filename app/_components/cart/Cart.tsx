@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { useCheckout } from "@/context/checkoutContext";
-import { Address } from "@/types/shipping";
-import { useEffect } from "react";
-import CartCupomDiscount from "./CartCupomDiscount";
-import CartItemList from "./CartItemsList";
-import CartShipping from "./cartShipping";
-import CartSummary from "./CartSummary";
+import { useCheckout } from '@/context/checkoutContext';
+import { Address } from '@/types/shipping';
+import { memo, useEffect } from 'react';
+import CartCupomDiscount from './CartCupomDiscount';
+import CartItemList from './CartItemsList';
+import CartShipping from './cartShipping';
+import CartSummary from './CartSummary';
 
-export default function Cart({ defaultAddress }: { defaultAddress: Address }) {
+const Cart = memo(function Cart({ defaultAddress }: { defaultAddress: Address }) {
   const { state, dispatch } = useCheckout();
 
   useEffect(() => {
     if (defaultAddress && !state.address) {
       dispatch({
-        type: "SET_ADDRESS",
+        type: 'SET_ADDRESS',
         payload: defaultAddress,
       });
     }
@@ -25,7 +25,7 @@ export default function Cart({ defaultAddress }: { defaultAddress: Address }) {
       <div className="flex flex-col gap-6 px-3 flex-1">
         <CartItemList editable />
 
-        <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex flex-col md:flex-row gap-14">
           <CartShipping />
           <CartCupomDiscount />
         </div>
@@ -36,4 +36,6 @@ export default function Cart({ defaultAddress }: { defaultAddress: Address }) {
       </div>
     </div>
   );
-}
+});
+
+export default Cart;

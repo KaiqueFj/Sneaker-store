@@ -1,43 +1,28 @@
-"use server";
+'use server';
 
-import { supabaseServer } from "@/lib/supabase-server";
-import { CouponDiscount } from "@/types/coupom";
+import { getCouponDiscountService } from '@/services/coupons-service';
+import { CouponDiscount } from '@/types/coupon';
 
 export async function getCouponDiscount(
   formData: FormData,
 ): Promise<{ success: boolean; data?: CouponDiscount; message: string }> {
-  const coupon = formData.get("coupon");
+  const rawCoupon = formData.get('coupon');
+
+  if (!rawCoupon || typeof rawCoupon !== 'string') {
+    return {
+      success: false,
+      message: 'Cupom inválido',
+    };
+  }
+
+  const coupon = rawCoupon.trim();
 
   if (!coupon) {
     return {
       success: false,
-      message: "Coupon is required",
+      message: 'Informe um código de cupom',
     };
   }
 
-  try {
-    const { data, error } = await supabaseServer
-      .from("coupons")
-      .select("value, code")
-      .eq("code", coupon)
-      .single();
-
-    if (error || !data) {
-      return {
-        success: false,
-        message: "Coupon is invalid or expired",
-      };
-    }
-
-    return {
-      success: true,
-      data: { value: data.value, code: data.code },
-      message: "Coupon applied successfully",
-    };
-  } catch (err) {
-    return {
-      success: false,
-      message: "Unexpected error. Try again later.",
-    };
-  }
+  return getCouponDiscountService(coupon);
 }

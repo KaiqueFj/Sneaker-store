@@ -1,8 +1,8 @@
-import { createFavorite, removeFavorite } from "@/services/favorite-service";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import toast from "react-hot-toast";
+import { createFavoriteAction, removeFavoriteAction } from '@/actions/favorite-action';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
+import toast from 'react-hot-toast';
 
 export function useFavoriteSneaker(initialValue: boolean, sneakerId: string) {
   const [isFavoriteState, setIsFavoriteState] = useState<boolean>(initialValue);
@@ -12,8 +12,8 @@ export function useFavoriteSneaker(initialValue: boolean, sneakerId: string) {
 
   const handleFavorite = () => {
     if (!session?.user?.userId) {
-      toast.error("Faça login para favoritar este produto. Redirecionando...");
-      setTimeout(() => router.push("/login"), 2500);
+      toast.error('Faça login para favoritar este produto. Redirecionando...');
+      setTimeout(() => router.push('/login'), 2500);
       return;
     }
 
@@ -22,9 +22,7 @@ export function useFavoriteSneaker(initialValue: boolean, sneakerId: string) {
 
     startTransition(async () => {
       try {
-        nextValue
-          ? await createFavorite(sneakerId)
-          : await removeFavorite(sneakerId);
+        nextValue ? await createFavoriteAction(sneakerId) : await removeFavoriteAction(sneakerId);
       } catch {
         setIsFavoriteState(!nextValue);
       }

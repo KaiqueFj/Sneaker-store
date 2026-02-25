@@ -1,22 +1,18 @@
-import Category from "@/app/_components/layout/HeaderPages/Category";
-import Filter from "@/app/_components/products/Filter/filter";
-import SneakersList from "@/app/_components/products/List/sneakerList";
-import { getSneakersOnSale } from "@/services/sneakers-service";
+import { getSneakersOnSaleServiceAction } from '@/actions/sneakers-action';
+import Category from '@/app/_components/layout/HeaderPages/Category';
+import Filter from '@/app/_components/products/Filter/filter';
+import SneakersList from '@/app/_components/products/List/sneakerList';
 
 export async function generateMetadata() {
   return { title: ` Sneakers on sale ` };
 }
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ order?: string }>;
-}) {
+export default async function Page({ searchParams }: { searchParams: Promise<{ order?: string }> }) {
   const resolvedSearchParams = await searchParams;
-  const filter = resolvedSearchParams?.order ?? "Todos";
+  const filter = resolvedSearchParams?.order ?? 'Todos';
   let sneakers = [];
 
-  sneakers = await getSneakersOnSale();
+  sneakers = await getSneakersOnSaleServiceAction();
 
   return (
     <div className="flex  justify-center h-auto min-h-screen">

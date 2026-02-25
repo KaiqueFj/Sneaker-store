@@ -1,13 +1,9 @@
-import Category from "@/app/_components/layout/HeaderPages/Category";
-import Filter from "@/app/_components/products/Filter/filter";
-import SneakersList from "@/app/_components/products/List/sneakerList";
-import { getSneakers } from "@/services/sneakers-service";
+import { getSneakersServiceAction } from '@/actions/sneakers-action';
+import Category from '@/app/_components/layout/HeaderPages/Category';
+import Filter from '@/app/_components/products/Filter/filter';
+import SneakersList from '@/app/_components/products/List/sneakerList';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ category: string }>;
-}) {
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
   const pageCategory = await decodeURIComponent(category);
 
@@ -18,7 +14,7 @@ export default async function Page({ params, searchParams }) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
 
-  const filter = resolvedSearchParams?.order ?? "Todos";
+  const filter = resolvedSearchParams?.order ?? 'Todos';
 
   // decode category from URL
   const rawCategory = resolvedParams?.category || null;
@@ -27,13 +23,11 @@ export default async function Page({ params, searchParams }) {
   let sneakers = [];
 
   if (category) {
-    const filterKey = ["masculino", "feminino"].includes(category.toLowerCase())
-      ? "gender"
-      : "model";
+    const filterKey = ['masculino', 'feminino'].includes(category.toLowerCase()) ? 'gender' : 'model';
 
-    sneakers = await getSneakers(filterKey, category);
+    sneakers = await getSneakersServiceAction(filterKey, category);
   } else {
-    sneakers = await getSneakers("Todos", "Todos");
+    sneakers = await getSneakersServiceAction('Todos', 'Todos');
   }
 
   return (
@@ -41,7 +35,7 @@ export default async function Page({ params, searchParams }) {
       <div className="w-full flex flex-col gap-10 max-w-360 mx-auto px-2 lg:px-10 box-border py-0 ">
         {/* Header */}
         <div className="flex items-center h- justify-between px-6 lg:px-12">
-          <Category>{category ? `Tênis ${category}` : "Todos tênis"}</Category>
+          <Category>{category ? `Tênis ${category}` : 'Todos tênis'}</Category>
           <Filter />
         </div>
 

@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { updateUserProfile } from "@/actions/user-action";
-import Button from "@/app/_components/ui/Button/Button";
-import Form from "@/app/_components/ui/Form/Form";
-import { User } from "@/types/user";
-import { toast } from "react-hot-toast";
+import { updateUserProfileAction } from '@/actions/user-action';
+import Button from '@/app/_components/ui/Button/Button';
+import Form from '@/app/_components/ui/Form/Form';
+import { PublicUser } from '@/types/user';
+import { toast } from 'react-hot-toast';
 
-export default function UpdateProfileForm({ user }: { user: User }) {
+export default function UpdateProfileForm({ user }: { user: PublicUser }) {
   const { name, email, birthday } = user;
 
   async function handleSubmit(formData: FormData) {
     try {
-      await toast.promise(updateUserProfile(formData), {
-        loading: "Atualizando...",
+      await toast.promise(updateUserProfileAction(formData), {
+        loading: 'Atualizando...',
         success: (data) => data.message,
         error: (err) => err.message,
       });
@@ -36,17 +36,12 @@ export default function UpdateProfileForm({ user }: { user: User }) {
       {/* Birthday */}
       <Form.Field>
         <Form.Label>Aniversário</Form.Label>
-        <Form.Input name="birthday" type="date" defaultValue={birthday ?? ""} />
+        <Form.Input name="birthday" type="date" defaultValue={birthday ?? ''} />
       </Form.Field>
 
       {/* Actions */}
       <Form.Actions>
-        <Button
-          pendingLabel="Atualizando..."
-          className="w-fit"
-          size="lg"
-          variant="primary"
-        >
+        <Button pendingLabel="Atualizando..." className="w-fit" size="lg" variant="primary">
           Salvar alterações
         </Button>
       </Form.Actions>

@@ -1,13 +1,10 @@
-"use client";
-import { useSneaker } from "@/context/SneakerContext";
-import {
-  CheckCircleIcon,
-  ShoppingCartIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+'use client';
+import { useSneaker } from '@/context/SneakerContext';
+import { CheckCircleIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import Button from '../ui/Button/Button';
 
 export default function CartModal() {
   const { state } = useSneaker();
@@ -24,7 +21,7 @@ export default function CartModal() {
 
       const timer = setTimeout(() => {
         setVisible(false);
-      }, 5000);
+      }, 5000000);
 
       return () => clearTimeout(timer);
     }
@@ -34,20 +31,17 @@ export default function CartModal() {
   // Close the modal if click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
         setVisible(false);
       }
     }
 
     if (visible) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [visible]);
 
@@ -67,9 +61,7 @@ export default function CartModal() {
           <div className="flex flex-row justify-between  items-center gap-2">
             <div className="flex gap-2 items-center">
               <CheckCircleIcon className="w-8 h-10 text-green-500" />
-              <span className="text-lg text-primary-600 font-medium">
-                Adicionado à sacola
-              </span>
+              <span className="text-lg text-primary-600 font-medium">Adicionado à sacola</span>
             </div>
 
             <button
@@ -85,43 +77,30 @@ export default function CartModal() {
               <div className="flex gap-1 flex-row">
                 {/* Image */}
                 <div className="w-fit h-fit">
-                  <Image
-                    src={lastItemOnCart.image}
-                    alt={lastItemOnCart.name}
-                    width={120}
-                    height={100}
-                  />
+                  <Image src={lastItemOnCart.image} alt={lastItemOnCart.name} width={120} height={100} />
                 </div>
                 {/* Sneaker info */}
                 <div className=" flex flex-col">
-                  <h3 className="text-lg font-semibold text-primary-600">
-                    {lastItemOnCart.name}
-                  </h3>
-                  <p className="text-lg font-semibold text-primary-600/30">
-                    {lastItemOnCart.category}
-                  </p>
-                  <p className="text-lg font-semibold text-primary-600/30">
-                    Size: {lastItemOnCart.size}
-                  </p>
+                  <h3 className="text-lg font-semibold text-primary-600">{lastItemOnCart.name}</h3>
+                  <p className="text-lg font-semibold text-primary-600">{lastItemOnCart.category}</p>
+                  <p className="text-lg font-semibold text-primary-600">Tamanho: {lastItemOnCart.size}</p>
 
-                  <p className="text-lg font-semibold text-primary-600">
-                    ${lastItemOnCart.price}
-                  </p>
+                  <p className="text-lg font-semibold text-primary-600">R${lastItemOnCart.price}</p>
                 </div>
               </div>
 
               {/* Buttons */}
-              <div className="flex flex-col items-center gap-4">
-                <Link className="w-11/12" href="/cart">
-                  <button className="flex flex-row font-semibold items-center h-14 justify-center bg-primary-600 w-full  text-white px-6 py-2 rounded-full hover:bg-gray-800 transition">
+              <div className="flex w-3/4 self-center flex-col items-center gap-4">
+                <Link className=" w-full py-2" href="/cart">
+                  <Button size="md" className="w-full flex items-center flex-row justify-center py-3" variant="primary">
                     Ver sacola ({totalItems})
                     <ShoppingCartIcon className="ml-2 h-5 w-5" />
-                  </button>
+                  </Button>
                 </Link>
 
-                <button className="flex gap-2 flex-row  w-11/12 items-center h-14 justify-center border-primary-500/20 border-2  text-primary-600 px-4 rounded-full hover:bg-primary-600/10 transition hover:text-red-500">
+                <Button size="md" className="w-full  py-3" variant="secondary">
                   Finalizar compra
-                </button>
+                </Button>
               </div>
             </div>
           )}

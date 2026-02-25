@@ -1,8 +1,9 @@
 import { ProductListItem } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
+import { memo } from "react";
 
-export default function SneakerMainCard({
+const SneakerMainCard = memo(function SneakerMainCard({
   sneaker,
 }: {
   sneaker: ProductListItem;
@@ -26,6 +27,8 @@ export default function SneakerMainCard({
             src={images[0]}
             alt={`${model} sneaker`}
             fill
+            loading="eager"
+            sizes="(max-width: 768px) 50vw, 280px"
             className="object-contain group-hover:scale-105 transition-transform duration-500"
           />
         </div>
@@ -44,4 +47,6 @@ export default function SneakerMainCard({
       </Link>
     </article>
   );
-}
+});
+
+export default SneakerMainCard;

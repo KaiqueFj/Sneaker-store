@@ -1,25 +1,20 @@
-import UpdateProfileForm from "@/app/_components/account/UpdateProfile/UpdateProfileForm";
-import { auth } from "@/lib/auth";
-import { getUser } from "@/services/users-service";
+import { getUserAction } from '@/actions/user-action';
+import UpdateProfileForm from '@/app/_components/account/UpdateProfile/UpdateProfileForm';
 
 export const metadata = {
-  title: "Atualizar perfil",
+  title: 'Atualizar perfil',
 };
 
 export default async function Page() {
-  const session = await auth();
-  const user = await getUser(session.user.email);
+  const user = await getUserAction();
 
   return (
     <div className="mx-auto w-full max-w-xl px-4 py-12">
       <header className="mb-12 text-center">
-        <h2 className="mb-3 text-4xl font-bold tracking-tight text-black">
-          Atualizar perfil
-        </h2>
+        <h2 className="mb-3 text-4xl font-bold tracking-tight text-black">Atualizar perfil</h2>
 
         <p className="text-sm text-gray-500">
-          Mantenha seus dados atualizados para uma experiência mais rápida e
-          fluida.
+          Mantenha seus dados atualizados para uma experiência mais rápida e fluida.
         </p>
       </header>
 

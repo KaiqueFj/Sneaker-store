@@ -13,16 +13,16 @@ import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import NavigationList from "../nav/NavigationList";
 import SearchBar from "./SearchBar";
 
-export default function OtherOptions() {
+const OtherOptions = memo(function OtherOptions() {
   const { state } = useSneaker();
   const { data: session } = useSession();
-  const totalItems = state.items.reduce(
-    (acc, item) => acc + (item.quantity ?? 0),
-    0,
+  const totalItems = useMemo(
+    () => state.items.reduce((acc, item) => acc + (item.quantity ?? 0), 0),
+    [state.items],
   );
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -81,7 +81,7 @@ export default function OtherOptions() {
       />
     </div>
   );
-}
+});
 
 /* ------------------- Subcomponents ------------------- */
 
@@ -160,14 +160,11 @@ function UserMenu({
         </>
       ) : (
         <Link
-          href="/account"
+          href="/login"
           className="transition-colors hover:text-accent-400 flex items-center gap-2"
           aria-label="Guest area"
         >
-          <UserCircleIcon className="text-primary-600 w-6 h-6" />
-          <span className="text-primary-600 sm:inline">
-            Usuário sem sessão{" "}
-          </span>
+          <span className="text-primary-600 sm:inline">{"Entrar"}</span>
         </Link>
       )}
     </div>
@@ -249,3 +246,5 @@ function MobileMenu({
     </div>
   );
 }
+
+export default OtherOptions;

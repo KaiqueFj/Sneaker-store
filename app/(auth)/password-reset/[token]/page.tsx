@@ -1,6 +1,10 @@
 import ResetPasswordForm from "@/app/_components/auth/PasswordReset/FormToResetPassword";
 
-export default async function page({ params }: { params: { token: string } }) {
+type Props = {
+  params: Promise<{ token: string }>;
+};
+
+export default async function Page({ params }: Props) {
   const { token } = await params;
 
   return <ResetPasswordForm token={token} />;

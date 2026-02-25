@@ -1,55 +1,63 @@
-"use server";
+'use server';
 
-import { supabaseServer } from "@/lib/supabase-server";
-import { CreateUserInput, DbUser, User } from "@/types/user";
+import {
+  createUser,
+  getUser,
+  getUserByHashedToken,
+  getUserById,
+  getUsersForAuth,
+  resetUserPassword,
+  setUserResetToken,
+  updatedUserPassword,
+  updateUser,
+} from '@/repository/users-repository';
+import { AuthUser, CreateUserInput, PublicUser } from '@/types/user';
+import { revalidatePath } from 'next/cache';
 
-export async function createUser(user: CreateUserInput): Promise<User> {
-  const { data, error } = await supabaseServer
-    .from("users")
-    .insert(user)
-    .select()
-    .single();
-
-  if (error || !data) {
-    throw new Error("Could not create user");
-  }
-
-  return data;
+// --- CREATE
+export async function createUserService(user: CreateUserInput): Promise<PublicUser> {
+  return createUser(user);
 }
 
-export async function getUser(email: string): Promise<User | null> {
-  const { data } = await supabaseServer
-    .from("users")
-    .select("*")
-    .eq("email", email)
-    .single();
-
-  return data ?? null;
+// --- GET
+export async function getUserServiceById(userId: string): Promise<PublicUser | null> {
+  return getUserById(userId);
 }
 
-export async function getUserForAuth(email: string): Promise<DbUser | null> {
-  const { data, error } = await supabaseServer
-    .from("users")
-    .select("id, email, name, password")
-    .eq("email", email)
-    .single();
-
-  if (error) return null;
-
-  return data;
+export async function getUserServiceByEmail(email: string): Promise<PublicUser | null> {
+  return getUser(email);
 }
 
-export async function getUserByHashedToken(token: string) {
-  const now = new Date().toISOString();
+export async function getUserForAuthService(email: string): Promise<AuthUser | null> {
+  return getUsersForAuth(email);
+}
 
-  const { data, error } = await supabaseServer
-    .from("users")
-    .select("*")
-    .eq("reset_token_hash", token)
-    .gt("reset_token_expires_at", now)
-    .maybeSingle();
+export async function getUserByHashedTokenService(token: string): Promise<AuthUser | null> {
+  return getUserByHashedToken(token);
+}
 
-  if (error || !data) return null;
+// --- UPDATE
+export async function updateUserProfileService(
+  userId: string,
+  updateData: { email?: string; name?: string; birthday?: string },
+) {
+  revalidatePath('/account/profile');
 
-  return data;
+  return updateUser(updateData, userId);
+}
+
+export async function updateUserPasswordService(userId: string, hashedPassword: string) {
+  return updatedUserPassword(hashedPassword, userId);
+}
+
+export async function resetUserPasswordService(hashedToken: string, hashedPassword: string) {
+  const user = await getUserByHashedTokenService(hashedToken);
+  if (!user) throw new Error('Token inválido ou expirado');
+
+  return resetUserPassword(user.id, hashedPassword);
+}
+
+// --- RESET TOKEN
+export async function setResetTokenService(userId: string, hashedToken: string, expiresAt: Date) {
+  return setUserResetToken(userId, hashedToken, expiresAt);
 }

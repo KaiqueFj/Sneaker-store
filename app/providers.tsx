@@ -2,6 +2,7 @@
 
 import { CheckoutProvider } from "@/context/checkoutContext";
 import { SessionProvider } from "next-auth/react";
+import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import { SneakerProvider } from "../context/SneakerContext";
 
@@ -16,8 +17,10 @@ export function Providers({
     <SessionProvider session={session}>
       <SneakerProvider>
         <CheckoutProvider>
-          <Toaster position="top-right" />
-          {children}
+          <Suspense fallback={<div>Carregando...</div>}>
+            <Toaster position="top-right" />
+            {children}
+          </Suspense>
         </CheckoutProvider>
       </SneakerProvider>
     </SessionProvider>

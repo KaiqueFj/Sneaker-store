@@ -1,8 +1,8 @@
-import SneakersList from "@/app/_components/products/List/sneakerList";
-import { getFavorites } from "@/services/favorite-service";
+import { getFavoritesAction } from '@/actions/favorite-action';
+import SneakersList from '@/app/_components/products/List/sneakerList';
 
 export default async function page() {
-  const favorites = await getFavorites();
+  const favorites = await getFavoritesAction();
 
   return (
     <div className="flex flex-col items-center mx-auto justify-center gap-4">
