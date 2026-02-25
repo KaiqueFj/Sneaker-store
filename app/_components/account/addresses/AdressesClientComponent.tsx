@@ -1,22 +1,18 @@
-"use client";
+'use client';
 
-import { Address } from "@/types/shipping";
-import dynamic from "next/dynamic";
-import { useState } from "react";
+import { Address } from '@/types/shipping';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
 
 const AddressModal = dynamic(
   () =>
-    import("@/app/_components/account/addresses/AdressModal").then((mod) => ({
+    import('@/app/_components/account/addresses/AdressModal').then((mod) => ({
       default: mod.AddressModal,
     })),
   { ssr: false },
 );
 
-export default function AddressesClient({
-  addresses,
-}: {
-  addresses: Address[];
-}) {
+export default function AddressesClient({ addresses }: { addresses: Address[] }) {
   const [open, setOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
 
@@ -24,32 +20,22 @@ export default function AddressesClient({
     <div className="mx-auto w-full max-w-2xl px-4 py-12">
       {/* Header */}
       <header className="mb-12 text-center">
-        <h2 className="mb-3 text-4xl font-bold tracking-tight text-neutral-900">
-          Endereços
-        </h2>
+        <h2 className="mb-3 text-4xl font-bold tracking-tight text-neutral-900">Endereços</h2>
         <p className="text-sm text-neutral-500">
-          Gerencie seus endereços salvos para uma experiência de checkout mais
-          rápida.
+          Gerencie seus endereços salvos para uma experiência de checkout mais rápida.
         </p>
       </header>
 
       {/* List */}
       <section>
-        <h3 className="mb-6 text-2xl font-semibold text-neutral-900">
-          Seus Endereços
-        </h3>
+        <h3 className="mb-6 text-2xl font-semibold text-neutral-900">Seus Endereços</h3>
 
         <div className="flex flex-col gap-4">
           {addresses.map((address) => (
-            <div
-              key={address.id}
-              className="flex items-start justify-between rounded-lg border border-neutral-200 p-4"
-            >
+            <div key={address.id} className="flex items-start justify-between rounded-lg border border-neutral-200 p-4">
               <div className="flex flex-col gap-1">
                 {address.is_default && (
-                  <span className="text-xs uppercase tracking-wide text-primary-600 font-bold">
-                    Endereço padrão
-                  </span>
+                  <span className="text-xs uppercase tracking-wide text-primary-600 font-bold">Endereço padrão</span>
                 )}
 
                 <span className="text-sm font-medium text-neutral-900">
@@ -85,9 +71,7 @@ export default function AddressesClient({
         </div>
       </section>
 
-      {open && (
-        <AddressModal addresses={addresses} open={open} setOpen={setOpen} />
-      )}
+      {open && <AddressModal address={selectedAddress} open={open} setOpen={setOpen} />}
     </div>
   );
 }

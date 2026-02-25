@@ -7,12 +7,12 @@ import ModalTransition from '@/app/_components/ui/TransitionEffects/ModalTransit
 import { useCheckout } from '@/context/checkoutContext';
 import toast from 'react-hot-toast';
 
-export function AddressModal({ open, setOpen, addresses }) {
+export function AddressModal({ open, setOpen, address }) {
   const { dispatch, state: addressInfo } = useCheckout();
-  const isEditing = Boolean(addresses);
+  const isEditing = Boolean(address);
 
   const { id, label, recipient_name, street, number, complement, city, state, postal_code, country, is_default } =
-    addresses ?? {};
+    address ?? {};
 
   async function handleSubmit(formData) {
     try {
@@ -163,7 +163,13 @@ export function AddressModal({ open, setOpen, addresses }) {
                 {isEditing ? (
                   <>
                     {/* Delete */}
-                    <Button type="button" size="lg" variant="secondary" onClick={handleDelete}>
+                    <Button
+                      type="button"
+                      size="lg"
+                      variant="secondary"
+                      pendingLabel="Excluir endereço"
+                      onClick={handleDelete}
+                    >
                       Excluir endereço
                     </Button>
 
