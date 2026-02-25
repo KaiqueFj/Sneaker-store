@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { AddressModal } from "@/app/_components/account/addresses/AdressModal";
-import Button from "@/app/_components/ui/Button/Button";
-import { Address } from "@/types/shipping";
-import { useState } from "react";
+import { AddressModal } from '@/app/_components/account/addresses/AdressModal';
+import Button from '@/app/_components/ui/Button/Button';
+import { Address } from '@/types/shipping';
+import { useState } from 'react';
 
 export default function CheckoutAddress({
   address,
-  variant = "default",
+  variant = 'default',
 }: {
   address: Address | null;
-  variant?: "default" | "compact";
+  variant?: 'default' | 'compact';
 }) {
-  const isCompact = variant === "compact";
+  const isCompact = variant === 'compact';
 
   const [open, setOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
 
   return (
-    <section className={isCompact ? "space-y-3" : "space-y-4"}>
+    <section className={isCompact ? 'space-y-3' : 'space-y-4'}>
       {isCompact ? (
         <>
           <h1 className="text-2xl font-semibold">Endereço</h1>
@@ -61,13 +61,7 @@ export default function CheckoutAddress({
         </>
       )}
 
-      {open && (
-        <AddressModal
-          open={open}
-          setOpen={setOpen}
-          addresses={selectedAddress}
-        />
-      )}
+      {open && <AddressModal open={open} setOpen={setOpen} address={selectedAddress} />}
     </section>
   );
 }
@@ -100,7 +94,7 @@ function AddressCard({ address, onEdit, onAdd }: any) {
     <div className="rounded-xl border bg-white p-6 space-y-3">
       <p className="font-medium">
         {address.street}, {address.number}
-        {address.complement ? `, ${address.complement}` : ""}
+        {address.complement ? `, ${address.complement}` : ''}
       </p>
 
       <p className="text-sm text-gray-600">

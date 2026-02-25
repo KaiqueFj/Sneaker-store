@@ -8,7 +8,7 @@ import { useCheckout } from '@/context/checkoutContext';
 import toast from 'react-hot-toast';
 
 export function AddressModal({ open, setOpen, address }) {
-  const { dispatch, state: addressInfo } = useCheckout();
+  const { dispatch } = useCheckout();
   const isEditing = Boolean(address);
 
   const { id, label, recipient_name, street, number, complement, city, state, postal_code, country, is_default } =
