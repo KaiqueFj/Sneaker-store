@@ -15,13 +15,16 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ o
   sneakers = await getNewestSneakersServiceAction();
 
   return (
-    <div className="flex flex-col justify-center mx-auto gap-6 place-items-center">
-      <div className="flex items-center justify-between w-3/4 sticky">
-        <Category>{`Tênis adicionados recentemente (${sneakers.length})`}</Category>
-        <Filter />
-      </div>
-      <div className="flex justify-center lg:px-6 ">
-        <SneakersList filter={filter} sneakers={sneakers} />
+    <div className="flex  justify-center h-auto min-h-screen">
+      <div className="w-full flex flex-col gap-10 max-w-360 mx-auto px-2 lg:px-10 box-border py-0 ">
+        <div className="flex items-center  justify-between py-4 px-6 lg:px-12">
+          <Category>{`Tênis adicionados recentemente (${sneakers.length})`}</Category>
+          <Filter />
+        </div>
+
+        <div className="flex justify-center lg:px-6 ">
+          <SneakersList filter={filter} sneakers={sneakers} />
+        </div>
       </div>
     </div>
   );
